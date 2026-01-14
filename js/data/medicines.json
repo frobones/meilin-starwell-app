@@ -66,17 +66,20 @@
       "floraOnly": true
     },
     {
-      "id": "mastermind-flora",
+      "id": "mastermind",
       "name": "Mastermind",
       "category": "Augmenting",
       "difficulty": 3,
       "dc": 20,
       "primary": "Deadly nightshade",
-      "secondary": ["Alil"],
+      "secondary": [
+        {"name": "Alil", "type": "flora"},
+        {"name": "Awakened brain", "type": "creature"}
+      ],
       "effect": "For 1 hour, gain mage hand (invisible) and limited casts from its table, with an Int save risk of exhaustion.",
       "duration": "1 hour",
-      "notes": "Use alil, not awakened brain",
-      "floraOnly": true
+      "notes": null,
+      "floraOnly": false
     },
     {
       "id": "orcish-war-paint",
@@ -92,17 +95,20 @@
       "floraOnly": true
     },
     {
-      "id": "third-eye-flora",
+      "id": "third-eye",
       "name": "Third Eye",
       "category": "Augmenting",
       "difficulty": 3,
       "dc": 20,
       "primary": "Deadly nightshade",
-      "secondary": ["Blue lotus flower"],
+      "secondary": [
+        {"name": "Blue lotus flower", "type": "flora"},
+        {"name": "Nothic eye", "type": "creature"}
+      ],
       "effect": "Truesight 120 feet for 10 minutes.",
       "duration": "10 minutes",
-      "notes": "Use blue lotus flower, not nothic eye",
-      "floraOnly": true
+      "notes": null,
+      "floraOnly": false
     },
     {
       "id": "witchs-tears",
@@ -170,17 +176,20 @@
       "floraOnly": true
     },
     {
-      "id": "willems-cure-all-flora",
+      "id": "willems-cure-all",
       "name": "Willem's Cure-all",
       "category": "Curative",
       "difficulty": 2,
       "dc": 15,
       "primary": "Juniper berries",
-      "secondary": ["Angel skin"],
+      "secondary": [
+        {"name": "Angel skin", "type": "flora"},
+        {"name": "Vampire dust", "type": "creature"}
+      ],
       "effect": "Applied to skin, regain 2d8 + 2 HP, end poisoned, and cure disease.",
       "duration": "Instant",
-      "notes": "Use angel skin, not vampire dust",
-      "floraOnly": true
+      "notes": null,
+      "floraOnly": false
     },
     {
       "id": "witch-ward",
@@ -261,17 +270,20 @@
       "floraOnly": true
     },
     {
-      "id": "red-mist-flora",
+      "id": "red-mist",
       "name": "Red Mist",
       "category": "Fortifying",
       "difficulty": 2,
       "dc": 15,
       "primary": "Willow bark",
-      "secondary": ["Red lichen"],
+      "secondary": [
+        {"name": "Red lichen", "type": "flora"},
+        {"name": "Monster blood", "type": "creature"}
+      ],
       "effect": "For 8 hours, regain 1 HP whenever you become stable or succeed on a death saving throw.",
       "duration": "8 hours",
-      "notes": "Use red lichen, not monster blood",
-      "floraOnly": true
+      "notes": null,
+      "floraOnly": false
     },
     {
       "id": "white-willow",
@@ -326,17 +338,20 @@
       "floraOnly": true
     },
     {
-      "id": "mana-tonic-flora",
+      "id": "mana-tonic",
       "name": "Mana Tonic",
       "category": "Restorative",
       "difficulty": 3,
       "dc": 20,
       "primary": "Fleshwort",
-      "secondary": ["Red mountain flower"],
+      "secondary": [
+        {"name": "Red mountain flower", "type": "flora"},
+        {"name": "Vampire dust", "type": "creature"}
+      ],
       "effect": "Recover expended spell slots totaling up to 1d4 + 1 levels (no slot 6th+), then can't benefit again until a long rest.",
       "duration": "Instant",
-      "notes": "Use red mountain flower, not vampire dust",
-      "floraOnly": true
+      "notes": null,
+      "floraOnly": false
     },
     {
       "id": "white-magnolia-tea",
@@ -482,19 +497,6 @@
       "floraOnly": false
     },
     {
-      "id": "mastermind-creature",
-      "name": "Mastermind",
-      "category": "Augmenting",
-      "difficulty": 3,
-      "dc": 20,
-      "primary": "Deadly nightshade",
-      "secondary": ["Awakened brain"],
-      "effect": "For 1 hour, gain mage hand (invisible) and limited casts from its table, with an Int save risk of exhaustion.",
-      "duration": "1 hour",
-      "notes": "Use awakened brain, not alil",
-      "floraOnly": false
-    },
-    {
       "id": "shapechange-tincture",
       "name": "Shapechange Tincture",
       "category": "Augmenting",
@@ -518,19 +520,6 @@
       "effect": "You can use an action to read a creature's surface thoughts within 60 feet (as if concentrating), and while reading its mind you have advantage on Wisdom (Insight) and Charisma (Deception, Intimidation, and Persuasion) checks against it.",
       "duration": "Concentration",
       "notes": "Requires aboleth brain or doppelganger brain",
-      "floraOnly": false
-    },
-    {
-      "id": "third-eye-creature",
-      "name": "Third Eye",
-      "category": "Augmenting",
-      "difficulty": 3,
-      "dc": 20,
-      "primary": "Deadly nightshade",
-      "secondary": ["Nothic eye"],
-      "effect": "Truesight 120 feet for 10 minutes.",
-      "duration": "10 minutes",
-      "notes": "Use nothic eye, not blue lotus flower",
       "floraOnly": false
     },
     {
@@ -570,19 +559,6 @@
       "effect": "Ends petrification when applied, or grants stoneskin for 1 hour (no concentration) when applied to a non-petrified creature.",
       "duration": "1 hour or instant",
       "notes": null,
-      "floraOnly": false
-    },
-    {
-      "id": "willems-cure-all-creature",
-      "name": "Willem's Cure-all",
-      "category": "Curative",
-      "difficulty": 2,
-      "dc": 15,
-      "primary": "Juniper berries",
-      "secondary": ["Vampire dust"],
-      "effect": "Applied to skin, regain 2d8 + 2 HP, end poisoned, and cure disease.",
-      "duration": "Instant",
-      "notes": "Use vampire dust, not angel skin",
       "floraOnly": false
     },
     {
@@ -651,19 +627,6 @@
       "floraOnly": false
     },
     {
-      "id": "red-mist-creature",
-      "name": "Red Mist",
-      "category": "Fortifying",
-      "difficulty": 2,
-      "dc": 15,
-      "primary": "Willow bark",
-      "secondary": ["Monster blood"],
-      "effect": "For 8 hours, regain 1 HP whenever you become stable or succeed on a death saving throw.",
-      "duration": "8 hours",
-      "notes": "Use monster blood, not red lichen",
-      "floraOnly": false
-    },
-    {
       "id": "spymasters-bane",
       "name": "Spymaster's Bane",
       "category": "Fortifying",
@@ -713,19 +676,6 @@
       "effect": "For 1 hour, gain the effect of regenerate (it can't be dispelled).",
       "duration": "1 hour",
       "notes": null,
-      "floraOnly": false
-    },
-    {
-      "id": "mana-tonic-creature",
-      "name": "Mana Tonic",
-      "category": "Restorative",
-      "difficulty": 3,
-      "dc": 20,
-      "primary": "Fleshwort",
-      "secondary": ["Vampire dust"],
-      "effect": "Recover expended spell slots totaling up to 1d4 + 1 levels (no slot 6th+), then can't benefit again until a long rest.",
-      "duration": "Instant",
-      "notes": "Use vampire dust, not red mountain flower",
       "floraOnly": false
     },
     {

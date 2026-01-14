@@ -987,6 +987,24 @@ details[open] .rules-toggle::after {
   color: var(--herb-green-dark);
 }
 
+.component-type {
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  margin-left: 4px;
+}
+
+.component-type.flora {
+  background: var(--herb-green);
+  color: var(--parchment-light);
+}
+
+.component-type.creature {
+  background: var(--blood-red);
+  color: var(--parchment-light);
+}
+
 .modal-notes {
   font-size: 0.9rem;
   font-style: italic;

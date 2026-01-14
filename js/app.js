@@ -131,6 +131,31 @@ const App = {
     },
 
     /**
+     * Check if a medicine has a flora-based option for crafting
+     */
+    hasFloraOption(medicine) {
+        // If floraOnly is true, it's definitely flora-based
+        if (medicine.floraOnly) {
+            return true;
+        }
+        // Check if any secondary ingredient is flora type (new object format)
+        if (medicine.secondary && medicine.secondary.length > 0) {
+            const isObjectFormat = typeof medicine.secondary[0] === 'object';
+            if (isObjectFormat) {
+                return medicine.secondary.some(s => s.type === 'flora');
+            }
+        }
+        return false;
+    },
+
+    /**
+     * Get the name of a secondary ingredient (handles both string and object formats)
+     */
+    getSecondaryName(secondary) {
+        return typeof secondary === 'object' ? secondary.name : secondary;
+    },
+
+    /**
      * Filter medicines based on current filters
      */
     getFilteredMedicines() {
@@ -142,7 +167,7 @@ const App = {
                 const matchesEffect = medicine.effect.toLowerCase().includes(searchTerm);
                 const matchesPrimary = medicine.primary?.toLowerCase().includes(searchTerm);
                 const matchesSecondary = medicine.secondary.some(s => 
-                    s.toLowerCase().includes(searchTerm)
+                    this.getSecondaryName(s).toLowerCase().includes(searchTerm)
                 );
                 
                 if (!matchesName && !matchesEffect && !matchesPrimary && !matchesSecondary) {
@@ -164,9 +189,9 @@ const App = {
                 }
             }
 
-            // Flora only filter
+            // Flora only filter - show medicines that can be made with flora
             if (this.currentFilters.floraOnly) {
-                if (!medicine.floraOnly) {
+                if (!this.hasFloraOption(medicine)) {
                     return false;
                 }
             }
@@ -226,9 +251,12 @@ const App = {
             ? medicine.effect.substring(0, 100) + '...'
             : medicine.effect;
 
+        const hasFlora = this.hasFloraOption(medicine);
+        const floraBadgeTitle = medicine.floraOnly ? 'Flora only (no creature parts)' : 'Has flora option';
+        
         return `
             <article class="medicine-card" data-id="${medicine.id}" data-category="${medicine.category}">
-                ${medicine.floraOnly ? '<span class="medicine-flora-badge" title="Flora only (no creature parts)">🌿</span>' : ''}
+                ${hasFlora ? `<span class="medicine-flora-badge" title="${floraBadgeTitle}">🌿</span>` : ''}
                 <div class="medicine-card-header">
                     <h3 class="medicine-name">${medicine.name}</h3>
                     <span class="medicine-stars" title="${Dice.getDifficultyLabel(medicine.difficulty)}">${stars}</span>
@@ -261,7 +289,7 @@ const App = {
                     <span class="modal-stars" title="${Dice.getDifficultyLabel(medicine.difficulty)}">${stars}</span>
                     <span class="modal-dc">DC ${medicine.dc}</span>
                     <span class="modal-category medicine-category ${medicine.category}">${medicine.category}</span>
-                    ${medicine.floraOnly ? '<span class="medicine-flora-badge" title="Flora only">🌿 Flora Only</span>' : ''}
+                    ${this.hasFloraOption(medicine) ? `<span class="medicine-flora-badge" title="${medicine.floraOnly ? 'Flora only' : 'Has flora option'}">🌿 ${medicine.floraOnly ? 'Flora Only' : 'Flora Option'}</span>` : ''}
                 </div>
             </div>
             
@@ -318,15 +346,42 @@ const App = {
         }
         
         if (medicine.secondary && medicine.secondary.length > 0) {
-            const secondaryList = medicine.secondary.length > 1 
-                ? medicine.secondary.join(' or ')
-                : medicine.secondary[0];
-            html += `
-                <div class="component-item">
-                    <span class="component-label">Secondary:</span>
-                    <span class="component-value">${secondaryList}</span>
-                </div>
-            `;
+            // Check if secondary uses new object format or old string format
+            const isObjectFormat = typeof medicine.secondary[0] === 'object';
+            
+            if (isObjectFormat) {
+                // New format: group by type and display with labels
+                const floraOptions = medicine.secondary.filter(s => s.type === 'flora').map(s => s.name);
+                const creatureOptions = medicine.secondary.filter(s => s.type === 'creature').map(s => s.name);
+                
+                if (floraOptions.length > 0) {
+                    html += `
+                        <div class="component-item">
+                            <span class="component-label">Secondary <span class="component-type flora">🌿 Flora</span>:</span>
+                            <span class="component-value">${floraOptions.join(' or ')}</span>
+                        </div>
+                    `;
+                }
+                if (creatureOptions.length > 0) {
+                    html += `
+                        <div class="component-item">
+                            <span class="component-label">Secondary <span class="component-type creature">🦴 Creature</span>:</span>
+                            <span class="component-value">${creatureOptions.join(' or ')}</span>
+                        </div>
+                    `;
+                }
+            } else {
+                // Old format: simple string array
+                const secondaryList = medicine.secondary.length > 1 
+                    ? medicine.secondary.join(' or ')
+                    : medicine.secondary[0];
+                html += `
+                    <div class="component-item">
+                        <span class="component-label">Secondary:</span>
+                        <span class="component-value">${secondaryList}</span>
+                    </div>
+                `;
+            }
         }
         
         html += `
