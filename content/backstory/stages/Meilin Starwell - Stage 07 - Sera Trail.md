@@ -1,4 +1,4 @@
-# **Stage 6 — Sera’s ordinary illness becomes a supply-chain map**
+# Sera's Ordinary Illness Becomes a Supply-chain Map
 
 ## Key takeaways
 

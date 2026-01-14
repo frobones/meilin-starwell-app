@@ -1,4 +1,4 @@
-# **Stage 7 — Crossing Smith’s Coster (when a pattern becomes “business”)**
+# Crossing Smith's Coster
 
 ## Key takeaways
 

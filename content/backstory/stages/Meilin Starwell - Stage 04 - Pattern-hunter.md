@@ -1,4 +1,4 @@
-# **Stage 3 — The apothecary becomes a pattern-hunter**
+# The Apothecary Becomes a Pattern-hunter
 
 ## Key takeaways
 

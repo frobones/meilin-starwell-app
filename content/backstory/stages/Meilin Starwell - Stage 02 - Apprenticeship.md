@@ -1,4 +1,4 @@
-# **Stage 1 — Apprenticeship under a diagnostician who never blinked**
+# Apprenticeship Under a Diagnostician Who Never Blinked
 
 ## Key takeaways
 

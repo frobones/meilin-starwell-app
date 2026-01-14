@@ -1,4 +1,4 @@
-# **Stage 5 — The first shipboard contamination scare (birth of Galley Forensics)**
+# The First Shipboard Contamination Scare
 
 ## Key takeaways
 

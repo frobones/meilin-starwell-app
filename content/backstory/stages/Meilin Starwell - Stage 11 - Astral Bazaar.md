@@ -1,4 +1,4 @@
-# **Stage 10 — Astral Bazaar (a new port teaches old skills)**
+# Astral Bazaar: A New Port Teaches Old Skills
 
 ## Key takeaways
 

@@ -870,18 +870,18 @@ const App = {
 
         // Chapter file mappings
         const chapterFiles = [
-            { file: 'Meilin Starwell - Pre-stage 00 - Cassian leaves.md', number: '00', title: 'Cassian Leaves' },
-            { file: 'Meilin Starwell - Stage 00 - Dock-born.md', number: '01', title: 'Dock-born' },
-            { file: 'Meilin Starwell - Stage 01 - Apprenticeship.md', number: '02', title: 'Apprenticeship' },
-            { file: 'Meilin Starwell - Stage 02 - Near-death.md', number: '03', title: 'Near-death' },
-            { file: 'Meilin Starwell - Stage 03 - Pattern-hunter.md', number: '04', title: 'Pattern-hunter' },
-            { file: 'Meilin Starwell - Stage 04 - Meredin.md', number: '05', title: 'Meredin' },
-            { file: 'Meilin Starwell - Stage 05 - Shipboard scare.md', number: '06', title: 'Shipboard Scare' },
-            { file: 'Meilin Starwell - Stage 06 - Sera trail.md', number: '07', title: 'Sera Trail' },
-            { file: 'Meilin Starwell - Stage 07 - Smith\'s Coster.md', number: '08', title: 'Smith\'s Coster' },
-            { file: 'Meilin Starwell - Stage 08 - Ledger page.md', number: '09', title: 'Ledger Page' },
-            { file: 'Meilin Starwell - Stage 09 - Exit strategy.md', number: '10', title: 'Exit Strategy' },
-            { file: 'Meilin Starwell - Stage 10 - Astral bazaar.md', number: '11', title: 'Astral Bazaar' }
+            { file: 'Meilin Starwell - Stage 00 - Cassian Leaves.md', number: '00', title: 'Cassian Leaves' },
+            { file: 'Meilin Starwell - Stage 01 - Dock-born.md', number: '01', title: 'Dock-born' },
+            { file: 'Meilin Starwell - Stage 02 - Apprenticeship.md', number: '02', title: 'Apprenticeship' },
+            { file: 'Meilin Starwell - Stage 03 - Near-death.md', number: '03', title: 'Near-death' },
+            { file: 'Meilin Starwell - Stage 04 - Pattern-hunter.md', number: '04', title: 'Pattern-hunter' },
+            { file: 'Meilin Starwell - Stage 05 - Meredin.md', number: '05', title: 'Meredin' },
+            { file: 'Meilin Starwell - Stage 06 - Shipboard Scare.md', number: '06', title: 'Shipboard Scare' },
+            { file: 'Meilin Starwell - Stage 07 - Sera Trail.md', number: '07', title: 'Sera Trail' },
+            { file: 'Meilin Starwell - Stage 08 - Smith\'s Coster.md', number: '08', title: 'Smith\'s Coster' },
+            { file: 'Meilin Starwell - Stage 09 - Ledger Page.md', number: '09', title: 'Ledger Page' },
+            { file: 'Meilin Starwell - Stage 10 - Exit Strategy.md', number: '10', title: 'Exit Strategy' },
+            { file: 'Meilin Starwell - Stage 11 - Astral Bazaar.md', number: '11', title: 'Astral Bazaar' }
         ];
 
         // Load all chapters

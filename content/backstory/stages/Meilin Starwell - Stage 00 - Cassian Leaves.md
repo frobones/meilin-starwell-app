@@ -1,4 +1,4 @@
-# **Pre-stage 0 — Cassian leaves (the first gap)**
+# Cassian Leaves
 
 ## Key takeaways
 

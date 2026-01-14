@@ -1,4 +1,4 @@
-# **Stage 0 — Dock-born, triage-raised**
+# Dock-born, Triage-raised
 
 ## Key takeaways
 

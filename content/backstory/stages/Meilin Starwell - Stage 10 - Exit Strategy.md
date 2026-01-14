@@ -1,4 +1,4 @@
-# **Stage 9 — The exit strategy (Meredin and Luigi make a gap, Meilin takes to the void)**
+# The Exit Strategy
 
 ## Key takeaways
 

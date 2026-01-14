@@ -1,4 +1,4 @@
-# **Stage 8 — The leverage theft (the Ledger Page)**
+# The Leverage Theft: The Ledger Page
 
 ## Key takeaways
 

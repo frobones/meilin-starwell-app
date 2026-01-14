@@ -1,4 +1,4 @@
-# **Stage 2 — The public near-death (and the forgiveness everyone remembers)**
+# The Public Near-death and the Forgiveness Everyone Remembers
 
 ## Key takeaways
 

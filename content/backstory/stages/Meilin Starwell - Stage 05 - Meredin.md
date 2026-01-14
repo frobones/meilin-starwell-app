@@ -1,4 +1,4 @@
-# **Stage 4 — Meredin Sandyfoot’s quiet patronage**
+# Meredin Sandyfoot's Quiet Patronage
 
 ## Key takeaways
 
