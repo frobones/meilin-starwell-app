@@ -18,8 +18,6 @@ const App = {
     },
     currentTab: 'medicines',
     selectedTerrain: 'Arctic',
-    lastRollResult: null,
-    selectedMedicineDC: null,
 
     /**
      * Initialize the application
@@ -102,11 +100,6 @@ const App = {
             });
         });
 
-        // Dice roller
-        document.getElementById('roll-btn').addEventListener('click', () => {
-            this.rollDice();
-        });
-
         // Modal
         document.getElementById('modal-overlay').addEventListener('click', (e) => {
             if (e.target.id === 'modal-overlay') {
@@ -123,11 +116,30 @@ const App = {
             if (e.key === 'Escape') {
                 this.closeModal();
             }
-            // Press 'r' to roll dice (when not in an input)
-            if (e.key === 'r' && e.target.tagName !== 'INPUT') {
-                this.rollDice();
-            }
         });
+    },
+
+    /**
+     * Get star display for difficulty level
+     */
+    getStars(difficulty) {
+        const filled = '★'.repeat(difficulty);
+        const empty = '☆'.repeat(5 - difficulty);
+        return filled + empty;
+    },
+
+    /**
+     * Get difficulty label
+     */
+    getDifficultyLabel(difficulty) {
+        const labels = {
+            1: 'Low',
+            2: 'Moderate',
+            3: 'High',
+            4: 'Very High',
+            5: 'Maximum'
+        };
+        return labels[difficulty] || 'Unknown';
     },
 
     /**
@@ -246,7 +258,7 @@ const App = {
      * Create HTML for a medicine card
      */
     createMedicineCard(medicine) {
-        const stars = Dice.getStars(medicine.difficulty);
+        const stars = this.getStars(medicine.difficulty);
         const previewText = medicine.effect.length > 100 
             ? medicine.effect.substring(0, 100) + '...'
             : medicine.effect;
@@ -259,7 +271,7 @@ const App = {
                 ${hasFlora ? `<span class="medicine-flora-badge" title="${floraBadgeTitle}">🌿</span>` : ''}
                 <div class="medicine-card-header">
                     <h3 class="medicine-name">${medicine.name}</h3>
-                    <span class="medicine-stars" title="${Dice.getDifficultyLabel(medicine.difficulty)}">${stars}</span>
+                    <span class="medicine-stars" title="${this.getDifficultyLabel(medicine.difficulty)}">${stars}</span>
                 </div>
                 <div class="medicine-meta">
                     <span class="medicine-category ${medicine.category}">${medicine.category}</span>
@@ -277,16 +289,14 @@ const App = {
         const modal = document.getElementById('modal-overlay');
         const content = document.getElementById('modal-content');
         
-        this.selectedMedicineDC = medicine.dc;
-        
-        const stars = Dice.getStars(medicine.difficulty);
+        const stars = this.getStars(medicine.difficulty);
         const componentsHtml = this.createComponentsHtml(medicine);
         
         content.innerHTML = `
             <div class="modal-header">
                 <h2 class="modal-title">${medicine.name}</h2>
                 <div class="modal-meta">
-                    <span class="modal-stars" title="${Dice.getDifficultyLabel(medicine.difficulty)}">${stars}</span>
+                    <span class="modal-stars" title="${this.getDifficultyLabel(medicine.difficulty)}">${stars}</span>
                     <span class="modal-dc">DC ${medicine.dc}</span>
                     <span class="modal-category medicine-category ${medicine.category}">${medicine.category}</span>
                     ${this.hasFloraOption(medicine) ? `<span class="medicine-flora-badge" title="${medicine.floraOnly ? 'Flora only' : 'Has flora option'}">🌿 ${medicine.floraOnly ? 'Flora Only' : 'Flora Option'}</span>` : ''}
@@ -315,19 +325,10 @@ const App = {
                     <p class="modal-notes">${medicine.notes}</p>
                 </div>
             ` : ''}
-            
-            <button class="modal-roll-btn" onclick="App.rollForMedicine(${medicine.dc})">
-                Roll Crafting Check (DC ${medicine.dc})
-            </button>
         `;
 
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
-        
-        // Update DC comparison if there's a previous roll
-        if (this.lastRollResult !== null) {
-            this.updateDCComparison();
-        }
     },
 
     /**
@@ -401,7 +402,6 @@ const App = {
         const modal = document.getElementById('modal-overlay');
         modal.classList.remove('active');
         document.body.style.overflow = '';
-        this.selectedMedicineDC = null;
     },
 
     /**
@@ -419,76 +419,6 @@ const App = {
         document.querySelectorAll('.tab-content').forEach(content => {
             content.classList.toggle('active', content.id === `${tabName}-tab`);
         });
-    },
-
-    /**
-     * Roll dice for crafting check
-     */
-    rollDice() {
-        const advantage = document.getElementById('advantage-checkbox').checked;
-        const rollBtn = document.getElementById('roll-btn');
-        const resultEl = document.getElementById('result-value');
-        
-        // Add rolling animation
-        rollBtn.classList.add('rolling');
-        setTimeout(() => rollBtn.classList.remove('rolling'), 300);
-        
-        // Perform the roll
-        const roll = Dice.craftingCheck(advantage);
-        this.lastRollResult = roll.result;
-        
-        // Display result
-        resultEl.textContent = roll.result;
-        resultEl.classList.remove('nat-20', 'nat-1');
-        
-        if (roll.isNat20) {
-            resultEl.classList.add('nat-20');
-        } else if (roll.isNat1) {
-            resultEl.classList.add('nat-1');
-        }
-        
-        // Update DC comparison
-        this.updateDCComparison();
-    },
-
-    /**
-     * Roll for a specific medicine (from modal)
-     */
-    rollForMedicine(dc) {
-        this.selectedMedicineDC = dc;
-        this.rollDice();
-    },
-
-    /**
-     * Update the DC comparison display
-     */
-    updateDCComparison() {
-        const comparisonEl = document.getElementById('dc-comparison');
-        
-        if (this.lastRollResult === null) {
-            comparisonEl.textContent = '';
-            return;
-        }
-        
-        // Use selected medicine DC if available, otherwise show generic message
-        if (this.selectedMedicineDC !== null) {
-            const check = Dice.checkAgainstDC(this.lastRollResult, this.selectedMedicineDC);
-            comparisonEl.className = 'dc-comparison ' + (check.success ? 'success' : 'failure');
-            
-            if (check.success) {
-                const margin = check.margin > 0 ? ` (+${check.margin})` : '';
-                comparisonEl.textContent = `vs DC ${this.selectedMedicineDC}: SUCCESS${margin}`;
-            } else {
-                comparisonEl.textContent = `vs DC ${this.selectedMedicineDC}: FAILURE (${check.margin})`;
-            }
-        } else {
-            comparisonEl.className = 'dc-comparison';
-            comparisonEl.innerHTML = `
-                <span style="color: var(--ink-faded);">
-                    Click a medicine to compare against its DC
-                </span>
-            `;
-        }
     },
 
     /**
@@ -696,7 +626,7 @@ const App = {
 
         const difficultyRows = this.rules.difficultyScale.map(d => `
             <tr>
-                <td>${Dice.getStars(d.stars)}</td>
+                <td>${this.getStars(d.stars)}</td>
                 <td>${d.label}</td>
                 <td>DC ${d.dc}</td>
             </tr>
