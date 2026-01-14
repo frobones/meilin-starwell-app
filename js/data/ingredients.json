@@ -1,0 +1,150 @@
+{
+  "flora": {
+    "common": [
+      {"name": "Deadly nightshade", "dc": "10/+5", "terrain": "All", "use": "Augmenting primary component"},
+      {"name": "Juniper berries", "dc": "10/+5", "terrain": "All", "use": "Curative primary component"},
+      {"name": "Willow bark", "dc": "10/+5", "terrain": "All", "use": "Fortifying primary component"},
+      {"name": "Fleshwort", "dc": "10/+5", "terrain": "All", "use": "Restorative primary component"},
+      {"name": "Alchemilla", "dc": "10/+5", "terrain": "All", "use": "Enhancing agent (extends duration)"},
+      {"name": "Ephedra", "dc": "10/+5", "terrain": "All", "use": "Enhancing agent (doubles dice)"}
+    ],
+    "rare": {
+      "Arctic": [
+        {"name": "Arctic root", "dc": 15, "use": "Cold Weather Tonic"},
+        {"name": "Mistletoe", "dc": 15, "use": "Fortune's Favor"},
+        {"name": "Silverleaf sap", "dc": 20, "use": "Archer's Gum"},
+        {"name": "Alil", "dc": 25, "use": "Mastermind (flora version)"}
+      ],
+      "Coast": [
+        {"name": "Red lichen", "dc": 15, "use": "Red Mist (flora version)"},
+        {"name": "Sabito seeds", "dc": 15, "use": "Air Pod"},
+        {"name": "Flintmoss", "dc": 20, "use": "Dwarven Fire-Oil"},
+        {"name": "Blue lotus flower", "dc": 25, "use": "Third Eye (flora version)"}
+      ],
+      "Desert": [
+        {"name": "Desert aloe", "dc": 15, "use": "Tahlia's Respite"},
+        {"name": "Sand palm seeds", "dc": 15, "use": "Hot Weather Balm"},
+        {"name": "Bittergrass", "dc": 20, "use": "Dream Tobacco"},
+        {"name": "White magnolia", "dc": 25, "use": "White Magnolia Tea"}
+      ],
+      "Forest": [
+        {"name": "Kava root", "dc": 15, "use": "Lionheart Tea"},
+        {"name": "Mistletoe", "dc": 15, "use": "Fortune's Favor"},
+        {"name": "Lunar holly berries", "dc": 20, "use": "Animal Scent Lotion"},
+        {"name": "Darkberry", "dc": 25, "use": "Witch Ward"}
+      ],
+      "Grassland": [
+        {"name": "Blodgrass", "dc": 15, "use": "Orcish War Paint"},
+        {"name": "Fairy bells", "dc": 15, "use": "Incense of Warding"},
+        {"name": "Witch hazel", "dc": 20, "use": "Healing Salve"},
+        {"name": "White magnolia", "dc": 25, "use": "White Magnolia Tea"}
+      ],
+      "Mountain": [
+        {"name": "Dragonwort", "dc": 15, "use": "Ironskin Ointment"},
+        {"name": "Sweet elorien", "dc": 15, "use": "Iorien's Favor"},
+        {"name": "Red mountain flower", "dc": 20, "use": "Mana Tonic (flora version)"},
+        {"name": "Maiden's tear", "dc": 25, "use": "Second Chance"}
+      ],
+      "Swamp": [
+        {"name": "Wizard's fingers", "dc": 15, "use": "Magician's Friend"},
+        {"name": "Knitbone", "dc": 20, "use": "Knitbone Poultice"},
+        {"name": "Maiden's tear", "dc": 25, "use": "Second Chance"}
+      ],
+      "Underground": [
+        {"name": "Glowshroom", "dc": 15, "use": "Glow Stick"},
+        {"name": "Wizard's fingers", "dc": 15, "use": "Magician's Friend"},
+        {"name": "Flintmoss", "dc": 20, "use": "Dwarven Fire-Oil"},
+        {"name": "Angel skin", "dc": 25, "use": "Willem's Cure-all (flora version)"}
+      ]
+    }
+  },
+  "creatureParts": {
+    "All creatures": [
+      {"name": "Elemental essence", "dc": "10/+5", "use": "Alchemy (not a herbal medicine component)"}
+    ],
+    "Aberrations": [
+      {"name": "Aboleth brain", "dc": 20, "use": "Telepathy Tonic"},
+      {"name": "Awakened brain", "dc": 20, "use": "Mastermind (creature version)"},
+      {"name": "Slaad tongue", "dc": 15, "use": "Troll Unguent"},
+      {"name": "Greater slaad eye", "dc": "15/+5", "use": "Changeling Brew"}
+    ],
+    "Celestials": [
+      {"name": "Couatl eye", "dc": 10, "use": "Shapechange Tincture, Spymaster's Bane"},
+      {"name": "Unicorn horn", "dc": 20, "use": "Ambrosia"}
+    ],
+    "Dragons": [
+      {"name": "Wyrm blood", "dc": "10/+5", "use": "Tincture of Magic Resistance"},
+      {"name": "Dragon dust", "dc": "10/+5", "use": "Dragon Tea"},
+      {"name": "Shimmering scale", "dc": "15/+5", "use": "Prismatic Balm"},
+      {"name": "Metallic dragon eye", "dc": "15/+5", "use": "Shapechange Tincture"}
+    ],
+    "Fey": [
+      {"name": "Dryad root", "dc": "10/+5", "use": "Barkskin Unguent, Woodland Balm"},
+      {"name": "Pixie dust", "dc": "10/+5", "use": "Faerie Dust, Dust of Disappearance"}
+    ],
+    "Fiends": [
+      {"name": "Demon ichor", "dc": "10/+5", "use": "Tincture of Magic Resistance"},
+      {"name": "Devil blood", "dc": "10/+5", "use": "Devil's Sight, Tincture of Magic Resistance"},
+      {"name": "Balor ash", "dc": "15/+5", "use": "Abyssal Shroud"},
+      {"name": "Rakshasa blood", "dc": "10/+5", "use": "Havenash's Manawall"}
+    ],
+    "Giants": [
+      {"name": "Giant heartsblood", "dc": "10/+5", "use": "Draught of Giant's Strength"},
+      {"name": "Troll tongue", "dc": 15, "use": "Troll Unguent"}
+    ],
+    "Humanoids": [
+      {"name": "Awakened brain", "dc": 20, "use": "Mastermind (gith)"}
+    ],
+    "Monstrosities": [
+      {"name": "Monster blood", "dc": "10/+5", "use": "Red Mist (creature version)"},
+      {"name": "Basilisk oil", "dc": "15/+5", "use": "Stone Salve"},
+      {"name": "Adhesive filament", "dc": "15/+5", "use": "Sovereign Glue"},
+      {"name": "Doppelganger brain", "dc": 20, "use": "Telepathy Tonic"},
+      {"name": "Doppelganger eye", "dc": "15/+5", "use": "Changeling Brew"},
+      {"name": "Hydra blood", "dc": "10/+5", "use": "Fleshknit"},
+      {"name": "Snake oil", "dc": "15/+5", "use": "Marko's Miracle Balm"},
+      {"name": "Nothic eye", "dc": 15, "use": "Third Eye (creature version)"},
+      {"name": "Sphinx eye", "dc": "15/+5", "use": "Spymaster's Bane"},
+      {"name": "Tarrasque blood", "dc": "10/+5", "use": "Hero's Elixir"}
+    ],
+    "Oozes": [
+      {"name": "Enchanted gelatin", "dc": "15/+5", "use": "Universal Solvent"}
+    ],
+    "Undead": [
+      {"name": "Grave dust", "dc": "10/+5", "use": "Wight Powder, Draught of the Living Dead"},
+      {"name": "Ectoplasm", "dc": "10/+5", "use": "Banshee, Draught of the Living Dead"},
+      {"name": "Vampire dust", "dc": "10/+5", "use": "Willem's Cure-all, Mana Tonic (creature versions)"}
+    ]
+  },
+  "terrains": [
+    "Arctic",
+    "Coast",
+    "Desert",
+    "Forest",
+    "Grassland",
+    "Mountain",
+    "Swamp",
+    "Underground"
+  ],
+  "creatureTypes": [
+    "Aberrations",
+    "Celestials",
+    "Dragons",
+    "Fey",
+    "Fiends",
+    "Giants",
+    "Humanoids",
+    "Monstrosities",
+    "Oozes",
+    "Undead"
+  ],
+  "harvestingRules": {
+    "tool": "Harvesting kit (proficiency required)",
+    "time": "5 minutes or longer (GM call)",
+    "target": "Creature must be dead or incapacitated for the duration",
+    "resolution": "Make a harvesting check using your harvesting kit",
+    "advantage": "If you (or a helper) is proficient in the skill associated with the target's creature type",
+    "favoredEnemy": "+2 if you (or a helper) has Favored Enemy and the target matches",
+    "dcNote": "DC X/+5 means DC X for the first unit, +5 per additional unit"
+  }
+}

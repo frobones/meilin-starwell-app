@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meilin's Apothecary | Herbal Medicine Reference</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Uncial+Antiqua&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="page-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-ornament left"></div>
+            <h1 class="header-title">Meilin's Apothecary</h1>
+            <p class="header-subtitle">Herbal Medicine Quick Reference</p>
+            <div class="header-ornament right"></div>
+        </header>
+
+        <!-- Dice Roller -->
+        <section class="dice-roller" id="dice-roller">
+            <div class="dice-roller-inner">
+                <h2 class="section-title">Crafting Check</h2>
+                <div class="dice-controls">
+                    <button class="dice-btn" id="roll-btn">Roll d20</button>
+                    <label class="advantage-toggle">
+                        <input type="checkbox" id="advantage-checkbox">
+                        <span>Advantage</span>
+                    </label>
+                </div>
+                <div class="dice-result" id="dice-result">
+                    <span class="result-label">Result:</span>
+                    <span class="result-value" id="result-value">—</span>
+                </div>
+                <div class="dc-comparison" id="dc-comparison"></div>
+            </div>
+        </section>
+
+        <!-- Quick Rules Reference (Collapsible) -->
+        <section class="quick-rules">
+            <details>
+                <summary class="rules-toggle">
+                    <span class="rules-icon">📜</span>
+                    Quick Rules Reference
+                </summary>
+                <div class="rules-content" id="rules-content">
+                    <!-- Will be populated by JS -->
+                </div>
+            </details>
+        </section>
+
+        <!-- Search and Filters -->
+        <section class="search-section">
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Search medicines or ingredients..." autocomplete="off">
+                <button class="clear-search" id="clear-search" title="Clear search">×</button>
+            </div>
+            <div class="filter-controls">
+                <div class="filter-group">
+                    <label for="category-filter">Category:</label>
+                    <select id="category-filter">
+                        <option value="all">All Categories</option>
+                        <option value="Augmenting">Augmenting</option>
+                        <option value="Curative">Curative</option>
+                        <option value="Fortifying">Fortifying</option>
+                        <option value="Restorative">Restorative</option>
+                        <option value="Special">Special</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="difficulty-filter">Difficulty:</label>
+                    <select id="difficulty-filter">
+                        <option value="all">All Difficulties</option>
+                        <option value="1">★ (DC 10)</option>
+                        <option value="2">★★ (DC 15)</option>
+                        <option value="3">★★★ (DC 20)</option>
+                        <option value="4">★★★★ (DC 25)</option>
+                        <option value="5">★★★★★ (DC 28)</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="flora-only-filter">
+                        <span>Flora Only (no creature parts)</span>
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab Navigation -->
+        <nav class="tab-nav">
+            <button class="tab-btn active" data-tab="medicines">Medicines</button>
+            <button class="tab-btn" data-tab="ingredients">Ingredients</button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Medicines Grid -->
+            <div class="tab-content active" id="medicines-tab">
+                <div class="medicine-count" id="medicine-count"></div>
+                <div class="medicine-grid" id="medicine-grid">
+                    <!-- Medicine cards will be populated by JS -->
+                </div>
+            </div>
+
+            <!-- Ingredients Reference -->
+            <div class="tab-content" id="ingredients-tab">
+                <div class="ingredients-section" id="ingredients-section">
+                    <!-- Ingredient tables will be populated by JS -->
+                </div>
+            </div>
+        </main>
+
+        <!-- Medicine Detail Modal -->
+        <div class="modal-overlay" id="modal-overlay">
+            <div class="modal" id="medicine-modal">
+                <button class="modal-close" id="modal-close">×</button>
+                <div class="modal-content" id="modal-content">
+                    <!-- Modal content populated by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p class="footer-quote">If it matters, write it down.</p>
+            <p class="footer-credit">Based on the Alchemy Almanac system</p>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/dice.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
