@@ -1,0 +1,101 @@
+# **Stage 0 — Dock-born, triage-raised**
+
+## Key takeaways
+
+- **Inciting truth**: The docks teach Meilin that pain has patterns and “ordinary” is often a lie.
+- **What she learns**: Kaito’s rules become her core method: bodies don’t lie, read symptoms as messages, write everything down.
+- **Early pressure**: A “respectable” offer tries to buy the shop’s compliance (a leash disguised as support).
+- **Ongoing hook**: Meilin internalizes that *cures are politics*, and that being right has a cost.
+
+On the Rock of Bral, the docks never slept. They only changed hands.
+
+Morning smelled like wet rope and bruised citrus rinds, yesterday’s peelings crushed under boots. Midday brought the sharp tang of fish brine and tar, and at night the air turned metallic, cold enough to make lanternlight feel thin. Meilin learned the dock’s schedule the way other children learned lullabies: by sound.
+
+The thunk of a cargo winch meant splinters and strained backs.
+The sudden hush meant blood. Too many people were holding their breath.
+The laughter that came too loud and too fast meant somebody was hiding pain.
+
+Her father’s workspace was never “clean,” not in the way respectable clinics meant it. Kaito Starwell kept it clean the way a knife was clean: wiped, ready, honest about what it did. A little apothecary corner wedged between a chandlery and a cooper’s shed, shelves lined with glass vials and paper packets that always seemed to migrate no matter how often he rearranged them. Chalk marks on the counter. Ink stains like fingerprints on everything that mattered.
+
+When Meilin was small, she thought her father’s job was to disappoint people.
+
+A deckhand would limp in, trying to look tough, and her father would ask, without looking up, “When did the pain start?”
+
+“Today,” the deckhand would lie.
+
+Her father would set down his pen and lift the man’s foot like it was a crate tag. “No. Three weeks. You’ve been favoring it. Now tell me what happened.”
+
+The deckhand would blink, offended, then startled, then oddly relieved, like being seen was a kind of medicine.
+
+That was lesson one: **People lie. Bodies don’t.**
+
+Lesson two came with repetition. A cough wasn’t “a cough.” It was wet or dry, shallow or deep, bitter or sweet at the back of the throat. A fever wasn’t “a fever.” It rose in steps or slammed like a door. A tremor could be exhaustion, fear, withdrawal, poison, curse (or all of them), and the trick was never to guess just because guessing made other people comfortable.
+
+Her father called symptoms **messages**.
+
+“Don’t answer them,” he told her, tapping his notebook with the blunt end of a pestle. “Read them.”
+
+Meilin grew up reading them the way other kids read faces.
+
+She learned that dock folk had their own economy of pain: what you admitted, what you hid, what you wrapped in jokes. She learned which sailors would pay for tinctures and which would try to barter with a story. She learned to keep her hands steady when a grown man tried not to cry.
+
+And she learned to stop flinching.
+
+Not because she didn’t care. She cared *too much*. But triage was a kind of mercy. The person in front of you needed your attention more than they needed your feelings. So compassion, in their little corner of the docks, got sanded down into something efficient: a clean question, a measured dose, a firm hand on the shoulder.
+
+The first time she mixed a salve alone, her father didn’t praise her. He checked the consistency, smelled it once, and nodded like she’d returned a tool to the right shelf.
+
+“Good,” he said. “Now do it again.”
+
+She watched him keep records the way other people kept prayers. Names, dates, exposures, outcomes. Every line a small refusal to let suffering become rumor. Every page a quiet threat to anyone whose business depended on people not noticing patterns.
+
+Meilin didn’t understand that part until the day a patient came in from up-stack, someone with better boots and a cleaner cloak, escorted by a clerk who kept looking at the door like the room might stain him.
+
+The patient’s cough had a razor to it. There was a particular grayness around their mouth, subtle if you weren’t trained to look. Her father listened to their breathing, asked careful questions, and set out a simple remedy.
+
+The clerk slid a coin onto the counter. It was stamped with a crest Meilin had seen only on official wagons and sealed crates.
+
+Her father did not touch it.
+
+“I don’t take that,” he said, plain as weather.
+
+The clerk’s smile hardened. “It spends like anything else.”
+
+Her father’s eyes didn’t change, but Meilin felt the room tighten. “No,” he said. “It *owns* like anything else.”
+
+The clerk began a practiced speech about gratitude, about endorsement, about becoming “the recommended supplier” for certain crews, about reliability. There were words in it like *partnership* and *support*, smooth as polished stone.
+
+Her father let him finish. Then he said, “Your cure comes with a leash.”
+
+The clerk’s voice sharpened. “Do you want your shop inspected?”
+
+Meilin saw her father’s pen stop. Just for a moment. The only betrayal of anger.
+
+Then he spoke softly, which was worse. “Inspected by whom?”
+
+The clerk swallowed. “By the proper authorities.”
+
+Her father gestured toward the dock outside, toward the sweating bodies and the cheap lanterns and the men and women who came in with burns that smelled like engine grease and wounds that reeked of brine. “These are my authorities,” he said. “They pay me in coin, favors, and the truth. Tell your employer: I don’t sell cures that come with politics attached.”
+
+The clerk left. The patient followed, coughing into their sleeve like they could hide what was happening to them if they kept it private enough.
+
+After the door shut, Meilin stared at her father. “We could have used that money.”
+
+Her father’s mouth twitched, not quite a smile. “Yes,” he said. “That’s why they offered it.”
+
+He went back to his notebook. His pen scratched. The sound was steady, stubborn.
+
+That was lesson three: **Cures are politics. Not just medicine.**
+
+It was also the first time Meilin felt the shape of the invisible war around the docks: the way supplies moved, the way contracts pinched, the way illness could be *useful* to the wrong kind of people.
+
+Later, when she lay in the loft above the shop and listened to the night shift come in (boots on planks, a shouted joke, a distant argument), she realized something else.
+
+Her father wasn’t brave in the dramatic way. He didn’t shout. He didn’t swagger. He just refused, over and over, to let anyone else write the story of what was happening to the bodies in his care.
+
+Meilin fell asleep with the scent of crushed herbs in her hair and the understanding, small but sharp, that being right came with a cost.
+
+And that cost didn’t care how old you were.
+
+---
+

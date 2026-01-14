@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meilin's Apothecary | Herbal Medicine Reference</title>
+    <title>Meilin Starwell | Character Companion</title>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,107 +14,188 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="page-container">
-        <!-- Header -->
-        <header class="header">
-            <div class="header-ornament left"></div>
-            <h1 class="header-title">Meilin's Apothecary</h1>
-            <p class="header-subtitle">Herbal Medicine Quick Reference</p>
-            <div class="header-ornament right"></div>
-        </header>
-
-        <!-- Quick Rules Reference (Collapsible) -->
-        <section class="quick-rules">
-            <details>
-                <summary class="rules-toggle">
-                    <span class="rules-icon">📜</span>
-                    Quick Rules Reference
-                </summary>
-                <div class="rules-content" id="rules-content">
-                    <!-- Will be populated by JS -->
-                </div>
-            </details>
-        </section>
-
-        <!-- Search and Filters -->
-        <section class="search-section">
-            <div class="search-bar">
-                <input type="text" id="search-input" placeholder="Search medicines or ingredients..." autocomplete="off">
-                <button class="clear-search" id="clear-search" title="Clear search">×</button>
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="sidebar-title">Meilin Starwell</h1>
+                <p class="sidebar-subtitle">Character Companion</p>
             </div>
-            <div class="filter-controls">
-                <div class="filter-group">
-                    <label for="category-filter">Category:</label>
-                    <select id="category-filter">
-                        <option value="all">All Categories</option>
-                        <option value="Augmenting">Augmenting</option>
-                        <option value="Curative">Curative</option>
-                        <option value="Fortifying">Fortifying</option>
-                        <option value="Restorative">Restorative</option>
-                        <option value="Special">Special</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="difficulty-filter">Difficulty:</label>
-                    <select id="difficulty-filter">
-                        <option value="all">All Difficulties</option>
-                        <option value="1">★ (DC 10)</option>
-                        <option value="2">★★ (DC 15)</option>
-                        <option value="3">★★★ (DC 20)</option>
-                        <option value="4">★★★★ (DC 25)</option>
-                        <option value="5">★★★★★ (DC 28)</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="flora-only-filter">
-                        <span>Flora Only (no creature parts)</span>
-                    </label>
+            <nav class="sidebar-nav">
+                <a href="#medicine" class="nav-link active" data-page="medicine">
+                    <span class="nav-icon">🌿</span>
+                    <span class="nav-text">Herbal Medicine</span>
+                </a>
+                <a href="#backstory" class="nav-link" data-page="backstory">
+                    <span class="nav-icon">📖</span>
+                    <span class="nav-text">Backstory</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <p class="sidebar-quote">If it matters, write it down.</p>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="main-area">
+            <!-- Medicine Page -->
+            <div class="page active" id="medicine-page">
+                <header class="page-header">
+                    <h1 class="page-title">Meilin's Apothecary</h1>
+                    <p class="page-subtitle">Herbal Medicine Quick Reference</p>
+                </header>
+
+                <!-- Quick Rules Reference (Collapsible) -->
+                <section class="quick-rules">
+                    <details>
+                        <summary class="rules-toggle">
+                            <span class="rules-icon">📜</span>
+                            Quick Rules Reference
+                        </summary>
+                        <div class="rules-content" id="rules-content">
+                            <!-- Will be populated by JS -->
+                        </div>
+                    </details>
+                </section>
+
+                <!-- Search and Filters -->
+                <section class="search-section">
+                    <div class="search-bar">
+                        <input type="text" id="search-input" placeholder="Search medicines or ingredients..." autocomplete="off">
+                        <button class="clear-search" id="clear-search" title="Clear search">×</button>
+                    </div>
+                    <div class="filter-controls">
+                        <div class="filter-group">
+                            <label for="category-filter">Category:</label>
+                            <select id="category-filter">
+                                <option value="all">All Categories</option>
+                                <option value="Augmenting">Augmenting</option>
+                                <option value="Curative">Curative</option>
+                                <option value="Fortifying">Fortifying</option>
+                                <option value="Restorative">Restorative</option>
+                                <option value="Special">Special</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="difficulty-filter">Difficulty:</label>
+                            <select id="difficulty-filter">
+                                <option value="all">All Difficulties</option>
+                                <option value="1">★ (DC 10)</option>
+                                <option value="2">★★ (DC 15)</option>
+                                <option value="3">★★★ (DC 20)</option>
+                                <option value="4">★★★★ (DC 25)</option>
+                                <option value="5">★★★★★ (DC 28)</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="flora-only-filter">
+                                <span>Flora Only (no creature parts)</span>
+                            </label>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Tab Navigation -->
+                <nav class="tab-nav">
+                    <button class="tab-btn active" data-tab="medicines">Medicines</button>
+                    <button class="tab-btn" data-tab="ingredients">Ingredients</button>
+                </nav>
+
+                <!-- Main Content -->
+                <main class="main-content">
+                    <!-- Medicines Grid -->
+                    <div class="tab-content active" id="medicines-tab">
+                        <div class="medicine-count" id="medicine-count"></div>
+                        <div class="medicine-grid" id="medicine-grid">
+                            <!-- Medicine cards will be populated by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Ingredients Reference -->
+                    <div class="tab-content" id="ingredients-tab">
+                        <div class="ingredients-section" id="ingredients-section">
+                            <!-- Ingredient tables will be populated by JS -->
+                        </div>
+                    </div>
+                </main>
+
+                <!-- Medicine Detail Modal -->
+                <div class="modal-overlay" id="modal-overlay">
+                    <div class="modal" id="medicine-modal">
+                        <button class="modal-close" id="modal-close">×</button>
+                        <div class="modal-content" id="modal-content">
+                            <!-- Modal content populated by JS -->
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
 
-        <!-- Tab Navigation -->
-        <nav class="tab-nav">
-            <button class="tab-btn active" data-tab="medicines">Medicines</button>
-            <button class="tab-btn" data-tab="ingredients">Ingredients</button>
-        </nav>
+            <!-- Backstory Page -->
+            <div class="page" id="backstory-page">
+                <header class="page-header">
+                    <h1 class="page-title">The Story of Meilin Starwell</h1>
+                    <p class="page-subtitle">A dock-born apothecary who learned that cures are politics</p>
+                </header>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Medicines Grid -->
-            <div class="tab-content active" id="medicines-tab">
-                <div class="medicine-count" id="medicine-count"></div>
-                <div class="medicine-grid" id="medicine-grid">
-                    <!-- Medicine cards will be populated by JS -->
+                <!-- Backstory Sub-tabs -->
+                <nav class="sub-tab-nav">
+                    <button class="sub-tab-btn active" data-subtab="overview">Overview</button>
+                    <button class="sub-tab-btn" data-subtab="chapters">Chapters</button>
+                    <button class="sub-tab-btn" data-subtab="vignettes">Vignettes</button>
+                </nav>
+
+                <!-- Backstory Content -->
+                <main class="backstory-content">
+                    <!-- Overview -->
+                    <div class="sub-tab-content active" id="overview-subtab">
+                        <div class="narrative-container" id="backstory-overview">
+                            <div class="loading-spinner">Loading...</div>
+                        </div>
+                    </div>
+
+                    <!-- Chapters -->
+                    <div class="sub-tab-content" id="chapters-subtab">
+                        <div class="chapters-intro">
+                            <p>Meilin's journey unfolds across twelve stages, from her brother's departure to her arrival at the Astral Bazaar.</p>
+                        </div>
+                        <div class="chapters-accordion" id="chapters-accordion">
+                            <div class="loading-spinner">Loading chapters...</div>
+                        </div>
+                    </div>
+
+                    <!-- Vignettes -->
+                    <div class="sub-tab-content" id="vignettes-subtab">
+                        <div class="vignettes-intro">
+                            <p class="vignettes-note">These vignettes take place <strong>after</strong> Meilin's backstory, during her time at the Astral Bazaar. Each captures a small moment that reveals her skills, habits, and way of seeing the world.</p>
+                        </div>
+                        <div class="vignettes-grid" id="vignettes-grid">
+                            <div class="loading-spinner">Loading vignettes...</div>
+                        </div>
+                    </div>
+                </main>
+
+                <!-- Vignette Detail Modal -->
+                <div class="modal-overlay" id="vignette-modal-overlay">
+                    <div class="modal vignette-modal">
+                        <button class="modal-close" id="vignette-modal-close">×</button>
+                        <div class="modal-content" id="vignette-modal-content">
+                            <!-- Vignette content populated by JS -->
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Ingredients Reference -->
-            <div class="tab-content" id="ingredients-tab">
-                <div class="ingredients-section" id="ingredients-section">
-                    <!-- Ingredient tables will be populated by JS -->
-                </div>
-            </div>
-        </main>
-
-        <!-- Medicine Detail Modal -->
-        <div class="modal-overlay" id="modal-overlay">
-            <div class="modal" id="medicine-modal">
-                <button class="modal-close" id="modal-close">×</button>
-                <div class="modal-content" id="modal-content">
-                    <!-- Modal content populated by JS -->
-                </div>
-            </div>
+            <!-- Footer -->
+            <footer class="footer">
+                <p class="footer-credit">Based on the Alchemy Almanac system</p>
+            </footer>
         </div>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <p class="footer-quote">If it matters, write it down.</p>
-            <p class="footer-credit">Based on the Alchemy Almanac system</p>
-        </footer>
     </div>
 
+    <!-- Markdown Parser -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
     <!-- Scripts -->
     <script src="js/app.js"></script>
 </body>

@@ -1,0 +1,103 @@
+# Meilin Starwell — Backstory (Consolidated Narrative)
+
+On the Rock of Bral, the docks don’t sleep. They trade ownership by the hour. Meilin Starwell was raised in that rhythm: winches thudding, lanternlight thinning in cold air, jokes that arrived too loud because pain needed a mask. Her father kept a cramped apothecary corner wedged between honest trades and dishonest money, and he taught her to treat the docks the way a diagnostician treats a body: listen first, then act.
+
+“People lie,” he told her. “Bodies don’t.”
+
+Meilin learned to read the messages a body could not hide. A cough wasn’t a cough; it was wet or dry, shallow or deep, bitter or sweet at the back of the throat. Fever had patterns. Tremor had causes. She learned triage the hard way, with efficient compassion, steady hands, and questions sharp enough to cut through pride. Her father did not praise. He checked her work, nodded once, and said, “Again.”
+
+Before the docks taught her fear by name, they taught her absence. Meilin had an older brother, **Cassian**, warm, restless, and always looking up between rigging lines. He left home early to “see the stars,” chasing helm-adjacent work that wasn’t called an apprenticeship but behaved like one. He wrote occasionally from ports Meilin couldn’t place on any Bral map, always bright, always moving, always light on details. Meilin kept every letter anyway. Paper didn’t change shape when people did.
+
+The docks taught her something else too: medicine was never only medicine. A patient arrived with better boots and official coin, escorted by a clerk who smiled like a contract. The offer was easy money, “recommendation,” smoother inspections. Her father refused without drama. “Your cure comes with a leash,” he said. Meilin watched the clerk’s smile harden into threat, and she felt the invisible war around supplies and sickness take shape. Cures were politics. Not because medicine wanted to be dirty, because power wanted it useful.
+
+Her apprenticeship began without ceremony. It began the first time her father, Kaito Starwell, ran out of hands, shoved a cloth into her palms, and said, “Hold.” She held. She learned to keep her voice calm when a sailor tried to laugh away fear, to keep her questions blunt when bluntness was mercy. She watched her father refuse to let uniforms set the tone in his shop. He spoke to dock-watchmen like they were just another variable, and he cared about the patient more than anyone’s pride. Meilin absorbed the lesson: courage didn’t roar. It was a calm voice that wouldn’t move.
+
+As she grew, patterns began to show up in the margins: certain berths, certain crews, certain “cheap tonics” always in the hands of people who couldn’t afford to slow down. Meilin started keeping her own notes: stamps on crates, handwriting on labels, names of clinics that quietly refused patients for the wrong reasons. She didn’t know yet what she was building. She only knew she couldn’t stop seeing.
+
+Then she nearly died in public.
+
+It happened at a tea stall on an ordinary day, the docks loud with bargaining and work. Meilin took a cup offered with casual kindness, drank once, twice, then tasted a bitterness that didn’t belong. Before she could ask what had been added, her throat tightened and air turned thick. She hit the planks as the crowd surged, half concerned and half hungry for spectacle. Her father arrived with the calm speed of practiced disaster. He bought her time, forced breath back into her lungs, and demanded specifics (ingredients, sources, hands), anything but “the usual.” Slowly, the panic stopped being the loudest thing in her body; air returned in ragged, painful pulls, and then in steadier ones.
+
+The vendor, Hask, shook like he’d split apart. The crowd wanted a villain. Meilin looked at his cracked hands and refused to give them one. “It’s fine,” she said loudly. “You didn’t know.” She asked for the ingredient list and told him not to change anything until they understood what had done it. Forgiveness didn’t erase the truth: the docks didn’t need malice to poison you. They only needed ignorance and a system.
+
+That night, Meilin did what she always did with fear: she turned it into method. Tiny controlled tests. Notes. Comparisons. She found the trigger and learned its dockside name: **mindersand**, a pale “drying powder” that clung to seams and wax paper and the insides of sacks. Most bodies didn’t collapse from it. They dulled. They slowed. They became easier to steer. Hers tried to kill her for it.
+
+Two mornings later, Hask appeared at her father’s shop with a rolled scrap of paper like a confession: every stall he’d bought from, every warehouse mark, which dock it came through. Meilin smoothed it on the counter and felt the world tilt. A stall didn’t need to add mindersand to carry it. It only needed to buy sweetener or “improver” stock that had sat too close to the wrong crates, handled by the same hands, poured through the same funnels. Contamination could be engineered and still look like accident.
+
+Her father saw the list and warned her the way he always warned her: maps lead places. Some places don’t like visitors. Meilin’s answer was simple. “Then I’ll knock quietly.”
+
+After that, she stopped treating cases like isolated events. She started treating them like connected movement. A cough became a berth number. A rash became a cart route. A “bad batch” became a warehouse stamp. She built a wall of marks and lines in her shop, a web of supply and symptom. She trusted her trained senses (taste, smell, texture). When those weren’t enough, she let the pattern answer: who bought what, from where, and who got sick afterward. She made friends in ignored places, coopers, dock runners, galley cooks, because those were the people who knew what moved through the city when polite folk weren’t looking.
+
+And being right began to cost more. Not in raids or threats at first, but in the slow grind of exhaustion. More people came through her door who couldn’t risk official clinics, and more of them arrived with the same quiet rule: don’t ask questions that make paperwork.
+
+That was when Meredin Sandyfoot entered her story, not with a grand entrance, but with quiet patronage. A frightened escort brought a sick girl late at night and said only, “She can’t go upstairs.” The payment wasn’t coin. It was a folded scrap of paper with tidy handwriting: “For the girl. Pay later. —M.”
+
+Meilin treated the child without sermon or spectacle, and word traveled the way it always did on Bral: quickly, sideways, and in whispers. After that, the people who needed discretion found her more easily. The name behind those introductions surfaced again and again. Meredin didn’t offer ownership; Meredin offered coverage: a way for the Burrows’ sick to reach a capable pair of hands without being eaten alive by “official” questions.
+
+Meilin learned the cost of that protection too. Favors didn’t come like threats; they came like necessities. “Off-books,” Meredin’s runner, Nori, would say, and Meilin would say yes because untreated people died in quiet corners. Her father watched her sink deeper and said what he always said when the truth got heavy: being useful is a kind of target.
+
+The ship contract came the way Meredin’s offers always did: practical, clean pay, quiet captain. Meilin took it not for the stars, but because the docks were shrinking around her. The ship was the *Drift-Sparrow*, patched and honest as work, with a spelljammer helm tucked under canvas and a crew wearing fatigue like a second skin. The problem wasn’t a dramatic plague. It was weeks of “nothing” that made hands shake and judgment blur.
+
+In the hold, Meilin met Quartermaster Tasmin “Cleanhands” Vale: precise, defensive, inventory-minded. Meilin didn’t fight for access like a dock rat. She read seams, sniffed residue, scraped samples onto wax paper. The sickness announced itself at dinner when a sailor coughed wet and hard, another whispered, “It’s happening again,” and the galley turned into controlled chaos.
+
+Meilin found the tin that had been reseated with care. Pepper, yes, but threaded through it, pale dust that clung wrong. She tasted it because fear had already taught her not to trust names. Pepper bite, then the bitter-metal ghost.
+
+“Mindersand,” she said.
+
+Not lethal for most. Not fast. Designed to stack: fog, tremor, compliance shaped like fatigue. Enough to ruin judgment. Enough to make a crew “accident-prone.” Vale saw the math immediately. This wasn’t onboard sabotage. This was supply.
+
+Meilin and Vale spent the night opening sacks like surgeons, logging symbols and stamps. A ship didn’t have the luxury of pretending food was comfort. Food was control. Out in the void, subtle contamination didn’t just make people sick. It made ships fail. Routes end. Crews die.
+
+When Meilin returned to Bral, the next problem arrived in a tidy coat with careful hands: Sera Quill, a clerk who had been tired in the wrong way for weeks. Tremors. Metal taste. Fog that didn’t match sleep. Sera drank tea from the same stalls, bought the same “fatigue” tonic everyone used near the Burrows. Meilin looked at the bottle like a body. She read the label, then the lot mark. She tasted a careful sweetness and, under it, the same bitter-metal wrongness.
+
+Mindersand.
+
+Sera wasn’t important enough to be targeted, which meant the system was worse than personal malice. It was scalable. Meilin traced the tonic shop to a distributor, the distributor to warehouse stamps, the lot mark style to patterns she’d already circled from the *Drift-Sparrow*. A shipping invoice finally put a respectable name on the line: **Smith’s Coster**.
+
+Meilin didn’t go to war. She tried to file a complaint.
+
+She built her proof the way her father built records: dates, lot marks, onset times, shared distributors, witness names who didn’t know they were witnesses. She tested in controlled doses, not to prove mindersand would kill you, but to prove what it did. Fog first. Tremor. Flattened urgency. Compliance shaped like fatigue.
+
+In a polished Smith’s Coster office, she laid her folder down like a diagnosis. Corvin Hale smiled like kindness was a trade, admired her thoroughness, and offered a contract: resources, protection, a leash disguised as “official work.” Meilin refused. The smile sharpened. “Paper burns,” the message implied. If she stayed noisy, the docks would become small. If she stayed correct, paperwork could make her shop vanish.
+
+So Meilin stopped thinking like a complainant.
+She started thinking like a surgeon.
+
+Meredin told her the weather: Smith’s Coster was mapping her habits, tightening politely. The goal wasn’t drama. It was isolation until the leash felt like relief. If paper burned, then Meilin needed paper they couldn’t afford to admit existed.
+
+A ledger.
+
+With help from a terrified warehouse clerk who wanted out (Bram Cale), Meilin slipped into a Smith’s Coster warehouse at night. She dressed like a dockside apothecary. Plain cloak, sleeves rolled, satchel quiet with cloth-wrapped vials. She moved with procedure instead of adrenaline. In the inner office drawer she found it: neat columns of lot marks and destinations, coded additive entries, and notes that made intent undeniable.
+
+**MS-13: mindersand** (listed as “drying powder”).
+
+Routes that touched half the docks. Repacked into tea sweeteners and tonics and shipboard spices. A marginal note as casual as cruelty: “increase compliance.”
+
+This wasn’t accidental contamination. This was a recipe.
+
+She didn’t steal the whole ledger. That would have been obvious and slow and suicidal. She stole a responsible amount of truth: a single page. Wax paper beneath it as a clean backer, so she wouldn’t smudge ink or leave grime, so the blade could cut without biting the sheet beneath. One quiet cut. One page gone. A gap like a missing tooth that would be noticed the moment someone cared to look.
+
+Proof.
+
+And now the city changed shape around her.
+
+Smith’s Coster didn’t explode. They went quiet. Suppliers closed when they saw her coming. Prices tripled. Dock-watchmen stared too long. Patients came like shadows, heads down, afraid to be seen in her doorway. Sera was followed, not confronted, just mapped, the way prey is mapped before it’s cornered. Pender Holt came to Meilin’s shop with polite threats and an offer: take the position, or be buried under paperwork.
+
+Meilin didn’t bluff loudly. She was careful. She refused to let Sera become leverage. And she understood the real danger: if she stayed, Smith’s Coster would tighten the net until retaliation landed on her father, her patients, Meredin’s people (anyone nearby enough to break her).
+
+So she took the one move that changed the battlefield.
+
+Meredin found the gap. Large Luigi (beholder proprietor of the Happy Beholder, a creature who watched exits the way other people watched weather) provided timing and introductions that didn’t exist on paper. Meilin left without making a scene, carrying her satchel, her father’s worn notebook, and the ledger page hidden flat where it wouldn’t betray her.
+
+She did not take to the void for adventure.
+She took to the void because it was the only place left where her mind could keep moving faster than the cage. It was also where she could plan her next move without Smith’s Coster shrinking the city around everyone she loved.
+
+Somewhere back on Bral, in a Smith’s Coster ledger, there was a missing page.
+
+A gap.
+
+A warning.
+
+And now that warning had a heartbeat.
+
+In the Astral Bazaar, Meilin learned what the void’s ports all taught in different dialects: where anything can be bought, everything is leverage. She kept the ledger page flat and protected, took quiet work at the edges, and learned the mechanics of survival: watching patterns in crowds, securing doors, reading tampered seals, and practicing with lock tools the way she practiced medicine: patiently, precisely, and without drama.

@@ -9,6 +9,11 @@ const App = {
     ingredients: null,
     rules: null,
     
+    // Backstory data
+    backstoryContent: null,
+    chapters: [],
+    vignettes: [],
+    
     // Current state
     currentFilters: {
         search: '',
@@ -18,6 +23,8 @@ const App = {
     },
     currentTab: 'medicines',
     selectedTerrain: 'Arctic',
+    currentPage: 'medicine',
+    currentSubtab: 'overview',
 
     /**
      * Initialize the application
@@ -26,13 +33,18 @@ const App = {
         try {
             await this.loadData();
             this.bindEvents();
+            this.bindPageEvents();
             this.renderMedicines();
             this.renderIngredients();
             this.renderQuickRules();
-            console.log('Meilin\'s Apothecary initialized successfully');
+            
+            // Handle initial page based on URL hash
+            this.handleHashChange();
+            
+            console.log('Meilin Starwell Companion initialized successfully');
         } catch (error) {
             console.error('Failed to initialize app:', error);
-            this.showError('Failed to load medicine data. Please refresh the page.');
+            this.showError('Failed to load data. Please refresh the page.');
         }
     },
 
@@ -115,8 +127,116 @@ const App = {
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 this.closeModal();
+                this.closeVignetteModal();
             }
         });
+    },
+
+    /**
+     * Bind page navigation events
+     */
+    bindPageEvents() {
+        // Sidebar navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const page = link.dataset.page;
+                this.switchPage(page);
+            });
+        });
+
+        // Sub-tab navigation (backstory page)
+        document.querySelectorAll('.sub-tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const subtab = btn.dataset.subtab;
+                this.switchSubtab(subtab);
+            });
+        });
+
+        // Vignette modal close
+        const vignetteOverlay = document.getElementById('vignette-modal-overlay');
+        if (vignetteOverlay) {
+            vignetteOverlay.addEventListener('click', (e) => {
+                if (e.target.id === 'vignette-modal-overlay') {
+                    this.closeVignetteModal();
+                }
+            });
+        }
+
+        const vignetteClose = document.getElementById('vignette-modal-close');
+        if (vignetteClose) {
+            vignetteClose.addEventListener('click', () => {
+                this.closeVignetteModal();
+            });
+        }
+
+        // Handle browser back/forward
+        window.addEventListener('hashchange', () => {
+            this.handleHashChange();
+        });
+    },
+
+    /**
+     * Handle URL hash changes for navigation
+     */
+    handleHashChange() {
+        const hash = window.location.hash.slice(1) || 'medicine';
+        if (hash === 'medicine' || hash === 'backstory') {
+            this.switchPage(hash, false);
+        }
+    },
+
+    /**
+     * Switch between main pages
+     */
+    switchPage(pageName, updateHash = true) {
+        this.currentPage = pageName;
+
+        // Update sidebar nav
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.toggle('active', link.dataset.page === pageName);
+        });
+
+        // Update page visibility
+        document.querySelectorAll('.page').forEach(page => {
+            page.classList.toggle('active', page.id === `${pageName}-page`);
+        });
+
+        // Update URL hash
+        if (updateHash) {
+            window.location.hash = pageName;
+        }
+
+        // Load backstory content if switching to backstory page
+        if (pageName === 'backstory' && !this.backstoryContent) {
+            this.loadBackstoryContent();
+        }
+    },
+
+    /**
+     * Switch between backstory sub-tabs
+     */
+    switchSubtab(subtabName) {
+        this.currentSubtab = subtabName;
+
+        // Update sub-tab buttons
+        document.querySelectorAll('.sub-tab-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.subtab === subtabName);
+        });
+
+        // Update sub-tab content visibility
+        document.querySelectorAll('.sub-tab-content').forEach(content => {
+            content.classList.toggle('active', content.id === `${subtabName}-subtab`);
+        });
+
+        // Load content if needed
+        if (subtabName === 'overview' && !this.backstoryContent) {
+            this.loadBackstoryOverview();
+        } else if (subtabName === 'chapters' && this.chapters.length === 0) {
+            this.loadChapters();
+        } else if (subtabName === 'vignettes' && this.vignettes.length === 0) {
+            this.loadVignettes();
+        }
     },
 
     /**
@@ -265,7 +385,7 @@ const App = {
 
         const hasFlora = this.hasFloraOption(medicine);
         const floraBadgeTitle = medicine.floraOnly ? 'Flora only (no creature parts)' : 'Has flora option';
-        
+
         return `
             <article class="medicine-card" data-id="${medicine.id}" data-category="${medicine.category}">
                 ${hasFlora ? `<span class="medicine-flora-badge" title="${floraBadgeTitle}">🌿</span>` : ''}
@@ -373,15 +493,15 @@ const App = {
                 }
             } else {
                 // Old format: simple string array
-                const secondaryList = medicine.secondary.length > 1 
-                    ? medicine.secondary.join(' or ')
-                    : medicine.secondary[0];
-                html += `
-                    <div class="component-item">
-                        <span class="component-label">Secondary:</span>
-                        <span class="component-value">${secondaryList}</span>
-                    </div>
-                `;
+            const secondaryList = medicine.secondary.length > 1 
+                ? medicine.secondary.join(' or ')
+                : medicine.secondary[0];
+            html += `
+                <div class="component-item">
+                    <span class="component-label">Secondary:</span>
+                    <span class="component-value">${secondaryList}</span>
+                </div>
+            `;
             }
         }
         
@@ -691,6 +811,225 @@ const App = {
                 <p>${message}</p>
             </div>
         `;
+    },
+
+    // ============================================
+    // Markdown Loading and Rendering
+    // ============================================
+
+    /**
+     * Fetch and parse a markdown file
+     */
+    async fetchMarkdown(path) {
+        try {
+            const response = await fetch(path);
+            if (!response.ok) {
+                throw new Error(`Failed to fetch ${path}`);
+            }
+            const markdown = await response.text();
+            return marked.parse(markdown);
+        } catch (error) {
+            console.error('Error loading markdown:', error);
+            return `<p class="error-message">Failed to load content.</p>`;
+        }
+    },
+
+    /**
+     * Load all backstory content (overview, chapters, vignettes)
+     */
+    async loadBackstoryContent() {
+        await Promise.all([
+            this.loadBackstoryOverview(),
+            this.loadChapters(),
+            this.loadVignettes()
+        ]);
+    },
+
+    /**
+     * Load the backstory overview (consolidated.md)
+     */
+    async loadBackstoryOverview() {
+        const container = document.getElementById('backstory-overview');
+        if (!container) return;
+
+        container.innerHTML = '<div class="loading-spinner">Loading backstory...</div>';
+
+        const html = await this.fetchMarkdown('content/backstory/consolidated.md');
+        this.backstoryContent = html;
+        container.innerHTML = html;
+    },
+
+    /**
+     * Load all chapter files into the accordion
+     */
+    async loadChapters() {
+        const container = document.getElementById('chapters-accordion');
+        if (!container) return;
+
+        container.innerHTML = '<div class="loading-spinner">Loading chapters...</div>';
+
+        // Chapter file mappings
+        const chapterFiles = [
+            { file: 'Meilin Starwell - Pre-stage 00 - Cassian leaves.md', number: '00', title: 'Cassian Leaves' },
+            { file: 'Meilin Starwell - Stage 00 - Dock-born.md', number: '01', title: 'Dock-born' },
+            { file: 'Meilin Starwell - Stage 01 - Apprenticeship.md', number: '02', title: 'Apprenticeship' },
+            { file: 'Meilin Starwell - Stage 02 - Near-death.md', number: '03', title: 'Near-death' },
+            { file: 'Meilin Starwell - Stage 03 - Pattern-hunter.md', number: '04', title: 'Pattern-hunter' },
+            { file: 'Meilin Starwell - Stage 04 - Meredin.md', number: '05', title: 'Meredin' },
+            { file: 'Meilin Starwell - Stage 05 - Shipboard scare.md', number: '06', title: 'Shipboard Scare' },
+            { file: 'Meilin Starwell - Stage 06 - Sera trail.md', number: '07', title: 'Sera Trail' },
+            { file: 'Meilin Starwell - Stage 07 - Smith\'s Coster.md', number: '08', title: 'Smith\'s Coster' },
+            { file: 'Meilin Starwell - Stage 08 - Ledger page.md', number: '09', title: 'Ledger Page' },
+            { file: 'Meilin Starwell - Stage 09 - Exit strategy.md', number: '10', title: 'Exit Strategy' },
+            { file: 'Meilin Starwell - Stage 10 - Astral bazaar.md', number: '11', title: 'Astral Bazaar' }
+        ];
+
+        // Load all chapters
+        const chapterPromises = chapterFiles.map(async (chapter) => {
+            const html = await this.fetchMarkdown(`content/backstory/stages/${chapter.file}`);
+            return {
+                ...chapter,
+                content: html
+            };
+        });
+
+        this.chapters = await Promise.all(chapterPromises);
+        this.renderChapters();
+    },
+
+    /**
+     * Render chapters accordion
+     */
+    renderChapters() {
+        const container = document.getElementById('chapters-accordion');
+        if (!container) return;
+
+        container.innerHTML = this.chapters.map((chapter, index) => `
+            <div class="chapter-item" data-chapter="${index}">
+                <button class="chapter-header">
+                    <span class="chapter-number">${chapter.number}</span>
+                    <span class="chapter-title">${chapter.title}</span>
+                    <span class="chapter-toggle">▼</span>
+                </button>
+                <div class="chapter-content narrative-container">
+                    ${chapter.content}
+                </div>
+            </div>
+        `).join('');
+
+        // Add click handlers for accordion
+        container.querySelectorAll('.chapter-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.closest('.chapter-item');
+                item.classList.toggle('expanded');
+            });
+        });
+    },
+
+    /**
+     * Load all vignette files
+     */
+    async loadVignettes() {
+        const container = document.getElementById('vignettes-grid');
+        if (!container) return;
+
+        container.innerHTML = '<div class="loading-spinner">Loading vignettes...</div>';
+
+        // Vignette file mappings
+        const vignetteFiles = [
+            { file: 'Meilin Starwell - Vignette 00 - First bolt.md', number: '01', title: 'First Bolt' },
+            { file: 'Meilin Starwell - Vignette 01 - Vex lesson.md', number: '02', title: 'Vex Lesson' },
+            { file: 'Meilin Starwell - Vignette 02 - Cant notes.md', number: '03', title: 'Cant Notes' },
+            { file: 'Meilin Starwell - Vignette 03 - Medicines She Favors.md', number: '04', title: 'Medicines She Favors' },
+            { file: 'Meilin Starwell - Vignette 04 - Oona\'s stall, the first rule.md', number: '05', title: 'Oona\'s Stall, the First Rule' },
+            { file: 'Meilin Starwell - Vignette 05 - The logbook habit, Bazaar edition.md', number: '06', title: 'The Logbook Habit' },
+            { file: 'Meilin Starwell - Vignette 06 - Theo Lockwell, quiet preparation.md', number: '07', title: 'Theo Lockwell' },
+            { file: 'Meilin Starwell - Vignette 07 - The tell, the pause.md', number: '08', title: 'The Tell, the Pause' },
+            { file: 'Meilin Starwell - Vignette 08 - A polite lie in Undercommon.md', number: '09', title: 'A Polite Lie in Undercommon' },
+            { file: 'Meilin Starwell - Vignette 09 - Persuasion is triage.md', number: '10', title: 'Persuasion is Triage' },
+            { file: 'Meilin Starwell - Vignette 10 - Quiet feet, open eyes.md', number: '11', title: 'Quiet Feet, Open Eyes' },
+            { file: 'Meilin Starwell - Vignette 11 - Fingers, coin, and shame.md', number: '12', title: 'Fingers, Coin, and Shame' },
+            { file: 'Meilin Starwell - Vignette 12 - Paper cuts deeper.md', number: '13', title: 'Paper Cuts Deeper' },
+            { file: 'Meilin Starwell - Vignette 13 - Procedure for a living place.md', number: '14', title: 'Procedure for a Living Place' },
+            { file: 'Meilin Starwell - Vignette 14 - The Case Ledger.md', number: '15', title: 'The Case Ledger' },
+            { file: 'Meilin Starwell - Vignette 15 - Bral, the window with three seals.md', number: '16', title: 'Bral, the Window with Three Seals' }
+        ];
+
+        // Load all vignettes
+        const vignettePromises = vignetteFiles.map(async (vignette) => {
+            const html = await this.fetchMarkdown(`content/vignettes/${vignette.file}`);
+            // Extract first paragraph as preview
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+            const firstP = tempDiv.querySelector('p');
+            const preview = firstP ? firstP.textContent.substring(0, 150) + '...' : '';
+            
+            return {
+                ...vignette,
+                content: html,
+                preview: preview
+            };
+        });
+
+        this.vignettes = await Promise.all(vignettePromises);
+        this.renderVignettes();
+    },
+
+    /**
+     * Render vignettes grid
+     */
+    renderVignettes() {
+        const container = document.getElementById('vignettes-grid');
+        if (!container) return;
+
+        container.innerHTML = this.vignettes.map((vignette, index) => `
+            <div class="vignette-card" data-vignette="${index}">
+                <div class="vignette-number">Vignette ${vignette.number}</div>
+                <h3 class="vignette-title">${vignette.title}</h3>
+                <p class="vignette-preview">${vignette.preview}</p>
+                <span class="vignette-read-more">Read more →</span>
+            </div>
+        `).join('');
+
+        // Add click handlers for vignette cards
+        container.querySelectorAll('.vignette-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const index = parseInt(card.dataset.vignette);
+                this.openVignetteModal(this.vignettes[index]);
+            });
+        });
+    },
+
+    /**
+     * Open vignette modal with full content
+     */
+    openVignetteModal(vignette) {
+        const overlay = document.getElementById('vignette-modal-overlay');
+        const content = document.getElementById('vignette-modal-content');
+        
+        if (!overlay || !content) return;
+
+        content.innerHTML = `
+            <div class="narrative-container">
+                <div class="vignette-number">Vignette ${vignette.number}</div>
+                <h2 class="vignette-modal-title">${vignette.title}</h2>
+                ${vignette.content}
+            </div>
+        `;
+
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    },
+
+    /**
+     * Close vignette modal
+     */
+    closeVignetteModal() {
+        const overlay = document.getElementById('vignette-modal-overlay');
+        if (overlay) {
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
     }
 };
 
