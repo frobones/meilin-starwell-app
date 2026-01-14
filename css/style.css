@@ -41,6 +41,7 @@
   /* Functional */
   --success: #2d6a4f;
   --failure: #8b3a3a;
+  --creature-red: #8b4a4a;
   --shadow: rgba(44, 36, 22, 0.15);
   --shadow-heavy: rgba(44, 36, 22, 0.25);
   
@@ -1001,7 +1002,7 @@ details[open] .rules-toggle::after {
 }
 
 .component-type.creature {
-  background: var(--blood-red);
+  background: var(--creature-red);
   color: var(--parchment-light);
 }
 
