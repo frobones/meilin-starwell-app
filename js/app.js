@@ -789,7 +789,7 @@ const App = {
             
             <div class="modal-section">
                 <h3 class="modal-section-title">Effect</h3>
-                <p class="modal-effect">${medicine.effect}</p>
+                <p class="modal-effect">${(medicine.fullEffect || medicine.effect).replace(/\n/g, '<br>')}</p>
             </div>
             
             ${variableStarsHtml}

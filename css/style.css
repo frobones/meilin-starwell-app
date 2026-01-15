@@ -3827,15 +3827,7 @@ details[open] .rules-toggle::after {
   margin: 0 auto;
 }
 
-.rumors-views-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-lg);
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.rumors-view-item {
+.rumors-turnaround {
   position: relative;
   border-radius: var(--radius-lg);
   overflow: hidden;
@@ -3843,15 +3835,16 @@ details[open] .rules-toggle::after {
   background: var(--parchment-light);
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
-.rumors-view-item:hover {
-  transform: translateY(-4px);
+.rumors-turnaround:hover {
   box-shadow: var(--shadow-lg);
   border-color: var(--gold-accent);
 }
 
-.rumors-view-item img {
+.rumors-turnaround img {
   width: 100%;
   height: auto;
   display: block;
@@ -4003,10 +3996,6 @@ details[open] .rules-toggle::after {
   .rumors-gallery-single img {
     max-height: 400px;
     object-fit: cover;
-  }
-  
-  .rumors-views-grid {
-    grid-template-columns: repeat(2, 1fr);
   }
   
   .rumors-views {
