@@ -1503,17 +1503,15 @@ const App = {
      * Render a single relationship card
      */
     renderRelationshipCard(connection) {
-        // Check if this NPC has detailed info
-        const hasDetails = this.npcs.some(npc => 
-            npc.name.toLowerCase().includes(connection.name.split(' ')[0].toLowerCase())
-        );
+        // All connections with details are clickable
+        const hasDetails = connection.details !== undefined;
         
         return `
             <div class="relationship-card ${connection.type} ${hasDetails ? 'clickable' : ''}" 
-                 data-npc-name="${connection.name}"
+                 data-connection-name="${connection.name}"
                  ${hasDetails ? 'title="Click for details"' : ''}>
                 <h4 class="relationship-card-name">${connection.name}</h4>
-                <p class="relationship-card-relation">${connection.relation}</p>
+                <p class="relationship-card-role">${connection.role}</p>
                 <p class="relationship-card-tension">${connection.tension}</p>
                 <p class="relationship-card-location">📍 ${connection.location}</p>
             </div>
@@ -1529,15 +1527,71 @@ const App = {
 
         container.querySelectorAll('.relationship-card.clickable').forEach(card => {
             card.addEventListener('click', () => {
-                const npcName = card.dataset.npcName;
-                const npc = this.npcs.find(n => 
-                    n.name.toLowerCase().includes(npcName.split(' ')[0].toLowerCase())
-                );
-                if (npc) {
-                    this.openNPCModal(npc);
+                const connectionName = card.dataset.connectionName;
+                const connection = this.relationships.connections.find(c => c.name === connectionName);
+                if (connection) {
+                    this.openRelationshipModal(connection);
                 }
             });
         });
+    },
+
+    /**
+     * Open relationship detail modal with worksheet-style info
+     */
+    openRelationshipModal(connection) {
+        const overlay = document.getElementById('npc-modal-overlay');
+        const content = document.getElementById('npc-modal-content');
+        
+        if (!overlay || !content) return;
+
+        // Build the modal content based on relationship type
+        let detailsHTML = '';
+        const d = connection.details;
+        
+        if (connection.type === 'ally') {
+            detailsHTML = `
+                <p><strong>Met:</strong> ${d.met}</p>
+                <p><strong>Bond:</strong> ${d.bond}</p>
+                <p><strong>I ask for:</strong> ${d.iAskFor}</p>
+                <p><strong>They ask for:</strong> ${d.theyAskFor}</p>
+            `;
+        } else if (connection.type === 'complicated') {
+            // Handle different pronoun structures
+            const wants = d.heWants || d.sheWants || '';
+            const wantsLabel = d.heWants ? 'He wants' : 'She wants';
+            detailsHTML = `
+                <p><strong>The knot:</strong> ${d.theKnot}</p>
+                <p><strong>${wantsLabel}:</strong> ${wants}</p>
+                <p><strong>I want:</strong> ${d.iWant}</p>
+                <p><strong>Danger:</strong> ${d.danger}</p>
+            `;
+        } else if (connection.type === 'antagonist') {
+            detailsHTML = `
+                <p><strong>She believes:</strong> ${d.sheBelieves}</p>
+                <p><strong>She wants:</strong> ${d.sheWants}</p>
+                <p><strong>How she operates:</strong> ${d.howSheOperates}</p>
+            `;
+        }
+
+        // Determine the type label and color
+        const typeLabels = {
+            'ally': '🟢 Ally',
+            'complicated': '🟡 Complicated Tie',
+            'antagonist': '🔴 Antagonist'
+        };
+
+        content.innerHTML = `
+            <div class="narrative-container">
+                <h2>${connection.name}</h2>
+                <p class="relationship-type-label">${typeLabels[connection.type] || connection.type}</p>
+                <p class="relationship-modal-role"><em>${connection.role}</em></p>
+                <p class="relationship-modal-location">📍 ${connection.location}</p>
+                <hr>
+                ${detailsHTML}
+            </div>
+        `;
+        overlay.classList.add('active');
     },
 
     /**

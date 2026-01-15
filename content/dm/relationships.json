@@ -5,60 +5,94 @@
   },
   "connections": [
     {
-      "name": "Kaito Starwell",
-      "relation": "Father",
+      "name": "Oona Marlow",
+      "role": "Astral Bazaar gear stallkeeper (rope, oil, chalk, cases); pays Meilin for quiet 'watch work.'",
       "type": "ally",
-      "tension": "Anchor and vulnerability. Pressure on his shop forces her hand.",
-      "location": "Rock of Bral"
-    },
-    {
-      "name": "Cassian Starwell",
-      "relation": "Brother",
-      "type": "ally",
-      "tension": "His 'opportunities' come with invisible strings. Trust is complicated.",
-      "location": "Unknown (traveling)"
+      "tension": "Low-drama work, but she sees too much. Mutual protection.",
+      "location": "Astral Bazaar",
+      "details": {
+        "met": "Meredin's network pointed me toward her stall when I needed work that didn't ask questions.",
+        "bond": "She provides jobs, warnings, and pragmatic protection. I keep my boundaries clean and don't splash heat onto her neighbors.",
+        "iAskFor": "Work leads, port warnings, discreet supplies, and a place to breathe.",
+        "theyAskFor": "Contamination checks, quiet triage for her contacts, and discretion about what I see."
+      }
     },
     {
       "name": "Meredin Sandyfoot",
-      "relation": "Patron/Fixer",
+      "role": "Quiet patron and fixer in/around the Burrows; provides 'coverage,' not ownership.",
       "type": "ally",
       "tension": "Provides coverage, but coverage has costs. Favors must close.",
-      "location": "Rock of Bral (Burrows)"
+      "location": "Rock of Bral (Burrows)",
+      "details": {
+        "met": "The people who needed discretion found me, and his name kept surfacing behind the introductions.",
+        "bond": "He provides coverage for the Burrows' sick to reach capable hands without official questions. I provide follow-through and no sloppy messes.",
+        "iAskFor": "Warnings, routing, and gaps in the net when I need to move.",
+        "theyAskFor": "Off-books treatment for his people, and discretion about what I see."
+      }
     },
     {
-      "name": "Oona Marlow",
-      "relation": "Employer/Contact",
-      "type": "ally",
-      "tension": "Low-drama work, but she sees too much. Mutual protection.",
-      "location": "Astral Bazaar"
+      "name": "Kaito Starwell",
+      "role": "Dockside apothecary/diagnostician on the Rock of Bral; meticulous record-keeper.",
+      "type": "complicated",
+      "tension": "Anchor and vulnerability. Pressure on his shop forces her hand.",
+      "location": "Rock of Bral",
+      "details": {
+        "theKnot": "He's my anchor and my greatest vulnerability. If inspectors circle his shop, my choices get expensive fast.",
+        "heWants": "Me to be alive and free. To stop before the pattern swallows me.",
+        "iWant": "Him to stay safe. To not become leverage.",
+        "danger": "Smith's Coster knows where he is. Every move I make could land on his doorstep."
+      }
+    },
+    {
+      "name": "Cassian Starwell",
+      "role": "Helm-chaser and long-haul wanderer who left Bral to 'see the stars.'",
+      "type": "complicated",
+      "tension": "His 'opportunities' come with invisible strings. Trust is complicated.",
+      "location": "Unknown (traveling)",
+      "details": {
+        "theKnot": "He left Bral first to 'see the stars,' chasing helm-adjacent work. His letters stopped making sense, but I kept them anyway.",
+        "heWants": "To help, to open doors, to share opportunities he's found out in the void.",
+        "iWant": "To trust him. To believe his offers don't come with strings I can't see.",
+        "danger": "His 'opportunities' often come with patrons, contracts, or favors attached. If he offers help, I treat it like a contract and read the fine print."
+      }
     },
     {
       "name": "Sera Quill",
-      "relation": "Protected Witness",
+      "role": "Tidy clerk dosed by routine (tea/tonics); became an unintentional trail to the supply chain.",
       "type": "complicated",
       "tension": "She became the trail to Smith's Coster. Now she's watched.",
-      "location": "Rock of Bral"
+      "location": "Rock of Bral",
+      "details": {
+        "theKnot": "She came to me tired in the wrong way—tremors, metal taste, fog that didn't match sleep. She became the trail that led to Smith's Coster.",
+        "sheWants": "Safety without being treated like an object. A way to help that doesn't turn her into leverage.",
+        "iWant": "Her to stay invisible. To never become the price of my momentum.",
+        "danger": "Smith's Coster is following her, mapping her movements. If they decide she's useful, my choices get expensive."
+      }
     },
     {
       "name": "Bram Cale",
-      "relation": "Inside Contact",
+      "role": "Inside contact who helped Meilin get into a Smith's Coster warehouse to steal the ledger page.",
       "type": "complicated",
       "tension": "Helped steal the ledger page. Compromised. Could flip or vanish.",
-      "location": "Unknown"
+      "location": "Unknown",
+      "details": {
+        "theKnot": "He was terrified and owned by the system, but he wanted out badly enough to help me get inside.",
+        "heWants": "An exit that doesn't look like betrayal until it's too late. Reassurance that he isn't already dead for helping me.",
+        "iWant": "Him to stay quiet and stay safe. I can't promise either.",
+        "danger": "He's compromised. He could flip, vanish, or be made an example. If he resurfaces, it's never good news."
+      }
     },
     {
       "name": "Elowen Pryce",
-      "relation": "Pursuer",
+      "role": "Smith's Coster field representative; delivers warnings and applies pressure in public spaces.",
       "type": "antagonist",
-      "tension": "Smith's Coster field rep. Patient. Wants the ledger page or silence.",
-      "location": "Follows Meilin"
-    },
-    {
-      "name": "Smith's Coster",
-      "relation": "Antagonist Faction",
-      "type": "antagonist",
-      "tension": "Trading company behind the mindersand contamination. Wants the page back.",
-      "location": "Multi-port operation"
+      "tension": "Patient pursuer. Wants the ledger page or silence.",
+      "location": "Follows Meilin",
+      "details": {
+        "sheBelieves": "I'm a problem that can still be solved with the right pressure or the right example.",
+        "sheWants": "The ledger page recovered or destroyed. My silence, my compliance, or my containment.",
+        "howSheOperates": "Patient surveillance, public warnings delivered softly in crowds, and pressure on people adjacent to me. She makes pursuit feel like weather."
+      }
     }
   ],
   "indirect": [
