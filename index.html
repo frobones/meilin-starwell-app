@@ -151,6 +151,8 @@
                     <button class="sub-tab-btn" data-subtab="chapters">Chapters</button>
                     <button class="sub-tab-btn" data-subtab="vignettes">Vignettes</button>
                     <button class="sub-tab-btn" data-subtab="npcs">NPCs</button>
+                    <button class="sub-tab-btn" data-subtab="knives">Knives</button>
+                    <button class="sub-tab-btn" data-subtab="relationships">Relationships</button>
                 </nav>
 
                 <!-- Backstory Content -->
@@ -206,12 +208,42 @@
                         </div>
                     </div>
 
+                    <!-- Knives (DM Tools) -->
+                    <div class="sub-tab-content" id="knives-subtab">
+                        <div class="knives-intro">
+                            <p class="knives-note"><strong>Knives</strong> are specific, actionable things the DM can use to create drama. Each one is a handle to pull Meilin into the story.</p>
+                        </div>
+                        <div class="knives-grid" id="knives-grid">
+                            <div class="loading-spinner">Loading knives...</div>
+                        </div>
+                    </div>
+
+                    <!-- Relationships -->
+                    <div class="sub-tab-content" id="relationships-subtab">
+                        <div class="relationships-intro">
+                            <p class="relationships-note">A visual map of Meilin's connections, tensions, and the pressure points between them.</p>
+                        </div>
+                        <div class="relationships-map" id="relationships-map">
+                            <div class="loading-spinner">Loading relationships...</div>
+                        </div>
+                    </div>
+
                 <!-- NPC Detail Modal -->
                 <div class="modal-overlay" id="npc-modal-overlay">
                     <div class="modal npc-modal">
                         <button class="modal-close" id="npc-modal-close">×</button>
                         <div class="modal-content" id="npc-modal-content">
                             <!-- NPC content populated by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Knife Detail Modal -->
+                <div class="modal-overlay" id="knife-modal-overlay">
+                    <div class="modal knife-modal">
+                        <button class="modal-close" id="knife-modal-close">×</button>
+                        <div class="modal-content" id="knife-modal-content">
+                            <!-- Knife content populated by JS -->
                         </div>
                     </div>
                 </div>

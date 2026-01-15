@@ -1638,6 +1638,315 @@ details[open] .rules-toggle::after {
   overflow-y: auto;
 }
 
+/* ============================================
+   Knives (DM Tools)
+   ============================================ */
+
+/* Knives Intro */
+.knives-intro {
+  margin-bottom: var(--space-xl);
+  padding: var(--space-lg);
+  background: linear-gradient(135deg, rgba(139, 35, 35, 0.1), rgba(139, 35, 35, 0.05));
+  border-radius: var(--radius-md);
+  border: 1px solid var(--parchment-aged);
+  text-align: center;
+}
+
+.knives-note {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--ink-faded);
+  margin: 0;
+}
+
+/* Knives Grid */
+.knives-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-lg);
+}
+
+/* Knife Card */
+.knife-card {
+  background: var(--parchment-light);
+  border: 1px solid var(--parchment-aged);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.knife-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--blood-red);
+}
+
+.knife-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow);
+  border-color: var(--blood-red);
+}
+
+.knife-card.evidence::before { background: var(--sepia); }
+.knife-card.vulnerability::before { background: var(--blood-red); }
+.knife-card.leverage::before { background: var(--gold-accent); }
+.knife-card.complication::before { background: var(--copper-accent); }
+.knife-card.flaw::before { background: var(--herb-green); }
+
+.knife-card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.knife-card-icon {
+  font-size: 1.5rem;
+}
+
+.knife-card-name {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  color: var(--sepia);
+  margin: 0;
+}
+
+.knife-card-type {
+  display: inline-block;
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  margin-top: var(--space-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: rgba(139, 35, 35, 0.15);
+  color: var(--blood-red);
+}
+
+.knife-card-summary {
+  font-size: 0.9rem;
+  color: var(--ink-brown);
+  margin: var(--space-md) 0 0 0;
+  line-height: 1.5;
+}
+
+/* Knife Modal */
+.knife-modal {
+  max-width: 600px;
+}
+
+.knife-modal .modal-content {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.knife-detail-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--parchment-aged);
+}
+
+.knife-detail-icon {
+  font-size: 2.5rem;
+}
+
+.knife-detail-title {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  color: var(--sepia);
+  margin: 0;
+}
+
+.knife-detail-section {
+  margin-bottom: var(--space-lg);
+}
+
+.knife-detail-section h4 {
+  font-family: var(--font-heading);
+  color: var(--bark-brown);
+  margin: 0 0 var(--space-sm) 0;
+  font-size: 1rem;
+}
+
+.knife-detail-section p {
+  margin: 0;
+  color: var(--ink-brown);
+  line-height: 1.6;
+}
+
+/* ============================================
+   Relationships Map
+   ============================================ */
+
+/* Relationships Intro */
+.relationships-intro {
+  margin-bottom: var(--space-xl);
+  padding: var(--space-lg);
+  background: linear-gradient(135deg, rgba(101, 67, 33, 0.1), rgba(101, 67, 33, 0.05));
+  border-radius: var(--radius-md);
+  border: 1px solid var(--parchment-aged);
+  text-align: center;
+}
+
+.relationships-note {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--ink-faded);
+  margin: 0;
+}
+
+/* Relationships Map Container */
+.relationships-map {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+/* Center Character */
+.relationship-center {
+  text-align: center;
+  padding: var(--space-xl);
+  background: linear-gradient(135deg, var(--parchment-dark), var(--parchment));
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--sepia);
+  max-width: 300px;
+  margin: 0 auto var(--space-xl);
+}
+
+.relationship-center-name {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--sepia);
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.relationship-center-role {
+  font-size: 0.9rem;
+  color: var(--ink-faded);
+  margin: 0;
+}
+
+/* Connection Groups */
+.relationship-group {
+  margin-bottom: var(--space-xl);
+}
+
+.relationship-group-title {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  color: var(--ink-brown);
+  margin: 0 0 var(--space-md) 0;
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--parchment-aged);
+}
+
+.relationship-group.allies .relationship-group-title { color: var(--herb-green-dark); }
+.relationship-group.complicated .relationship-group-title { color: var(--gold-accent); }
+.relationship-group.antagonists .relationship-group-title { color: var(--blood-red); }
+
+/* Connection Cards */
+.relationship-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: var(--space-md);
+}
+
+.relationship-card {
+  background: var(--parchment-light);
+  border: 1px solid var(--parchment-aged);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  position: relative;
+}
+
+.relationship-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+.relationship-card.ally::before { background: var(--herb-green); }
+.relationship-card.complicated::before { background: var(--gold-accent); }
+.relationship-card.antagonist::before { background: var(--blood-red); }
+
+.relationship-card-name {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--sepia);
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.relationship-card-relation {
+  font-size: 0.85rem;
+  color: var(--ink-faded);
+  margin: 0 0 var(--space-sm) 0;
+}
+
+.relationship-card-tension {
+  font-size: 0.9rem;
+  color: var(--ink-brown);
+  margin: 0 0 var(--space-sm) 0;
+  font-style: italic;
+}
+
+.relationship-card-location {
+  font-size: 0.8rem;
+  color: var(--ink-faded);
+  margin: 0;
+}
+
+/* Indirect Connections */
+.relationship-indirect {
+  margin-top: var(--space-xl);
+  padding: var(--space-lg);
+  background: rgba(101, 67, 33, 0.05);
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--parchment-aged);
+}
+
+.relationship-indirect-title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--ink-faded);
+  margin: 0 0 var(--space-md) 0;
+}
+
+.relationship-indirect-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.relationship-indirect-item {
+  padding: var(--space-sm) 0;
+  border-bottom: 1px dotted var(--parchment-aged);
+  font-size: 0.9rem;
+  color: var(--ink-brown);
+}
+
+.relationship-indirect-item:last-child {
+  border-bottom: none;
+}
+
+.relationship-indirect-item strong {
+  color: var(--sepia);
+}
+
 .vignettes-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));

@@ -16,6 +16,8 @@ const App = {
     chapters: [],
     vignettes: [],
     npcs: [],
+    knives: [],
+    relationships: null,
     
     // Passkey configuration
     // Change this passkey to whatever you want!
@@ -285,6 +287,23 @@ const App = {
             });
         }
 
+        // Knife modal close
+        const knifeOverlay = document.getElementById('knife-modal-overlay');
+        if (knifeOverlay) {
+            knifeOverlay.addEventListener('click', (e) => {
+                if (e.target.id === 'knife-modal-overlay') {
+                    this.closeKnifeModal();
+                }
+            });
+        }
+
+        const knifeClose = document.getElementById('knife-modal-close');
+        if (knifeClose) {
+            knifeClose.addEventListener('click', () => {
+                this.closeKnifeModal();
+            });
+        }
+
         // Handle browser back/forward
         window.addEventListener('hashchange', () => {
             this.handleHashChange();
@@ -364,6 +383,10 @@ const App = {
             this.loadVignettes();
         } else if (subtabName === 'npcs' && this.npcs.length === 0) {
             this.loadNPCs();
+        } else if (subtabName === 'knives' && this.knives.length === 0) {
+            this.loadKnives();
+        } else if (subtabName === 'relationships' && !this.relationships) {
+            this.loadRelationships();
         }
     },
 
@@ -1158,6 +1181,205 @@ const App = {
         if (overlay) {
             overlay.classList.remove('active');
         }
+    },
+
+    // ============================================
+    // Knives (DM Tools)
+    // ============================================
+
+    /**
+     * Load knives data
+     */
+    async loadKnives() {
+        const container = document.getElementById('knives-grid');
+        if (!container) return;
+
+        container.innerHTML = '<div class="loading-spinner">Loading knives...</div>';
+
+        try {
+            const response = await fetch('content/dm/knives.json');
+            this.knives = await response.json();
+            this.renderKnives();
+        } catch (error) {
+            console.error('Failed to load knives:', error);
+            container.innerHTML = '<p>Failed to load knives.</p>';
+        }
+    },
+
+    /**
+     * Render knife cards
+     */
+    renderKnives() {
+        const container = document.getElementById('knives-grid');
+        if (!container) return;
+
+        if (this.knives.length === 0) {
+            container.innerHTML = '<p>No knives found.</p>';
+            return;
+        }
+
+        container.innerHTML = this.knives.map((knife, index) => `
+            <div class="knife-card ${knife.type}" data-knife-index="${index}">
+                <div class="knife-card-header">
+                    <span class="knife-card-icon">${knife.icon}</span>
+                    <h3 class="knife-card-name">${knife.name}</h3>
+                </div>
+                <span class="knife-card-type">${knife.type}</span>
+                <p class="knife-card-summary">${knife.summary}</p>
+            </div>
+        `).join('');
+
+        // Bind click events
+        container.querySelectorAll('.knife-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const index = parseInt(card.dataset.knifeIndex);
+                this.openKnifeModal(this.knives[index]);
+            });
+        });
+    },
+
+    /**
+     * Open knife detail modal
+     */
+    openKnifeModal(knife) {
+        const overlay = document.getElementById('knife-modal-overlay');
+        const content = document.getElementById('knife-modal-content');
+        
+        if (overlay && content) {
+            content.innerHTML = `
+                <div class="knife-detail-header">
+                    <span class="knife-detail-icon">${knife.icon}</span>
+                    <h2 class="knife-detail-title">${knife.name}</h2>
+                </div>
+                <div class="knife-detail-section">
+                    <h4>What It Is</h4>
+                    <p>${knife.details}</p>
+                </div>
+                <div class="knife-detail-section">
+                    <h4>When to Pull It</h4>
+                    <p>${knife.trigger}</p>
+                </div>
+                <div class="knife-detail-section">
+                    <h4>Escalation</h4>
+                    <p>${knife.escalation}</p>
+                </div>
+            `;
+            overlay.classList.add('active');
+        }
+    },
+
+    /**
+     * Close knife modal
+     */
+    closeKnifeModal() {
+        const overlay = document.getElementById('knife-modal-overlay');
+        if (overlay) {
+            overlay.classList.remove('active');
+        }
+    },
+
+    // ============================================
+    // Relationships Map
+    // ============================================
+
+    /**
+     * Load relationships data
+     */
+    async loadRelationships() {
+        const container = document.getElementById('relationships-map');
+        if (!container) return;
+
+        container.innerHTML = '<div class="loading-spinner">Loading relationships...</div>';
+
+        try {
+            const response = await fetch('content/dm/relationships.json');
+            this.relationships = await response.json();
+            this.renderRelationships();
+        } catch (error) {
+            console.error('Failed to load relationships:', error);
+            container.innerHTML = '<p>Failed to load relationships.</p>';
+        }
+    },
+
+    /**
+     * Render relationships map
+     */
+    renderRelationships() {
+        const container = document.getElementById('relationships-map');
+        if (!container || !this.relationships) return;
+
+        const data = this.relationships;
+        
+        // Group connections by type
+        const allies = data.connections.filter(c => c.type === 'ally');
+        const complicated = data.connections.filter(c => c.type === 'complicated');
+        const antagonists = data.connections.filter(c => c.type === 'antagonist');
+
+        container.innerHTML = `
+            <!-- Center Character -->
+            <div class="relationship-center">
+                <h2 class="relationship-center-name">${data.center.name}</h2>
+                <p class="relationship-center-role">${data.center.role}</p>
+            </div>
+
+            <!-- Allies -->
+            ${allies.length > 0 ? `
+            <div class="relationship-group allies">
+                <h3 class="relationship-group-title">🟢 Allies</h3>
+                <div class="relationship-cards">
+                    ${allies.map(c => this.renderRelationshipCard(c)).join('')}
+                </div>
+            </div>
+            ` : ''}
+
+            <!-- Complicated -->
+            ${complicated.length > 0 ? `
+            <div class="relationship-group complicated">
+                <h3 class="relationship-group-title">🟡 Complicated Ties</h3>
+                <div class="relationship-cards">
+                    ${complicated.map(c => this.renderRelationshipCard(c)).join('')}
+                </div>
+            </div>
+            ` : ''}
+
+            <!-- Antagonists -->
+            ${antagonists.length > 0 ? `
+            <div class="relationship-group antagonists">
+                <h3 class="relationship-group-title">🔴 Antagonists</h3>
+                <div class="relationship-cards">
+                    ${antagonists.map(c => this.renderRelationshipCard(c)).join('')}
+                </div>
+            </div>
+            ` : ''}
+
+            <!-- Indirect Connections -->
+            ${data.indirect && data.indirect.length > 0 ? `
+            <div class="relationship-indirect">
+                <h4 class="relationship-indirect-title">Hidden Connections</h4>
+                <ul class="relationship-indirect-list">
+                    ${data.indirect.map(i => `
+                        <li class="relationship-indirect-item">
+                            <strong>${i.from}</strong> → <strong>${i.to}</strong>: ${i.description}
+                        </li>
+                    `).join('')}
+                </ul>
+            </div>
+            ` : ''}
+        `;
+    },
+
+    /**
+     * Render a single relationship card
+     */
+    renderRelationshipCard(connection) {
+        return `
+            <div class="relationship-card ${connection.type}">
+                <h4 class="relationship-card-name">${connection.name}</h4>
+                <p class="relationship-card-relation">${connection.relation}</p>
+                <p class="relationship-card-tension">${connection.tension}</p>
+                <p class="relationship-card-location">📍 ${connection.location}</p>
+            </div>
+        `;
     },
 
     /**

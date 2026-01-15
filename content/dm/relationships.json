@@ -1,0 +1,86 @@
+{
+  "center": {
+    "name": "Meilin Starwell",
+    "role": "Protagonist"
+  },
+  "connections": [
+    {
+      "name": "Kaito Starwell",
+      "relation": "Father",
+      "type": "ally",
+      "tension": "Anchor and vulnerability. Pressure on his shop forces her hand.",
+      "location": "Rock of Bral"
+    },
+    {
+      "name": "Cassian Starwell",
+      "relation": "Brother",
+      "type": "ally",
+      "tension": "His 'opportunities' come with invisible strings. Trust is complicated.",
+      "location": "Unknown (traveling)"
+    },
+    {
+      "name": "Meredin Sandyfoot",
+      "relation": "Patron/Fixer",
+      "type": "ally",
+      "tension": "Provides coverage, but coverage has costs. Favors must close.",
+      "location": "Rock of Bral (Burrows)"
+    },
+    {
+      "name": "Oona Marlow",
+      "relation": "Employer/Contact",
+      "type": "ally",
+      "tension": "Low-drama work, but she sees too much. Mutual protection.",
+      "location": "Astral Bazaar"
+    },
+    {
+      "name": "Sera Quill",
+      "relation": "Protected Witness",
+      "type": "complicated",
+      "tension": "She became the trail to Smith's Coster. Now she's watched.",
+      "location": "Rock of Bral"
+    },
+    {
+      "name": "Bram Cale",
+      "relation": "Inside Contact",
+      "type": "complicated",
+      "tension": "Helped steal the ledger page. Compromised. Could flip or vanish.",
+      "location": "Unknown"
+    },
+    {
+      "name": "Elowen Pryce",
+      "relation": "Pursuer",
+      "type": "antagonist",
+      "tension": "Smith's Coster field rep. Patient. Wants the ledger page or silence.",
+      "location": "Follows Meilin"
+    },
+    {
+      "name": "Smith's Coster",
+      "relation": "Antagonist Faction",
+      "type": "antagonist",
+      "tension": "Trading company behind the mindersand contamination. Wants the page back.",
+      "location": "Multi-port operation"
+    }
+  ],
+  "indirect": [
+    {
+      "from": "Elowen Pryce",
+      "to": "Kaito Starwell",
+      "description": "Pryce knows where Kaito is. Pressure point."
+    },
+    {
+      "from": "Elowen Pryce",
+      "to": "Sera Quill",
+      "description": "Pryce is mapping Sera's movements. Leverage."
+    },
+    {
+      "from": "Cassian Starwell",
+      "to": "Unknown Patron",
+      "description": "Cassian's opportunities come from someone. Strings attached."
+    },
+    {
+      "from": "Meredin Sandyfoot",
+      "to": "Kaito Starwell",
+      "description": "Meredin's network routes patients to Kaito. Shared exposure."
+    }
+  ]
+}
