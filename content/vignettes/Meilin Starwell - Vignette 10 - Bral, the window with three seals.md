@@ -1,202 +1,122 @@
-# Bral, The Window with Three Seals
+# The Window with Three Seals
 
 ## At a glance
 
-- Meilin learns "history" on Bral as practical institutional memory, not dusty dates.
-- A dock clerk tries to push blame downhill, and Meilin recognizes an old pattern with new ink.
-- Meilin uses what she remembers about past dock scandals to choose the right door, and the right words.
-- The lesson sticks, power keeps minutes, and paperwork outlives bruises.
+- A Bral trading house tries to strong-arm a Bazaar vendor using "standard Bral procedure."
+- Meilin recognizes the tactic from dock scandals she witnessed as a child.
+- She uses her knowledge of Bral's institutional history to expose the bluff.
+- The lesson: history isn't dates, it's leverage, and Bral's past travels with its merchants.
 
 ---
 
 **Skill Spotlight:** History
 
-Meilin learns that "history" on Bral is practical institutional memory: who changed what rule after which scandal, and which windows hate each other. She uses precedent as leverage and teaches a clerk that procedure is history with good handwriting.
+Meilin demonstrates that "history" is practical institutional memory. She applies her knowledge of Bral's dock scandals and procedural changes to recognize a con being run in the Astral Bazaar, proving that understanding how power uses paperwork is a transferable skill.
 
 ---
 
-On Bral, the air near the docks always tastes like rope.
+The Astral Bazaar doesn't smell like Bral.
 
-Not the rope itself, the memory of it. Salt in the fibers. Tar under the nails. Old sweat that never quite leaves the planks, even when someone scrubs hard enough to make a point.
+That's the first thing Meilin noticed when she arrived, and it's still the thing she notices most. No salt-rot in the planks. No tar under everything. The air here tastes like incense and ozone and the faint copper of a dozen species breathing in the same enclosed space.
 
-Meilin likes the apothecary because it's quiet in a way the docks aren't. Quiet isn't safe, but quiet is readable. You can hear a breath catch. You can hear when someone says a sentence the way they say a lie.
+But some things travel.
 
-The boy who comes in that afternoon isn't a sailor. Sailors bleed loudly.
+The man at Oona's stall wears Bral colors: the grey-green of a licensed trading house, cuffs embroidered with the three-seal mark of the dockmaster's office. He's not a sailor. He's the kind of man who makes sailors sign things.
 
-He wears a clerk's cuffs and a dock badge that looks polished for someone who works in the mud of cargo. He holds his hand as if it's an object that might betray him if he lets it move.
+Meilin is restocking Oona's remedy shelf when he arrives. She keeps her hands busy, her eyes down, her ears open.
 
-"I don't need a lecture," he says, before Meilin's even washed her hands.
+"Standard procedure," the man says, sliding a form across Oona's counter. "Bral-registered goods require a compliance seal before resale in any Wildspace market. It's been policy since the Quay Nine reforms."
 
-Meilin nods like she has agreed.
+Oona's fingers don't touch the paper. She looks at it like it might bite.
 
-"Good," she says. "Sit."
+"I've sold Bral goods here for three years," she says. "No one's asked for a compliance seal."
 
-He sits. He glances once toward the door. Not to see if anyone follows, but to see who might be listening. That tells her more than the badge does.
+The man smiles. It's the kind of smile that knows it's winning.
 
-His hand is a small disaster, a cut across the palm that was cleaned badly and wrapped worse. The skin around it is angry. The cut itself is not deep, which means the panic is not about the wound.
+"New enforcement," he says. "The Bazaar council has agreed to honor Bral trade protocols. You can pay the fee now, or I can flag your stall for inspection."
 
-Meilin unwraps the cloth. He flinches, then tries to hide it by clearing his throat.
+Meilin keeps stocking the shelf. She doesn't look up. But she's listening to the shape of the words, not just the words themselves.
 
-"Cargo splinter," he says.
+Quay Nine reforms.
 
-Meilin does not answer that. She holds his palm up to the light and looks at the angle of the cut.
+She remembers that phrase. She was young when it happened, a dock-born kid watching adults argue about hunger and blame. The riots weren't about food, not really. They were about who got to stamp the paperwork that decided who ate.
 
-"Quill splinter," she says instead.
+After the riots, the dockmaster's office made a show of reform. New rules. New seals. New windows that were supposed to keep the old corruption from happening again.
 
-His eyes flick to her face, quick and sharp.
+Meilin remembers what actually changed: the fees went up, and the people who paid them changed hands.
 
-Meilin keeps her voice even.
+She sets down a jar of dried yarrow and walks to the counter.
 
-"A warehouse board doesn't cut like this," she says. "A desk does. Ink-stained wood, varnish cracked, the kind that catches skin when you're rushing."
+"Excuse me," she says.
 
-He opens his mouth, then closes it. He watches her hands like she is a judge, and he hates that he needs her.
+The man turns. His smile doesn't waver, but his eyes do, a flicker of annoyance at the interruption.
 
-Meilin rinses the cut, slow and thorough. She picks out the sliver with tweezers. She does not make it dramatic.
+"I'm with a customer," he says.
 
-When she speaks again, she does not ask what he did.
+Meilin nods like she's agreeing.
 
-She asks what he is afraid of.
+"I know," she says. "I just wanted to ask about the witness requirement."
 
-"Whose window," she says.
+The man's smile stiffens.
 
-He swallows. Then he tries to laugh.
+Meilin keeps her voice casual, like she's asking about the weather.
 
-"What."
+"The Quay Nine reforms," she says. "They required a second witness seal on any fee adjustment. The witness has to be from a different window than the one issuing the form."
 
-Meilin ties a clean wrap, snug enough to hold, loose enough that it won't swell him into pain.
+She gestures at his paper.
 
-"On Bral, there are windows that take coin," she says. "There are windows that take favors. There are windows that take blood. You don't polish your badge for the first kind."
+"Your form only has one seal," she says. "Unless the Bazaar council has a Bral-licensed witness window, this document isn't valid under the same reforms you're citing."
 
-His shoulders go tight, then soften, just a fraction. Like the truth is heavier than lying.
+The man's jaw tightens.
 
-"Dockmaster's office," he says, then adds quickly, "Not the Dockmaster. One of the side windows."
+Oona's fingers are still above the paper, but now they're steady.
 
-Meilin nods. That narrows it.
+Meilin continues, her tone almost helpful.
 
-On paper, the dockmaster's office is one building.
+"I grew up on Bral," she says. "Dock-born. I remember when the reforms passed. I remember who pushed for the witness requirement, and I remember who tried to have it removed three times in the first year."
 
-In practice, it's three windows with three seals.
+She lets that settle.
 
-There is the seal that moves cargo.
+"Factor Hest was one of them," she says. "He's still trading, last I heard. Still using the old wording on his forms."
 
-There is the seal that moves money.
+The man's hand moves toward the paper, a reflex, as if he wants to take it back before she can read any more.
 
-There is the seal that makes problems disappear, and makes people disappear with them.
+Meilin doesn't stop him.
 
-The clerk looks at the floor.
+"If you want to cite Bral procedure," she says, "you should know Bral history. Because the people who lived through it? We remember what the reforms actually said."
 
-"They want me to sign," he says. "A fee adjustment. Just a correction, they said."
+The man picks up his form. He folds it once, then twice, then tucks it into his coat like it was never on the counter.
 
-Meilin hears the phrase and feels the old memory settle into place like a key finding its groove.
+"I'll verify the protocols," he says. "There may have been an administrative error."
 
-Fee adjustment.
+He leaves without looking back.
 
-That was the wording they used years ago when a whole dock crew got blamed for a missing crate that was never missing. It was re-labeled, re-stamped, and "adjusted" into someone else's ledger.
+Oona exhales slowly.
 
-Meilin was younger then. She was nobody. She'd stood in a line with other nobodies and watched a man in clean cuffs say it was procedure.
+"You know him?" she asks.
 
-Procedure, she learned, is history with good handwriting.
+Meilin shakes her head.
 
-Meilin finishes the bandage and rests the boy's wrapped hand on the table.
+"I know the trick," she says. "Different face, same ink."
 
-"Who told you to sign," she asks.
+Oona looks at her, thoughtful.
 
-He hesitates.
+"You remember all that? Reforms, witness seals, names?"
 
-Meilin does not fill the silence. She watches his mouth, the way it tightens on names like they have edges.
+Meilin returns to the remedy shelf. She picks up the yarrow jar, sets it in its proper place.
 
-"Factor Hest," he says finally.
+"History isn't dates," she says. "It's who changed what rule after which scandal, and which people never got held accountable."
 
-Meilin doesn't react. She keeps her face like a blank page.
+She pauses.
 
-But she remembers.
+"On Bral, that's survival," she says. "Here, it's leverage."
 
-Factor Hest isn't new money, he's old leverage. He's the kind of man who survives changes in banners because he knows which debts don't get written down. He was a witness in the last dock scandal, and he didn't suffer for it. That means he didn't testify, he traded.
+Oona nods slowly.
 
-The clerk looks up at her.
+"And the leverage travels," she says.
 
-"I thought you were just a healer," he says, like it's an accusation.
+Meilin doesn't answer that. She just keeps stocking the shelf, her hands steady, her mind already filing the encounter away.
 
-Meilin rinses her hands again. Water is honest. It doesn't pretend to be anything else.
+The Bazaar doesn't smell like Bral.
 
-"I am," she says. "But Bral teaches in waiting rooms."
-
-She reaches for her notebook. It's not a grand ledger, it's a small one, the kind that fits under a sleeve. She flips to a page where she's written names, dates, and the kind of details people call gossip when they don't understand it's survival.
-
-She taps a line with her finger.
-
-"Three years ago," she says. "The dockmaster's office changed its fee schedule after the riot on Quay Nine."
-
-The clerk blinks.
-
-"That was about food," he says.
-
-"It was about hunger," Meilin replies. "But it became about paperwork."
-
-She looks at him, calm, exact.
-
-"After that riot, they made a rule," she says. "No fee adjustment without a second witness seal, and the witness seal can't be from the same window that issued the form."
-
-The clerk's eyes widen, then narrow with a kind of desperate hope.
-
-"That's real," he says.
-
-"It's written," Meilin says. "Written is what matters."
-
-He leans forward, then stops himself, like leaning is dangerous.
-
-"They told me it was an exception," he says.
-
-Meilin nods as if this is normal, because on Bral it is.
-
-"Exceptions are how they test whether you'll let them own your hand," she says.
-
-The clerk's throat works.
-
-"What do I do," he asks.
-
-Meilin closes her notebook.
-
-"You don't argue with the window that wants your signature," she says. "You go to the window that hates them."
-
-He stares at her.
-
-Meilin keeps her voice low.
-
-"Ask for the second seal," she says. "Ask it in writing. Use the riot as your reason, not your fear. People on Bral respect precedent more than they respect pain."
-
-The clerk swallows again. His shoulders are still tight, but his breathing's steadier. Like someone's moved the problem from his ribs to the table where it can be handled.
-
-Meilin stands and opens a small drawer.
-
-She takes out a scrap of paper, a plain receipt form, and writes two lines in careful ink.
-
-She signs it with her own name, not as authority, but as a witness that he was here and his hand is injured.
-
-If someone wants to say he signed under pressure, there will be a record that his hand was wrapped and his grip was compromised. That's not justice. It's leverage.
-
-She slides the paper to him.
-
-"You didn't hear this from me," she says.
-
-He takes it with his good hand.
-
-"I did," he says quietly.
-
-Meilin tilts her head.
-
-"Then forget the words," she says. "Remember the shape."
-
-He looks at her, confused.
-
-Meilin gestures toward the docks, toward the building that pretends to be one building.
-
-"Power keeps minutes," she says. "It writes them down. It stamps them. It calls that history."
-
-The clerk stands, careful with his hand now, and for the first time he looks like someone who might survive the day without being turned into a signature.
-
-When he leaves, Meilin washes the table. She scrubs the ink stain where his wrist rested.
-
-She does it slowly, because she's learned something Bral teaches without kindness.
-
-Today becomes precedent faster than you'd think.
+But some things, she's learning, travel just fine.
