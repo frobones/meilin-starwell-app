@@ -1,4 +1,4 @@
-# Meilin Starwell - Vignette 15 - Bral, the window with three seals
+# Bral, The Window with Three Seals
 
 ## At a glance
 

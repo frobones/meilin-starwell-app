@@ -1,4 +1,4 @@
-# **Vignette 02 — Cant notes (how she picks up Thieves’ Cant)**
+# Cant Notes
 
 ## At a glance
 

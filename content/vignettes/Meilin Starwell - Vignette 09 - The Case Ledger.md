@@ -1,4 +1,4 @@
-# Meilin Starwell - Vignette 14 - The Case Ledger
+# The Case Ledger
 
 ## At a glance
 
@@ -10,9 +10,9 @@
 
 ---
 
-**Skill Spotlight:** Investigation, Persuasion, Medicine
+**Faction Spotlight:** The Medica
 
-Meilin approaches the Medica with a sealed sample and chain-of-custody documentation. She negotiates help without signing away ownership, treating evidence handling like triage discipline: proof over rumor, procedure over panic.
+Meilin's first contact with the Medica chapterhouse in the Astral Bazaar. She meets **Junia Rell**, who makes help look like paperwork, and **Brother Sovo**, who cares about outcomes more than credit. The Case Ledger becomes a bridge between her lone-apothecary method and an organization that respects procedure.
 
 ---
 

@@ -1,4 +1,4 @@
-# Meilin Starwell - Vignette 07 - The tell, the pause
+# The Tell, The Pause
 
 ## At a glance
 

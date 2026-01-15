@@ -940,19 +940,14 @@ const App = {
             { file: 'Meilin Starwell - Vignette 00 - First bolt.md', number: '01', title: 'First Bolt' },
             { file: 'Meilin Starwell - Vignette 01 - Vex lesson.md', number: '02', title: 'Vex Lesson' },
             { file: 'Meilin Starwell - Vignette 02 - Cant notes.md', number: '03', title: 'Cant Notes' },
-            { file: 'Meilin Starwell - Vignette 03 - Medicines She Favors.md', number: '04', title: 'Medicines She Favors' },
-            { file: 'Meilin Starwell - Vignette 04 - Oona\'s stall, the first rule.md', number: '05', title: 'Oona\'s Stall, the First Rule' },
-            { file: 'Meilin Starwell - Vignette 05 - The logbook habit, Bazaar edition.md', number: '06', title: 'The Logbook Habit' },
-            { file: 'Meilin Starwell - Vignette 06 - Theo Lockwell, quiet preparation.md', number: '07', title: 'Theo Lockwell' },
-            { file: 'Meilin Starwell - Vignette 07 - The tell, the pause.md', number: '08', title: 'The Tell, the Pause' },
-            { file: 'Meilin Starwell - Vignette 08 - A polite lie in Undercommon.md', number: '09', title: 'A Polite Lie in Undercommon' },
-            { file: 'Meilin Starwell - Vignette 09 - Persuasion is triage.md', number: '10', title: 'Persuasion is Triage' },
-            { file: 'Meilin Starwell - Vignette 10 - Quiet feet, open eyes.md', number: '11', title: 'Quiet Feet, Open Eyes' },
-            { file: 'Meilin Starwell - Vignette 11 - Fingers, coin, and shame.md', number: '12', title: 'Fingers, Coin, and Shame' },
-            { file: 'Meilin Starwell - Vignette 12 - Paper cuts deeper.md', number: '13', title: 'Paper Cuts Deeper' },
-            { file: 'Meilin Starwell - Vignette 13 - Procedure for a living place.md', number: '14', title: 'Procedure for a Living Place' },
-            { file: 'Meilin Starwell - Vignette 14 - The Case Ledger.md', number: '15', title: 'The Case Ledger' },
-            { file: 'Meilin Starwell - Vignette 15 - Bral, the window with three seals.md', number: '16', title: 'Bral, the Window with Three Seals' }
+            { file: 'Meilin Starwell - Vignette 03 - Theo Lockwell, quiet preparation.md', number: '04', title: 'Theo Lockwell' },
+            { file: 'Meilin Starwell - Vignette 04 - The tell, the pause.md', number: '05', title: 'The Tell, the Pause' },
+            { file: 'Meilin Starwell - Vignette 05 - A polite lie in Undercommon.md', number: '06', title: 'A Polite Lie in Undercommon' },
+            { file: 'Meilin Starwell - Vignette 06 - Persuasion is triage.md', number: '07', title: 'Persuasion is Triage' },
+            { file: 'Meilin Starwell - Vignette 07 - Quiet feet, open eyes.md', number: '08', title: 'Quiet Feet, Open Eyes' },
+            { file: 'Meilin Starwell - Vignette 08 - Fingers, coin, and shame.md', number: '09', title: 'Fingers, Coin, and Shame' },
+            { file: 'Meilin Starwell - Vignette 09 - The Case Ledger.md', number: '10', title: 'The Case Ledger' },
+            { file: 'Meilin Starwell - Vignette 10 - Bral, the window with three seals.md', number: '11', title: 'Bral, the Window with Three Seals' }
         ];
 
         // Load all vignettes

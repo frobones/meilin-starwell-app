@@ -1,4 +1,4 @@
-# Meilin Starwell - Vignette 06 - Theo Lockwell, quiet preparation
+# Theo Lockwell, Quiet Preparation
 
 ## At a glance
 

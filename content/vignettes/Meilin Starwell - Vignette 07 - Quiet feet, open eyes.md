@@ -1,4 +1,4 @@
-# Meilin Starwell - Vignette 10 - Quiet feet, open eyes
+# Quiet Feet, Open Eyes
 
 ## At a glance
 

@@ -1,4 +1,4 @@
-# **Vignette 01 — Vex lesson (how she earns Weapon Mastery and Sneak Attack)**
+# Vex Lesson
 
 ## At a glance
 

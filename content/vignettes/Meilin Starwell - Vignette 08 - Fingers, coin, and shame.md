@@ -1,4 +1,4 @@
-# Meilin Starwell - Vignette 11 - Fingers, coin, and shame
+# Fingers, Coin, and Shame
 
 ## At a glance
 

@@ -1,4 +1,4 @@
-# **Vignette 00 — First bolt (the first time she uses the hand crossbow)**
+# First Bolt
 
 ## At a glance
 

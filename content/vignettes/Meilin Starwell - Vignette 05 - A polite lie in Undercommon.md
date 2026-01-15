@@ -1,4 +1,4 @@
-# Meilin Starwell - Vignette 08 - A polite lie in Undercommon
+# A Polite Lie in Undercommon
 
 ## At a glance
 

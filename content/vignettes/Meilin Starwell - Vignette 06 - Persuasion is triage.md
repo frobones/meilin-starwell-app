@@ -1,4 +1,4 @@
-# Meilin Starwell - Vignette 09 - Persuasion is triage
+# Persuasion is Triage
 
 ## At a glance
 
