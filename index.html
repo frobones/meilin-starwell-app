@@ -100,6 +100,16 @@
                 <section class="aag-section aag-quicklinks">
                     <h2 class="aag-section-title">Explore More</h2>
                     <div class="aag-links-row">
+                        <button class="aag-link-card" data-action="show-background">
+                            <span class="aag-link-icon">🎭</span>
+                            <span class="aag-link-title">Background</span>
+                            <span class="aag-link-count">Apothecary origin</span>
+                        </button>
+                        <a href="#backstory" class="aag-link-card" data-navigate="backstory" data-subtab="backstory">
+                            <span class="aag-link-icon">📚</span>
+                            <span class="aag-link-title">Full Backstory</span>
+                            <span class="aag-link-count" id="aag-chapters-count">12 chapters</span>
+                        </a>
                         <a href="#backstory" class="aag-link-card" data-navigate="backstory" data-subtab="knives">
                             <span class="aag-link-icon">🗡️</span>
                             <span class="aag-link-title">Knives</span>
@@ -109,11 +119,6 @@
                             <span class="aag-link-icon">🔗</span>
                             <span class="aag-link-title">Relationships</span>
                             <span class="aag-link-count" id="aag-relationships-count">8 connections</span>
-                        </a>
-                        <a href="#backstory" class="aag-link-card" data-navigate="backstory" data-subtab="backstory">
-                            <span class="aag-link-icon">📚</span>
-                            <span class="aag-link-title">Full Backstory</span>
-                            <span class="aag-link-count" id="aag-chapters-count">12 chapters</span>
                         </a>
                     </div>
                 </section>
@@ -226,8 +231,7 @@
 
                 <!-- Backstory Sub-tabs -->
                 <nav class="sub-tab-nav">
-                    <button class="sub-tab-btn active" data-subtab="background">Background</button>
-                    <button class="sub-tab-btn" data-subtab="backstory">Backstory</button>
+                    <button class="sub-tab-btn active" data-subtab="backstory">Backstory</button>
                     <button class="sub-tab-btn" data-subtab="vignettes">Vignettes</button>
                     <button class="sub-tab-btn" data-subtab="relationships">Relationships</button>
                     <button class="sub-tab-btn" data-subtab="knives">Knives</button>
@@ -235,15 +239,8 @@
 
                 <!-- Backstory Content -->
                 <main class="backstory-content">
-                    <!-- Background -->
-                    <div class="sub-tab-content active" id="background-subtab">
-                        <div class="narrative-container" id="background-content">
-                            <div class="loading-spinner">Loading...</div>
-                        </div>
-                    </div>
-
                     <!-- Backstory (Full Narrative) -->
-                    <div class="sub-tab-content" id="backstory-subtab">
+                    <div class="sub-tab-content active" id="backstory-subtab">
                         <div class="backstory-enhanced" id="backstory-enhanced">
                             <div class="loading-spinner">Loading...</div>
                         </div>
@@ -327,6 +324,16 @@
                     </div>
                 </form>
                 <p class="passkey-hint">Hint: The code for mindersand in Smith's Coster's ledger.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Background Modal -->
+    <div class="modal-overlay" id="background-modal-overlay">
+        <div class="modal background-modal">
+            <button class="modal-close" id="background-modal-close">×</button>
+            <div class="modal-content" id="background-modal-content">
+                <div class="loading-spinner">Loading background...</div>
             </div>
         </div>
     </div>

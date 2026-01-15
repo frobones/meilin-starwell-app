@@ -306,6 +306,31 @@ const App = {
             });
         }
 
+        // Background modal close
+        const backgroundOverlay = document.getElementById('background-modal-overlay');
+        if (backgroundOverlay) {
+            backgroundOverlay.addEventListener('click', (e) => {
+                if (e.target.id === 'background-modal-overlay') {
+                    this.closeBackgroundModal();
+                }
+            });
+        }
+
+        const backgroundClose = document.getElementById('background-modal-close');
+        if (backgroundClose) {
+            backgroundClose.addEventListener('click', () => {
+                this.closeBackgroundModal();
+            });
+        }
+
+        // Show background action (from At a Glance page)
+        document.querySelectorAll('[data-action="show-background"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.showBackgroundModal();
+            });
+        });
+
         // Handle browser back/forward
         window.addEventListener('hashchange', () => {
             this.handleHashChange();
@@ -378,9 +403,7 @@ const App = {
         });
 
         // Load content if needed
-        if (subtabName === 'background' && !this.backgroundContent) {
-            this.loadBackground();
-        } else if (subtabName === 'backstory' && !this.backstoryContent) {
+        if (subtabName === 'backstory' && !this.backstoryContent) {
             this.loadEnhancedBackstory();
         } else if (subtabName === 'vignettes' && this.vignettes.length === 0) {
             this.loadVignettes();
@@ -1082,7 +1105,7 @@ const App = {
      * Bind events for quick link cards on At a Glance page
      */
     bindQuickLinkEvents() {
-        document.querySelectorAll('.aag-link-card').forEach(card => {
+        document.querySelectorAll('.aag-link-card[data-navigate]').forEach(card => {
             card.addEventListener('click', (e) => {
                 e.preventDefault();
                 const targetPage = card.dataset.navigate;
@@ -1100,11 +1123,10 @@ const App = {
     },
 
     /**
-     * Load all backstory content (worksheet, overview, chapters, vignettes, npcs)
+     * Load all backstory content (backstory, vignettes, npcs)
      */
     async loadBackstoryContent() {
         await Promise.all([
-            this.loadBackground(),
             this.loadEnhancedBackstory(),
             this.loadVignettes(),
             this.loadNPCs()
@@ -1112,23 +1134,40 @@ const App = {
     },
 
     /**
-     * Load the custom background
+     * Load and show the custom background in a modal
      */
-    async loadBackground() {
-        const container = document.getElementById('background-content');
-        if (!container) return;
+    async showBackgroundModal() {
+        const overlay = document.getElementById('background-modal-overlay');
+        const container = document.getElementById('background-modal-content');
+        if (!overlay || !container) return;
 
+        // Show modal with loading state
+        overlay.classList.add('active');
         container.innerHTML = '<div class="loading-spinner">Loading background...</div>';
 
-        try {
-            const response = await fetch('content/background/apothecary.md');
-            const markdown = await response.text();
-            const html = marked.parse(markdown);
-            this.backgroundContent = html;
-            container.innerHTML = html;
-        } catch (error) {
-            console.error('Failed to load background:', error);
-            container.innerHTML = '<p>Failed to load background.</p>';
+        // Load content if not cached
+        if (!this.backgroundContent) {
+            try {
+                const response = await fetch('content/background/apothecary.md');
+                const markdown = await response.text();
+                this.backgroundContent = marked.parse(markdown);
+            } catch (error) {
+                console.error('Failed to load background:', error);
+                container.innerHTML = '<p>Failed to load background.</p>';
+                return;
+            }
+        }
+
+        container.innerHTML = this.backgroundContent;
+    },
+
+    /**
+     * Close the background modal
+     */
+    closeBackgroundModal() {
+        const overlay = document.getElementById('background-modal-overlay');
+        if (overlay) {
+            overlay.classList.remove('active');
         }
     },
 

@@ -1447,10 +1447,12 @@ details[open] .rules-toggle::after {
   align-items: center;
   text-align: center;
   background: var(--parchment);
+  border: none;
   border-radius: var(--radius-md);
   padding: var(--space-lg);
   text-decoration: none;
   color: var(--ink-brown);
+  font-family: inherit;
   box-shadow: 0 2px 8px var(--shadow);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   cursor: pointer;
@@ -2345,6 +2347,57 @@ details[open] .rules-toggle::after {
   text-transform: uppercase;
   letter-spacing: 0.1em;
   margin-bottom: var(--space-xs);
+}
+
+/* Background Modal */
+.background-modal {
+  max-width: 700px;
+}
+
+.background-modal .modal-content {
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: var(--space-lg);
+}
+
+.background-modal h1 {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  color: var(--sepia);
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-md);
+  border-bottom: 2px solid var(--parchment-aged);
+}
+
+.background-modal h2 {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  color: var(--ink-brown);
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-md);
+}
+
+.background-modal p {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-dark);
+  margin-bottom: var(--space-md);
+}
+
+.background-modal ul,
+.background-modal ol {
+  margin: var(--space-md) 0 var(--space-md) var(--space-lg);
+  color: var(--text-dark);
+}
+
+.background-modal li {
+  margin-bottom: var(--space-sm);
+  line-height: 1.6;
+}
+
+.background-modal strong {
+  color: var(--sepia);
 }
 
 /* ============================================
