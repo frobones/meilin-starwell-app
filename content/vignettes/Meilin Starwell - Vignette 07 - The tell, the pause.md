@@ -11,6 +11,12 @@
 
 ---
 
+**Skill Spotlight:** Investigation, Insight
+
+Meilin reads micro-tells: the pause before a lie, the hand that betrays, and where a person's eyes go first. She learns that people look first where their work lives.
+
+---
+
 The Rock of Bral teaches you the price of obviousness.
 
 The Astral Bazaar teaches you the price of being right in public.

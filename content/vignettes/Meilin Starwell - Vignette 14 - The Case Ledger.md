@@ -10,6 +10,12 @@
 
 ---
 
+**Skill Spotlight:** Investigation, Persuasion, Medicine
+
+Meilin approaches the Medica with a sealed sample and chain-of-custody documentation. She negotiates help without signing away ownership, treating evidence handling like triage discipline: proof over rumor, procedure over panic.
+
+---
+
 The Astral Bazaar smells like hot oil, cold metal, and the thin sweetness of something pretending to be safe.
 
 The Medica’s clinic does not look like a clinic.

@@ -11,6 +11,12 @@
 
 ---
 
+**Skill Spotlight:** Persuasion
+
+Meilin sets boundaries before accepting work: no dosing, no hostage logic. She uses calm clarity to negotiate agreement without drama, turning a job offer into a contract with ethics attached.
+
+---
+
 The Astral Bazaar hums even when it is trying to sleep.
 
 Canvas snaps softly. Brass chimes tick against each other. Somewhere nearby, a cook argues with a kettle like the kettle can be shamed into boiling faster. Meilin stands at the edge of a gear stall and watches hands.

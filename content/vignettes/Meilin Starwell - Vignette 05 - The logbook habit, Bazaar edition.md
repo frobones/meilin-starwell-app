@@ -7,7 +7,13 @@
 - She demands the lot mark and records it with stall location and print quirks.
 - She keeps the tone calm and procedural, not accusatory, to avoid creating heat.
 - She isolates the suspect goods and gets the runner water and cleaner air.
-- She writes because the second time isn’t an accident, and fog depends on forgetting.
+- She writes because the second time isn't an accident, and fog depends on forgetting.
+
+---
+
+**Skill Spotlight:** Investigation, Medicine
+
+Meilin treats a cough like a case: names and time first, then symptoms, then lot marks. She logs stall locations and print quirks so the second time becomes evidence instead of coincidence.
 
 ---
 

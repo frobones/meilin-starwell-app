@@ -11,7 +11,13 @@
 
 ---
 
-Meilin doesn’t become quiet because she wants to be a ghost.
+**Skill Spotlight:** Perception, Stealth, Common Sign Language
+
+Meilin walks a route unarmed to see the truth. She reads shifted stalls and sight lines, lets a pick commit before catching them, and uses sign language to warn a stallkeeper without making a scene. Stealth is choosing what people notice.
+
+---
+
+Meilin doesn't become quiet because she wants to be a ghost.
 
 She becomes quiet because she doesn’t want to be a target.
 

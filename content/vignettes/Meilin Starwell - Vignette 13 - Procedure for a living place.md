@@ -7,11 +7,17 @@
 - A woman asks for sleep, and Meilin reads fear and coercion instead of “insomnia.”
 - She triages with questions, then offers help that steadies without making the woman helpless.
 - She pays for the detail that matters, who handed the cup, what the hands looked like.
-- Oona recognizes the pattern and approves the shift from “clinic” to Bazaar protocol.
+- Oona recognizes the pattern and approves the shift from "clinic" to Bazaar protocol.
 
 ---
 
-Meilin doesn’t arrive in the Astral Bazaar and become someone new.
+**Skill Spotlight:** Medicine, Insight, Investigation
+
+Meilin sets up her counter space like an exam tray and reads fear and coercion instead of "insomnia." She treats the cause, not the performance, and pays for details that matter. Her apothecary method becomes Bazaar protocol.
+
+---
+
+Meilin doesn't arrive in the Astral Bazaar and become someone new.
 
 She arrives and discovers her old self needs new rules.
 

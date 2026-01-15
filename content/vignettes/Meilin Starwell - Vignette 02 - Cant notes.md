@@ -11,7 +11,9 @@
 
 ---
 
-This vignette is **not** part of Meilin’s numbered backstory stages. It’s a small, optional “camera moment” about her learning to hear the Bazaar’s under-language without becoming the kind of person who worships it.
+**Skill Spotlight:** Thieves' Cant
+
+Meilin learns the Bazaar's under-language by treating it like symptoms: repeated phrases, chalk marks, pauses that don't match the words. She keeps one ethics note attached: don't use the language to spend innocents.
 
 ---
 

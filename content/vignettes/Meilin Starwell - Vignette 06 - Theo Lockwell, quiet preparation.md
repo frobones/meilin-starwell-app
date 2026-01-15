@@ -11,7 +11,13 @@
 
 ---
 
-Theo Lockwell’s stall smells like oil and patience.
+**Skill Spotlight:** Thieves' Tools, Insight
+
+Theo teaches Meilin that speed is a symptom, not a virtue. She practices locks like she practices medicine: documenting errors, slowing down under stress, and treating calm hands as the first survival skill.
+
+---
+
+Theo Lockwell's stall smells like oil and patience.
 
 There are small parts laid out on cloth, lined up as if the cloth itself is a ledger. Picks. Tension tools. Tiny shims that look like nothing until a door refuses you. Theo looks up when Meilin arrives, and his eyes do the same inventory her hands always do.
 

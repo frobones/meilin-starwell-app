@@ -7,7 +7,13 @@
 - She favors honest basics that keep a crew functional, water first, then tonic, then salve.
 - She keeps antitoxin and antivenom separate because casual use becomes harm.
 - She logs times, batches, handlers, and outcomes, because fog depends on forgetting.
-- When someone says “I don’t feel right,” she asks for specifics and starts with the safest fix.
+- When someone says "I don't feel right," she asks for specifics and starts with the safest fix.
+
+---
+
+**Skill Spotlight:** Medicine, Nature
+
+Meilin shops like an apothecary and treats remedies as procedure. She knows her ingredients by use, not by romance. This is where her practical medicine philosophy takes shape: honest basics that keep a crew functional, consent before treatment, and a log that outlives fog.
 
 ---
 

@@ -11,10 +11,9 @@
 
 ---
 
-This vignette is **not** part of Meilin’s numbered backstory stages. It’s a small, optional scene that paints how her “Rogue mechanics” show up in the fiction:
+**Skill Spotlight:** Weapon Mastery (Vex), Sneak Attack
 
-- **Weapon Mastery**: she drills one weapon until she can reliably exploit its mastery cadence.
-- **Sneak Attack**: she learns to strike only when the target is already compromised, when attention is split.
+Theo drills Meilin until the crossbow becomes procedure, not performance. She learns to strike when attention is split: exploit the flinch, hit when the target is already compromised. This is where Sneak Attack stops being a mechanic and becomes a philosophy.
 
 ---
 

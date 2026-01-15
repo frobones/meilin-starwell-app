@@ -11,7 +11,9 @@
 
 ---
 
-This vignette is **not** part of Meilin’s numbered backstory stages. It’s a small, optional “camera moment” meant to paint her competence without locking in a long arc.
+**Skill Spotlight:** Hand Crossbow, Perception, Insight
+
+Meilin reads Oona's trembling hands, catalogs the threat's body language like a triage assessment, and fires with control when violence becomes unavoidable. This is where she learns to treat a weapon like a tool: precise, reluctant, and never for spectacle.
 
 ---
 

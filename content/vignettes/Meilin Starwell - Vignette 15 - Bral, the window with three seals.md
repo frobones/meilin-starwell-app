@@ -9,6 +9,12 @@
 
 ---
 
+**Skill Spotlight:** History
+
+Meilin learns that "history" on Bral is practical institutional memory: who changed what rule after which scandal, and which windows hate each other. She uses precedent as leverage and teaches a clerk that procedure is history with good handwriting.
+
+---
+
 On Bral, the air near the docks always tastes like rope.
 
 Not the rope itself, the memory of it. Salt in the fibers. Tar under the nails. Old sweat that never quite leaves the planks, even when someone scrubs hard enough to make a point.

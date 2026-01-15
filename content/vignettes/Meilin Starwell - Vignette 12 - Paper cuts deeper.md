@@ -7,7 +7,13 @@
 - Oona produces a manifest page that looks official, too official.
 - Meilin audits paper, ink, and stamp impressions like a diagnostic exam.
 - She spots “new materials for an old date” and a stamp that’s perfect instead of tired.
-- She turns it into a plan, build a list of who’s asking, then pressure the chain, not the clerk.
+- She turns it into a plan, build a list of who's asking, then pressure the chain, not the clerk.
+
+---
+
+**Skill Spotlight:** Investigation
+
+Meilin audits paper, ink, and stamp impressions like a diagnostic exam. She spots "new materials for an old date" and a stamp that's perfect instead of tired. Pattern recognition turns mundane paperwork into evidence.
 
 ---
 
