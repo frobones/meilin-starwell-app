@@ -1072,19 +1072,10 @@ const App = {
 
         const alchemillaAgent = this.rules.enhancingAgents?.find(a => a.name === 'Alchemilla');
         const durationLadder = alchemillaAgent?.durationLadder?.join(' → ') || '';
+        const ephedraAgent = this.rules.enhancingAgents?.find(a => a.name === 'Ephedra');
 
         rulesContent.innerHTML = `
             <div class="rules-grid">
-                <div class="rules-card">
-                    <h4>Making a Medicine</h4>
-                    <ul>
-                        <li><strong>Time:</strong> ${this.rules.crafting.time}</li>
-                        <li><strong>Tool:</strong> ${this.rules.crafting.tool}</li>
-                        <li><strong>Rest:</strong> ${this.rules.crafting.restCompatible}</li>
-                        <li><strong>On failure:</strong> ${this.rules.crafting.failure}</li>
-                    </ul>
-                </div>
-                
                 <div class="rules-card">
                     <h4>Gathering Plants</h4>
                     <ul>
@@ -1092,6 +1083,16 @@ const App = {
                         <li><strong>Check:</strong> Intelligence (Nature)</li>
                         <li><strong>Advantage:</strong> ${this.rules.gathering.advantage}</li>
                         <li><strong>Spoilage:</strong> 8 hours without kit storage</li>
+                    </ul>
+                </div>
+                
+                <div class="rules-card">
+                    <h4>Making a Medicine</h4>
+                    <ul>
+                        <li><strong>Time:</strong> ${this.rules.crafting.time}</li>
+                        <li><strong>Tool:</strong> ${this.rules.crafting.tool}</li>
+                        <li><strong>Rest:</strong> ${this.rules.crafting.restCompatible}</li>
+                        <li><strong>On failure:</strong> ${this.rules.crafting.failure}</li>
                     </ul>
                 </div>
                 
@@ -1104,14 +1105,6 @@ const App = {
                     </table>
                 </div>
                 
-                <div class="rules-card">
-                    <h4>Enhancing Agents</h4>
-                    <ul>
-                        ${this.rules.enhancingAgents.map(agent => `
-                            <li><strong>${agent.name}:</strong> ${agent.effect} (${agent.dcIncrease})</li>
-                        `).join('')}
-                    </ul>
-                </div>
             </div>
 
             ${this.rules.gatheringOptions ? `
@@ -1148,9 +1141,15 @@ const App = {
             ` : ''}
 
             ${durationLadder ? `
-            <h3>Alchemilla Duration Ladder</h3>
+            <h3>Alchemilla (Duration Extension)</h3>
             <p style="margin-bottom: 0.5rem;"><strong>${durationLadder}</strong></p>
-            <p style="margin-bottom: 1.5rem; font-size: 0.85rem;">Each unit of Alchemilla steps the duration up one tier and adds +1 difficulty level.</p>
+            <p style="margin-bottom: 1.5rem; font-size: 0.85rem;">Each unit steps duration up one tier. ${alchemillaAgent?.dcIncrease || '+1 difficulty level per unit'}.</p>
+            ` : ''}
+
+            ${ephedraAgent ? `
+            <h3>Ephedra (Potency Boost)</h3>
+            <p style="margin-bottom: 0.5rem;"><strong>×1 → ×2 → ×4 → ×8</strong></p>
+            <p style="margin-bottom: 1.5rem; font-size: 0.85rem;">Doubles dice that restore or grant hit points or other resources. ${ephedraAgent.dcIncrease}.</p>
             ` : ''}
 
             ${this.rules.enhancementLimits ? `
