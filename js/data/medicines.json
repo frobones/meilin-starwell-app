@@ -797,9 +797,56 @@
       {"stars": 5, "dc": 28, "label": "Maximum"}
     ],
     "enhancingAgents": [
-      {"name": "Alchemilla", "effect": "Extends duration (base duration must be at least 1 minute)", "dcIncrease": "+1 difficulty level"},
-      {"name": "Ephedra", "effect": "Doubles dice for HP restoration (multiplicative)", "dcIncrease": "+1 difficulty level"}
-    ]
+      {
+        "name": "Alchemilla",
+        "effect": "Extends duration (1 min → 10 min → 1 hr → 8 hrs → 24 hrs). Cumulative.",
+        "dcIncrease": "+1 difficulty level per unit",
+        "durationLadder": ["1 min", "10 min", "1 hr", "8 hrs", "24 hrs"]
+      },
+      {
+        "name": "Ephedra",
+        "effect": "Doubles dice for HP restoration (multiplicative)",
+        "dcIncrease": "+1 difficulty level per unit"
+      }
+    ],
+    "gatheringOptions": {
+      "intro": "On a successful Nature check, choose one:",
+      "options": [
+        {
+          "threshold": 10,
+          "name": "Common Flora",
+          "description": "Roll d6 on Common Flora table. DC 10/+5 = how many units (10 for 1st, 15 for 2nd, etc.)"
+        },
+        {
+          "threshold": 15,
+          "name": "Rare Flora (Your Terrain)",
+          "description": "Pick 1 rare flora from your current terrain. Its DC must be ≤ your result."
+        },
+        {
+          "threshold": 20,
+          "name": "Rare Flora (Other Terrain)",
+          "description": "Take -5 penalty, then pick 1 rare flora from another terrain. DC must be ≤ new result."
+        }
+      ]
+    },
+    "commonFloraTable": [
+      {"roll": 1, "component": "Alchemilla", "category": "Enhancing"},
+      {"roll": 2, "component": "Deadly nightshade", "category": "Augmenting"},
+      {"roll": 3, "component": "Ephedra", "category": "Enhancing"},
+      {"roll": 4, "component": "Fleshwort", "category": "Restorative"},
+      {"roll": 5, "component": "Juniper berries", "category": "Curative"},
+      {"roll": 6, "component": "Willow bark", "category": "Fortifying"}
+    ],
+    "spellAssist": [
+      {"spell": "Locate animals or plants", "effect": "Reduces target flora DC by 5; common table becomes 5/+5"},
+      {"spell": "Plant growth", "effect": "Harvest 2 units instead of 1"},
+      {"spell": "Conjure woodland beings", "effect": "Pixie/sprite can gather (proficient in Nature)"}
+    ],
+    "enhancementLimits": {
+      "maxEnhancements": "Number of empty stars (☆) in the medicine",
+      "indefiniteDuration": "Four-pointed star (✧) = duration becomes indefinite",
+      "indefiniteLimit": "Only one indefinite-duration medicine active at a time"
+    }
   },
   "primaryComponents": {
     "Augmenting": "Deadly nightshade",

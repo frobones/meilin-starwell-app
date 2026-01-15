@@ -39,7 +39,7 @@ const App = {
         search: '',
         category: 'all',
         difficulty: 'all',
-        floraOnly: false
+        ingredientType: 'all'
     },
     currentTab: 'medicines',
     selectedTerrain: 'Arctic',
@@ -211,8 +211,8 @@ const App = {
             this.renderMedicines();
         });
 
-        document.getElementById('flora-only-filter').addEventListener('change', (e) => {
-            this.currentFilters.floraOnly = e.target.checked;
+        document.getElementById('ingredient-type-filter').addEventListener('change', (e) => {
+            this.currentFilters.ingredientType = e.target.value;
             this.renderMedicines();
         });
 
@@ -520,6 +520,63 @@ const App = {
     },
 
     /**
+     * Check if a medicine requires creature parts
+     */
+    hasCreatureOption(medicine) {
+        // If floraOnly is true, no creature parts needed
+        if (medicine.floraOnly) {
+            return false;
+        }
+        // Check if any secondary ingredient is creature type (object format)
+        if (medicine.secondary && medicine.secondary.length > 0) {
+            const isObjectFormat = typeof medicine.secondary[0] === 'object';
+            if (isObjectFormat) {
+                // Has creature option if any secondary is creature type
+                return medicine.secondary.some(s => s.type === 'creature');
+            }
+            // String format means creature-only (no flora option marked)
+            return true;
+        }
+        return false;
+    },
+
+    /**
+     * Get ingredient badges HTML for a medicine
+     */
+    getIngredientBadges(medicine, forModal = false) {
+        const hasFlora = this.hasFloraOption(medicine);
+        const hasCreature = this.hasCreatureOption(medicine);
+        
+        let badges = '';
+        
+        if (hasFlora && hasCreature) {
+            // Both options available
+            if (forModal) {
+                badges = `<span class="modal-badges-group"><span class="medicine-flora-badge" title="Has flora option"><i data-lucide="sprout"></i> Flora</span><span class="medicine-creature-badge" title="Has creature option"><i data-lucide="bone"></i> Creature</span></span>`;
+            } else {
+                badges = `<span class="medicine-flora-badge" title="Has flora option"><i data-lucide="sprout"></i></span>`;
+                badges += `<span class="medicine-creature-badge" title="Has creature option"><i data-lucide="bone"></i></span>`;
+            }
+        } else if (hasFlora) {
+            // Flora only
+            if (forModal) {
+                badges = `<span class="medicine-flora-badge" title="Flora option available"><i data-lucide="sprout"></i> Flora</span>`;
+            } else {
+                badges = `<span class="medicine-flora-badge" title="Flora option available"><i data-lucide="sprout"></i></span>`;
+            }
+        } else if (hasCreature) {
+            // Creature only
+            if (forModal) {
+                badges = `<span class="medicine-creature-badge" title="Requires creature parts"><i data-lucide="bone"></i> Creature</span>`;
+            } else {
+                badges = `<span class="medicine-creature-badge" title="Requires creature parts"><i data-lucide="bone"></i></span>`;
+            }
+        }
+        
+        return badges;
+    },
+
+    /**
      * Get the name of a secondary ingredient (handles both string and object formats)
      */
     getSecondaryName(secondary) {
@@ -560,9 +617,13 @@ const App = {
                 }
             }
 
-            // Flora only filter - show medicines that can be made with flora
-            if (this.currentFilters.floraOnly) {
+            // Ingredient type filter
+            if (this.currentFilters.ingredientType === 'flora') {
                 if (!this.hasFloraOption(medicine)) {
+                    return false;
+                }
+            } else if (this.currentFilters.ingredientType === 'creature') {
+                if (!this.hasCreatureOption(medicine)) {
                     return false;
                 }
             }
@@ -624,12 +685,11 @@ const App = {
             ? medicine.effect.substring(0, 100) + '...'
             : medicine.effect;
 
-        const hasFlora = this.hasFloraOption(medicine);
-        const floraBadgeTitle = medicine.floraOnly ? 'Flora only (no creature parts)' : 'Has flora option';
+        const ingredientBadges = this.getIngredientBadges(medicine, false);
 
         return `
             <article class="medicine-card" data-id="${medicine.id}" data-category="${medicine.category}">
-                ${hasFlora ? `<span class="medicine-flora-badge" title="${floraBadgeTitle}"><i data-lucide="sprout"></i></span>` : ''}
+                <div class="medicine-ingredient-badges">${ingredientBadges}</div>
                 <div class="medicine-card-header">
                     <h3 class="medicine-name">${medicine.name}</h3>
                     <span class="medicine-stars" title="${this.getDifficultyLabel(medicine.difficulty)}">${stars}</span>
@@ -660,7 +720,7 @@ const App = {
                     <span class="modal-stars" title="${this.getDifficultyLabel(medicine.difficulty)}">${stars}</span>
                     <span class="modal-dc">DC ${medicine.dc}</span>
                     <span class="modal-category medicine-category ${medicine.category}">${medicine.category}</span>
-                    ${this.hasFloraOption(medicine) ? `<span class="medicine-flora-badge" title="${medicine.floraOnly ? 'Flora only' : 'Has flora option'}"><i data-lucide="sprout"></i> ${medicine.floraOnly ? 'Flora Only' : 'Flora Option'}</span>` : ''}
+                    ${this.getIngredientBadges(medicine, true)}
                 </div>
             </div>
             
@@ -690,6 +750,7 @@ const App = {
 
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
+        this.refreshIcons();
     },
 
     /**
@@ -712,23 +773,23 @@ const App = {
             const isObjectFormat = typeof medicine.secondary[0] === 'object';
             
             if (isObjectFormat) {
-                // New format: group by type and display with labels
+                // New format: group by type and display with colored text
                 const floraOptions = medicine.secondary.filter(s => s.type === 'flora').map(s => s.name);
                 const creatureOptions = medicine.secondary.filter(s => s.type === 'creature').map(s => s.name);
                 
                 if (floraOptions.length > 0) {
                     html += `
                         <div class="component-item">
-                            <span class="component-label">Secondary <span class="component-type flora"><i data-lucide="sprout"></i> Flora</span>:</span>
-                            <span class="component-value">${floraOptions.join(' or ')}</span>
+                            <span class="component-label">Secondary:</span>
+                            <span class="component-value component-flora">${floraOptions.join(' or ')}</span>
                         </div>
                     `;
                 }
                 if (creatureOptions.length > 0) {
                     html += `
                         <div class="component-item">
-                            <span class="component-label">Secondary <span class="component-type creature">🦴 Creature</span>:</span>
-                            <span class="component-value">${creatureOptions.join(' or ')}</span>
+                            <span class="component-label">Secondary:</span>
+                            <span class="component-value component-creature">${creatureOptions.join(' or ')}</span>
                         </div>
                     `;
                 }
@@ -989,9 +1050,28 @@ const App = {
             <tr>
                 <td>${this.getStars(d.stars)}</td>
                 <td>${d.label}</td>
-                <td>DC ${d.dc}</td>
+                <td>${d.dc}</td>
             </tr>
         `).join('');
+
+        const gatheringOptionsRows = this.rules.gatheringOptions?.options?.map(opt => `
+            <tr>
+                <td><strong>${opt.threshold}+</strong></td>
+                <td><strong>${opt.name}</strong></td>
+                <td>${opt.description}</td>
+            </tr>
+        `).join('') || '';
+
+        const commonFloraRows = this.rules.commonFloraTable?.map(f => `
+            <tr>
+                <td>${f.roll}</td>
+                <td>${f.component}</td>
+                <td>${f.category}</td>
+            </tr>
+        `).join('') || '';
+
+        const alchemillaAgent = this.rules.enhancingAgents?.find(a => a.name === 'Alchemilla');
+        const durationLadder = alchemillaAgent?.durationLadder?.join(' → ') || '';
 
         rulesContent.innerHTML = `
             <div class="rules-grid">
@@ -1033,6 +1113,63 @@ const App = {
                     </ul>
                 </div>
             </div>
+
+            ${this.rules.gatheringOptions ? `
+            <h3>Gathering Results (Choose One)</h3>
+            <p style="margin-bottom: 0.5rem; font-style: italic;">${this.rules.gatheringOptions.intro}</p>
+            <table class="ingredient-table" style="font-size: 0.85rem; margin-bottom: 1.5rem;">
+                <thead>
+                    <tr>
+                        <th>Result</th>
+                        <th>Option</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${gatheringOptionsRows}
+                </tbody>
+            </table>
+            ` : ''}
+
+            ${this.rules.commonFloraTable ? `
+            <h3>Common Flora Table (d6)</h3>
+            <table class="ingredient-table" style="font-size: 0.85rem; margin-bottom: 1.5rem;">
+                <thead>
+                    <tr>
+                        <th>d6</th>
+                        <th>Component</th>
+                        <th>Category</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${commonFloraRows}
+                </tbody>
+            </table>
+            ` : ''}
+
+            ${durationLadder ? `
+            <h3>Alchemilla Duration Ladder</h3>
+            <p style="margin-bottom: 0.5rem;"><strong>${durationLadder}</strong></p>
+            <p style="margin-bottom: 1.5rem; font-size: 0.85rem;">Each unit of Alchemilla steps the duration up one tier and adds +1 difficulty level.</p>
+            ` : ''}
+
+            ${this.rules.enhancementLimits ? `
+            <h3>Enhancement Limits</h3>
+            <ul style="margin-bottom: 1.5rem;">
+                <li><strong>Max enhancements:</strong> ${this.rules.enhancementLimits.maxEnhancements}</li>
+                <li><strong>Indefinite duration:</strong> ${this.rules.enhancementLimits.indefiniteDuration}</li>
+                <li><strong>Limit:</strong> ${this.rules.enhancementLimits.indefiniteLimit}</li>
+            </ul>
+            ` : ''}
+
+            ${this.rules.spellAssist ? `
+            <h3>Spell-Assisted Gathering</h3>
+            <ul style="margin-bottom: 1.5rem;">
+                ${this.rules.spellAssist.map(s => `
+                    <li><strong>${s.spell}:</strong> ${s.effect}</li>
+                `).join('')}
+            </ul>
+            ` : ''}
             
             <h3>Important Gotchas</h3>
             <ul>
