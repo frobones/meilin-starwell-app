@@ -479,12 +479,71 @@ const App = {
     },
 
     /**
-     * Get star display for difficulty level
+     * Get star display for difficulty level (legacy, used for rules display)
      */
     getStars(difficulty) {
         const filled = '★'.repeat(difficulty);
         const empty = '☆'.repeat(5 - difficulty);
         return filled + empty;
+    },
+
+    /**
+     * Get star display for a medicine using maxStars and indefiniteStar
+     * For variable-star medicines, shows the first tier's star configuration
+     */
+    getMedicineStars(medicine) {
+        const difficulty = medicine.difficulty;
+        
+        // Variable-star medicines: check if first variant has maxStars
+        if (medicine.variableStars && medicine.starVariants && medicine.starVariants.length > 0) {
+            const firstVariant = medicine.starVariants[0];
+            if (firstVariant.maxStars) {
+                // Show filled + empty stars based on first variant
+                const filled = '★'.repeat(firstVariant.stars);
+                const empty = '☆'.repeat(firstVariant.maxStars - firstVariant.stars);
+                return filled + empty;
+            }
+            // No maxStars in variant, just show filled stars
+            return '★'.repeat(difficulty);
+        }
+        
+        const maxStars = medicine.maxStars || 5;
+        const indefiniteStar = medicine.indefiniteStar || false;
+        
+        // Calculate components
+        const filledCount = difficulty;
+        const indefiniteCount = indefiniteStar ? 1 : 0;
+        const emptyCount = maxStars - filledCount - indefiniteCount;
+        
+        const filled = '★'.repeat(filledCount);
+        const empty = '☆'.repeat(Math.max(0, emptyCount));
+        const indefinite = indefiniteStar ? '✧' : '';
+        
+        return filled + empty + indefinite;
+    },
+
+    /**
+     * Get star display for variable-star medicines (Dragon Tea, Draught of Giant's Strength)
+     * Returns an array of star strings for each variant, or null if not variable
+     */
+    getVariableStars(medicine) {
+        if (!medicine.variableStars || !medicine.starVariants) {
+            return null;
+        }
+        
+        return medicine.starVariants.map(variant => {
+            const filledCount = variant.stars;
+            const variantMax = variant.maxStars || medicine.maxStars || 5;
+            const emptyCount = variantMax - filledCount;
+            
+            const filled = '★'.repeat(filledCount);
+            const empty = '☆'.repeat(Math.max(0, emptyCount));
+            
+            return {
+                ...variant,
+                starDisplay: filled + empty
+            };
+        });
     },
 
     /**
@@ -680,19 +739,22 @@ const App = {
      * Create HTML for a medicine card
      */
     createMedicineCard(medicine) {
-        const stars = this.getStars(medicine.difficulty);
+        const stars = this.getMedicineStars(medicine);
         const previewText = medicine.effect.length > 100 
             ? medicine.effect.substring(0, 100) + '...'
             : medicine.effect;
 
         const ingredientBadges = this.getIngredientBadges(medicine, false);
+        
+        // Add variable indicator if medicine has variable stars
+        const variableIndicator = medicine.variableStars ? '<span class="variable-star-indicator" title="Variable strength">△</span>' : '';
 
         return `
             <article class="medicine-card" data-id="${medicine.id}" data-category="${medicine.category}">
                 <div class="medicine-ingredient-badges">${ingredientBadges}</div>
                 <div class="medicine-card-header">
                     <h3 class="medicine-name">${medicine.name}</h3>
-                    <span class="medicine-stars" title="${this.getDifficultyLabel(medicine.difficulty)}">${stars}</span>
+                    <span class="medicine-stars" title="${this.getDifficultyLabel(medicine.difficulty)}">${stars}${variableIndicator}</span>
                 </div>
                 <div class="medicine-meta">
                     <span class="medicine-category ${medicine.category}">${medicine.category}</span>
@@ -710,15 +772,16 @@ const App = {
         const modal = document.getElementById('modal-overlay');
         const content = document.getElementById('modal-content');
         
-        const stars = this.getStars(medicine.difficulty);
+        const stars = this.getMedicineStars(medicine);
         const componentsHtml = this.createComponentsHtml(medicine);
+        const variableStarsHtml = this.createVariableStarsHtml(medicine);
         
         content.innerHTML = `
             <div class="modal-header">
                 <h2 class="modal-title">${medicine.name}</h2>
                 <div class="modal-meta">
                     <span class="modal-stars" title="${this.getDifficultyLabel(medicine.difficulty)}">${stars}</span>
-                    <span class="modal-dc">DC ${medicine.dc}</span>
+                    <span class="modal-dc">DC ${medicine.dc}${medicine.variableStars ? '+' : ''}</span>
                     <span class="modal-category medicine-category ${medicine.category}">${medicine.category}</span>
                     ${this.getIngredientBadges(medicine, true)}
                 </div>
@@ -728,6 +791,8 @@ const App = {
                 <h3 class="modal-section-title">Effect</h3>
                 <p class="modal-effect">${medicine.effect}</p>
             </div>
+            
+            ${variableStarsHtml}
             
             <div class="modal-section">
                 <h3 class="modal-section-title">Duration</h3>
@@ -751,6 +816,42 @@ const App = {
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
         this.refreshIcons();
+    },
+
+    /**
+     * Create HTML for variable star table (Dragon Tea, Draught of Giant's Strength)
+     */
+    createVariableStarsHtml(medicine) {
+        const variants = this.getVariableStars(medicine);
+        if (!variants) return '';
+        
+        // Determine column headers based on what data is available
+        const hasDamage = variants.some(v => v.damage);
+        const hasRange = variants.some(v => v.range);
+        const hasStrength = variants.some(v => v.strengthScore);
+        
+        let headerCols = '<th>Amount</th><th>Strength</th>';
+        if (hasDamage) headerCols += '<th>Damage</th>';
+        if (hasRange) headerCols += '<th>Range</th>';
+        if (hasStrength) headerCols += '<th>Str Score</th>';
+        
+        const rows = variants.map(v => {
+            let cols = `<td>×${v.multiplier}</td><td class="variant-stars">${v.starDisplay}</td>`;
+            if (hasDamage) cols += `<td>${v.damage || '-'}</td>`;
+            if (hasRange) cols += `<td>${v.range || '-'}</td>`;
+            if (hasStrength) cols += `<td>${v.strengthScore || '-'}</td>`;
+            return `<tr>${cols}</tr>`;
+        }).join('');
+        
+        return `
+            <div class="modal-section">
+                <h3 class="modal-section-title">Variable Strength</h3>
+                <table class="variable-stars-table">
+                    <thead><tr>${headerCols}</tr></thead>
+                    <tbody>${rows}</tbody>
+                </table>
+            </div>
+        `;
     },
 
     /**

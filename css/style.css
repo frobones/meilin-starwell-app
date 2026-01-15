@@ -741,6 +741,44 @@ details[open] .rules-toggle::after {
   letter-spacing: -1px;
 }
 
+/* Variable star indicator (lightning bolt) */
+.variable-star-indicator {
+  color: var(--potion-blue);
+  margin-left: 0.25rem;
+  font-size: 0.75rem;
+}
+
+/* Variable stars table in modal */
+.variable-stars-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  margin-top: var(--space-sm);
+}
+
+.variable-stars-table th,
+.variable-stars-table td {
+  padding: var(--space-xs) var(--space-sm);
+  text-align: left;
+  border-bottom: 1px solid var(--parchment-dark);
+}
+
+.variable-stars-table th {
+  background: var(--parchment-dark);
+  font-weight: 600;
+  color: var(--ink-dark);
+}
+
+.variable-stars-table td.variant-stars {
+  color: var(--star-filled);
+  letter-spacing: -1px;
+  font-size: 0.9rem;
+}
+
+.variable-stars-table tbody tr:hover {
+  background: var(--parchment-light);
+}
+
 .medicine-meta {
   display: flex;
   flex-wrap: wrap;
