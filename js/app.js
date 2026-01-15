@@ -10,6 +10,7 @@ const App = {
     rules: null,
     
     // Backstory data
+    worksheetContent: null,
     backstoryContent: null,
     chapters: [],
     vignettes: [],
@@ -208,7 +209,7 @@ const App = {
         }
 
         // Load backstory content if switching to backstory page
-        if (pageName === 'backstory' && !this.backstoryContent) {
+        if (pageName === 'backstory' && !this.worksheetContent) {
             this.loadBackstoryContent();
         }
     },
@@ -230,7 +231,9 @@ const App = {
         });
 
         // Load content if needed
-        if (subtabName === 'overview' && !this.backstoryContent) {
+        if (subtabName === 'ataglance' && !this.worksheetContent) {
+            this.loadWorksheet();
+        } else if (subtabName === 'overview' && !this.backstoryContent) {
             this.loadBackstoryOverview();
         } else if (subtabName === 'chapters' && this.chapters.length === 0) {
             this.loadChapters();
@@ -835,14 +838,29 @@ const App = {
     },
 
     /**
-     * Load all backstory content (overview, chapters, vignettes)
+     * Load all backstory content (worksheet, overview, chapters, vignettes)
      */
     async loadBackstoryContent() {
         await Promise.all([
+            this.loadWorksheet(),
             this.loadBackstoryOverview(),
             this.loadChapters(),
             this.loadVignettes()
         ]);
+    },
+
+    /**
+     * Load the character worksheet (At a Glance tab)
+     */
+    async loadWorksheet() {
+        const container = document.getElementById('character-worksheet');
+        if (!container) return;
+
+        container.innerHTML = '<div class="loading-spinner">Loading...</div>';
+
+        const html = await this.fetchMarkdown('content/character/worksheet.md');
+        this.worksheetContent = html;
+        container.innerHTML = html;
     },
 
     /**
