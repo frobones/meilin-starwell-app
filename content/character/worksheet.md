@@ -76,13 +76,6 @@ Meilin Starwell was raised dockside on the Rock of Bral, learning triage and har
 - **I ask him for:** Warnings, routing, and gaps in the net when I need to move.
 - **He asks me for:** Off-books treatment for his people, and discretion about what I see.
 
-### Ally: Hask, tea vendor on the Rock of Bral
-
-- **Met:** He served me the cup that nearly killed me. His hands shook when he realized what had happened.
-- **Bond:** He came back two days later with a list of every stall he'd bought from, every warehouse mark. Guilt turned into something useful.
-- **I ask him for:** Dock gossip, supplier lists, "what moved when."
-- **He asks me for:** Forgiveness that doesn't feel like a lie, and protection from being made a scapegoat.
-
 ### Complicated Tie: Kaito Starwell, my father
 
 - **The knot:** He's my anchor and my greatest vulnerability. If inspectors circle his shop, my choices get expensive fast.
@@ -111,11 +104,11 @@ Meilin Starwell was raised dockside on the Rock of Bral, learning triage and har
 - **I want:** Him to stay quiet and stay safe. I can't promise either.
 - **Danger:** He's compromised. He could flip, vanish, or be made an example. If he resurfaces, it's never good news.
 
-### Antagonist: Smith's Coster (Corvin Hale, "quality concerns" contact)
+### Antagonist: Elowen Pryce, Smith's Coster field representative
 
-- **They believe:** I'm a problem that can still be solved with the right offer or the right pressure.
-- **They want:** My proof, my silence, or my signature on a contract that becomes a leash.
-- **How they operate:** Clean offers first (resources, protection, "official work"), then administrative pressure (audits, paperwork, blacklists), then deniable escalation on people adjacent to me.
+- **She believes:** I'm a problem that can still be solved with the right pressure or the right example.
+- **She wants:** The ledger page recovered or destroyed. My silence, my compliance, or my containment.
+- **How she operates:** Patient surveillance, public warnings delivered softly in crowds, and pressure on people adjacent to me. She makes pursuit feel like weather.
 
 ---
 
