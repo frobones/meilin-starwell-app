@@ -4,74 +4,63 @@ A quick reference for Meilin Starwell's core details, drives, and relationships.
 
 ---
 
-## 1. Basic Details
+## Basic Details
 
-**Name:** Meilin Starwell
-**Gender:** Female
-**Age:** 26
-**Height & Weight:** 5'0", 94 lb
-**Species:** Human
-**Class:** Rogue
-**Background:** Dockside Apothecary (custom)
-**Deity:** None (not devout)
-**Alignment:** Neutral Good
-**Look:** Waxed-canvas cloak, structured medical satchel strapped down like it expects theft, labeled vials at the belt, ink-stained hands with faint chemical-burn marks.
-
----
-
-## 2. Quote
-
-"If you die, I have to carry your kit. Don't be selfish."
+- **Name:** Meilin Starwell
+- **Gender:** Female
+- **Age:** 26
+- **Height & Weight:** 5'0", 94 lb
+- **Species:** Human
+- **Class:** Rogue
+- **Background:** Dockside Apothecary (custom)
+- **Deity:** None (not devout)
+- **Alignment:** Neutral Good
+- **Look:** Waxed-canvas cloak, structured medical satchel strapped down like it expects theft, labeled vials at the belt, ink-stained hands with faint chemical-burn marks.
 
 ---
 
-## 3. Core Concept
+## Quote
 
-**Thesis:** "I am a ship's apothecary who follows supply chains like symptoms, but I won't buy truth with other people's lives."
-
-**Trouble:** "My life is complicated because I stole proof from a powerful distributor, and now the wrong people have reasons to find me."
-
-**Defining detail:** I nearly died in public from a contaminated tea, traced it to a corporate dosing scheme, and stole a ledger page that proves intent. Dock bosses either want to help me or bury me.
+> "If you die, I have to carry your kit. Don't be selfish."
 
 ---
 
-## 4. 30-Second Summary
+## Core Concept
+
+- **Thesis:** "I am a ship's apothecary who follows supply chains like symptoms, but I won't buy truth with other people's lives."
+- **Trouble:** "My life is complicated because I stole proof from a powerful distributor, and now the wrong people have reasons to find me."
+- **Defining detail:** I nearly died in public from a contaminated tea, traced it to a corporate dosing scheme, and stole a ledger page that proves intent. Dock bosses either want to help me or bury me.
+
+---
+
+## 30-Second Summary
 
 Meilin Starwell was raised dockside on the Rock of Bral, learning triage and hard practicality in her father Kaito's tiny apothecary. A tea stall incident nearly killed her, and she traced it to mindersand, a "drying powder" that can fog judgment and make people easier to steer. She followed the pattern through vendors and warehouse marks to Smith's Coster, stole a ledger page tying them to MS-13 mindersand and intent notes about "increasing compliance," and fled when pressure tightened around her father, patients, and witnesses. Now she's in Wildspace to keep the proof alive, stop the dosing chain, and avoid the leash disguised as "official work."
 
 ---
 
-## 5. Drives
+## Drives
 
-**Want (short-term):** Keep the crew functional and unpoisoned, and find the next link in the mindersand chain.
-
-**Need (growth):** Learn to trust others enough to share the burden instead of carrying it alone.
-
-**Fear:** Being domesticated by "help," a job offer, protection, or paperwork that turns into ownership.
-
-**Temptation:** Following the pattern past safety, pulling on a thread when she should rest or stay quiet.
-
-**Responsibility:** The people she left behind on Bral (her father, Sera, Meredin's network) are still within Smith's Coster's reach.
+- **Want (short-term):** Keep the crew functional and unpoisoned, and find the next link in the mindersand chain.
+- **Need (growth):** Learn to trust others enough to share the burden instead of carrying it alone.
+- **Fear:** Being domesticated by "help," a job offer, protection, or paperwork that turns into ownership.
+- **Temptation:** Following the pattern past safety, pulling on a thread when she should rest or stay quiet.
+- **Responsibility:** The people she left behind on Bral (her father, Sera, Meredin's network) are still within Smith's Coster's reach.
 
 ---
 
-## 6. Boundaries
+## Boundaries
 
-**Line I won't cross:** No patient or witness is leverage. No covert dosing.
-
-**Line I might cross if desperate:** Bribery, smuggling, forged paperwork, or quiet blackmail of the powerful. I'll bend rules to protect the vulnerable, but I won't spend the vulnerable.
-
-**What earns my trust:** Competence under pressure. Honest logs. Someone who takes notes. Someone who does the unpleasant task without drama.
-
-**What breaks my trust:** Messing with food or meds. Selling someone out to authorities. Taking my notes without consent. Pressuring me to sign "just a form."
-
-**What makes you angry instantly:** Anyone suggesting covert dosing, or treating a witness as a bargaining chip.
-
-**What melts your guard:** Competence under pressure. Honest logs. Someone who helps by taking notes or handling the unpleasant task without drama.
+- **Line I won't cross:** No patient or witness is leverage. No covert dosing.
+- **Line I might cross if desperate:** Bribery, smuggling, forged paperwork, or quiet blackmail of the powerful. I'll bend rules to protect the vulnerable, but I won't spend the vulnerable.
+- **What earns my trust:** Competence under pressure. Honest logs. Someone who takes notes. Someone who does the unpleasant task without drama.
+- **What breaks my trust:** Messing with food or meds. Selling someone out to authorities. Taking my notes without consent. Pressuring me to sign "just a form."
+- **What makes you angry instantly:** Anyone suggesting covert dosing, or treating a witness as a bargaining chip.
+- **What melts your guard:** Competence under pressure. Honest logs. Someone who helps by taking notes or handling the unpleasant task without drama.
 
 ---
 
-## 7. Relationships
+## Relationships
 
 ### Ally: Oona Marlow, Astral Bazaar stallkeeper and fixer
 
@@ -130,47 +119,36 @@ Meilin Starwell was raised dockside on the Rock of Bral, learning triage and har
 
 ---
 
-## 8. Knives
+## Knives
 
-**Knife 1:** I have a ledger page tying Smith's Coster to MS-13 mindersand and "increase compliance" intent notes.
-
-**Knife 2:** Mindersand affects me far more violently than most people. I'm a walking early warning and a liability.
-
-**Knife 3:** Any pressure on my father, Sera Quill, or Meredin's network forces me to choose between speed and safety.
-
-**Knife 4:** My brother Cassian can re-enter my life through a port, a ship contract, or a patron, and his "opportunities" often come with strings.
-
-**Knife 5:** I can't let go of a pattern. If something doesn't make sense, I'll keep pulling until I understand it, even when I should stop.
+- **The Ledger Page:** I have a ledger page tying Smith's Coster to MS-13 mindersand and "increase compliance" intent notes.
+- **Violent Reaction:** Mindersand affects me far more violently than most people. I'm a walking early warning and a liability.
+- **Pressure Points:** Any pressure on my father, Sera Quill, or Meredin's network forces me to choose between speed and safety.
+- **Brother's Return:** My brother Cassian can re-enter my life through a port, a ship contract, or a patron, and his "opportunities" often come with strings.
+- **Pattern Obsession:** I can't let go of a pattern. If something doesn't make sense, I'll keep pulling until I understand it, even when I should stop.
 
 ---
 
-## 9. Party Glue
+## Party Glue
 
-**Why I need this crew:** I can't watch my own back while I'm watching the cargo. I need people who won't sell me out when the pressure lands.
-
-**How I help the crew:** Contamination checks, triage, pattern-hunting, and the discipline to ask "what changed?" before anyone panics.
-
-**My berth on the ship:** Ship's apothecary, contamination checker, and the person who audits what "safe" really means.
-
-**A truth I'm afraid the crew will learn:** The ledger page exists. If they know I'm carrying proof, they become targets too.
+- **Why I need this crew:** I can't watch my own back while I'm watching the cargo. I need people who won't sell me out when the pressure lands.
+- **How I help the crew:** Contamination checks, triage, pattern-hunting, and the discipline to ask "what changed?" before anyone panics.
+- **My berth on the ship:** Ship's apothecary, contamination checker, and the person who audits what "safe" really means.
+- **A truth I'm afraid the crew will learn:** The ledger page exists. If they know I'm carrying proof, they become targets too.
 
 ---
 
-## 10. Secrets and Mysteries
+## Secrets and Mysteries
 
-**Secret I'm keeping:** The ledger page exists and I'm carrying it. If the wrong people find out, everyone near me becomes leverage.
-
-**Why I hide it:** Sharing the full truth makes my crewmates targets. Smith's Coster doesn't need to hurt me; they just need to hurt someone I care about.
-
-**What happens if it's revealed:** Smith's Coster escalates. The crew has to decide if I'm worth the heat. My father and Sera become active targets instead of passive pressure.
-
-**Mystery even I don't understand:** Why does mindersand hit me so much harder than everyone else? There's something in my reaction that doesn't match the pattern.
-
-**The "last voyage" I won't talk about:** The night I left Bral, someone helped me disappear, and I don't know what they traded to make it happen.
+- **Secret I'm keeping:** The ledger page exists and I'm carrying it. If the wrong people find out, everyone near me becomes leverage.
+- **Why I hide it:** Sharing the full truth makes my crewmates targets. Smith's Coster doesn't need to hurt me; they just need to hurt someone I care about.
+- **What happens if it's revealed:** Smith's Coster escalates. The crew has to decide if I'm worth the heat. My father and Sera become active targets instead of passive pressure.
+- **Mystery even I don't understand:** Why does mindersand hit me so much harder than everyone else? There's something in my reaction that doesn't match the pattern.
+- **The "last voyage" I won't talk about:** The night I left Bral, someone helped me disappear, and I don't know what they traded to make it happen.
 
 ---
 
-## 11. Backstory
+## Backstory Summary
 
 **Where I came from:** On the Rock of Bral, the docks don't sleep. Meilin was raised in her father Kaito's cramped apothecary corner, wedged between honest trades and dishonest money. He taught her to treat the docks like a diagnostician treats a body: listen first, then act. She learned triage the hard way—efficient compassion, steady hands, and questions sharp enough to cut through pride. Her brother Cassian left early to "see the stars," and she kept every letter he sent even when the details stopped making sense.
 
@@ -179,14 +157,3 @@ Meilin Starwell was raised dockside on the Rock of Bral, learning triage and har
 **Why I took to the void:** After tracing contaminated tonics to Smith's Coster and stealing a ledger page that proved intent, the city changed shape around her. Suppliers closed, prices tripled, dock-watchmen stared. Sera was followed. Patients came like shadows. If she stayed, the net would tighten until it landed on her father, her patients, everyone nearby enough to break her. So she took the only move that changed the battlefield: she left.
 
 **The trouble that follows me:** Somewhere in a Smith's Coster ledger, there's a gap where a page used to be. They know who took it. Her father and Sera are still on Bral, still within reach. Every move she makes could land on their doorstep, and the next offer won't be polite.
-
----
-
-## Ready to Play Checklist
-
-- [x] A thesis statement you can say out loud in 10 seconds
-- [x] A 30-second summary
-- [x] Three named relationships the DM can use
-- [x] At least one knife
-- [x] Party glue: why you need the crew, what you offer, your ship role
-- [x] A hard line and a gray area
