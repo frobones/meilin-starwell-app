@@ -1324,12 +1324,7 @@ const App = {
             }
         ];
 
-        let html = `
-            <div class="backstory-header">
-                <h1 class="backstory-title">${title}</h1>
-                <p class="backstory-intro">Click any section to expand the full chapter.</p>
-            </div>
-        `;
+        let html = '';
 
         sections.forEach((section, idx) => {
             const sectionParagraphs = section.paragraphs
