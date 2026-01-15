@@ -30,9 +30,10 @@ const App = {
     },
     currentTab: 'medicines',
     selectedTerrain: 'Arctic',
-    currentPage: 'medicine',
+    currentPage: null, // Will be set after passkey check
     currentSubtab: 'ataglance',
-    backstoryUnlocked: false,
+    appUnlocked: false,
+    pendingPage: 'medicine', // Page to navigate to after unlock
 
     /**
      * Initialize the application
@@ -48,8 +49,14 @@ const App = {
             this.renderIngredients();
             this.renderQuickRules();
             
-            // Handle initial page based on URL hash
-            this.handleHashChange();
+            // Check if unlocked, show passkey modal if not
+            if (!this.appUnlocked) {
+                this.pendingPage = 'medicine';
+                this.showPasskeyModal();
+            } else {
+                // Handle initial page based on URL hash
+                this.handleHashChange();
+            }
             
             console.log('Meilin Starwell Companion initialized successfully');
         } catch (error) {
@@ -63,48 +70,21 @@ const App = {
      */
     checkStoredUnlock() {
         const stored = localStorage.getItem(this.STORAGE_KEY);
-        this.backstoryUnlocked = stored === 'true';
-        this.updateLockIndicator();
+        this.appUnlocked = stored === 'true';
     },
     
-    /**
-     * Update the lock indicator on the nav link
-     */
-    updateLockIndicator() {
-        const backstoryLink = document.querySelector('.nav-link[data-page="backstory"]');
-        if (backstoryLink) {
-            backstoryLink.classList.toggle('locked', !this.backstoryUnlocked);
-            backstoryLink.classList.toggle('unlocked', this.backstoryUnlocked);
-        }
-    },
     
     /**
      * Bind passkey modal events
      */
     bindPasskeyEvents() {
-        const overlay = document.getElementById('passkey-modal-overlay');
         const form = document.getElementById('passkey-form');
-        const cancelBtn = document.getElementById('passkey-cancel');
         const input = document.getElementById('passkey-input');
         
         if (form) {
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
                 this.checkPasskey();
-            });
-        }
-        
-        if (cancelBtn) {
-            cancelBtn.addEventListener('click', () => {
-                this.closePasskeyModal();
-            });
-        }
-        
-        if (overlay) {
-            overlay.addEventListener('click', (e) => {
-                if (e.target.id === 'passkey-modal-overlay') {
-                    this.closePasskeyModal();
-                }
             });
         }
         
@@ -154,11 +134,10 @@ const App = {
         
         if (entered === this.PASSKEY.toLowerCase()) {
             // Correct passkey
-            this.backstoryUnlocked = true;
+            this.appUnlocked = true;
             localStorage.setItem(this.STORAGE_KEY, 'true');
-            this.updateLockIndicator();
             this.closePasskeyModal();
-            this.switchPage('backstory');
+            this.switchPage(this.pendingPage || 'medicine');
         } else {
             // Wrong passkey
             input.classList.add('error');
@@ -325,8 +304,9 @@ const App = {
      * Switch between main pages
      */
     switchPage(pageName, updateHash = true) {
-        // Check if trying to access backstory without unlocking
-        if (pageName === 'backstory' && !this.backstoryUnlocked) {
+        // Check if app is unlocked
+        if (!this.appUnlocked) {
+            this.pendingPage = pageName;
             this.showPasskeyModal();
             return;
         }
