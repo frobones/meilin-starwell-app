@@ -10,6 +10,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Uncial+Antiqua&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
     <!-- Styles -->
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -23,20 +26,20 @@
             </div>
             <nav class="sidebar-nav">
                 <a href="#ataglance" class="nav-link active" data-page="ataglance">
-                    <span class="nav-icon">👤</span>
-                    <span class="nav-text">At a Glance</span>
-                </a>
-                <a href="#medicine" class="nav-link" data-page="medicine">
-                    <span class="nav-icon">🌿</span>
-                    <span class="nav-text">Herbal Medicine</span>
+                    <span class="nav-icon"><i class="fa-solid fa-user"></i></span>
+                    <span class="nav-text">Character Overview</span>
                 </a>
                 <a href="#backstory" class="nav-link" data-page="backstory">
-                    <span class="nav-icon">📖</span>
+                    <span class="nav-icon"><i class="fa-solid fa-book"></i></span>
                     <span class="nav-text">Backstory</span>
                 </a>
                 <a href="#dmtools" class="nav-link" data-page="dmtools">
-                    <span class="nav-icon">🎲</span>
+                    <span class="nav-icon"><i class="fa-solid fa-dice-d20"></i></span>
                     <span class="nav-text">DM Tools</span>
+                </a>
+                <a href="#medicine" class="nav-link" data-page="medicine">
+                    <span class="nav-icon"><i class="fa-solid fa-leaf"></i></span>
+                    <span class="nav-text">Herbal Medicine</span>
                 </a>
             </nav>
             <div class="sidebar-footer">
@@ -104,25 +107,20 @@
                 <section class="aag-section aag-quicklinks">
                     <h2 class="aag-section-title">Explore More</h2>
                     <div class="aag-links-row">
-                        <button class="aag-link-card" data-action="show-background">
-                            <span class="aag-link-icon">🎭</span>
-                            <span class="aag-link-title">Background</span>
-                            <span class="aag-link-count">Apothecary origin</span>
-                        </button>
                         <a href="#backstory" class="aag-link-card" data-navigate="backstory">
-                            <span class="aag-link-icon">📚</span>
-                            <span class="aag-link-title">Full Backstory</span>
+                            <span class="aag-link-icon"><i class="fa-solid fa-book-open"></i></span>
+                            <span class="aag-link-title">Backstory</span>
                             <span class="aag-link-count" id="aag-chapters-count">12 chapters</span>
                         </a>
-                        <a href="#dmtools" class="aag-link-card" data-navigate="dmtools" data-section="knives">
-                            <span class="aag-link-icon">🗡️</span>
-                            <span class="aag-link-title">Knives</span>
-                            <span class="aag-link-count" id="aag-knives-count">5 hooks for the DM</span>
-                        </a>
                         <a href="#dmtools" class="aag-link-card" data-navigate="dmtools" data-section="relationships">
-                            <span class="aag-link-icon">🔗</span>
+                            <span class="aag-link-icon"><i class="fa-solid fa-link"></i></span>
                             <span class="aag-link-title">Relationships</span>
                             <span class="aag-link-count" id="aag-relationships-count">8 connections</span>
+                        </a>
+                        <a href="#dmtools" class="aag-link-card" data-navigate="dmtools" data-section="knives">
+                            <span class="aag-link-icon"><i class="fa-solid fa-scissors"></i></span>
+                            <span class="aag-link-title">Knives</span>
+                            <span class="aag-link-count" id="aag-knives-count">5 hooks for the DM</span>
                         </a>
                     </div>
                 </section>
@@ -139,7 +137,7 @@
                 <section class="quick-rules">
                     <details>
                         <summary class="rules-toggle">
-                            <span class="rules-icon">📜</span>
+                            <span class="rules-icon"><i class="fa-solid fa-scroll"></i></span>
                             Quick Rules Reference
                         </summary>
                         <div class="rules-content" id="rules-content">
@@ -273,26 +271,53 @@
                     <p class="page-subtitle">Hooks, relationships, and handles for running Meilin</p>
                 </header>
 
+                <!-- DM Tools Tab Navigation -->
+                <nav class="dmtools-tabs">
+                    <button class="dmtools-tab active" data-dmtab="relationships">
+                        <span class="dmtools-tab-icon"><i class="fa-solid fa-link"></i></span>
+                        <span class="dmtools-tab-text">Relationships</span>
+                    </button>
+                    <button class="dmtools-tab" data-dmtab="knives">
+                        <span class="dmtools-tab-icon"><i class="fa-solid fa-scissors"></i></span>
+                        <span class="dmtools-tab-text">Knives</span>
+                    </button>
+                    <button class="dmtools-tab" data-dmtab="mindersand">
+                        <span class="dmtools-tab-icon"><i class="fa-solid fa-flask"></i></span>
+                        <span class="dmtools-tab-text">Mindersand</span>
+                    </button>
+                </nav>
+
                 <main class="dmtools-content">
-                    <!-- Relationships Section -->
-                    <section class="dmtools-section" id="relationships-section">
-                        <h2 class="dmtools-section-title">🔗 Relationships</h2>
-                        <div class="relationships-intro">
-                            <p class="relationships-note">A visual map of Meilin's connections, tensions, and the pressure points between them.</p>
+                    <!-- Relationships Tab Panel -->
+                    <section class="dmtools-panel active" id="relationships-panel">
+                        <div class="dmtools-panel-header">
+                            <h2 class="dmtools-panel-title">Relationships</h2>
+                            <p class="dmtools-panel-subtitle">A visual map of Meilin's connections, tensions, and the pressure points between them.</p>
                         </div>
                         <div class="relationships-map" id="relationships-map">
                             <div class="loading-spinner">Loading relationships...</div>
                         </div>
                     </section>
 
-                    <!-- Knives Section -->
-                    <section class="dmtools-section" id="knives-section">
-                        <h2 class="dmtools-section-title">🗡️ Knives</h2>
-                        <div class="knives-intro">
-                            <p class="knives-note"><strong>Knives</strong> are specific, actionable things the DM can use to create drama. Each one is a handle to pull Meilin into the story.</p>
+                    <!-- Knives Tab Panel -->
+                    <section class="dmtools-panel" id="knives-panel">
+                        <div class="dmtools-panel-header">
+                            <h2 class="dmtools-panel-title">Knives</h2>
+                            <p class="dmtools-panel-subtitle"><strong>Knives</strong> are specific, actionable things the DM can use to create drama. Each one is a handle to pull Meilin into the story.</p>
                         </div>
                         <div class="knives-grid" id="knives-grid">
                             <div class="loading-spinner">Loading knives...</div>
+                        </div>
+                    </section>
+
+                    <!-- Mindersand Tab Panel -->
+                    <section class="dmtools-panel" id="mindersand-panel">
+                        <div class="dmtools-panel-header">
+                            <h2 class="dmtools-panel-title">Mindersand Reference</h2>
+                            <p class="dmtools-panel-subtitle">The contraband powder at the heart of Meilin's story. Use this reference to describe its effects, trace its routes, and build encounters around it.</p>
+                        </div>
+                        <div class="mindersand-content" id="mindersand-content">
+                            <div class="loading-spinner">Loading mindersand data...</div>
                         </div>
                     </section>
                 </main>

@@ -1,0 +1,103 @@
+{
+  "name": "Mindersand",
+  "pronunciation": "MIN-der-sand",
+  "tagline": "The powder that makes people easier to steer.",
+  "icon": "fa-solid fa-flask",
+  "overview": "A fine, pale powder traded under respectable names: drying powder, preservative, anti-caking agent. In truth, it's contraband because of what it does when it enters the food chain.",
+  "appearance": {
+    "color": "Off-white to pale gray dust",
+    "texture": "Silky between the fingers; it 'floats' slightly when poured",
+    "tell": "A faint bitter-metal wrongness behind an otherwise ordinary flavor"
+  },
+  "disguises": [
+    {
+      "name": "Tea sweeteners",
+      "icon": "fa-solid fa-mug-hot",
+      "description": "Mixed into cheap 'improved' tea blends"
+    },
+    {
+      "name": "Fatigue tonics",
+      "icon": "fa-solid fa-prescription-bottle",
+      "description": "Hidden in 'steadying' supplements"
+    },
+    {
+      "name": "Shipboard spices",
+      "icon": "fa-solid fa-mortar-pestle",
+      "description": "Pepper tins, dried herb mixes, bulk stores"
+    }
+  ],
+  "effects": [
+    {
+      "stage": "Early Exposure",
+      "icon": "fa-solid fa-cloud",
+      "symptoms": "Brain-fog, mild tremor, 'bad sleep' that doesn't match hours rested"
+    },
+    {
+      "stage": "Accumulation",
+      "icon": "fa-solid fa-face-meh",
+      "symptoms": "Flattened urgency, slowed reactions, dulled edge of anger or alarm, compliance shaped like fatigue"
+    },
+    {
+      "stage": "Severe Sensitivity",
+      "icon": "fa-solid fa-triangle-exclamation",
+      "symptoms": "Some bodies reject it violently (anaphylaxis-like reactions). Rarer, louder, harder to explain away."
+    }
+  ],
+  "whyItWorks": [
+    "Victims miss a half-step at the wrong time",
+    "Arguments move slower",
+    "Patterns get noticed later",
+    "Bad deals get accepted because resisting feels like 'too much work'"
+  ],
+  "targetingNote": "Smith's Coster's own people stay sharp; everyone else gets fog. They don't dose their own crews. They dose the dock population that might notice, organize, or compete.",
+  "whySmithsCoster": [
+    {
+      "reason": "Soft control at scale",
+      "detail": "A tired dock population misses patterns, organizes slowly, and accepts the status quo. Independent workers and small captains become less likely to ask questions."
+    },
+    {
+      "reason": "Accidents that favor the house",
+      "detail": "Foggy judgment on other crews turns into miscounted crates, 'nobody saw it' arguments, and convenient blame. The cost lands on competitors."
+    },
+    {
+      "reason": "Leverage without visible violence",
+      "detail": "A blade makes enemies quickly. A 'bad batch' makes people doubt themselves. It's coercion that can be explained away."
+    },
+    {
+      "reason": "Pressure on rivals",
+      "detail": "If competing crews get 'accident-prone,' rival routes miss windows, contracts break, reputations crack."
+    }
+  ],
+  "distribution": [
+    "Moves through warehouse stamps and lot marks that look legitimate",
+    "Travels in sealed crates at night, reappears as 'ordinary stock' by morning",
+    "Paperwork rarely names it plainly; shows up as coded additive entries"
+  ],
+  "detection": {
+    "prevention": "Keep supplies sealed, track origins, avoid 'mystery' repacking",
+    "confirmation": "Look for the bitter-metal tell, check seams and reseated lids, follow the pattern: who drank what, when, and who started shaking afterward",
+    "mistake": "Treating it like a one-time poison. It's a system poison."
+  },
+  "adventureHooks": [
+    {
+      "name": "The 'bad batch' contract",
+      "icon": "fa-solid fa-scroll",
+      "hook": "A captain hires the crew after two near-miss disasters and swears it's 'just fatigue.'"
+    },
+    {
+      "name": "The quiet clinic refusal",
+      "icon": "fa-solid fa-hospital",
+      "hook": "A patient gets turned away upstairs for 'bookings' that feel like politics."
+    },
+    {
+      "name": "The missing page",
+      "icon": "fa-solid fa-file",
+      "hook": "Someone stole a ledger leaf; now a powerful distributor is hunting for the thief and the proof."
+    },
+    {
+      "name": "The false remedy",
+      "icon": "fa-solid fa-bottle-droplet",
+      "hook": "A stall sells 'steadying tonic' that's actually dosing dockworkers who can't afford to slow down."
+    }
+  ]
+}

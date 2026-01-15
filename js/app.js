@@ -20,6 +20,7 @@ const App = {
     npcs: [],
     knives: [],
     relationships: null,
+    mindersandData: null,
     
     // Passkey configuration
     // Change this passkey to whatever you want!
@@ -247,6 +248,13 @@ const App = {
             });
         });
 
+        // DM Tools tab navigation
+        document.querySelectorAll('.dmtools-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabName = tab.dataset.dmtab;
+                this.switchDMToolsTab(tabName);
+            });
+        });
 
         // Vignette modal close
         const vignetteOverlay = document.getElementById('vignette-modal-overlay');
@@ -395,6 +403,21 @@ const App = {
     },
 
     /**
+     * Switch between DM Tools tabs
+     */
+    switchDMToolsTab(tabName) {
+        // Update tab buttons
+        document.querySelectorAll('.dmtools-tab').forEach(tab => {
+            tab.classList.toggle('active', tab.dataset.dmtab === tabName);
+        });
+
+        // Update tab panels
+        document.querySelectorAll('.dmtools-panel').forEach(panel => {
+            panel.classList.toggle('active', panel.id === `${tabName}-panel`);
+        });
+    },
+
+    /**
      * Get star display for difficulty level
      */
     getStars(difficulty) {
@@ -507,7 +530,7 @@ const App = {
         if (filtered.length === 0) {
             grid.innerHTML = `
                 <div class="no-results">
-                    <div class="no-results-icon">🌿</div>
+                    <div class="no-results-icon"><i class="fa-solid fa-leaf"></i></div>
                     <p>No medicines found matching your criteria.</p>
                     <p>Try adjusting your search or filters.</p>
                 </div>
@@ -543,7 +566,7 @@ const App = {
 
         return `
             <article class="medicine-card" data-id="${medicine.id}" data-category="${medicine.category}">
-                ${hasFlora ? `<span class="medicine-flora-badge" title="${floraBadgeTitle}">🌿</span>` : ''}
+                ${hasFlora ? `<span class="medicine-flora-badge" title="${floraBadgeTitle}"><i class="fa-solid fa-seedling"></i></span>` : ''}
                 <div class="medicine-card-header">
                     <h3 class="medicine-name">${medicine.name}</h3>
                     <span class="medicine-stars" title="${this.getDifficultyLabel(medicine.difficulty)}">${stars}</span>
@@ -574,7 +597,7 @@ const App = {
                     <span class="modal-stars" title="${this.getDifficultyLabel(medicine.difficulty)}">${stars}</span>
                     <span class="modal-dc">DC ${medicine.dc}</span>
                     <span class="modal-category medicine-category ${medicine.category}">${medicine.category}</span>
-                    ${this.hasFloraOption(medicine) ? `<span class="medicine-flora-badge" title="${medicine.floraOnly ? 'Flora only' : 'Has flora option'}">🌿 ${medicine.floraOnly ? 'Flora Only' : 'Flora Option'}</span>` : ''}
+                    ${this.hasFloraOption(medicine) ? `<span class="medicine-flora-badge" title="${medicine.floraOnly ? 'Flora only' : 'Has flora option'}"><i class="fa-solid fa-seedling"></i> ${medicine.floraOnly ? 'Flora Only' : 'Flora Option'}</span>` : ''}
                 </div>
             </div>
             
@@ -633,7 +656,7 @@ const App = {
                 if (floraOptions.length > 0) {
                     html += `
                         <div class="component-item">
-                            <span class="component-label">Secondary <span class="component-type flora">🌿 Flora</span>:</span>
+                            <span class="component-label">Secondary <span class="component-type flora"><i class="fa-solid fa-seedling"></i> Flora</span>:</span>
                             <span class="component-value">${floraOptions.join(' or ')}</span>
                         </div>
                     `;
@@ -751,7 +774,7 @@ const App = {
             <div class="ingredient-group">
                 <div class="ingredient-group-header">
                     <h3 class="ingredient-group-title">
-                        <span class="ingredient-group-icon">🌿</span>
+                        <span class="ingredient-group-icon"><i class="fa-solid fa-leaf"></i></span>
                         Flora (Plants & Fungi)
                     </h3>
                 </div>
@@ -962,7 +985,7 @@ const App = {
         const grid = document.getElementById('medicine-grid');
         grid.innerHTML = `
             <div class="no-results">
-                <div class="no-results-icon">⚠️</div>
+                <div class="no-results-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
                 <p>${message}</p>
             </div>
         `;
@@ -1121,7 +1144,8 @@ const App = {
     async loadDMToolsContent() {
         await Promise.all([
             this.loadRelationships(),
-            this.loadKnives()
+            this.loadKnives(),
+            this.loadMindersand()
         ]);
     },
 
@@ -1187,7 +1211,7 @@ const App = {
         container.innerHTML = '<div class="loading-spinner">Loading backstory...</div>';
 
         try {
-            const response = await fetch('content/backstory/consolidated.md');
+            const response = await fetch('content/backstory/backstory.md');
             const markdown = await response.text();
             this.backstoryContent = markdown;
             
@@ -1216,7 +1240,7 @@ const App = {
         const sections = [
             {
                 title: 'The Docks',
-                icon: '⚓',
+                icon: 'fa-solid fa-anchor',
                 chapterIndex: 0,
                 chapterNumber: '01',
                 chapterTitle: 'Dock-born',
@@ -1225,7 +1249,7 @@ const App = {
             },
             {
                 title: 'Cassian',
-                icon: '✨',
+                icon: 'fa-solid fa-star',
                 chapterIndex: 1,
                 chapterNumber: '02',
                 chapterTitle: 'Cassian Leaves',
@@ -1234,7 +1258,7 @@ const App = {
             },
             {
                 title: 'Politics of Medicine',
-                icon: '⚖️',
+                icon: 'fa-solid fa-scale-balanced',
                 chapterIndex: 2,
                 chapterNumber: '03',
                 chapterTitle: 'Apprenticeship',
@@ -1243,7 +1267,7 @@ const App = {
             },
             {
                 title: 'Near Death',
-                icon: '☠️',
+                icon: 'fa-solid fa-skull',
                 chapterIndex: 3,
                 chapterNumber: '04',
                 chapterTitle: 'Near-death',
@@ -1252,7 +1276,7 @@ const App = {
             },
             {
                 title: 'The Pattern-Hunter',
-                icon: '🔍',
+                icon: 'fa-solid fa-magnifying-glass',
                 chapterIndex: 4,
                 chapterNumber: '05',
                 chapterTitle: 'Pattern-hunter',
@@ -1261,7 +1285,7 @@ const App = {
             },
             {
                 title: 'Meredin\'s Patronage',
-                icon: '🤝',
+                icon: 'fa-solid fa-handshake',
                 chapterIndex: 5,
                 chapterNumber: '06',
                 chapterTitle: 'Meredin',
@@ -1270,7 +1294,7 @@ const App = {
             },
             {
                 title: 'The Drift-Sparrow',
-                icon: '🚢',
+                icon: 'fa-solid fa-ship',
                 chapterIndex: 6,
                 chapterNumber: '07',
                 chapterTitle: 'Shipboard Scare',
@@ -1279,7 +1303,7 @@ const App = {
             },
             {
                 title: 'Sera\'s Trail',
-                icon: '📋',
+                icon: 'fa-solid fa-clipboard-list',
                 chapterIndex: 7,
                 chapterNumber: '08',
                 chapterTitle: 'Sera Trail',
@@ -1288,7 +1312,7 @@ const App = {
             },
             {
                 title: 'Smith\'s Coster',
-                icon: '🏛️',
+                icon: 'fa-solid fa-landmark',
                 chapterIndex: 8,
                 chapterNumber: '09',
                 chapterTitle: 'Smith\'s Coster',
@@ -1297,7 +1321,7 @@ const App = {
             },
             {
                 title: 'The Ledger Page',
-                icon: '📜',
+                icon: 'fa-solid fa-scroll',
                 chapterIndex: 9,
                 chapterNumber: '10',
                 chapterTitle: 'Ledger Page',
@@ -1306,7 +1330,7 @@ const App = {
             },
             {
                 title: 'Exit Strategy',
-                icon: '🚪',
+                icon: 'fa-solid fa-door-open',
                 chapterIndex: 10,
                 chapterNumber: '11',
                 chapterTitle: 'Exit Strategy',
@@ -1315,7 +1339,7 @@ const App = {
             },
             {
                 title: 'The Astral Bazaar',
-                icon: '🌌',
+                icon: 'fa-solid fa-wand-sparkles',
                 chapterIndex: 11,
                 chapterNumber: '12',
                 chapterTitle: 'Astral Bazaar',
@@ -1346,7 +1370,7 @@ const App = {
             html += `
                 <section class="backstory-section ${isEven ? 'even' : 'odd'}" data-chapter-index="${section.chapterIndex}">
                     <div class="backstory-section-header" role="button" tabindex="0">
-                        <span class="backstory-section-icon">${section.icon}</span>
+                        <span class="backstory-section-icon"><i class="${section.icon}"></i></span>
                         <h2 class="backstory-section-title">${section.title}</h2>
                         <span class="chapter-badge">Chapter ${section.chapterNumber}</span>
                         <span class="expand-indicator">▼</span>
@@ -1643,7 +1667,7 @@ const App = {
         container.innerHTML = this.knives.map((knife, index) => `
             <div class="knife-card ${knife.type}" data-knife-index="${index}">
                 <div class="knife-card-header">
-                    <span class="knife-card-icon">${knife.icon}</span>
+                    <span class="knife-card-icon"><i class="${knife.icon}"></i></span>
                     <h3 class="knife-card-name">${knife.name}</h3>
                 </div>
                 <span class="knife-card-type">${knife.type}</span>
@@ -1670,7 +1694,7 @@ const App = {
         if (overlay && content) {
             content.innerHTML = `
                 <div class="knife-detail-header">
-                    <span class="knife-detail-icon">${knife.icon}</span>
+                    <span class="knife-detail-icon"><i class="${knife.icon}"></i></span>
                     <h2 class="knife-detail-title">${knife.name}</h2>
                 </div>
                 <div class="knife-detail-section">
@@ -1698,6 +1722,170 @@ const App = {
         if (overlay) {
             overlay.classList.remove('active');
         }
+    },
+
+    // ============================================
+    // Mindersand Reference
+    // ============================================
+
+    /**
+     * Load mindersand data
+     */
+    async loadMindersand() {
+        const container = document.getElementById('mindersand-content');
+        if (!container) return;
+
+        container.innerHTML = '<div class="loading-spinner">Loading mindersand data...</div>';
+
+        try {
+            const response = await fetch('content/dm/mindersand.json');
+            this.mindersandData = await response.json();
+            this.renderMindersand();
+        } catch (error) {
+            console.error('Failed to load mindersand data:', error);
+            container.innerHTML = '<p>Failed to load mindersand reference.</p>';
+        }
+    },
+
+    /**
+     * Render mindersand reference content
+     */
+    renderMindersand() {
+        const container = document.getElementById('mindersand-content');
+        if (!container || !this.mindersandData) return;
+
+        const data = this.mindersandData;
+
+        container.innerHTML = `
+            <!-- Header Card -->
+            <div class="mindersand-header">
+                <div class="mindersand-title-row">
+                    <span class="mindersand-icon"><i class="${data.icon}"></i></span>
+                    <div>
+                        <h3 class="mindersand-name">${data.name}</h3>
+                        <span class="mindersand-pronunciation">/${data.pronunciation}/</span>
+                    </div>
+                </div>
+                <p class="mindersand-tagline">${data.tagline}</p>
+                <p class="mindersand-overview">${data.overview}</p>
+            </div>
+
+            <!-- Appearance & Detection -->
+            <div class="mindersand-card">
+                <h4 class="mindersand-card-title"><i class="fa-solid fa-eye"></i> Identification</h4>
+                <div class="mindersand-appearance">
+                    <div class="mindersand-detail">
+                        <span class="mindersand-label">Color:</span>
+                        <span>${data.appearance.color}</span>
+                    </div>
+                    <div class="mindersand-detail">
+                        <span class="mindersand-label">Texture:</span>
+                        <span>${data.appearance.texture}</span>
+                    </div>
+                    <div class="mindersand-tell">
+                        <span class="mindersand-label">The Tell:</span>
+                        <span class="mindersand-tell-text">${data.appearance.tell}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Disguises -->
+            <div class="mindersand-card">
+                <h4 class="mindersand-card-title"><i class="fa-solid fa-masks-theater"></i> Common Disguises</h4>
+                <div class="mindersand-disguises-grid">
+                    ${data.disguises.map(d => `
+                        <div class="mindersand-disguise">
+                            <span class="mindersand-disguise-icon"><i class="${d.icon}"></i></span>
+                            <div>
+                                <strong>${d.name}</strong>
+                                <p>${d.description}</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+
+            <!-- Effects Progression -->
+            <div class="mindersand-card">
+                <h4 class="mindersand-card-title"><i class="fa-solid fa-exclamation-triangle"></i> Effects Progression</h4>
+                <div class="mindersand-effects-timeline">
+                    ${data.effects.map((e, i) => `
+                        <div class="mindersand-effect-stage">
+                            <div class="mindersand-effect-header">
+                                <span class="mindersand-effect-icon"><i class="${e.icon}"></i></span>
+                                <span class="mindersand-effect-stage-name">${e.stage}</span>
+                            </div>
+                            <p class="mindersand-effect-symptoms">${e.symptoms}</p>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+
+            <!-- Why It Works -->
+            <div class="mindersand-card">
+                <h4 class="mindersand-card-title"><i class="fa-solid fa-bullseye"></i> Why It Works</h4>
+                <ul class="mindersand-why-list">
+                    ${data.whyItWorks.map(w => `<li>${w}</li>`).join('')}
+                </ul>
+            </div>
+
+            <!-- Smith's Coster Motives -->
+            <div class="mindersand-card mindersand-coster-card">
+                <h4 class="mindersand-card-title"><i class="fa-solid fa-building"></i> Why Smith's Coster Moves It</h4>
+                ${data.targetingNote ? `<p class="mindersand-targeting-note">${data.targetingNote}</p>` : ''}
+                <div class="mindersand-motives-grid">
+                    ${data.whySmithsCoster.map(m => `
+                        <div class="mindersand-motive">
+                            <strong>${m.reason}</strong>
+                            <p>${m.detail}</p>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+
+            <!-- Distribution -->
+            <div class="mindersand-card">
+                <h4 class="mindersand-card-title"><i class="fa-solid fa-box"></i> Distribution Patterns</h4>
+                <ul class="mindersand-distribution-list">
+                    ${data.distribution.map(d => `<li>${d}</li>`).join('')}
+                </ul>
+            </div>
+
+            <!-- Detection Guide -->
+            <div class="mindersand-card mindersand-detection-card">
+                <h4 class="mindersand-card-title"><i class="fa-solid fa-magnifying-glass"></i> Detection & Prevention</h4>
+                <div class="mindersand-detection-grid">
+                    <div class="mindersand-detection-item">
+                        <span class="mindersand-detection-label"><i class="fa-solid fa-check"></i> Prevention</span>
+                        <p>${data.detection.prevention}</p>
+                    </div>
+                    <div class="mindersand-detection-item">
+                        <span class="mindersand-detection-label"><i class="fa-solid fa-check"></i> Confirmation</span>
+                        <p>${data.detection.confirmation}</p>
+                    </div>
+                    <div class="mindersand-detection-item mindersand-detection-warning">
+                        <span class="mindersand-detection-label"><i class="fa-solid fa-xmark"></i> Worst Mistake</span>
+                        <p>${data.detection.mistake}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Adventure Hooks -->
+            <div class="mindersand-card mindersand-hooks-card">
+                <h4 class="mindersand-card-title"><i class="fa-solid fa-dice-d20"></i> Adventure Hooks</h4>
+                <div class="mindersand-hooks-grid">
+                    ${data.adventureHooks.map(h => `
+                        <div class="mindersand-hook">
+                            <div class="mindersand-hook-header">
+                                <span class="mindersand-hook-icon"><i class="${h.icon}"></i></span>
+                                <strong>${h.name}</strong>
+                            </div>
+                            <p>${h.hook}</p>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
     },
 
     // ============================================
@@ -1750,12 +1938,6 @@ const App = {
         const antagonists = data.connections.filter(c => c.type === 'antagonist');
 
         container.innerHTML = `
-            <!-- Center Character -->
-            <div class="relationship-center">
-                <h2 class="relationship-center-name">${data.center.name}</h2>
-                <p class="relationship-center-role">${data.center.role}</p>
-            </div>
-
             <!-- Allies -->
             ${allies.length > 0 ? `
             <div class="relationship-group allies">

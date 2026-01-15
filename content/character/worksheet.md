@@ -27,7 +27,7 @@ A quick reference for Meilin Starwell's core details, drives, and relationships.
 
 ## Core Concept
 
-- **Thesis:** "I am a ship's apothecary who follows supply chains like symptoms, but I won't buy truth with other people's lives."
+- **Thesis:** "I am a ship's apothecary who picks at patterns until they make sense, but people aren't leverage."
 - **Trouble:** "My life is complicated because I stole proof from a powerful distributor, and now the wrong people have reasons to find me."
 - **Defining detail:** I nearly died in public from a contaminated tea, traced it to a corporate dosing scheme, and stole a ledger page that proves intent. Dock bosses either want to help me or bury me.
 
