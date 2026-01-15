@@ -12,6 +12,15 @@ const App = {
     // At a Glance data (top-level page)
     ataglanceData: null,
     
+    /**
+     * Refresh Lucide icons after dynamic content render
+     */
+    refreshIcons() {
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    },
+    
     // Backstory data
     worksheetContent: null,
     backgroundContent: null,
@@ -530,7 +539,7 @@ const App = {
         if (filtered.length === 0) {
             grid.innerHTML = `
                 <div class="no-results">
-                    <div class="no-results-icon"><i class="fa-solid fa-leaf"></i></div>
+                    <div class="no-results-icon"><i data-lucide="leaf"></i></div>
                     <p>No medicines found matching your criteria.</p>
                     <p>Try adjusting your search or filters.</p>
                 </div>
@@ -550,6 +559,8 @@ const App = {
                 }
             });
         });
+        
+        this.refreshIcons();
     },
 
     /**
@@ -566,7 +577,7 @@ const App = {
 
         return `
             <article class="medicine-card" data-id="${medicine.id}" data-category="${medicine.category}">
-                ${hasFlora ? `<span class="medicine-flora-badge" title="${floraBadgeTitle}"><i class="fa-solid fa-seedling"></i></span>` : ''}
+                ${hasFlora ? `<span class="medicine-flora-badge" title="${floraBadgeTitle}"><i data-lucide="sprout"></i></span>` : ''}
                 <div class="medicine-card-header">
                     <h3 class="medicine-name">${medicine.name}</h3>
                     <span class="medicine-stars" title="${this.getDifficultyLabel(medicine.difficulty)}">${stars}</span>
@@ -597,7 +608,7 @@ const App = {
                     <span class="modal-stars" title="${this.getDifficultyLabel(medicine.difficulty)}">${stars}</span>
                     <span class="modal-dc">DC ${medicine.dc}</span>
                     <span class="modal-category medicine-category ${medicine.category}">${medicine.category}</span>
-                    ${this.hasFloraOption(medicine) ? `<span class="medicine-flora-badge" title="${medicine.floraOnly ? 'Flora only' : 'Has flora option'}"><i class="fa-solid fa-seedling"></i> ${medicine.floraOnly ? 'Flora Only' : 'Flora Option'}</span>` : ''}
+                    ${this.hasFloraOption(medicine) ? `<span class="medicine-flora-badge" title="${medicine.floraOnly ? 'Flora only' : 'Has flora option'}"><i data-lucide="sprout"></i> ${medicine.floraOnly ? 'Flora Only' : 'Flora Option'}</span>` : ''}
                 </div>
             </div>
             
@@ -656,7 +667,7 @@ const App = {
                 if (floraOptions.length > 0) {
                     html += `
                         <div class="component-item">
-                            <span class="component-label">Secondary <span class="component-type flora"><i class="fa-solid fa-seedling"></i> Flora</span>:</span>
+                            <span class="component-label">Secondary <span class="component-type flora"><i data-lucide="sprout"></i> Flora</span>:</span>
                             <span class="component-value">${floraOptions.join(' or ')}</span>
                         </div>
                     `;
@@ -774,7 +785,7 @@ const App = {
             <div class="ingredient-group">
                 <div class="ingredient-group-header">
                     <h3 class="ingredient-group-title">
-                        <span class="ingredient-group-icon"><i class="fa-solid fa-leaf"></i></span>
+                        <span class="ingredient-group-icon"><i data-lucide="leaf"></i></span>
                         Flora (Plants & Fungi)
                     </h3>
                 </div>
@@ -985,7 +996,7 @@ const App = {
         const grid = document.getElementById('medicine-grid');
         grid.innerHTML = `
             <div class="no-results">
-                <div class="no-results-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                <div class="no-results-icon"><i data-lucide="triangle-alert"></i></div>
                 <p>${message}</p>
             </div>
         `;
@@ -1221,6 +1232,7 @@ const App = {
             
             // Bind chapter link events
             this.bindChapterLinkEvents();
+            this.refreshIcons();
         } catch (error) {
             console.error('Failed to load backstory:', error);
             container.innerHTML = '<p class="error-message">Failed to load backstory.</p>';
@@ -1240,7 +1252,7 @@ const App = {
         const sections = [
             {
                 title: 'The Docks',
-                icon: 'fa-solid fa-anchor',
+                icon: 'anchor',
                 chapterIndex: 0,
                 chapterNumber: '01',
                 chapterTitle: 'Dock-born',
@@ -1249,7 +1261,7 @@ const App = {
             },
             {
                 title: 'Cassian',
-                icon: 'fa-solid fa-star',
+                icon: 'star',
                 chapterIndex: 1,
                 chapterNumber: '02',
                 chapterTitle: 'Cassian Leaves',
@@ -1258,7 +1270,7 @@ const App = {
             },
             {
                 title: 'Politics of Medicine',
-                icon: 'fa-solid fa-scale-balanced',
+                icon: 'scale',
                 chapterIndex: 2,
                 chapterNumber: '03',
                 chapterTitle: 'Apprenticeship',
@@ -1267,7 +1279,7 @@ const App = {
             },
             {
                 title: 'Near Death',
-                icon: 'fa-solid fa-skull',
+                icon: 'skull',
                 chapterIndex: 3,
                 chapterNumber: '04',
                 chapterTitle: 'Near-death',
@@ -1276,7 +1288,7 @@ const App = {
             },
             {
                 title: 'The Pattern-Hunter',
-                icon: 'fa-solid fa-magnifying-glass',
+                icon: 'search',
                 chapterIndex: 4,
                 chapterNumber: '05',
                 chapterTitle: 'Pattern-hunter',
@@ -1285,7 +1297,7 @@ const App = {
             },
             {
                 title: 'Meredin\'s Patronage',
-                icon: 'fa-solid fa-handshake',
+                icon: 'handshake',
                 chapterIndex: 5,
                 chapterNumber: '06',
                 chapterTitle: 'Meredin',
@@ -1294,7 +1306,7 @@ const App = {
             },
             {
                 title: 'The Drift-Sparrow',
-                icon: 'fa-solid fa-ship',
+                icon: 'ship',
                 chapterIndex: 6,
                 chapterNumber: '07',
                 chapterTitle: 'Shipboard Scare',
@@ -1303,7 +1315,7 @@ const App = {
             },
             {
                 title: 'Sera\'s Trail',
-                icon: 'fa-solid fa-clipboard-list',
+                icon: 'clipboard-list',
                 chapterIndex: 7,
                 chapterNumber: '08',
                 chapterTitle: 'Sera Trail',
@@ -1312,7 +1324,7 @@ const App = {
             },
             {
                 title: 'Smith\'s Coster',
-                icon: 'fa-solid fa-landmark',
+                icon: 'landmark',
                 chapterIndex: 8,
                 chapterNumber: '09',
                 chapterTitle: 'Smith\'s Coster',
@@ -1321,7 +1333,7 @@ const App = {
             },
             {
                 title: 'The Ledger Page',
-                icon: 'fa-solid fa-scroll',
+                icon: 'scroll',
                 chapterIndex: 9,
                 chapterNumber: '10',
                 chapterTitle: 'Ledger Page',
@@ -1330,7 +1342,7 @@ const App = {
             },
             {
                 title: 'Exit Strategy',
-                icon: 'fa-solid fa-door-open',
+                icon: 'door-open',
                 chapterIndex: 10,
                 chapterNumber: '11',
                 chapterTitle: 'Exit Strategy',
@@ -1339,7 +1351,7 @@ const App = {
             },
             {
                 title: 'The Astral Bazaar',
-                icon: 'fa-solid fa-wand-sparkles',
+                icon: 'sparkles',
                 chapterIndex: 11,
                 chapterNumber: '12',
                 chapterTitle: 'Astral Bazaar',
@@ -1370,7 +1382,7 @@ const App = {
             html += `
                 <section class="backstory-section ${isEven ? 'even' : 'odd'}" data-chapter-index="${section.chapterIndex}">
                     <div class="backstory-section-header" role="button" tabindex="0">
-                        <span class="backstory-section-icon"><i class="${section.icon}"></i></span>
+                        <span class="backstory-section-icon"><i data-lucide="${section.icon}"></i></span>
                         <h2 class="backstory-section-title">${section.title}</h2>
                         <span class="chapter-badge">Chapter ${section.chapterNumber}</span>
                         <span class="expand-indicator">▼</span>
@@ -1667,7 +1679,7 @@ const App = {
         container.innerHTML = this.knives.map((knife, index) => `
             <div class="knife-card ${knife.type}" data-knife-index="${index}">
                 <div class="knife-card-header">
-                    <span class="knife-card-icon"><i class="${knife.icon}"></i></span>
+                    <span class="knife-card-icon"><i data-lucide="${knife.icon}"></i></span>
                     <h3 class="knife-card-name">${knife.name}</h3>
                 </div>
                 <span class="knife-card-type">${knife.type}</span>
@@ -1682,6 +1694,8 @@ const App = {
                 this.openKnifeModal(this.knives[index]);
             });
         });
+        
+        this.refreshIcons();
     },
 
     /**
@@ -1694,7 +1708,7 @@ const App = {
         if (overlay && content) {
             content.innerHTML = `
                 <div class="knife-detail-header">
-                    <span class="knife-detail-icon"><i class="${knife.icon}"></i></span>
+                    <span class="knife-detail-icon"><i data-lucide="${knife.icon}"></i></span>
                     <h2 class="knife-detail-title">${knife.name}</h2>
                 </div>
                 <div class="knife-detail-section">
@@ -1711,6 +1725,7 @@ const App = {
                 </div>
             `;
             overlay.classList.add('active');
+            this.refreshIcons();
         }
     },
 
@@ -1760,7 +1775,7 @@ const App = {
             <!-- Header Card -->
             <div class="mindersand-header">
                 <div class="mindersand-title-row">
-                    <span class="mindersand-icon"><i class="${data.icon}"></i></span>
+                    <span class="mindersand-icon"><i data-lucide="${data.icon}"></i></span>
                     <div>
                         <h3 class="mindersand-name">${data.name}</h3>
                         <span class="mindersand-pronunciation">/${data.pronunciation}/</span>
@@ -1772,7 +1787,7 @@ const App = {
 
             <!-- Appearance & Detection -->
             <div class="mindersand-card">
-                <h4 class="mindersand-card-title"><i class="fa-solid fa-eye"></i> Identification</h4>
+                <h4 class="mindersand-card-title"><i data-lucide="eye"></i> Identification</h4>
                 <div class="mindersand-appearance">
                     <div class="mindersand-detail">
                         <span class="mindersand-label">Color:</span>
@@ -1791,11 +1806,11 @@ const App = {
 
             <!-- Disguises -->
             <div class="mindersand-card">
-                <h4 class="mindersand-card-title"><i class="fa-solid fa-masks-theater"></i> Common Disguises</h4>
+                <h4 class="mindersand-card-title"><i data-lucide="drama"></i> Common Disguises</h4>
                 <div class="mindersand-disguises-grid">
                     ${data.disguises.map(d => `
                         <div class="mindersand-disguise">
-                            <span class="mindersand-disguise-icon"><i class="${d.icon}"></i></span>
+                            <span class="mindersand-disguise-icon"><i data-lucide="${d.icon}"></i></span>
                             <div>
                                 <strong>${d.name}</strong>
                                 <p>${d.description}</p>
@@ -1807,12 +1822,12 @@ const App = {
 
             <!-- Effects Progression -->
             <div class="mindersand-card">
-                <h4 class="mindersand-card-title"><i class="fa-solid fa-exclamation-triangle"></i> Effects Progression</h4>
+                <h4 class="mindersand-card-title"><i data-lucide="triangle-alert"></i> Effects Progression</h4>
                 <div class="mindersand-effects-timeline">
                     ${data.effects.map((e, i) => `
                         <div class="mindersand-effect-stage">
                             <div class="mindersand-effect-header">
-                                <span class="mindersand-effect-icon"><i class="${e.icon}"></i></span>
+                                <span class="mindersand-effect-icon"><i data-lucide="${e.icon}"></i></span>
                                 <span class="mindersand-effect-stage-name">${e.stage}</span>
                             </div>
                             <p class="mindersand-effect-symptoms">${e.symptoms}</p>
@@ -1823,7 +1838,7 @@ const App = {
 
             <!-- Why It Works -->
             <div class="mindersand-card">
-                <h4 class="mindersand-card-title"><i class="fa-solid fa-bullseye"></i> Why It Works</h4>
+                <h4 class="mindersand-card-title"><i data-lucide="target"></i> Why It Works</h4>
                 <ul class="mindersand-why-list">
                     ${data.whyItWorks.map(w => `<li>${w}</li>`).join('')}
                 </ul>
@@ -1831,7 +1846,7 @@ const App = {
 
             <!-- Smith's Coster Motives -->
             <div class="mindersand-card mindersand-coster-card">
-                <h4 class="mindersand-card-title"><i class="fa-solid fa-building"></i> Why Smith's Coster Moves It</h4>
+                <h4 class="mindersand-card-title"><i data-lucide="building-2"></i> Why Smith's Coster Moves It</h4>
                 ${data.targetingNote ? `<p class="mindersand-targeting-note">${data.targetingNote}</p>` : ''}
                 <div class="mindersand-motives-grid">
                     ${data.whySmithsCoster.map(m => `
@@ -1845,7 +1860,7 @@ const App = {
 
             <!-- Distribution -->
             <div class="mindersand-card">
-                <h4 class="mindersand-card-title"><i class="fa-solid fa-box"></i> Distribution Patterns</h4>
+                <h4 class="mindersand-card-title"><i data-lucide="package"></i> Distribution Patterns</h4>
                 <ul class="mindersand-distribution-list">
                     ${data.distribution.map(d => `<li>${d}</li>`).join('')}
                 </ul>
@@ -1853,18 +1868,18 @@ const App = {
 
             <!-- Detection Guide -->
             <div class="mindersand-card mindersand-detection-card">
-                <h4 class="mindersand-card-title"><i class="fa-solid fa-magnifying-glass"></i> Detection & Prevention</h4>
+                <h4 class="mindersand-card-title"><i data-lucide="search"></i> Detection & Prevention</h4>
                 <div class="mindersand-detection-grid">
                     <div class="mindersand-detection-item">
-                        <span class="mindersand-detection-label"><i class="fa-solid fa-check"></i> Prevention</span>
+                        <span class="mindersand-detection-label"><i data-lucide="check"></i> Prevention</span>
                         <p>${data.detection.prevention}</p>
                     </div>
                     <div class="mindersand-detection-item">
-                        <span class="mindersand-detection-label"><i class="fa-solid fa-check"></i> Confirmation</span>
+                        <span class="mindersand-detection-label"><i data-lucide="check"></i> Confirmation</span>
                         <p>${data.detection.confirmation}</p>
                     </div>
                     <div class="mindersand-detection-item mindersand-detection-warning">
-                        <span class="mindersand-detection-label"><i class="fa-solid fa-xmark"></i> Worst Mistake</span>
+                        <span class="mindersand-detection-label"><i data-lucide="x"></i> Worst Mistake</span>
                         <p>${data.detection.mistake}</p>
                     </div>
                 </div>
@@ -1872,12 +1887,12 @@ const App = {
 
             <!-- Adventure Hooks -->
             <div class="mindersand-card mindersand-hooks-card">
-                <h4 class="mindersand-card-title"><i class="fa-solid fa-dice-d20"></i> Adventure Hooks</h4>
+                <h4 class="mindersand-card-title"><i data-lucide="dices"></i> Adventure Hooks</h4>
                 <div class="mindersand-hooks-grid">
                     ${data.adventureHooks.map(h => `
                         <div class="mindersand-hook">
                             <div class="mindersand-hook-header">
-                                <span class="mindersand-hook-icon"><i class="${h.icon}"></i></span>
+                                <span class="mindersand-hook-icon"><i data-lucide="${h.icon}"></i></span>
                                 <strong>${h.name}</strong>
                             </div>
                             <p>${h.hook}</p>
@@ -1886,6 +1901,8 @@ const App = {
                 </div>
             </div>
         `;
+        
+        this.refreshIcons();
     },
 
     // ============================================

@@ -2,7 +2,7 @@
   "name": "Mindersand",
   "pronunciation": "MIN-der-sand",
   "tagline": "The powder that makes people easier to steer.",
-  "icon": "fa-solid fa-flask",
+  "icon": "flask-conical",
   "overview": "A fine, pale powder traded under respectable names: drying powder, preservative, anti-caking agent. In truth, it's contraband because of what it does when it enters the food chain.",
   "appearance": {
     "color": "Off-white to pale gray dust",
@@ -12,34 +12,34 @@
   "disguises": [
     {
       "name": "Tea sweeteners",
-      "icon": "fa-solid fa-mug-hot",
+      "icon": "coffee",
       "description": "Mixed into cheap 'improved' tea blends"
     },
     {
       "name": "Fatigue tonics",
-      "icon": "fa-solid fa-prescription-bottle",
+      "icon": "pill",
       "description": "Hidden in 'steadying' supplements"
     },
     {
       "name": "Shipboard spices",
-      "icon": "fa-solid fa-mortar-pestle",
+      "icon": "utensils",
       "description": "Pepper tins, dried herb mixes, bulk stores"
     }
   ],
   "effects": [
     {
       "stage": "Early Exposure",
-      "icon": "fa-solid fa-cloud",
+      "icon": "cloud",
       "symptoms": "Brain-fog, mild tremor, 'bad sleep' that doesn't match hours rested"
     },
     {
       "stage": "Accumulation",
-      "icon": "fa-solid fa-face-meh",
+      "icon": "meh",
       "symptoms": "Flattened urgency, slowed reactions, dulled edge of anger or alarm, compliance shaped like fatigue"
     },
     {
       "stage": "Severe Sensitivity",
-      "icon": "fa-solid fa-triangle-exclamation",
+      "icon": "triangle-alert",
       "symptoms": "Some bodies reject it violently (anaphylaxis-like reactions). Rarer, louder, harder to explain away."
     }
   ],
@@ -81,22 +81,22 @@
   "adventureHooks": [
     {
       "name": "The 'bad batch' contract",
-      "icon": "fa-solid fa-scroll",
+      "icon": "scroll",
       "hook": "A captain hires the crew after two near-miss disasters and swears it's 'just fatigue.'"
     },
     {
       "name": "The quiet clinic refusal",
-      "icon": "fa-solid fa-hospital",
+      "icon": "hospital",
       "hook": "A patient gets turned away upstairs for 'bookings' that feel like politics."
     },
     {
       "name": "The missing page",
-      "icon": "fa-solid fa-file",
+      "icon": "file-text",
       "hook": "Someone stole a ledger leaf; now a powerful distributor is hunting for the thief and the proof."
     },
     {
       "name": "The false remedy",
-      "icon": "fa-solid fa-bottle-droplet",
+      "icon": "flask-round",
       "hook": "A stall sells 'steadying tonic' that's actually dosing dockworkers who can't afford to slow down."
     }
   ]

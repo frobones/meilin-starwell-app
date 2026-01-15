@@ -3173,9 +3173,7 @@ details[open] .rules-toggle::after {
 }
 
 .mindersand-distribution-list li::before {
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-  content: '\f466'; /* fa-box */
+  content: '▸';
   position: absolute;
   left: 0;
   font-size: 0.9rem;
