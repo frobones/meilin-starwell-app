@@ -1520,6 +1520,123 @@ details[open] .rules-toggle::after {
   margin: 0;
 }
 
+/* NPCs Grid */
+.npcs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-lg);
+}
+
+/* NPC Card */
+.npc-card {
+  background: var(--parchment-light);
+  border: 1px solid var(--parchment-aged);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.npc-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--bark-brown);
+}
+
+.npc-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow);
+  border-color: var(--bark-brown);
+}
+
+.npc-card.ally::before {
+  background: var(--herb-green);
+}
+
+.npc-card.complicated::before {
+  background: var(--gold-accent);
+}
+
+.npc-card.antagonist::before {
+  background: var(--blood-red);
+}
+
+.npc-card.contact::before {
+  background: var(--sepia);
+}
+
+.npc-card-header {
+  margin-bottom: var(--space-md);
+}
+
+.npc-card-name {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  color: var(--sepia);
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.npc-card-role {
+  font-size: 0.85rem;
+  color: var(--ink-faded);
+  margin: 0;
+}
+
+.npc-card-type {
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  margin-top: var(--space-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.npc-card.ally .npc-card-type {
+  background: rgba(76, 115, 74, 0.15);
+  color: var(--herb-green-dark);
+}
+
+.npc-card.complicated .npc-card-type {
+  background: rgba(184, 134, 11, 0.15);
+  color: var(--gold-accent);
+}
+
+.npc-card.antagonist .npc-card-type {
+  background: rgba(139, 35, 35, 0.15);
+  color: var(--blood-red);
+}
+
+.npc-card.contact .npc-card-type {
+  background: rgba(101, 67, 33, 0.15);
+  color: var(--bark-brown);
+}
+
+.npc-card-vibe {
+  font-size: 0.9rem;
+  color: var(--ink-brown);
+  font-style: italic;
+  margin: var(--space-md) 0 0 0;
+  line-height: 1.5;
+}
+
+/* NPC Modal */
+.npc-modal {
+  max-width: 700px;
+}
+
+.npc-modal .modal-content {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
 .vignettes-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));

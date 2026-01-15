@@ -14,7 +14,7 @@ const App = {
     backstoryContent: null,
     chapters: [],
     vignettes: [],
-    npcsContent: null,
+    npcs: [],
     
     // Passkey configuration
     // Change this passkey to whatever you want!
@@ -288,6 +288,23 @@ const App = {
             });
         }
 
+        // NPC modal close
+        const npcOverlay = document.getElementById('npc-modal-overlay');
+        if (npcOverlay) {
+            npcOverlay.addEventListener('click', (e) => {
+                if (e.target.id === 'npc-modal-overlay') {
+                    this.closeNPCModal();
+                }
+            });
+        }
+
+        const npcClose = document.getElementById('npc-modal-close');
+        if (npcClose) {
+            npcClose.addEventListener('click', () => {
+                this.closeNPCModal();
+            });
+        }
+
         // Handle browser back/forward
         window.addEventListener('hashchange', () => {
             this.handleHashChange();
@@ -362,7 +379,7 @@ const App = {
             this.loadChapters();
         } else if (subtabName === 'vignettes' && this.vignettes.length === 0) {
             this.loadVignettes();
-        } else if (subtabName === 'npcs' && !this.npcsContent) {
+        } else if (subtabName === 'npcs' && this.npcs.length === 0) {
             this.loadNPCs();
         }
     },
@@ -1004,17 +1021,136 @@ const App = {
     },
 
     /**
-     * Load the NPCs roster
+     * Load and parse the NPCs roster
      */
     async loadNPCs() {
-        const container = document.getElementById('npcs-content');
+        const container = document.getElementById('npcs-grid');
         if (!container) return;
 
         container.innerHTML = '<div class="loading-spinner">Loading NPCs...</div>';
 
-        const html = await this.fetchMarkdown('content/npcs/roster.md');
-        this.npcsContent = html;
-        container.innerHTML = html;
+        try {
+            const response = await fetch('content/npcs/roster.md');
+            const markdown = await response.text();
+            this.npcs = this.parseNPCs(markdown);
+            this.renderNPCs();
+        } catch (error) {
+            console.error('Failed to load NPCs:', error);
+            container.innerHTML = '<p>Failed to load NPCs.</p>';
+        }
+    },
+
+    /**
+     * Parse NPC markdown into structured data
+     */
+    parseNPCs(markdown) {
+        const npcs = [];
+        // Split by H2 headers (## Name)
+        const sections = markdown.split(/^## /m).slice(1);
+        
+        for (const section of sections) {
+            const lines = section.trim().split('\n');
+            const name = lines[0].trim();
+            
+            // Skip the intro section and group headers
+            if (name.startsWith('NPC Roster') || name.startsWith('Smith\'s Coster representatives') || name.startsWith('The Medica')) {
+                continue;
+            }
+            
+            // Find role and vibe from the content
+            const content = lines.slice(1).join('\n');
+            
+            // Extract role
+            const roleMatch = content.match(/\*\*Role\*\*:?\s*([^\n]+)/i);
+            const role = roleMatch ? roleMatch[1].trim() : '';
+            
+            // Extract vibe
+            const vibeMatch = content.match(/\*\*Vibe\*\*:?\s*([^\n]+)/i);
+            const vibe = vibeMatch ? vibeMatch[1].trim() : '';
+            
+            // Determine type based on content or section
+            let type = 'contact';
+            const lowerContent = content.toLowerCase();
+            if (name.includes('Antagonist') || lowerContent.includes('antagonist')) {
+                type = 'antagonist';
+            } else if (name.includes('Ally') || lowerContent.includes('ally')) {
+                type = 'ally';
+            } else if (name.includes('Complicated') || lowerContent.includes('complicated tie')) {
+                type = 'complicated';
+            }
+            
+            // Parse the full content as HTML
+            const fullHtml = marked.parse('## ' + section);
+            
+            npcs.push({
+                name: name.replace(/\(.*?\)/g, '').trim(),
+                role,
+                vibe,
+                type,
+                content: fullHtml
+            });
+        }
+        
+        return npcs;
+    },
+
+    /**
+     * Render NPC cards
+     */
+    renderNPCs() {
+        const container = document.getElementById('npcs-grid');
+        if (!container) return;
+
+        if (this.npcs.length === 0) {
+            container.innerHTML = '<p>No NPCs found.</p>';
+            return;
+        }
+
+        container.innerHTML = this.npcs.map((npc, index) => `
+            <div class="npc-card ${npc.type}" data-npc-index="${index}">
+                <div class="npc-card-header">
+                    <h3 class="npc-card-name">${npc.name}</h3>
+                    <p class="npc-card-role">${npc.role}</p>
+                    <span class="npc-card-type">${npc.type}</span>
+                </div>
+                ${npc.vibe ? `<p class="npc-card-vibe">"${npc.vibe}"</p>` : ''}
+            </div>
+        `).join('');
+
+        // Bind click events
+        container.querySelectorAll('.npc-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const index = parseInt(card.dataset.npcIndex);
+                this.openNPCModal(this.npcs[index]);
+            });
+        });
+    },
+
+    /**
+     * Open NPC detail modal
+     */
+    openNPCModal(npc) {
+        const overlay = document.getElementById('npc-modal-overlay');
+        const content = document.getElementById('npc-modal-content');
+        
+        if (overlay && content) {
+            content.innerHTML = `
+                <div class="narrative-container">
+                    ${npc.content}
+                </div>
+            `;
+            overlay.classList.add('active');
+        }
+    },
+
+    /**
+     * Close NPC modal
+     */
+    closeNPCModal() {
+        const overlay = document.getElementById('npc-modal-overlay');
+        if (overlay) {
+            overlay.classList.remove('active');
+        }
     },
 
     /**

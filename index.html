@@ -193,10 +193,20 @@
                         <div class="npcs-intro">
                             <p class="npcs-note">Named characters from Meilin's backstory. Each entry includes what they want, what she won't give them, and how they might re-enter the story.</p>
                         </div>
-                        <div class="narrative-container" id="npcs-content">
+                        <div class="npcs-grid" id="npcs-grid">
                             <div class="loading-spinner">Loading NPCs...</div>
                         </div>
                     </div>
+
+                <!-- NPC Detail Modal -->
+                <div class="modal-overlay" id="npc-modal-overlay">
+                    <div class="modal npc-modal">
+                        <button class="modal-close" id="npc-modal-close">×</button>
+                        <div class="modal-content" id="npc-modal-content">
+                            <!-- NPC content populated by JS -->
+                        </div>
+                    </div>
+                </div>
                 </main>
 
                 <!-- Vignette Detail Modal -->
