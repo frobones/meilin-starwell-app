@@ -41,7 +41,7 @@ This is a quick index from Meilin's skills (see `play/Meilin Starwell - Build No
 
 ## History
 
-- **Vignette 10, Bral, the window with three seals**: port politics as living history, who answers to who, and how old scandals become present procedures.
+- **Vignette 10, The window with three seals**: using Bral institutional memory to expose a trading house scam in the Bazaar.
 
 ## Languages and other "sheet truths"
 

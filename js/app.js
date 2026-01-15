@@ -947,7 +947,7 @@ const App = {
             { file: 'Meilin Starwell - Vignette 07 - Quiet feet, open eyes.md', number: '08', title: 'Quiet Feet, Open Eyes' },
             { file: 'Meilin Starwell - Vignette 08 - Fingers, coin, and shame.md', number: '09', title: 'Fingers, Coin, and Shame' },
             { file: 'Meilin Starwell - Vignette 09 - The Case Ledger.md', number: '10', title: 'The Case Ledger' },
-            { file: 'Meilin Starwell - Vignette 10 - Bral, the window with three seals.md', number: '11', title: 'Bral, the Window with Three Seals' }
+            { file: 'Meilin Starwell - Vignette 10 - The window with three seals.md', number: '11', title: 'The Window with Three Seals' }
         ];
 
         // Load all vignettes
