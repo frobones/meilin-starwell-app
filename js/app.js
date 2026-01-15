@@ -1068,16 +1068,18 @@ const App = {
             const vibeMatch = content.match(/\*\*Vibe\*\*:?\s*([^\n]+)/i);
             const vibe = vibeMatch ? vibeMatch[1].trim() : '';
             
-            // Determine type based on content or section
-            let type = 'contact';
-            const lowerContent = content.toLowerCase();
-            if (name.includes('Antagonist') || lowerContent.includes('antagonist')) {
-                type = 'antagonist';
-            } else if (name.includes('Ally') || lowerContent.includes('ally')) {
+            // Determine type: ally, complicated, or antagonist
+            let type = 'complicated'; // default for most NPCs
+            const lowerName = name.toLowerCase();
+            // Allies: Oona and Meredin (active supporters)
+            if (lowerName.includes('oona') || lowerName.includes('meredin')) {
                 type = 'ally';
-            } else if (name.includes('Complicated') || lowerContent.includes('complicated tie')) {
-                type = 'complicated';
             }
+            // Antagonist: Elowen Pryce (Smith's Coster)
+            if (lowerName.includes('elowen') || lowerName.includes('pryce')) {
+                type = 'antagonist';
+            }
+            // Complicated: Kaito, Cassian, Sera, Bram (family, witnesses, insiders)
             
             // Parse the full content as HTML
             const fullHtml = marked.parse('## ' + section);
