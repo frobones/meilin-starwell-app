@@ -1738,98 +1738,6 @@ details[open] .rules-toggle::after {
 }
 
 /* ============================================
-   Chapters Accordion
-   ============================================ */
-
-.chapters-intro {
-  margin-bottom: var(--space-lg);
-  padding: var(--space-md);
-  background: rgba(74, 93, 74, 0.08);
-  border-radius: var(--radius-md);
-  border-left: 4px solid var(--herb-green);
-}
-
-.chapters-intro p {
-  margin: 0;
-  color: var(--ink-faded);
-  font-style: italic;
-}
-
-.chapters-accordion {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-}
-
-.chapter-item {
-  border: 1px solid var(--parchment-aged);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  background: var(--parchment-light);
-  transition: box-shadow 0.2s ease;
-}
-
-.chapter-item:hover {
-  box-shadow: 0 2px 8px var(--shadow);
-}
-
-.chapter-header {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-  padding: var(--space-md) var(--space-lg);
-  cursor: pointer;
-  background: var(--parchment);
-  border: none;
-  width: 100%;
-  text-align: left;
-  font-family: var(--font-heading);
-  transition: background 0.2s ease;
-}
-
-.chapter-header:hover {
-  background: var(--parchment-dark);
-}
-
-.chapter-number {
-  font-family: var(--font-display);
-  font-size: 0.9rem;
-  color: var(--gold-accent);
-  background: var(--ink-brown);
-  padding: var(--space-xs) var(--space-sm);
-  border-radius: var(--radius-sm);
-  min-width: 40px;
-  text-align: center;
-}
-
-.chapter-title {
-  flex: 1;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--sepia);
-}
-
-.chapter-toggle {
-  font-size: 1.2rem;
-  color: var(--ink-faded);
-  transition: transform 0.3s ease;
-}
-
-.chapter-item.expanded .chapter-toggle {
-  transform: rotate(180deg);
-}
-
-.chapter-content {
-  display: none;
-  padding: var(--space-lg);
-  border-top: 1px solid var(--parchment-aged);
-}
-
-.chapter-item.expanded .chapter-content {
-  display: block;
-}
-
-/* ============================================
    Vignettes Section
    ============================================ */
 
@@ -2496,8 +2404,20 @@ details[open] .rules-toggle::after {
   flex-wrap: wrap;
   gap: var(--space-md);
   margin-bottom: var(--space-lg);
-  padding-bottom: var(--space-md);
+  padding: var(--space-md);
   border-bottom: 1px solid var(--parchment-dark);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: background 0.2s ease;
+}
+
+.backstory-section-header:hover {
+  background: rgba(184, 134, 11, 0.08);
+}
+
+.backstory-section-header:focus {
+  outline: 2px solid var(--gold-accent);
+  outline-offset: 2px;
 }
 
 .backstory-section-icon {
@@ -2514,23 +2434,115 @@ details[open] .rules-toggle::after {
   flex: 1;
 }
 
-.chapter-link {
+.chapter-badge {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: var(--space-xs) var(--space-sm);
+  background: rgba(184, 134, 11, 0.12);
+  border-radius: var(--radius-sm);
+}
+
+.expand-indicator {
+  font-size: 0.85rem;
+  color: var(--ink-faded);
+  transition: transform 0.3s ease;
+  margin-left: auto;
+}
+
+.backstory-section.expanded .expand-indicator {
+  transform: rotate(180deg);
+}
+
+/* Expanded Chapter Content */
+.chapter-content-expanded {
+  display: none;
+  padding: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+}
+
+.backstory-section.expanded .chapter-content-expanded {
+  display: block;
+  max-height: none;
+  padding-top: var(--space-lg);
+  border-top: 2px dashed var(--parchment-dark);
+  margin-top: var(--space-md);
+}
+
+.chapter-full-content {
+  background: linear-gradient(135deg, rgba(255, 253, 245, 0.5) 0%, rgba(248, 241, 225, 0.5) 100%);
+  padding: var(--space-lg);
+  border-radius: var(--radius-sm);
+}
+
+.chapter-divider {
+  text-align: center;
+  margin-bottom: var(--space-lg);
+}
+
+.chapter-divider-text {
   font-family: var(--font-heading);
   font-size: 0.85rem;
   font-weight: 600;
-  color: var(--herb-green);
-  text-decoration: none;
-  padding: var(--space-xs) var(--space-md);
-  border: 1px solid var(--herb-green);
-  border-radius: var(--radius-sm);
-  transition: all 0.2s ease;
-  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gold-dim);
+  background: var(--parchment);
+  padding: 0 var(--space-md);
 }
 
-.chapter-link:hover {
-  background: var(--herb-green);
-  color: var(--parchment-light);
-  transform: translateX(2px);
+.chapter-full-content h1 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: var(--ink-brown);
+  margin-bottom: var(--space-md);
+  text-align: center;
+}
+
+.chapter-full-content h2 {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  color: var(--sepia);
+  margin: var(--space-lg) 0 var(--space-md) 0;
+  border-bottom: 1px solid var(--parchment-dark);
+  padding-bottom: var(--space-sm);
+}
+
+.chapter-full-content p {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.8;
+  margin-bottom: var(--space-md);
+  color: var(--ink-black);
+}
+
+.chapter-full-content ul,
+.chapter-full-content ol {
+  margin: var(--space-md) 0;
+  padding-left: var(--space-lg);
+}
+
+.chapter-full-content li {
+  margin-bottom: var(--space-sm);
+  line-height: 1.6;
+}
+
+.chapter-full-content hr {
+  border: none;
+  border-top: 1px dashed var(--parchment-dark);
+  margin: var(--space-xl) 0;
+}
+
+.chapter-loading {
+  text-align: center;
+  padding: var(--space-lg);
+  color: var(--ink-faded);
+  font-style: italic;
 }
 
 /* Pull Quotes */
@@ -2734,9 +2746,17 @@ details[open] .rules-toggle::after {
     align-items: flex-start;
   }
   
-  .chapter-link {
-    font-size: 0.8rem;
+  .chapter-badge {
+    font-size: 0.7rem;
     margin-top: var(--space-sm);
+  }
+  
+  .expand-indicator {
+    display: none;
+  }
+  
+  .chapter-full-content {
+    padding: var(--space-md);
   }
   
   .backstory-quote {
@@ -2902,7 +2922,6 @@ details[open] .rules-toggle::after {
   }
   
   .medicine-card,
-  .chapter-item,
   .vignette-card {
     break-inside: avoid;
     page-break-inside: avoid;

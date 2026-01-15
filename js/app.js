@@ -16,7 +16,6 @@ const App = {
     worksheetContent: null,
     backgroundContent: null,
     backstoryContent: null,
-    chapters: [],
     vignettes: [],
     npcs: [],
     knives: [],
@@ -383,8 +382,6 @@ const App = {
             this.loadBackground();
         } else if (subtabName === 'backstory' && !this.backstoryContent) {
             this.loadEnhancedBackstory();
-        } else if (subtabName === 'chapters' && this.chapters.length === 0) {
-            this.loadChapters();
         } else if (subtabName === 'vignettes' && this.vignettes.length === 0) {
             this.loadVignettes();
         } else if (subtabName === 'knives' && this.knives.length === 0) {
@@ -1109,7 +1106,6 @@ const App = {
         await Promise.all([
             this.loadBackground(),
             this.loadEnhancedBackstory(),
-            this.loadChapters(),
             this.loadVignettes(),
             this.loadNPCs()
         ]);
@@ -1300,7 +1296,7 @@ const App = {
         let html = `
             <div class="backstory-header">
                 <h1 class="backstory-title">${title}</h1>
-                <p class="backstory-intro">Click any section header to read the expanded chapter.</p>
+                <p class="backstory-intro">Click any section to expand the full chapter.</p>
             </div>
         `;
 
@@ -1322,17 +1318,19 @@ const App = {
             const isEven = idx % 2 === 0;
             
             html += `
-                <section class="backstory-section ${isEven ? 'even' : 'odd'}">
-                    <div class="backstory-section-header">
+                <section class="backstory-section ${isEven ? 'even' : 'odd'}" data-chapter-index="${section.chapterIndex}">
+                    <div class="backstory-section-header" role="button" tabindex="0">
                         <span class="backstory-section-icon">${section.icon}</span>
                         <h2 class="backstory-section-title">${section.title}</h2>
-                        <a href="#" class="chapter-link" data-chapter="${section.chapterIndex}" title="Read the full chapter">
-                            Read Chapter ${section.chapterNumber}: ${section.chapterTitle} →
-                        </a>
+                        <span class="chapter-badge">Chapter ${section.chapterNumber}</span>
+                        <span class="expand-indicator">▼</span>
                     </div>
                     ${section.pullQuote ? `<blockquote class="backstory-quote">${section.pullQuote}</blockquote>` : ''}
                     <div class="backstory-section-content">
                         ${sectionParagraphs}
+                    </div>
+                    <div class="chapter-content-expanded" data-chapter="${section.chapterIndex}">
+                        <div class="chapter-loading">Loading chapter...</div>
                     </div>
                 </section>
             `;
@@ -1352,16 +1350,98 @@ const App = {
     },
 
     /**
-     * Bind click events for chapter links in the backstory
+     * Bind click events for section headers to expand/collapse chapters
      */
     bindChapterLinkEvents() {
-        document.querySelectorAll('.chapter-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const chapterIndex = parseInt(link.dataset.chapter);
-                this.navigateToChapter(chapterIndex);
+        document.querySelectorAll('.backstory-section-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const section = header.closest('.backstory-section');
+                this.toggleChapterExpansion(section);
+            });
+            
+            // Keyboard accessibility
+            header.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    const section = header.closest('.backstory-section');
+                    this.toggleChapterExpansion(section);
+                }
             });
         });
+    },
+
+    /**
+     * Toggle the expansion of a chapter section
+     */
+    async toggleChapterExpansion(section) {
+        const isExpanded = section.classList.contains('expanded');
+        const chapterIndex = parseInt(section.dataset.chapterIndex);
+        const contentContainer = section.querySelector('.chapter-content-expanded');
+        
+        // Collapse if already expanded
+        if (isExpanded) {
+            section.classList.remove('expanded');
+            return;
+        }
+        
+        // Collapse any other expanded sections
+        document.querySelectorAll('.backstory-section.expanded').forEach(s => {
+            s.classList.remove('expanded');
+        });
+        
+        // Expand this section
+        section.classList.add('expanded');
+        
+        // Load chapter content if not already loaded
+        if (!contentContainer.dataset.loaded) {
+            await this.loadChapterContent(chapterIndex, contentContainer);
+        }
+        
+        // Scroll the section into view with some offset
+        setTimeout(() => {
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+    },
+
+    /**
+     * Load chapter content into the expanded container
+     */
+    async loadChapterContent(chapterIndex, container) {
+        const chapterFiles = [
+            { file: 'Meilin Starwell - Stage 01 - Dock-born.md', title: 'Dock-born' },
+            { file: 'Meilin Starwell - Stage 02 - Cassian Leaves.md', title: 'Cassian Leaves' },
+            { file: 'Meilin Starwell - Stage 03 - Apprenticeship.md', title: 'Apprenticeship' },
+            { file: 'Meilin Starwell - Stage 04 - Near-death.md', title: 'Near-death' },
+            { file: 'Meilin Starwell - Stage 05 - Pattern-hunter.md', title: 'Pattern-hunter' },
+            { file: 'Meilin Starwell - Stage 06 - Meredin.md', title: 'Meredin' },
+            { file: 'Meilin Starwell - Stage 07 - Shipboard Scare.md', title: 'Shipboard Scare' },
+            { file: 'Meilin Starwell - Stage 08 - Sera Trail.md', title: 'Sera Trail' },
+            { file: 'Meilin Starwell - Stage 09 - Smith\'s Coster.md', title: 'Smith\'s Coster' },
+            { file: 'Meilin Starwell - Stage 10 - Ledger Page.md', title: 'Ledger Page' },
+            { file: 'Meilin Starwell - Stage 11 - Exit Strategy.md', title: 'Exit Strategy' },
+            { file: 'Meilin Starwell - Stage 12 - Astral Bazaar.md', title: 'Astral Bazaar' }
+        ];
+
+        const chapter = chapterFiles[chapterIndex];
+        if (!chapter) {
+            container.innerHTML = '<p class="error">Chapter not found.</p>';
+            return;
+        }
+
+        try {
+            const html = await this.fetchMarkdown(`content/backstory/stages/${chapter.file}`);
+            container.innerHTML = `
+                <div class="chapter-full-content">
+                    <div class="chapter-divider">
+                        <span class="chapter-divider-text">Full Chapter</span>
+                    </div>
+                    ${html}
+                </div>
+            `;
+            container.dataset.loaded = 'true';
+        } catch (error) {
+            container.innerHTML = '<p class="error">Failed to load chapter content.</p>';
+        }
     },
 
     /**
@@ -1794,118 +1874,6 @@ const App = {
         overlay.classList.add('active');
     },
 
-    /**
-     * Load all chapter files into the accordion
-     */
-    async loadChapters() {
-        const container = document.getElementById('chapters-accordion');
-        if (!container) return;
-
-        container.innerHTML = '<div class="loading-spinner">Loading chapters...</div>';
-
-        // Chapter file mappings
-        const chapterFiles = [
-            { file: 'Meilin Starwell - Stage 01 - Dock-born.md', number: '01', title: 'Dock-born' },
-            { file: 'Meilin Starwell - Stage 02 - Cassian Leaves.md', number: '02', title: 'Cassian Leaves' },
-            { file: 'Meilin Starwell - Stage 03 - Apprenticeship.md', number: '03', title: 'Apprenticeship' },
-            { file: 'Meilin Starwell - Stage 04 - Near-death.md', number: '04', title: 'Near-death' },
-            { file: 'Meilin Starwell - Stage 05 - Pattern-hunter.md', number: '05', title: 'Pattern-hunter' },
-            { file: 'Meilin Starwell - Stage 06 - Meredin.md', number: '06', title: 'Meredin' },
-            { file: 'Meilin Starwell - Stage 07 - Shipboard Scare.md', number: '07', title: 'Shipboard Scare' },
-            { file: 'Meilin Starwell - Stage 08 - Sera Trail.md', number: '08', title: 'Sera Trail' },
-            { file: 'Meilin Starwell - Stage 09 - Smith\'s Coster.md', number: '09', title: 'Smith\'s Coster' },
-            { file: 'Meilin Starwell - Stage 10 - Ledger Page.md', number: '10', title: 'Ledger Page' },
-            { file: 'Meilin Starwell - Stage 11 - Exit Strategy.md', number: '11', title: 'Exit Strategy' },
-            { file: 'Meilin Starwell - Stage 12 - Astral Bazaar.md', number: '12', title: 'Astral Bazaar' }
-        ];
-
-        // Load all chapters
-        const chapterPromises = chapterFiles.map(async (chapter) => {
-            const html = await this.fetchMarkdown(`content/backstory/stages/${chapter.file}`);
-            return {
-                ...chapter,
-                content: html
-            };
-        });
-
-        this.chapters = await Promise.all(chapterPromises);
-        this.renderChapters();
-    },
-
-    /**
-     * Render chapters accordion
-     */
-    renderChapters() {
-        const container = document.getElementById('chapters-accordion');
-        if (!container) return;
-
-        container.innerHTML = this.chapters.map((chapter, index) => `
-            <div class="chapter-item" data-chapter="${index}">
-                <button class="chapter-header">
-                    <span class="chapter-number">${chapter.number}</span>
-                    <span class="chapter-title">${chapter.title}</span>
-                    <span class="chapter-toggle">▼</span>
-                </button>
-                <div class="chapter-content narrative-container">
-                    ${chapter.content}
-                </div>
-            </div>
-        `).join('');
-
-        // Add click handlers for accordion
-        container.querySelectorAll('.chapter-header').forEach(header => {
-            header.addEventListener('click', () => {
-                const item = header.closest('.chapter-item');
-                item.classList.toggle('expanded');
-            });
-        });
-    },
-
-    /**
-     * Navigate to a specific chapter from backstory links
-     * Switches to chapters tab, expands the chapter, and scrolls to it
-     */
-    navigateToChapter(chapterIndex) {
-        // Ensure chapters are loaded
-        if (this.chapters.length === 0) {
-            this.loadChapters().then(() => {
-                this.doNavigateToChapter(chapterIndex);
-            });
-        } else {
-            this.doNavigateToChapter(chapterIndex);
-        }
-    },
-
-    /**
-     * Internal: Actually navigate to and expand the chapter
-     */
-    doNavigateToChapter(chapterIndex) {
-        // Switch to chapters subtab
-        this.switchSubtab('chapters');
-        
-        // Small delay to ensure DOM is ready
-        requestAnimationFrame(() => {
-            const container = document.getElementById('chapters-accordion');
-            if (!container) return;
-            
-            // Find the chapter item
-            const chapterItem = container.querySelector(`[data-chapter="${chapterIndex}"]`);
-            if (!chapterItem) return;
-            
-            // Collapse all other chapters
-            container.querySelectorAll('.chapter-item.expanded').forEach(item => {
-                item.classList.remove('expanded');
-            });
-            
-            // Expand this chapter
-            chapterItem.classList.add('expanded');
-            
-            // Scroll into view with offset for header
-            setTimeout(() => {
-                chapterItem.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 100);
-        });
-    },
 
     /**
      * Load all vignette files
