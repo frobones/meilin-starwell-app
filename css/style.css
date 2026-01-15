@@ -3042,13 +3042,17 @@ details[open] .rules-toggle::after {
   transform: translateY(-50%);
   width: 12px;
   height: 12px;
-  background: var(--gold-accent);
+  background: #7a9a5a; /* Green - mild */
   border-radius: 50%;
   border: 2px solid var(--parchment-light);
 }
 
+.mindersand-effect-stage:nth-child(2)::before {
+  background: #d4a040; /* Amber - moderate */
+}
+
 .mindersand-effect-stage:last-child::before {
-  background: #cc3333;
+  background: #cc3333; /* Red - severe */
 }
 
 .mindersand-effect-header {
