@@ -1,4 +1,4 @@
-# Meilin Starwell — Backstory (Consolidated Narrative)
+# The Story So Far
 
 On the Rock of Bral, the docks don’t sleep. They trade ownership by the hour. Meilin Starwell was raised in that rhythm: winches thudding, lanternlight thinning in cold air, jokes that arrived too loud because pain needed a mask. Her father kept a cramped apothecary corner wedged between honest trades and dishonest money, and he taught her to treat the docks the way a diagnostician treats a body: listen first, then act.
 
