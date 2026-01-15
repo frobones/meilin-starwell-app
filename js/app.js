@@ -247,13 +247,6 @@ const App = {
             });
         });
 
-        // Sub-tab navigation (backstory page)
-        document.querySelectorAll('.sub-tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const subtab = btn.dataset.subtab;
-                this.switchSubtab(subtab);
-            });
-        });
 
         // Vignette modal close
         const vignetteOverlay = document.getElementById('vignette-modal-overlay');
@@ -342,7 +335,7 @@ const App = {
      */
     handleHashChange() {
         const hash = window.location.hash.slice(1) || 'ataglance';
-        if (hash === 'ataglance' || hash === 'medicine' || hash === 'backstory') {
+        if (hash === 'ataglance' || hash === 'medicine' || hash === 'backstory' || hash === 'dmtools') {
             this.switchPage(hash, false);
         }
     },
@@ -381,36 +374,23 @@ const App = {
         }
         
         // Load backstory content if switching to backstory page
-        if (pageName === 'backstory' && !this.backgroundContent) {
+        if (pageName === 'backstory' && !this.backstoryContent) {
             this.loadBackstoryContent();
+        }
+        
+        // Load DM Tools content if switching to that page
+        if (pageName === 'dmtools' && !this.relationships) {
+            this.loadDMToolsContent();
         }
     },
 
     /**
-     * Switch between backstory sub-tabs
+     * Scroll to a specific section on the current page
      */
-    switchSubtab(subtabName) {
-        this.currentSubtab = subtabName;
-
-        // Update sub-tab buttons
-        document.querySelectorAll('.sub-tab-btn').forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.subtab === subtabName);
-        });
-
-        // Update sub-tab content visibility
-        document.querySelectorAll('.sub-tab-content').forEach(content => {
-            content.classList.toggle('active', content.id === `${subtabName}-subtab`);
-        });
-
-        // Load content if needed
-        if (subtabName === 'backstory' && !this.backstoryContent) {
-            this.loadEnhancedBackstory();
-        } else if (subtabName === 'vignettes' && this.vignettes.length === 0) {
-            this.loadVignettes();
-        } else if (subtabName === 'knives' && this.knives.length === 0) {
-            this.loadKnives();
-        } else if (subtabName === 'relationships' && !this.relationships) {
-            this.loadRelationships();
+    scrollToSection(sectionId) {
+        const section = document.getElementById(sectionId);
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     },
 
@@ -1109,14 +1089,16 @@ const App = {
             card.addEventListener('click', (e) => {
                 e.preventDefault();
                 const targetPage = card.dataset.navigate;
-                const targetSubtab = card.dataset.subtab;
+                const targetSection = card.dataset.section;
                 
-                // Switch to the backstory page
+                // Switch to the target page
                 this.switchPage(targetPage);
                 
-                // Then switch to the specific sub-tab
-                if (targetSubtab) {
-                    this.switchSubtab(targetSubtab);
+                // If there's a section to scroll to, wait for content to load then scroll
+                if (targetSection) {
+                    setTimeout(() => {
+                        this.scrollToSection(`${targetSection}-section`);
+                    }, 100);
                 }
             });
         });
@@ -1130,6 +1112,16 @@ const App = {
             this.loadEnhancedBackstory(),
             this.loadVignettes(),
             this.loadNPCs()
+        ]);
+    },
+
+    /**
+     * Load all DM Tools content (relationships, knives)
+     */
+    async loadDMToolsContent() {
+        await Promise.all([
+            this.loadRelationships(),
+            this.loadKnives()
         ]);
     },
 

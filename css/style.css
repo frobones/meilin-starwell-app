@@ -2349,6 +2349,90 @@ details[open] .rules-toggle::after {
   margin-bottom: var(--space-xs);
 }
 
+/* ============================================
+   Vignettes Section (Inline after Backstory)
+   ============================================ */
+
+.vignettes-section {
+  margin-top: var(--space-xxl);
+  padding-top: var(--space-xl);
+}
+
+.section-divider {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+  position: relative;
+}
+
+.section-divider::before,
+.section-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  border-top: 2px solid var(--parchment-dark);
+}
+
+.section-divider::before {
+  left: 0;
+}
+
+.section-divider::after {
+  right: 0;
+}
+
+.divider-text {
+  background: var(--bg-cream);
+  padding: 0 var(--space-lg);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  position: relative;
+  z-index: 1;
+}
+
+.vignettes-title {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: var(--sepia);
+  text-align: center;
+  margin-bottom: var(--space-md);
+}
+
+/* ============================================
+   DM Tools Page
+   ============================================ */
+
+#dmtools-page {
+  max-width: 1100px;
+}
+
+.dmtools-content {
+  padding: var(--space-lg);
+}
+
+.dmtools-section {
+  margin-bottom: var(--space-xxl);
+  padding-bottom: var(--space-xl);
+  border-bottom: 2px solid var(--parchment-dark);
+}
+
+.dmtools-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.dmtools-section-title {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: var(--sepia);
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--parchment-aged);
+}
+
 /* Background Modal */
 .background-modal {
   max-width: 700px;

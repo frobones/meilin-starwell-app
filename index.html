@@ -34,6 +34,10 @@
                     <span class="nav-icon">📖</span>
                     <span class="nav-text">Backstory</span>
                 </a>
+                <a href="#dmtools" class="nav-link" data-page="dmtools">
+                    <span class="nav-icon">🎲</span>
+                    <span class="nav-text">DM Tools</span>
+                </a>
             </nav>
             <div class="sidebar-footer">
                 <p class="sidebar-quote">If it matters, write it down.</p>
@@ -105,17 +109,17 @@
                             <span class="aag-link-title">Background</span>
                             <span class="aag-link-count">Apothecary origin</span>
                         </button>
-                        <a href="#backstory" class="aag-link-card" data-navigate="backstory" data-subtab="backstory">
+                        <a href="#backstory" class="aag-link-card" data-navigate="backstory">
                             <span class="aag-link-icon">📚</span>
                             <span class="aag-link-title">Full Backstory</span>
                             <span class="aag-link-count" id="aag-chapters-count">12 chapters</span>
                         </a>
-                        <a href="#backstory" class="aag-link-card" data-navigate="backstory" data-subtab="knives">
+                        <a href="#dmtools" class="aag-link-card" data-navigate="dmtools" data-section="knives">
                             <span class="aag-link-icon">🗡️</span>
                             <span class="aag-link-title">Knives</span>
                             <span class="aag-link-count" id="aag-knives-count">5 hooks for the DM</span>
                         </a>
-                        <a href="#backstory" class="aag-link-card" data-navigate="backstory" data-subtab="relationships">
+                        <a href="#dmtools" class="aag-link-card" data-navigate="dmtools" data-section="relationships">
                             <span class="aag-link-icon">🔗</span>
                             <span class="aag-link-title">Relationships</span>
                             <span class="aag-link-count" id="aag-relationships-count">8 connections</span>
@@ -229,52 +233,69 @@
                     <p class="page-subtitle">A dock-born apothecary who learned that cures are politics</p>
                 </header>
 
-                <!-- Backstory Sub-tabs -->
-                <nav class="sub-tab-nav">
-                    <button class="sub-tab-btn active" data-subtab="backstory">Backstory</button>
-                    <button class="sub-tab-btn" data-subtab="vignettes">Vignettes</button>
-                    <button class="sub-tab-btn" data-subtab="relationships">Relationships</button>
-                    <button class="sub-tab-btn" data-subtab="knives">Knives</button>
-                </nav>
-
-                <!-- Backstory Content -->
+                <!-- Backstory Content (Single Scrollable Page) -->
                 <main class="backstory-content">
-                    <!-- Backstory (Full Narrative) -->
-                    <div class="sub-tab-content active" id="backstory-subtab">
-                        <div class="backstory-enhanced" id="backstory-enhanced">
-                            <div class="loading-spinner">Loading...</div>
-                        </div>
+                    <!-- Backstory Chapters -->
+                    <div class="backstory-enhanced" id="backstory-enhanced">
+                        <div class="loading-spinner">Loading backstory...</div>
                     </div>
 
-                    <!-- Vignettes -->
-                    <div class="sub-tab-content" id="vignettes-subtab">
+                    <!-- Vignettes Section (After Backstory) -->
+                    <section class="vignettes-section" id="vignettes-section">
+                        <div class="section-divider">
+                            <span class="divider-text">After the Backstory</span>
+                        </div>
                         <div class="vignettes-intro">
+                            <h2 class="vignettes-title">Vignettes</h2>
                             <p class="vignettes-note">These vignettes take place <strong>after</strong> Meilin's backstory, during her time at the Astral Bazaar. Each captures a small moment that reveals her skills, habits, and way of seeing the world.</p>
                         </div>
                         <div class="vignettes-grid" id="vignettes-grid">
                             <div class="loading-spinner">Loading vignettes...</div>
                         </div>
-                    </div>
+                    </section>
+                </main>
 
-                    <!-- Knives (DM Tools) -->
-                    <div class="sub-tab-content" id="knives-subtab">
-                        <div class="knives-intro">
-                            <p class="knives-note"><strong>Knives</strong> are specific, actionable things the DM can use to create drama. Each one is a handle to pull Meilin into the story.</p>
-                        </div>
-                        <div class="knives-grid" id="knives-grid">
-                            <div class="loading-spinner">Loading knives...</div>
+                <!-- Vignette Detail Modal -->
+                <div class="modal-overlay" id="vignette-modal-overlay">
+                    <div class="modal vignette-modal">
+                        <button class="modal-close" id="vignette-modal-close">×</button>
+                        <div class="modal-content" id="vignette-modal-content">
+                            <!-- Vignette content populated by JS -->
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <!-- Relationships -->
-                    <div class="sub-tab-content" id="relationships-subtab">
+            <!-- DM Tools Page -->
+            <div class="page" id="dmtools-page">
+                <header class="page-header">
+                    <h1 class="page-title">DM Tools</h1>
+                    <p class="page-subtitle">Hooks, relationships, and handles for running Meilin</p>
+                </header>
+
+                <main class="dmtools-content">
+                    <!-- Relationships Section -->
+                    <section class="dmtools-section" id="relationships-section">
+                        <h2 class="dmtools-section-title">🔗 Relationships</h2>
                         <div class="relationships-intro">
                             <p class="relationships-note">A visual map of Meilin's connections, tensions, and the pressure points between them.</p>
                         </div>
                         <div class="relationships-map" id="relationships-map">
                             <div class="loading-spinner">Loading relationships...</div>
                         </div>
-                    </div>
+                    </section>
+
+                    <!-- Knives Section -->
+                    <section class="dmtools-section" id="knives-section">
+                        <h2 class="dmtools-section-title">🗡️ Knives</h2>
+                        <div class="knives-intro">
+                            <p class="knives-note"><strong>Knives</strong> are specific, actionable things the DM can use to create drama. Each one is a handle to pull Meilin into the story.</p>
+                        </div>
+                        <div class="knives-grid" id="knives-grid">
+                            <div class="loading-spinner">Loading knives...</div>
+                        </div>
+                    </section>
+                </main>
 
                 <!-- NPC Detail Modal -->
                 <div class="modal-overlay" id="npc-modal-overlay">
@@ -292,17 +313,6 @@
                         <button class="modal-close" id="knife-modal-close">×</button>
                         <div class="modal-content" id="knife-modal-content">
                             <!-- Knife content populated by JS -->
-                        </div>
-                    </div>
-                </div>
-                </main>
-
-                <!-- Vignette Detail Modal -->
-                <div class="modal-overlay" id="vignette-modal-overlay">
-                    <div class="modal vignette-modal">
-                        <button class="modal-close" id="vignette-modal-close">×</button>
-                        <div class="modal-content" id="vignette-modal-content">
-                            <!-- Vignette content populated by JS -->
                         </div>
                     </div>
                 </div>
