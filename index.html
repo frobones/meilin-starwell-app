@@ -146,6 +146,7 @@
                 <!-- Backstory Sub-tabs -->
                 <nav class="sub-tab-nav">
                     <button class="sub-tab-btn active" data-subtab="ataglance">At a Glance</button>
+                    <button class="sub-tab-btn" data-subtab="background">Background</button>
                     <button class="sub-tab-btn" data-subtab="overview">Overview</button>
                     <button class="sub-tab-btn" data-subtab="chapters">Chapters</button>
                     <button class="sub-tab-btn" data-subtab="vignettes">Vignettes</button>
@@ -157,6 +158,13 @@
                     <!-- At a Glance (Character Worksheet) -->
                     <div class="sub-tab-content active" id="ataglance-subtab">
                         <div class="worksheet-container" id="character-worksheet">
+                            <div class="loading-spinner">Loading...</div>
+                        </div>
+                    </div>
+
+                    <!-- Background -->
+                    <div class="sub-tab-content" id="background-subtab">
+                        <div class="narrative-container" id="background-content">
                             <div class="loading-spinner">Loading...</div>
                         </div>
                     </div>

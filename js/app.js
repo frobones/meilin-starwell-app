@@ -11,6 +11,7 @@ const App = {
     
     // Backstory data
     worksheetContent: null,
+    backgroundContent: null,
     backstoryContent: null,
     chapters: [],
     vignettes: [],
@@ -353,6 +354,8 @@ const App = {
         // Load content if needed
         if (subtabName === 'ataglance' && !this.worksheetContent) {
             this.loadWorksheet();
+        } else if (subtabName === 'background' && !this.backgroundContent) {
+            this.loadBackground();
         } else if (subtabName === 'overview' && !this.backstoryContent) {
             this.loadBackstoryOverview();
         } else if (subtabName === 'chapters' && this.chapters.length === 0) {
@@ -965,11 +968,33 @@ const App = {
     async loadBackstoryContent() {
         await Promise.all([
             this.loadWorksheet(),
+            this.loadBackground(),
             this.loadBackstoryOverview(),
             this.loadChapters(),
             this.loadVignettes(),
             this.loadNPCs()
         ]);
+    },
+
+    /**
+     * Load the custom background
+     */
+    async loadBackground() {
+        const container = document.getElementById('background-content');
+        if (!container) return;
+
+        container.innerHTML = '<div class="loading-spinner">Loading background...</div>';
+
+        try {
+            const response = await fetch('content/background/apothecary.md');
+            const markdown = await response.text();
+            const html = marked.parse(markdown);
+            this.backgroundContent = html;
+            container.innerHTML = html;
+        } catch (error) {
+            console.error('Failed to load background:', error);
+            container.innerHTML = '<p>Failed to load background.</p>';
+        }
     },
 
     /**
