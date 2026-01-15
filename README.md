@@ -1,28 +1,47 @@
-# Meilin's Apothecary
+# Meilin Starwell | Character Companion
 
-A static web app for looking up herbal medicines from the Alchemy Almanac system, designed for use with the Meilin Starwell character in Spelljammer campaigns.
+A static web app serving as a complete character reference for the Meilin Starwell character in Spelljammer campaigns. Built for both players and DMs.
 
 ## Features
 
-- **Medicine Lookup**: Search and filter all recipes by name, category, difficulty, or ingredient
-- **Recipe Cards**: View full details including effects, duration, DC, and required components
-- **Dice Roller**: Roll d20 for crafting checks with advantage toggle
-- **Ingredient Reference**: Find where to gather each ingredient by terrain type
-- **Quick Rules**: Collapsible reference for crafting and gathering rules
+### Character Overview
+
+- Core concept, trouble, and defining moment
+- Character drives, boundaries, and party dynamics
+- Tiered secrets (player-known, DM-only, deep lore)
+
+### Backstory
+
+- Full narrative backstory with chapter navigation
+- 12 life stages from childhood to present day
+- 10 character vignettes showcasing personality and skills
+
+### DM Tools
+
+- **Knives**: Plot hooks and pressure points for dramatic tension
+- **Relationships**: NPCs, factions, and connection details
+- **Locations**: Key setting information (Mindersand, etc.)
+
+### Herbal Medicine
+
+- Medicine lookup with search and category filters
+- Recipe cards with effects, duration, DC, and components
+- Ingredient reference organized by terrain type
+- Collapsible crafting and gathering rules
 
 ## Usage
 
 ### Local Development
 
-Simply open `index.html` in a web browser. No build step required.
+Open `index.html` in a web browser. No build step required.
 
-For local development with live reload, you can use any simple HTTP server:
+For local development with live reload:
 
 ```bash
 # Python 3
 python -m http.server 8000
 
-# Node.js (if you have npx)
+# Node.js
 npx serve
 ```
 
@@ -30,28 +49,39 @@ npx serve
 
 1. Push this folder to a GitHub repository
 2. Go to Settings > Pages
-3. Select "Deploy from a branch" and choose `main` (or your branch)
-4. Your app will be available at `https://yourusername.github.io/repository-name/`
+3. Select "Deploy from a branch" and choose your branch
+4. Access at `https://yourusername.github.io/repository-name/`
 
 ## File Structure
 
 ```text
 meilin-starwell-app/
-├── index.html              # Main app page
+├── index.html
 ├── css/
-│   └── style.css           # Apothecary-themed styles
+│   └── style.css
 ├── js/
-│   ├── app.js              # Main app logic
-│   ├── dice.js             # Dice rolling utilities
+│   ├── app.js
 │   └── data/
-│       ├── medicines.json  # All recipes
-│       └── ingredients.json # Flora and creature parts
-└── README.md               # This file
+│       ├── medicines.json
+│       └── ingredients.json
+├── content/
+│   ├── backstory/
+│   │   ├── backstory.md
+│   │   └── stages/          # 12 life stage chapters
+│   ├── character/
+│   │   └── overview.json    # Core character data
+│   ├── dm/
+│   │   ├── knives.json      # Plot hooks
+│   │   ├── relationships.json
+│   │   └── mindersand.json  # Location data
+│   └── vignettes/           # 10 character vignettes
+└── README.md
 ```
 
 ## Data Sources
 
-Medicine and ingredient data is derived from the Alchemy Almanac homebrew system, as documented in the Meilin Starwell character files.
+- Character data derived from Meilin Starwell character files
+- Medicine and ingredient data from the Alchemy Almanac homebrew system
 
 ## Credits
 

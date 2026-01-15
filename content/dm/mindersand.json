@@ -62,10 +62,6 @@
     {
       "reason": "Leverage without visible violence",
       "detail": "A blade makes enemies quickly. A 'bad batch' makes people doubt themselves. It's coercion that can be explained away."
-    },
-    {
-      "reason": "Pressure on rivals",
-      "detail": "If competing crews get 'accident-prone,' rival routes miss windows, contracts break, reputations crack."
     }
   ],
   "distribution": [
@@ -85,19 +81,14 @@
       "hook": "A captain hires the crew after two near-miss disasters and swears it's 'just fatigue.'"
     },
     {
-      "name": "The quiet clinic refusal",
-      "icon": "hospital",
-      "hook": "A patient gets turned away upstairs for 'bookings' that feel like politics."
+      "name": "The pattern emerges",
+      "icon": "scan-search",
+      "hook": "A crew member develops tremors and brain-fog. When the party traces their recent meals, the same supplier name keeps appearing."
     },
     {
-      "name": "The missing page",
-      "icon": "file-text",
-      "hook": "Someone stole a ledger leaf; now a powerful distributor is hunting for the thief and the proof."
-    },
-    {
-      "name": "The false remedy",
-      "icon": "flask-round",
-      "hook": "A stall sells 'steadying tonic' that's actually dosing dockworkers who can't afford to slow down."
+      "name": "The silent advantage",
+      "icon": "ship",
+      "hook": "A competing crew has become suspiciously accident-prone. Someone's dosing their provisions—and the party's next port uses the same chandler."
     }
   ]
 }

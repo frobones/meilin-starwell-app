@@ -10,7 +10,7 @@ const App = {
     rules: null,
     
     // At a Glance data (top-level page)
-    ataglanceData: null,
+    overviewData: null,
     
     /**
      * Refresh Lucide icons after dynamic content render
@@ -22,11 +22,8 @@ const App = {
     },
     
     // Backstory data
-    worksheetContent: null,
-    backgroundContent: null,
     backstoryContent: null,
     vignettes: [],
-    npcs: [],
     knives: [],
     relationships: null,
     mindersandData: null,
@@ -48,7 +45,7 @@ const App = {
     currentPage: null, // Will be set after passkey check
     currentSubtab: 'background',
     appUnlocked: false,
-    pendingPage: 'ataglance', // Page to navigate to after unlock
+    pendingPage: 'overview', // Page to navigate to after unlock
 
     /**
      * Initialize the application
@@ -66,7 +63,7 @@ const App = {
             
             // Check if unlocked, show passkey modal if not
             if (!this.appUnlocked) {
-                this.pendingPage = 'ataglance';
+                this.pendingPage = 'overview';
                 this.showPasskeyModal();
             } else {
                 // Handle initial page based on URL hash
@@ -282,12 +279,12 @@ const App = {
             });
         }
 
-        // NPC modal close
+        // Relationship modal close (uses npc-modal elements)
         const npcOverlay = document.getElementById('npc-modal-overlay');
         if (npcOverlay) {
             npcOverlay.addEventListener('click', (e) => {
                 if (e.target.id === 'npc-modal-overlay') {
-                    this.closeNPCModal();
+                    this.closeRelationshipModal();
                 }
             });
         }
@@ -295,7 +292,7 @@ const App = {
         const npcClose = document.getElementById('npc-modal-close');
         if (npcClose) {
             npcClose.addEventListener('click', () => {
-                this.closeNPCModal();
+                this.closeRelationshipModal();
             });
         }
 
@@ -316,31 +313,6 @@ const App = {
             });
         }
 
-        // Background modal close
-        const backgroundOverlay = document.getElementById('background-modal-overlay');
-        if (backgroundOverlay) {
-            backgroundOverlay.addEventListener('click', (e) => {
-                if (e.target.id === 'background-modal-overlay') {
-                    this.closeBackgroundModal();
-                }
-            });
-        }
-
-        const backgroundClose = document.getElementById('background-modal-close');
-        if (backgroundClose) {
-            backgroundClose.addEventListener('click', () => {
-                this.closeBackgroundModal();
-            });
-        }
-
-        // Show background action (from At a Glance page)
-        document.querySelectorAll('[data-action="show-background"]').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.showBackgroundModal();
-            });
-        });
-
         // Handle browser back/forward
         window.addEventListener('hashchange', () => {
             this.handleHashChange();
@@ -351,8 +323,8 @@ const App = {
      * Handle URL hash changes for navigation
      */
     handleHashChange() {
-        const hash = window.location.hash.slice(1) || 'ataglance';
-        if (hash === 'ataglance' || hash === 'medicine' || hash === 'backstory' || hash === 'dmtools') {
+        const hash = window.location.hash.slice(1) || 'overview';
+        if (hash === 'overview' || hash === 'medicine' || hash === 'backstory' || hash === 'dmtools') {
             this.switchPage(hash, false);
         }
     },
@@ -386,8 +358,8 @@ const App = {
         }
 
         // Load At a Glance content if switching to that page
-        if (pageName === 'ataglance' && !this.ataglanceData) {
-            this.loadAtAGlance();
+        if (pageName === 'overview' && !this.overviewData) {
+            this.loadOverview();
         }
         
         // Load backstory content if switching to backstory page
@@ -1026,14 +998,14 @@ const App = {
     /**
      * Load At a Glance page data
      */
-    async loadAtAGlance() {
+    async loadOverview() {
         try {
-            const response = await fetch('content/character/ataglance.json');
+            const response = await fetch('content/character/overview.json');
             if (!response.ok) {
-                throw new Error('Failed to fetch At a Glance data');
+                throw new Error('Failed to fetch overview data');
             }
-            this.ataglanceData = await response.json();
-            this.renderAtAGlance();
+            this.overviewData = await response.json();
+            this.renderOverview();
         } catch (error) {
             console.error('Error loading At a Glance:', error);
         }
@@ -1042,8 +1014,8 @@ const App = {
     /**
      * Render the At a Glance page
      */
-    renderAtAGlance() {
-        const data = this.ataglanceData;
+    renderOverview() {
+        const data = this.overviewData;
         if (!data) return;
 
         // Hero section
@@ -1144,8 +1116,7 @@ const App = {
     async loadBackstoryContent() {
         await Promise.all([
             this.loadEnhancedBackstory(),
-            this.loadVignettes(),
-            this.loadNPCs()
+            this.loadVignettes()
         ]);
     },
 
@@ -1158,58 +1129,6 @@ const App = {
             this.loadKnives(),
             this.loadMindersand()
         ]);
-    },
-
-    /**
-     * Load and show the custom background in a modal
-     */
-    async showBackgroundModal() {
-        const overlay = document.getElementById('background-modal-overlay');
-        const container = document.getElementById('background-modal-content');
-        if (!overlay || !container) return;
-
-        // Show modal with loading state
-        overlay.classList.add('active');
-        container.innerHTML = '<div class="loading-spinner">Loading background...</div>';
-
-        // Load content if not cached
-        if (!this.backgroundContent) {
-            try {
-                const response = await fetch('content/background/apothecary.md');
-                const markdown = await response.text();
-                this.backgroundContent = marked.parse(markdown);
-            } catch (error) {
-                console.error('Failed to load background:', error);
-                container.innerHTML = '<p>Failed to load background.</p>';
-                return;
-            }
-        }
-
-        container.innerHTML = this.backgroundContent;
-    },
-
-    /**
-     * Close the background modal
-     */
-    closeBackgroundModal() {
-        const overlay = document.getElementById('background-modal-overlay');
-        if (overlay) {
-            overlay.classList.remove('active');
-        }
-    },
-
-    /**
-     * Load the character worksheet (At a Glance tab)
-     */
-    async loadWorksheet() {
-        const container = document.getElementById('character-worksheet');
-        if (!container) return;
-
-        container.innerHTML = '<div class="loading-spinner">Loading...</div>';
-
-        const html = await this.fetchMarkdown('content/character/worksheet.md');
-        this.worksheetContent = html;
-        container.innerHTML = html;
     },
 
     /**
@@ -1506,141 +1425,6 @@ const App = {
         }
     },
 
-    /**
-     * Load and parse the NPCs roster
-     */
-    async loadNPCs() {
-        const container = document.getElementById('npcs-grid');
-        if (!container) return;
-
-        container.innerHTML = '<div class="loading-spinner">Loading NPCs...</div>';
-
-        try {
-            const response = await fetch('content/npcs/roster.md');
-            const markdown = await response.text();
-            this.npcs = this.parseNPCs(markdown);
-            this.renderNPCs();
-        } catch (error) {
-            console.error('Failed to load NPCs:', error);
-            container.innerHTML = '<p>Failed to load NPCs.</p>';
-        }
-    },
-
-    /**
-     * Parse NPC markdown into structured data
-     */
-    parseNPCs(markdown) {
-        const npcs = [];
-        // Split by H2 headers (## Name)
-        const sections = markdown.split(/^## /m).slice(1);
-        
-        for (const section of sections) {
-            const lines = section.trim().split('\n');
-            const name = lines[0].trim();
-            
-            // Skip the intro section and group headers
-            if (name.startsWith('NPC Roster') || name.startsWith('Smith\'s Coster representatives') || name.startsWith('The Medica')) {
-                continue;
-            }
-            
-            // Find role and vibe from the content
-            const content = lines.slice(1).join('\n');
-            
-            // Extract role
-            const roleMatch = content.match(/\*\*Role\*\*:?\s*([^\n]+)/i);
-            const role = roleMatch ? roleMatch[1].trim() : '';
-            
-            // Extract vibe
-            const vibeMatch = content.match(/\*\*Vibe\*\*:?\s*([^\n]+)/i);
-            const vibe = vibeMatch ? vibeMatch[1].trim() : '';
-            
-            // Determine type: ally, complicated, or antagonist
-            let type = 'complicated'; // default for most NPCs
-            const lowerName = name.toLowerCase();
-            // Allies: Oona and Meredin (active supporters)
-            if (lowerName.includes('oona') || lowerName.includes('meredin')) {
-                type = 'ally';
-            }
-            // Antagonist: Elowen Pryce (Smith's Coster)
-            if (lowerName.includes('elowen') || lowerName.includes('pryce')) {
-                type = 'antagonist';
-            }
-            // Complicated: Kaito, Cassian, Sera, Bram (family, witnesses, insiders)
-            
-            // Parse the full content as HTML
-            const fullHtml = marked.parse('## ' + section);
-            
-            npcs.push({
-                name: name.replace(/\(.*?\)/g, '').trim(),
-                role,
-                vibe,
-                type,
-                content: fullHtml
-            });
-        }
-        
-        return npcs;
-    },
-
-    /**
-     * Render NPC cards
-     */
-    renderNPCs() {
-        const container = document.getElementById('npcs-grid');
-        if (!container) return;
-
-        if (this.npcs.length === 0) {
-            container.innerHTML = '<p>No NPCs found.</p>';
-            return;
-        }
-
-        container.innerHTML = this.npcs.map((npc, index) => `
-            <div class="npc-card ${npc.type}" data-npc-index="${index}">
-                <div class="npc-card-header">
-                    <h3 class="npc-card-name">${npc.name}</h3>
-                    <p class="npc-card-role">${npc.role}</p>
-                    <span class="npc-card-type">${npc.type}</span>
-                </div>
-                ${npc.vibe ? `<p class="npc-card-vibe">"${npc.vibe}"</p>` : ''}
-            </div>
-        `).join('');
-
-        // Bind click events
-        container.querySelectorAll('.npc-card').forEach(card => {
-            card.addEventListener('click', () => {
-                const index = parseInt(card.dataset.npcIndex);
-                this.openNPCModal(this.npcs[index]);
-            });
-        });
-    },
-
-    /**
-     * Open NPC detail modal
-     */
-    openNPCModal(npc) {
-        const overlay = document.getElementById('npc-modal-overlay');
-        const content = document.getElementById('npc-modal-content');
-        
-        if (overlay && content) {
-            content.innerHTML = `
-                <div class="narrative-container">
-                    ${npc.content}
-                </div>
-            `;
-            overlay.classList.add('active');
-        }
-    },
-
-    /**
-     * Close NPC modal
-     */
-    closeNPCModal() {
-        const overlay = document.getElementById('npc-modal-overlay');
-        if (overlay) {
-            overlay.classList.remove('active');
-        }
-    },
-
     // ============================================
     // Knives (DM Tools)
     // ============================================
@@ -1910,7 +1694,7 @@ const App = {
     // ============================================
 
     /**
-     * Load relationships data (and NPCs for detail modals)
+     * Load relationships data
      */
     async loadRelationships() {
         const container = document.getElementById('relationships-map');
@@ -1919,20 +1703,8 @@ const App = {
         container.innerHTML = '<div class="loading-spinner">Loading relationships...</div>';
 
         try {
-            // Load both relationships and NPCs
-            const [relResponse, npcResponse] = await Promise.all([
-                fetch('content/dm/relationships.json'),
-                fetch('content/npcs/roster.md')
-            ]);
-            
-            this.relationships = await relResponse.json();
-            
-            // Parse NPCs if not already loaded
-            if (this.npcs.length === 0) {
-                const npcMarkdown = await npcResponse.text();
-                this.npcs = this.parseNPCs(npcMarkdown);
-            }
-            
+            const response = await fetch('content/dm/relationships.json');
+            this.relationships = await response.json();
             this.renderRelationships();
         } catch (error) {
             console.error('Failed to load relationships:', error);
@@ -1958,7 +1730,7 @@ const App = {
             <!-- Allies -->
             ${allies.length > 0 ? `
             <div class="relationship-group allies">
-                <h3 class="relationship-group-title">🟢 Allies</h3>
+                <h3 class="relationship-group-title"><i data-lucide="heart-handshake" class="relationship-icon ally-icon"></i> Allies</h3>
                 <div class="relationship-cards">
                     ${allies.map(c => this.renderRelationshipCard(c)).join('')}
                 </div>
@@ -1968,7 +1740,7 @@ const App = {
             <!-- Complicated -->
             ${complicated.length > 0 ? `
             <div class="relationship-group complicated">
-                <h3 class="relationship-group-title">🟡 Complicated Ties</h3>
+                <h3 class="relationship-group-title"><i data-lucide="puzzle" class="relationship-icon complicated-icon"></i> Complicated Ties</h3>
                 <div class="relationship-cards">
                     ${complicated.map(c => this.renderRelationshipCard(c)).join('')}
                 </div>
@@ -1978,7 +1750,7 @@ const App = {
             <!-- Antagonists -->
             ${antagonists.length > 0 ? `
             <div class="relationship-group antagonists">
-                <h3 class="relationship-group-title">🔴 Antagonists</h3>
+                <h3 class="relationship-group-title"><i data-lucide="swords" class="relationship-icon antagonist-icon"></i> Antagonists</h3>
                 <div class="relationship-cards">
                     ${antagonists.map(c => this.renderRelationshipCard(c)).join('')}
                 </div>
@@ -2002,6 +1774,9 @@ const App = {
         
         // Bind click events to cards with NPC details
         this.bindRelationshipCardEvents();
+        
+        // Initialize Lucide icons for dynamically added content
+        lucide.createIcons();
     },
 
     /**
@@ -2099,6 +1874,15 @@ const App = {
         overlay.classList.add('active');
     },
 
+    /**
+     * Close relationship modal
+     */
+    closeRelationshipModal() {
+        const overlay = document.getElementById('npc-modal-overlay');
+        if (overlay) {
+            overlay.classList.remove('active');
+        }
+    },
 
     /**
      * Load all vignette files
@@ -2111,31 +1895,32 @@ const App = {
 
         // Vignette file mappings
         const vignetteFiles = [
-            { file: 'Meilin Starwell - Vignette 00 - First bolt.md', number: '01', title: 'First Bolt' },
-            { file: 'Meilin Starwell - Vignette 01 - Vex lesson.md', number: '02', title: 'Vex Lesson' },
-            { file: 'Meilin Starwell - Vignette 02 - Cant notes.md', number: '03', title: 'Cant Notes' },
-            { file: 'Meilin Starwell - Vignette 03 - Theo Lockwell, quiet preparation.md', number: '04', title: 'Theo Lockwell' },
-            { file: 'Meilin Starwell - Vignette 04 - The tell, the pause.md', number: '05', title: 'The Tell, the Pause' },
-            { file: 'Meilin Starwell - Vignette 05 - A polite lie in Undercommon.md', number: '06', title: 'A Polite Lie in Undercommon' },
-            { file: 'Meilin Starwell - Vignette 06 - Persuasion is triage.md', number: '07', title: 'Persuasion is Triage' },
-            { file: 'Meilin Starwell - Vignette 07 - Quiet feet, open eyes.md', number: '08', title: 'Quiet Feet, Open Eyes' },
-            { file: 'Meilin Starwell - Vignette 08 - Fingers, coin, and shame.md', number: '09', title: 'Fingers, Coin, and Shame' },
-            { file: 'Meilin Starwell - Vignette 09 - The Case Ledger.md', number: '10', title: 'The Case Ledger' },
-            { file: 'Meilin Starwell - Vignette 10 - The window with three seals.md', number: '11', title: 'The Window with Three Seals' }
+            { file: 'Meilin Starwell - Vignette 01 - First bolt.md', number: '01', title: 'First Bolt' },
+            { file: 'Meilin Starwell - Vignette 02 - Vex lesson.md', number: '02', title: 'Vex Lesson' },
+            { file: 'Meilin Starwell - Vignette 03 - Cant notes.md', number: '03', title: 'Cant Notes' },
+            { file: 'Meilin Starwell - Vignette 04 - Theo Lockwell, quiet preparation.md', number: '04', title: 'Theo Lockwell' },
+            { file: 'Meilin Starwell - Vignette 05 - The tell, the pause.md', number: '05', title: 'The Tell, the Pause' },
+            { file: 'Meilin Starwell - Vignette 06 - A polite lie in Undercommon.md', number: '06', title: 'A Polite Lie in Undercommon' },
+            { file: 'Meilin Starwell - Vignette 07 - Persuasion is triage.md', number: '07', title: 'Persuasion is Triage' },
+            { file: 'Meilin Starwell - Vignette 08 - Quiet feet, open eyes.md', number: '08', title: 'Quiet Feet, Open Eyes' },
+            { file: 'Meilin Starwell - Vignette 09 - Fingers, coin, and shame.md', number: '09', title: 'Fingers, Coin, and Shame' },
+            { file: 'Meilin Starwell - Vignette 10 - The window with three seals.md', number: '10', title: 'The Window with Three Seals' }
         ];
 
         // Load all vignettes
         const vignettePromises = vignetteFiles.map(async (vignette) => {
             const html = await this.fetchMarkdown(`content/vignettes/${vignette.file}`);
-            // Extract first paragraph as preview
+            // Extract first paragraph as preview and strip leading h1 (already shown in modal title)
             const tempDiv = document.createElement('div');
             tempDiv.innerHTML = html;
+            const firstH1 = tempDiv.querySelector('h1');
+            if (firstH1) firstH1.remove();
             const firstP = tempDiv.querySelector('p');
             const preview = firstP ? firstP.textContent.substring(0, 150) + '...' : '';
             
             return {
                 ...vignette,
-                content: html,
+                content: tempDiv.innerHTML,
                 preview: preview
             };
         });
