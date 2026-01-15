@@ -778,18 +778,38 @@ details[open] .rules-toggle::after {
   overflow: hidden;
 }
 
-.medicine-flora-badge {
+/* Container for ingredient badges on cards */
+.medicine-ingredient-badges {
   position: absolute;
   top: var(--space-sm);
   right: var(--space-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.medicine-flora-badge {
   font-size: 0.75rem;
   color: var(--herb-green);
   opacity: 0.7;
 }
 
-/* Flora badge in modal should not be absolute positioned */
-.modal-meta .medicine-flora-badge {
-  position: static;
+.medicine-creature-badge {
+  font-size: 0.75rem;
+  color: var(--creature-red);
+  opacity: 0.7;
+}
+
+/* Flora and creature badges in modal should display inline */
+.modal-badges-group {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.modal-meta .medicine-flora-badge,
+.modal-meta .medicine-creature-badge {
   display: inline-flex;
   align-items: center;
   gap: 4px;
@@ -1079,6 +1099,16 @@ details[open] .rules-toggle::after {
   color: var(--herb-green-dark);
 }
 
+.component-value.component-flora {
+  color: var(--herb-green);
+  font-weight: 600;
+}
+
+.component-value.component-creature {
+  color: var(--creature-red);
+  font-weight: 600;
+}
+
 .component-type {
   font-size: 0.8rem;
   font-weight: 500;
@@ -1095,6 +1125,21 @@ details[open] .rules-toggle::after {
 .component-type.creature {
   background: var(--creature-red);
   color: var(--parchment-light);
+}
+
+/* Component icons without background box */
+.component-icon {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 4px;
+}
+
+.component-icon.flora {
+  color: var(--herb-green);
+}
+
+.component-icon.creature {
+  color: var(--creature-red);
 }
 
 .modal-notes {
@@ -3616,34 +3661,28 @@ details[open] .rules-toggle::after {
 /* Hero Section */
 .rumors-hero {
   position: relative;
-  width: 100%;
-  height: 400px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 var(--space-2xl);
+  cursor: pointer;
+  border-radius: var(--radius-lg);
   overflow: hidden;
+  border: 2px solid var(--parchment-aged);
+  background: var(--parchment-dark);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .rumors-hero-image {
   width: 100%;
-  height: 100%;
+  height: 350px;
+  display: block;
   object-fit: cover;
   object-position: center 5%;
 }
 
-.rumors-hero-overlay {
-  position: absolute;
-  bottom: var(--space-lg);
-  left: var(--space-xl);
-  right: auto;
-  padding: var(--space-md) var(--space-lg);
-}
-
-.rumors-hero-title {
-  font-family: var(--font-display);
-  font-size: 2.5rem;
-  font-weight: 400;
-  color: var(--parchment-light);
-  letter-spacing: 0.05em;
-  margin: 0;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+.rumors-hero:hover {
+  transform: scale(1.01);
+  box-shadow: var(--shadow-lg);
 }
 
 .rumors-hero-subtitle {
@@ -3680,6 +3719,14 @@ details[open] .rules-toggle::after {
   border-radius: var(--radius-lg);
   border: 1px solid var(--parchment-aged);
   overflow: hidden;
+}
+
+.rumors-section-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--ink-dark);
+  text-align: center;
+  margin: 0 0 var(--space-xl) 0;
 }
 
 .rumors-list {
@@ -3910,11 +3957,7 @@ details[open] .rules-toggle::after {
   }
   
   .rumors-hero {
-    height: 300px;
-  }
-  
-  .rumors-hero-title {
-    font-size: 2rem;
+    padding: 0 var(--space-lg);
   }
 }
 

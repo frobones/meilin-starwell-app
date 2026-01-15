@@ -136,15 +136,15 @@
             <!-- Rumors Page (Player-Facing) -->
             <div class="page" id="rumors-page">
                 <!-- Hero with Key Art -->
-                <header class="rumors-hero">
+                <header class="rumors-hero" data-lightbox="img/key_art.png">
                     <img src="img/key_art.png" alt="Meilin Starwell" class="rumors-hero-image" />
-                    <div class="rumors-hero-overlay">
-                        <h1 class="rumors-hero-title">What They Say</h1>
-                    </div>
                 </header>
 
                 <!-- Divider -->
                 <hr class="rumors-divider" />
+
+                <!-- Section Title -->
+                <h2 class="rumors-section-title">What They Say</h2>
 
                 <!-- Main Rumors Layout -->
                 <div class="rumors-layout">
@@ -181,9 +181,9 @@
                             <p>Ink-stained fingers that never quite wash clean. Work-worn, chemical-burn marks like a constellation.</p>
                         </div>
                         <div class="rumors-detail-card">
-                            <span class="rumors-detail-icon"><i data-lucide="notebook-pen"></i></span>
-                            <h3>The Habits</h3>
-                            <p>Checks seals, asks for names and dates, pauses when a story avoids specifics.</p>
+                            <span class="rumors-detail-icon"><i data-lucide="book-open-text"></i></span>
+                            <h3>The Read</h3>
+                            <p>Kind, but watchful. You get the sense she's already figured you out.</p>
                         </div>
                     </div>
                 </section>
@@ -263,10 +263,12 @@
                             </select>
                         </div>
                         <div class="filter-group">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="flora-only-filter">
-                                <span>Flora Only (no creature parts)</span>
-                            </label>
+                            <label for="ingredient-type-filter">Ingredients:</label>
+                            <select id="ingredient-type-filter">
+                                <option value="all">All Types</option>
+                                <option value="flora">Flora</option>
+                                <option value="creature">Creature</option>
+                            </select>
                         </div>
                     </div>
                 </section>
