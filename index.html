@@ -201,6 +201,25 @@
         </div>
     </div>
 
+    <!-- Passkey Modal -->
+    <div class="modal-overlay" id="passkey-modal-overlay">
+        <div class="modal passkey-modal">
+            <div class="passkey-content">
+                <h2 class="passkey-title">🔒 Protected Content</h2>
+                <p class="passkey-subtitle">This section contains character secrets and spoilers.</p>
+                <form id="passkey-form">
+                    <input type="password" id="passkey-input" class="passkey-input" placeholder="Enter passkey..." autocomplete="off">
+                    <p class="passkey-error" id="passkey-error"></p>
+                    <div class="passkey-buttons">
+                        <button type="button" class="passkey-cancel" id="passkey-cancel">Cancel</button>
+                        <button type="submit" class="passkey-submit">Unlock</button>
+                    </div>
+                </form>
+                <p class="passkey-hint">Hint: The code for mindersand in Smith's Coster's ledger.</p>
+            </div>
+        </div>
+    </div>
+
     <!-- Markdown Parser -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     
