@@ -381,8 +381,8 @@ const App = {
         // Load content if needed
         if (subtabName === 'background' && !this.backgroundContent) {
             this.loadBackground();
-        } else if (subtabName === 'overview' && !this.backstoryContent) {
-            this.loadBackstoryOverview();
+        } else if (subtabName === 'backstory' && !this.backstoryContent) {
+            this.loadEnhancedBackstory();
         } else if (subtabName === 'chapters' && this.chapters.length === 0) {
             this.loadChapters();
         } else if (subtabName === 'vignettes' && this.vignettes.length === 0) {
@@ -1108,7 +1108,7 @@ const App = {
     async loadBackstoryContent() {
         await Promise.all([
             this.loadBackground(),
-            this.loadBackstoryOverview(),
+            this.loadEnhancedBackstory(),
             this.loadChapters(),
             this.loadVignettes(),
             this.loadNPCs()
@@ -1151,17 +1151,205 @@ const App = {
     },
 
     /**
-     * Load the backstory overview (consolidated.md)
+     * Load the enhanced backstory with styled sections and chapter links
      */
-    async loadBackstoryOverview() {
-        const container = document.getElementById('backstory-overview');
+    async loadEnhancedBackstory() {
+        const container = document.getElementById('backstory-enhanced');
         if (!container) return;
 
         container.innerHTML = '<div class="loading-spinner">Loading backstory...</div>';
 
-        const html = await this.fetchMarkdown('content/backstory/consolidated.md');
-        this.backstoryContent = html;
-        container.innerHTML = html;
+        try {
+            const response = await fetch('content/backstory/consolidated.md');
+            const markdown = await response.text();
+            this.backstoryContent = markdown;
+            
+            // Render enhanced version
+            const enhancedHtml = this.renderEnhancedBackstory(markdown);
+            container.innerHTML = enhancedHtml;
+            
+            // Bind chapter link events
+            this.bindChapterLinkEvents();
+        } catch (error) {
+            console.error('Failed to load backstory:', error);
+            container.innerHTML = '<p class="error-message">Failed to load backstory.</p>';
+        }
+    },
+
+    /**
+     * Render the backstory with styled sections and inline chapter links
+     */
+    renderEnhancedBackstory(markdown) {
+        // Split into paragraphs (skip the title)
+        const lines = markdown.split('\n\n');
+        const title = lines[0].replace('# ', '');
+        const paragraphs = lines.slice(1).filter(p => p.trim());
+        
+        // Define sections with their chapter mappings
+        const sections = [
+            {
+                title: 'The Docks',
+                icon: '⚓',
+                chapterIndex: 1,
+                chapterTitle: 'Dock-born',
+                paragraphs: [0, 1, 2], // "On the Rock of Bral...", quote, and learning messages
+                pullQuote: '"People lie," he told her. "Bodies don\'t."'
+            },
+            {
+                title: 'Cassian',
+                icon: '✨',
+                chapterIndex: 0,
+                chapterTitle: 'Cassian Leaves',
+                paragraphs: [3], // Cassian paragraph
+                pullQuote: null
+            },
+            {
+                title: 'Politics of Medicine',
+                icon: '⚖️',
+                chapterIndex: 2,
+                chapterTitle: 'Apprenticeship',
+                paragraphs: [4, 5, 6], // Medicine is politics, apprenticeship
+                pullQuote: '"Your cure comes with a leash."'
+            },
+            {
+                title: 'Near Death',
+                icon: '☠️',
+                chapterIndex: 3,
+                chapterTitle: 'Near-death',
+                paragraphs: [7, 8, 9, 10, 11, 12], // Tea stall incident, discovery of mindersand
+                pullQuote: null
+            },
+            {
+                title: 'The Pattern-Hunter',
+                icon: '🔍',
+                chapterIndex: 4,
+                chapterTitle: 'Pattern-hunter',
+                paragraphs: [13, 14, 15], // Building the web
+                pullQuote: '"Maps lead places. Some places don\'t like visitors."'
+            },
+            {
+                title: 'Meredin\'s Patronage',
+                icon: '🤝',
+                chapterIndex: 5,
+                chapterTitle: 'Meredin',
+                paragraphs: [16, 17, 18], // Meredin enters
+                pullQuote: '"Being useful is a kind of target."'
+            },
+            {
+                title: 'The Drift-Sparrow',
+                icon: '🚢',
+                chapterIndex: 6,
+                chapterTitle: 'Shipboard Scare',
+                paragraphs: [19, 20, 21, 22, 23, 24], // Ship contract and discovery
+                pullQuote: '"Mindersand."'
+            },
+            {
+                title: 'Sera\'s Trail',
+                icon: '📋',
+                chapterIndex: 7,
+                chapterTitle: 'Sera Trail',
+                paragraphs: [25, 26, 27, 28], // Sera Quill, tracing to Smith's Coster
+                pullQuote: null
+            },
+            {
+                title: 'Smith\'s Coster',
+                icon: '🏛️',
+                chapterIndex: 8,
+                chapterTitle: 'Smith\'s Coster',
+                paragraphs: [29, 30, 31, 32, 33], // Confrontation
+                pullQuote: '"Paper burns."'
+            },
+            {
+                title: 'The Ledger Page',
+                icon: '📜',
+                chapterIndex: 9,
+                chapterTitle: 'Ledger Page',
+                paragraphs: [34, 35, 36, 37, 38, 39, 40], // The heist
+                pullQuote: '"MS-13: mindersand"'
+            },
+            {
+                title: 'Exit Strategy',
+                icon: '🚪',
+                chapterIndex: 10,
+                chapterTitle: 'Exit Strategy',
+                paragraphs: [41, 42, 43, 44, 45, 46, 47, 48, 49, 50], // Leaving Bral
+                pullQuote: null
+            },
+            {
+                title: 'The Astral Bazaar',
+                icon: '🌌',
+                chapterIndex: 11,
+                chapterTitle: 'Astral Bazaar',
+                paragraphs: [51], // Current state
+                pullQuote: null
+            }
+        ];
+
+        let html = `
+            <div class="backstory-header">
+                <h1 class="backstory-title">${title}</h1>
+                <p class="backstory-intro">Click any section header to read the expanded chapter.</p>
+            </div>
+        `;
+
+        sections.forEach((section, idx) => {
+            const sectionParagraphs = section.paragraphs
+                .map(i => paragraphs[i])
+                .filter(p => p !== undefined)
+                .map(p => {
+                    // Parse markdown for bold text
+                    let parsed = p.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+                    // Parse italic text
+                    parsed = parsed.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+                    return `<p>${parsed}</p>`;
+                })
+                .join('');
+
+            if (sectionParagraphs.length === 0) return;
+
+            const isEven = idx % 2 === 0;
+            
+            html += `
+                <section class="backstory-section ${isEven ? 'even' : 'odd'}">
+                    <div class="backstory-section-header">
+                        <span class="backstory-section-icon">${section.icon}</span>
+                        <h2 class="backstory-section-title">${section.title}</h2>
+                        <a href="#" class="chapter-link" data-chapter="${section.chapterIndex}" title="Read the full chapter">
+                            Read Chapter ${String(section.chapterIndex).padStart(2, '0')}: ${section.chapterTitle} →
+                        </a>
+                    </div>
+                    ${section.pullQuote ? `<blockquote class="backstory-quote">${section.pullQuote}</blockquote>` : ''}
+                    <div class="backstory-section-content">
+                        ${sectionParagraphs}
+                    </div>
+                </section>
+            `;
+        });
+
+        // Add closing flourish
+        html += `
+            <div class="backstory-epilogue">
+                <div class="backstory-separator">✦ ✦ ✦</div>
+                <p class="backstory-end-note">
+                    And now that warning had a heartbeat.
+                </p>
+            </div>
+        `;
+
+        return html;
+    },
+
+    /**
+     * Bind click events for chapter links in the backstory
+     */
+    bindChapterLinkEvents() {
+        document.querySelectorAll('.chapter-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const chapterIndex = parseInt(link.dataset.chapter);
+                this.navigateToChapter(chapterIndex);
+            });
+        });
     },
 
     /**
@@ -1658,6 +1846,52 @@ const App = {
                 const item = header.closest('.chapter-item');
                 item.classList.toggle('expanded');
             });
+        });
+    },
+
+    /**
+     * Navigate to a specific chapter from backstory links
+     * Switches to chapters tab, expands the chapter, and scrolls to it
+     */
+    navigateToChapter(chapterIndex) {
+        // Ensure chapters are loaded
+        if (this.chapters.length === 0) {
+            this.loadChapters().then(() => {
+                this.doNavigateToChapter(chapterIndex);
+            });
+        } else {
+            this.doNavigateToChapter(chapterIndex);
+        }
+    },
+
+    /**
+     * Internal: Actually navigate to and expand the chapter
+     */
+    doNavigateToChapter(chapterIndex) {
+        // Switch to chapters subtab
+        this.switchSubtab('chapters');
+        
+        // Small delay to ensure DOM is ready
+        requestAnimationFrame(() => {
+            const container = document.getElementById('chapters-accordion');
+            if (!container) return;
+            
+            // Find the chapter item
+            const chapterItem = container.querySelector(`[data-chapter="${chapterIndex}"]`);
+            if (!chapterItem) return;
+            
+            // Collapse all other chapters
+            container.querySelectorAll('.chapter-item.expanded').forEach(item => {
+                item.classList.remove('expanded');
+            });
+            
+            // Expand this chapter
+            chapterItem.classList.add('expanded');
+            
+            // Scroll into view with offset for header
+            setTimeout(() => {
+                chapterItem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
         });
     },
 

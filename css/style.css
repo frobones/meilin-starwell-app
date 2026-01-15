@@ -2440,6 +2440,176 @@ details[open] .rules-toggle::after {
 }
 
 /* ============================================
+   Enhanced Backstory Display
+   ============================================ */
+
+.backstory-enhanced {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--space-lg);
+}
+
+.backstory-header {
+  text-align: center;
+  margin-bottom: var(--space-xxl);
+  padding-bottom: var(--space-xl);
+  border-bottom: 2px solid var(--parchment-dark);
+}
+
+.backstory-title {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  color: var(--sepia);
+  margin-bottom: var(--space-md);
+  letter-spacing: 0.03em;
+}
+
+.backstory-intro {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--ink-faded);
+}
+
+/* Backstory Sections */
+.backstory-section {
+  margin-bottom: var(--space-xl);
+  padding: var(--space-lg);
+  background: linear-gradient(135deg, var(--parchment-light) 0%, var(--parchment) 100%);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--gold-accent);
+  box-shadow: 0 2px 8px var(--shadow);
+  position: relative;
+}
+
+.backstory-section.odd {
+  border-left-color: var(--herb-green);
+}
+
+.backstory-section.even {
+  border-left-color: var(--copper-accent);
+}
+
+.backstory-section-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--parchment-dark);
+}
+
+.backstory-section-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.backstory-section-title {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--ink-brown);
+  margin: 0;
+  flex: 1;
+}
+
+.chapter-link {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--herb-green);
+  text-decoration: none;
+  padding: var(--space-xs) var(--space-md);
+  border: 1px solid var(--herb-green);
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.chapter-link:hover {
+  background: var(--herb-green);
+  color: var(--parchment-light);
+  transform: translateX(2px);
+}
+
+/* Pull Quotes */
+.backstory-quote {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--sepia);
+  margin: var(--space-md) 0 var(--space-lg) 0;
+  padding: var(--space-md) var(--space-lg);
+  background: rgba(184, 134, 11, 0.08);
+  border-left: 3px solid var(--gold-accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.backstory-quote::before {
+  content: '"';
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--gold-dim);
+  position: absolute;
+  margin-left: -1.5rem;
+  margin-top: -0.5rem;
+  opacity: 0.5;
+}
+
+/* Section Content */
+.backstory-section-content {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--ink-black);
+}
+
+.backstory-section-content p {
+  margin-bottom: var(--space-md);
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.backstory-section-content p:last-child {
+  margin-bottom: 0;
+}
+
+.backstory-section-content strong {
+  color: var(--sepia);
+  font-weight: 600;
+}
+
+.backstory-section-content em {
+  color: var(--ink-brown);
+}
+
+/* Epilogue */
+.backstory-epilogue {
+  text-align: center;
+  margin-top: var(--space-xxl);
+  padding-top: var(--space-xl);
+}
+
+.backstory-separator {
+  font-size: 1.2rem;
+  color: var(--gold-accent);
+  letter-spacing: 0.5em;
+  margin-bottom: var(--space-lg);
+}
+
+.backstory-end-note {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-style: italic;
+  font-weight: 600;
+  color: var(--sepia);
+  max-width: 400px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ============================================
    Responsive - Sidebar
    ============================================ */
 
@@ -2543,6 +2713,40 @@ details[open] .rules-toggle::after {
   
   .vignettes-grid {
     grid-template-columns: 1fr;
+  }
+  
+  /* Responsive backstory styles */
+  .backstory-enhanced {
+    padding: var(--space-md);
+  }
+  
+  .backstory-title {
+    font-size: 1.6rem;
+  }
+  
+  .backstory-section {
+    padding: var(--space-md);
+    margin-bottom: var(--space-lg);
+  }
+  
+  .backstory-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .chapter-link {
+    font-size: 0.8rem;
+    margin-top: var(--space-sm);
+  }
+  
+  .backstory-quote {
+    font-size: 1rem;
+    padding: var(--space-sm) var(--space-md);
+  }
+  
+  .backstory-section-content {
+    font-size: 1rem;
+    text-align: left;
   }
 }
 
