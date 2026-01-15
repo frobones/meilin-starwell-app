@@ -14,6 +14,7 @@ const App = {
     backstoryContent: null,
     chapters: [],
     vignettes: [],
+    npcsContent: null,
     
     // Passkey configuration
     // Change this passkey to whatever you want!
@@ -361,6 +362,8 @@ const App = {
             this.loadChapters();
         } else if (subtabName === 'vignettes' && this.vignettes.length === 0) {
             this.loadVignettes();
+        } else if (subtabName === 'npcs' && !this.npcsContent) {
+            this.loadNPCs();
         }
     },
 
@@ -960,14 +963,15 @@ const App = {
     },
 
     /**
-     * Load all backstory content (worksheet, overview, chapters, vignettes)
+     * Load all backstory content (worksheet, overview, chapters, vignettes, npcs)
      */
     async loadBackstoryContent() {
         await Promise.all([
             this.loadWorksheet(),
             this.loadBackstoryOverview(),
             this.loadChapters(),
-            this.loadVignettes()
+            this.loadVignettes(),
+            this.loadNPCs()
         ]);
     },
 
@@ -996,6 +1000,20 @@ const App = {
 
         const html = await this.fetchMarkdown('content/backstory/consolidated.md');
         this.backstoryContent = html;
+        container.innerHTML = html;
+    },
+
+    /**
+     * Load the NPCs roster
+     */
+    async loadNPCs() {
+        const container = document.getElementById('npcs-content');
+        if (!container) return;
+
+        container.innerHTML = '<div class="loading-spinner">Loading NPCs...</div>';
+
+        const html = await this.fetchMarkdown('content/npcs/roster.md');
+        this.npcsContent = html;
         container.innerHTML = html;
     },
 

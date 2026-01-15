@@ -1503,6 +1503,23 @@ details[open] .rules-toggle::after {
   color: var(--sepia);
 }
 
+/* NPCs Intro */
+.npcs-intro {
+  margin-bottom: var(--space-xl);
+  padding: var(--space-lg);
+  background: linear-gradient(135deg, rgba(101, 67, 33, 0.1), rgba(101, 67, 33, 0.05));
+  border-radius: var(--radius-md);
+  border: 1px solid var(--parchment-aged);
+  text-align: center;
+}
+
+.npcs-note {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--ink-faded);
+  margin: 0;
+}
+
 .vignettes-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
