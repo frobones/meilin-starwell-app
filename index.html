@@ -21,16 +21,20 @@
         <!-- Sidebar Navigation -->
         <aside class="sidebar">
             <div class="sidebar-header">
-                <div class="sidebar-portrait">
+                <div class="sidebar-portrait" data-lightbox="img/portrait.png">
                     <img src="img/portrait.png" alt="Meilin Starwell" />
                 </div>
                 <h1 class="sidebar-title">Meilin Starwell</h1>
-                <p class="sidebar-subtitle">Character Companion</p>
+                <p class="sidebar-subtitle">Dockside Apothecary</p>
             </div>
             <nav class="sidebar-nav">
                 <a href="#overview" class="nav-link active" data-page="overview">
                     <span class="nav-icon"><i data-lucide="user"></i></span>
                     <span class="nav-text">Character Overview</span>
+                </a>
+                <a href="#rumors" class="nav-link" data-page="rumors">
+                    <span class="nav-icon"><i data-lucide="message-circle"></i></span>
+                    <span class="nav-text">Rumors</span>
                 </a>
                 <a href="#backstory" class="nav-link" data-page="backstory">
                     <span class="nav-icon"><i data-lucide="book-open"></i></span>
@@ -128,6 +132,84 @@
                     </div>
                 </section>
             </div>
+
+            <!-- Rumors Page (Player-Facing) -->
+            <div class="page" id="rumors-page">
+                <!-- Hero with Key Art -->
+                <header class="rumors-hero">
+                    <img src="img/key_art.png" alt="Meilin Starwell" class="rumors-hero-image" />
+                    <div class="rumors-hero-overlay">
+                        <h1 class="rumors-hero-title">What They Say</h1>
+                    </div>
+                </header>
+
+                <!-- Divider -->
+                <hr class="rumors-divider" />
+
+                <!-- Main Rumors Layout -->
+                <div class="rumors-layout">
+                    <!-- Rumors Sidebar -->
+                    <aside class="rumors-sidebar">
+                        <div class="rumors-list" id="rumors-list">
+                            <!-- Populated by JS -->
+                        </div>
+                    </aside>
+
+                    <!-- Character Gallery -->
+                    <main class="rumors-gallery">
+                        <div class="rumors-gallery-single" data-lightbox="img/scene.png">
+                            <img src="img/scene.png" alt="Meilin at work" />
+                        </div>
+                    </main>
+                </div>
+
+                <!-- Divider -->
+                <hr class="rumors-divider" />
+
+                <!-- Visual Details -->
+                <section class="rumors-details">
+                    <h2 class="rumors-details-title">What You Notice</h2>
+                    <div class="rumors-details-grid">
+                        <div class="rumors-detail-card">
+                            <span class="rumors-detail-icon"><i data-lucide="eye"></i></span>
+                            <h3>The Look</h3>
+                            <p>Waxed-canvas cloak, labeled vials, small notebook, satchel strapped down tight.</p>
+                        </div>
+                        <div class="rumors-detail-card">
+                            <span class="rumors-detail-icon"><i data-lucide="hand"></i></span>
+                            <h3>The Hands</h3>
+                            <p>Ink-stained fingers that never quite wash clean. Work-worn, chemical-burn marks like a constellation.</p>
+                        </div>
+                        <div class="rumors-detail-card">
+                            <span class="rumors-detail-icon"><i data-lucide="notebook-pen"></i></span>
+                            <h3>The Habits</h3>
+                            <p>Checks seals, asks for names and dates, pauses when a story avoids specifics.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Divider -->
+                <hr class="rumors-divider" />
+
+                <!-- Character Views -->
+                <section class="rumors-views">
+                    <div class="rumors-views-grid">
+                        <div class="rumors-view-item" data-lightbox="img/meilin_front.png">
+                            <img src="img/meilin_front.png" alt="Meilin - Front" />
+                        </div>
+                        <div class="rumors-view-item" data-lightbox="img/meilin_side.png">
+                            <img src="img/meilin_side.png" alt="Meilin - Side" />
+                        </div>
+                        <div class="rumors-view-item" data-lightbox="img/meilin_back.png">
+                            <img src="img/meilin_back.png" alt="Meilin - Back" />
+                        </div>
+                        <div class="rumors-view-item" data-lightbox="img/meilin_angle.png">
+                            <img src="img/meilin_angle.png" alt="Meilin - Angle" />
+                        </div>
+                    </div>
+                </section>
+
+                </div>
 
             <!-- Medicine Page -->
             <div class="page" id="medicine-page">
@@ -368,6 +450,12 @@
                 <p class="passkey-hint">Hint: The code for mindersand in Smith's Coster's ledger.</p>
             </div>
         </div>
+    </div>
+
+    <!-- Global Image Lightbox Modal -->
+    <div class="lightbox-overlay" id="global-lightbox">
+        <button class="lightbox-close" id="lightbox-close">&times;</button>
+        <img class="lightbox-image" id="lightbox-image" src="" alt="Enlarged view" />
     </div>
 
     <!-- Markdown Parser -->

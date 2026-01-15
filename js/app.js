@@ -27,6 +27,7 @@ const App = {
     knives: [],
     relationships: null,
     mindersandData: null,
+    rumorsData: null,
     
     // Passkey configuration
     // Change this passkey to whatever you want!
@@ -56,6 +57,7 @@ const App = {
             this.bindEvents();
             this.bindPageEvents();
             this.bindPasskeyEvents();
+            this.bindGlobalLightbox();
             this.checkStoredUnlock();
             this.renderMedicines();
             this.renderIngredients();
@@ -324,7 +326,7 @@ const App = {
      */
     handleHashChange() {
         const hash = window.location.hash.slice(1) || 'overview';
-        if (hash === 'overview' || hash === 'medicine' || hash === 'backstory' || hash === 'dmtools') {
+        if (hash === 'overview' || hash === 'medicine' || hash === 'backstory' || hash === 'dmtools' || hash === 'rumors') {
             this.switchPage(hash, false);
         }
     },
@@ -371,6 +373,84 @@ const App = {
         if (pageName === 'dmtools' && !this.relationships) {
             this.loadDMToolsContent();
         }
+        
+        // Load Rumors content if switching to that page
+        if (pageName === 'rumors' && !this.rumorsData) {
+            this.loadRumors();
+        }
+    },
+    
+    /**
+     * Load rumors content
+     */
+    async loadRumors() {
+        try {
+            const response = await fetch('content/rumors.json');
+            if (!response.ok) throw new Error('Failed to load rumors');
+            
+            this.rumorsData = await response.json();
+            this.renderRumors();
+        } catch (error) {
+            console.error('Failed to load rumors:', error);
+        }
+    },
+    
+    /**
+     * Render rumors list
+     */
+    renderRumors() {
+        const container = document.getElementById('rumors-list');
+        if (!container || !this.rumorsData) return;
+        
+        container.innerHTML = this.rumorsData.rumors.map(rumor => `
+            <div class="rumor-item">
+                ${rumor.text}
+            </div>
+        `).join('');
+        
+        this.refreshIcons();
+    },
+    
+    /**
+     * Bind global lightbox events for all images with data-lightbox attribute
+     */
+    bindGlobalLightbox() {
+        const lightbox = document.getElementById('global-lightbox');
+        const lightboxImage = document.getElementById('lightbox-image');
+        const lightboxClose = document.getElementById('lightbox-close');
+        
+        if (!lightbox || !lightboxImage) return;
+        
+        // Use event delegation on document for data-lightbox clicks
+        document.addEventListener('click', (e) => {
+            const lightboxTrigger = e.target.closest('[data-lightbox]');
+            if (lightboxTrigger) {
+                const imageSrc = lightboxTrigger.dataset.lightbox;
+                lightboxImage.src = imageSrc;
+                lightbox.classList.add('active');
+            }
+        });
+        
+        // Close lightbox on button click
+        if (lightboxClose) {
+            lightboxClose.addEventListener('click', () => {
+                lightbox.classList.remove('active');
+            });
+        }
+        
+        // Close lightbox on overlay click
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.classList.remove('active');
+            }
+        });
+        
+        // Close lightbox on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                lightbox.classList.remove('active');
+            }
+        });
     },
 
     /**
