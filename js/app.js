@@ -1190,7 +1190,8 @@ const App = {
             {
                 title: 'The Docks',
                 icon: '⚓',
-                chapterIndex: 1,
+                chapterIndex: 0,
+                chapterNumber: '01',
                 chapterTitle: 'Dock-born',
                 paragraphs: [0, 1, 2], // "On the Rock of Bral...", quote, and learning messages
                 pullQuote: '"People lie," he told her. "Bodies don\'t."'
@@ -1198,7 +1199,8 @@ const App = {
             {
                 title: 'Cassian',
                 icon: '✨',
-                chapterIndex: 0,
+                chapterIndex: 1,
+                chapterNumber: '02',
                 chapterTitle: 'Cassian Leaves',
                 paragraphs: [3], // Cassian paragraph
                 pullQuote: null
@@ -1207,6 +1209,7 @@ const App = {
                 title: 'Politics of Medicine',
                 icon: '⚖️',
                 chapterIndex: 2,
+                chapterNumber: '03',
                 chapterTitle: 'Apprenticeship',
                 paragraphs: [4, 5, 6], // Medicine is politics, apprenticeship
                 pullQuote: '"Your cure comes with a leash."'
@@ -1215,6 +1218,7 @@ const App = {
                 title: 'Near Death',
                 icon: '☠️',
                 chapterIndex: 3,
+                chapterNumber: '04',
                 chapterTitle: 'Near-death',
                 paragraphs: [7, 8, 9, 10, 11, 12], // Tea stall incident, discovery of mindersand
                 pullQuote: null
@@ -1223,6 +1227,7 @@ const App = {
                 title: 'The Pattern-Hunter',
                 icon: '🔍',
                 chapterIndex: 4,
+                chapterNumber: '05',
                 chapterTitle: 'Pattern-hunter',
                 paragraphs: [13, 14, 15], // Building the web
                 pullQuote: '"Maps lead places. Some places don\'t like visitors."'
@@ -1231,6 +1236,7 @@ const App = {
                 title: 'Meredin\'s Patronage',
                 icon: '🤝',
                 chapterIndex: 5,
+                chapterNumber: '06',
                 chapterTitle: 'Meredin',
                 paragraphs: [16, 17, 18], // Meredin enters
                 pullQuote: '"Being useful is a kind of target."'
@@ -1239,6 +1245,7 @@ const App = {
                 title: 'The Drift-Sparrow',
                 icon: '🚢',
                 chapterIndex: 6,
+                chapterNumber: '07',
                 chapterTitle: 'Shipboard Scare',
                 paragraphs: [19, 20, 21, 22, 23, 24], // Ship contract and discovery
                 pullQuote: '"Mindersand."'
@@ -1247,6 +1254,7 @@ const App = {
                 title: 'Sera\'s Trail',
                 icon: '📋',
                 chapterIndex: 7,
+                chapterNumber: '08',
                 chapterTitle: 'Sera Trail',
                 paragraphs: [25, 26, 27, 28], // Sera Quill, tracing to Smith's Coster
                 pullQuote: null
@@ -1255,6 +1263,7 @@ const App = {
                 title: 'Smith\'s Coster',
                 icon: '🏛️',
                 chapterIndex: 8,
+                chapterNumber: '09',
                 chapterTitle: 'Smith\'s Coster',
                 paragraphs: [29, 30, 31, 32, 33], // Confrontation
                 pullQuote: '"Paper burns."'
@@ -1263,6 +1272,7 @@ const App = {
                 title: 'The Ledger Page',
                 icon: '📜',
                 chapterIndex: 9,
+                chapterNumber: '10',
                 chapterTitle: 'Ledger Page',
                 paragraphs: [34, 35, 36, 37, 38, 39, 40], // The heist
                 pullQuote: '"MS-13: mindersand"'
@@ -1271,6 +1281,7 @@ const App = {
                 title: 'Exit Strategy',
                 icon: '🚪',
                 chapterIndex: 10,
+                chapterNumber: '11',
                 chapterTitle: 'Exit Strategy',
                 paragraphs: [41, 42, 43, 44, 45, 46, 47, 48, 49, 50], // Leaving Bral
                 pullQuote: null
@@ -1279,6 +1290,7 @@ const App = {
                 title: 'The Astral Bazaar',
                 icon: '🌌',
                 chapterIndex: 11,
+                chapterNumber: '12',
                 chapterTitle: 'Astral Bazaar',
                 paragraphs: [51], // Current state
                 pullQuote: null
@@ -1315,7 +1327,7 @@ const App = {
                         <span class="backstory-section-icon">${section.icon}</span>
                         <h2 class="backstory-section-title">${section.title}</h2>
                         <a href="#" class="chapter-link" data-chapter="${section.chapterIndex}" title="Read the full chapter">
-                            Read Chapter ${String(section.chapterIndex).padStart(2, '0')}: ${section.chapterTitle} →
+                            Read Chapter ${section.chapterNumber}: ${section.chapterTitle} →
                         </a>
                     </div>
                     ${section.pullQuote ? `<blockquote class="backstory-quote">${section.pullQuote}</blockquote>` : ''}
@@ -1793,18 +1805,18 @@ const App = {
 
         // Chapter file mappings
         const chapterFiles = [
-            { file: 'Meilin Starwell - Stage 00 - Cassian Leaves.md', number: '00', title: 'Cassian Leaves' },
             { file: 'Meilin Starwell - Stage 01 - Dock-born.md', number: '01', title: 'Dock-born' },
-            { file: 'Meilin Starwell - Stage 02 - Apprenticeship.md', number: '02', title: 'Apprenticeship' },
-            { file: 'Meilin Starwell - Stage 03 - Near-death.md', number: '03', title: 'Near-death' },
-            { file: 'Meilin Starwell - Stage 04 - Pattern-hunter.md', number: '04', title: 'Pattern-hunter' },
-            { file: 'Meilin Starwell - Stage 05 - Meredin.md', number: '05', title: 'Meredin' },
-            { file: 'Meilin Starwell - Stage 06 - Shipboard Scare.md', number: '06', title: 'Shipboard Scare' },
-            { file: 'Meilin Starwell - Stage 07 - Sera Trail.md', number: '07', title: 'Sera Trail' },
-            { file: 'Meilin Starwell - Stage 08 - Smith\'s Coster.md', number: '08', title: 'Smith\'s Coster' },
-            { file: 'Meilin Starwell - Stage 09 - Ledger Page.md', number: '09', title: 'Ledger Page' },
-            { file: 'Meilin Starwell - Stage 10 - Exit Strategy.md', number: '10', title: 'Exit Strategy' },
-            { file: 'Meilin Starwell - Stage 11 - Astral Bazaar.md', number: '11', title: 'Astral Bazaar' }
+            { file: 'Meilin Starwell - Stage 02 - Cassian Leaves.md', number: '02', title: 'Cassian Leaves' },
+            { file: 'Meilin Starwell - Stage 03 - Apprenticeship.md', number: '03', title: 'Apprenticeship' },
+            { file: 'Meilin Starwell - Stage 04 - Near-death.md', number: '04', title: 'Near-death' },
+            { file: 'Meilin Starwell - Stage 05 - Pattern-hunter.md', number: '05', title: 'Pattern-hunter' },
+            { file: 'Meilin Starwell - Stage 06 - Meredin.md', number: '06', title: 'Meredin' },
+            { file: 'Meilin Starwell - Stage 07 - Shipboard Scare.md', number: '07', title: 'Shipboard Scare' },
+            { file: 'Meilin Starwell - Stage 08 - Sera Trail.md', number: '08', title: 'Sera Trail' },
+            { file: 'Meilin Starwell - Stage 09 - Smith\'s Coster.md', number: '09', title: 'Smith\'s Coster' },
+            { file: 'Meilin Starwell - Stage 10 - Ledger Page.md', number: '10', title: 'Ledger Page' },
+            { file: 'Meilin Starwell - Stage 11 - Exit Strategy.md', number: '11', title: 'Exit Strategy' },
+            { file: 'Meilin Starwell - Stage 12 - Astral Bazaar.md', number: '12', title: 'Astral Bazaar' }
         ];
 
         // Load all chapters
