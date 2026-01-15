@@ -381,8 +381,6 @@ const App = {
             this.loadChapters();
         } else if (subtabName === 'vignettes' && this.vignettes.length === 0) {
             this.loadVignettes();
-        } else if (subtabName === 'npcs' && this.npcs.length === 0) {
-            this.loadNPCs();
         } else if (subtabName === 'knives' && this.knives.length === 0) {
             this.loadKnives();
         } else if (subtabName === 'relationships' && !this.relationships) {
@@ -1283,7 +1281,7 @@ const App = {
     // ============================================
 
     /**
-     * Load relationships data
+     * Load relationships data (and NPCs for detail modals)
      */
     async loadRelationships() {
         const container = document.getElementById('relationships-map');
@@ -1292,8 +1290,20 @@ const App = {
         container.innerHTML = '<div class="loading-spinner">Loading relationships...</div>';
 
         try {
-            const response = await fetch('content/dm/relationships.json');
-            this.relationships = await response.json();
+            // Load both relationships and NPCs
+            const [relResponse, npcResponse] = await Promise.all([
+                fetch('content/dm/relationships.json'),
+                fetch('content/npcs/roster.md')
+            ]);
+            
+            this.relationships = await relResponse.json();
+            
+            // Parse NPCs if not already loaded
+            if (this.npcs.length === 0) {
+                const npcMarkdown = await npcResponse.text();
+                this.npcs = this.parseNPCs(npcMarkdown);
+            }
+            
             this.renderRelationships();
         } catch (error) {
             console.error('Failed to load relationships:', error);
@@ -1366,20 +1376,50 @@ const App = {
             </div>
             ` : ''}
         `;
+        
+        // Bind click events to cards with NPC details
+        this.bindRelationshipCardEvents();
     },
 
     /**
      * Render a single relationship card
      */
     renderRelationshipCard(connection) {
+        // Check if this NPC has detailed info
+        const hasDetails = this.npcs.some(npc => 
+            npc.name.toLowerCase().includes(connection.name.split(' ')[0].toLowerCase())
+        );
+        
         return `
-            <div class="relationship-card ${connection.type}">
+            <div class="relationship-card ${connection.type} ${hasDetails ? 'clickable' : ''}" 
+                 data-npc-name="${connection.name}"
+                 ${hasDetails ? 'title="Click for details"' : ''}>
                 <h4 class="relationship-card-name">${connection.name}</h4>
                 <p class="relationship-card-relation">${connection.relation}</p>
                 <p class="relationship-card-tension">${connection.tension}</p>
                 <p class="relationship-card-location">📍 ${connection.location}</p>
             </div>
         `;
+    },
+
+    /**
+     * Bind click events to relationship cards
+     */
+    bindRelationshipCardEvents() {
+        const container = document.getElementById('relationships-map');
+        if (!container) return;
+
+        container.querySelectorAll('.relationship-card.clickable').forEach(card => {
+            card.addEventListener('click', () => {
+                const npcName = card.dataset.npcName;
+                const npc = this.npcs.find(n => 
+                    n.name.toLowerCase().includes(npcName.split(' ')[0].toLowerCase())
+                );
+                if (npc) {
+                    this.openNPCModal(npc);
+                }
+            });
+        });
     },
 
     /**
