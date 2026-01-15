@@ -22,7 +22,11 @@
                 <p class="sidebar-subtitle">Character Companion</p>
             </div>
             <nav class="sidebar-nav">
-                <a href="#medicine" class="nav-link active" data-page="medicine">
+                <a href="#ataglance" class="nav-link active" data-page="ataglance">
+                    <span class="nav-icon">👤</span>
+                    <span class="nav-text">At a Glance</span>
+                </a>
+                <a href="#medicine" class="nav-link" data-page="medicine">
                     <span class="nav-icon">🌿</span>
                     <span class="nav-text">Herbal Medicine</span>
                 </a>
@@ -38,8 +42,85 @@
 
         <!-- Main Content Area -->
         <div class="main-area">
+            <!-- At a Glance Page (DM Quick Reference) -->
+            <div class="page active" id="ataglance-page">
+                <!-- Hero Section -->
+                <section class="aag-hero">
+                    <div class="aag-hero-content">
+                        <h1 class="aag-name" id="aag-name">Meilin Starwell</h1>
+                        <p class="aag-tagline" id="aag-tagline"></p>
+                        <blockquote class="aag-quote" id="aag-quote"></blockquote>
+                    </div>
+                </section>
+
+                <!-- Core Concept Section -->
+                <section class="aag-section aag-core">
+                    <div class="aag-thesis-box" id="aag-thesis"></div>
+                    <div class="aag-core-details">
+                        <div class="aag-detail" id="aag-trouble">
+                            <span class="aag-detail-label">Trouble:</span>
+                            <span class="aag-detail-text"></span>
+                        </div>
+                        <div class="aag-detail" id="aag-defining">
+                            <span class="aag-detail-label">Defining Moment:</span>
+                            <span class="aag-detail-text"></span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 30-Second Summary -->
+                <section class="aag-section aag-summary">
+                    <h2 class="aag-section-title">The Story</h2>
+                    <p class="aag-summary-text" id="aag-summary"></p>
+                </section>
+
+                <!-- Cards Row: Drives, Boundaries, Party Glue -->
+                <section class="aag-section aag-cards-row">
+                    <div class="aag-card aag-drives">
+                        <h3 class="aag-card-title">Drives</h3>
+                        <ul class="aag-card-list" id="aag-drives-list"></ul>
+                    </div>
+                    <div class="aag-card aag-boundaries">
+                        <h3 class="aag-card-title">Boundaries</h3>
+                        <ul class="aag-card-list" id="aag-boundaries-list"></ul>
+                    </div>
+                    <div class="aag-card aag-glue">
+                        <h3 class="aag-card-title">Party Glue</h3>
+                        <ul class="aag-card-list" id="aag-glue-list"></ul>
+                    </div>
+                </section>
+
+                <!-- Secrets Section -->
+                <section class="aag-section aag-secrets">
+                    <h2 class="aag-section-title">Secrets &amp; Mysteries</h2>
+                    <div class="aag-secrets-grid" id="aag-secrets-grid"></div>
+                </section>
+
+                <!-- Quick Links -->
+                <section class="aag-section aag-quicklinks">
+                    <h2 class="aag-section-title">Explore More</h2>
+                    <div class="aag-links-row">
+                        <a href="#backstory" class="aag-link-card" data-navigate="backstory" data-subtab="knives">
+                            <span class="aag-link-icon">🗡️</span>
+                            <span class="aag-link-title">Knives</span>
+                            <span class="aag-link-count" id="aag-knives-count">5 hooks for the DM</span>
+                        </a>
+                        <a href="#backstory" class="aag-link-card" data-navigate="backstory" data-subtab="relationships">
+                            <span class="aag-link-icon">🔗</span>
+                            <span class="aag-link-title">Relationships</span>
+                            <span class="aag-link-count" id="aag-relationships-count">8 connections</span>
+                        </a>
+                        <a href="#backstory" class="aag-link-card" data-navigate="backstory" data-subtab="chapters">
+                            <span class="aag-link-icon">📚</span>
+                            <span class="aag-link-title">Full Backstory</span>
+                            <span class="aag-link-count" id="aag-chapters-count">12 chapters</span>
+                        </a>
+                    </div>
+                </section>
+            </div>
+
             <!-- Medicine Page -->
-            <div class="page active" id="medicine-page">
+            <div class="page" id="medicine-page">
                 <header class="page-header">
                     <h1 class="page-title">Meilin's Apothecary</h1>
                     <p class="page-subtitle">Herbal Medicine Quick Reference</p>
@@ -145,8 +226,7 @@
 
                 <!-- Backstory Sub-tabs -->
                 <nav class="sub-tab-nav">
-                    <button class="sub-tab-btn active" data-subtab="ataglance">At a Glance</button>
-                    <button class="sub-tab-btn" data-subtab="background">Background</button>
+                    <button class="sub-tab-btn active" data-subtab="background">Background</button>
                     <button class="sub-tab-btn" data-subtab="overview">Overview</button>
                     <button class="sub-tab-btn" data-subtab="chapters">Chapters</button>
                     <button class="sub-tab-btn" data-subtab="vignettes">Vignettes</button>
@@ -156,15 +236,8 @@
 
                 <!-- Backstory Content -->
                 <main class="backstory-content">
-                    <!-- At a Glance (Character Worksheet) -->
-                    <div class="sub-tab-content active" id="ataglance-subtab">
-                        <div class="worksheet-container" id="character-worksheet">
-                            <div class="loading-spinner">Loading...</div>
-                        </div>
-                    </div>
-
                     <!-- Background -->
-                    <div class="sub-tab-content" id="background-subtab">
+                    <div class="sub-tab-content active" id="background-subtab">
                         <div class="narrative-container" id="background-content">
                             <div class="loading-spinner">Loading...</div>
                         </div>

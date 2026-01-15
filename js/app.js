@@ -9,6 +9,9 @@ const App = {
     ingredients: null,
     rules: null,
     
+    // At a Glance data (top-level page)
+    ataglanceData: null,
+    
     // Backstory data
     worksheetContent: null,
     backgroundContent: null,
@@ -34,9 +37,9 @@ const App = {
     currentTab: 'medicines',
     selectedTerrain: 'Arctic',
     currentPage: null, // Will be set after passkey check
-    currentSubtab: 'ataglance',
+    currentSubtab: 'background',
     appUnlocked: false,
-    pendingPage: 'medicine', // Page to navigate to after unlock
+    pendingPage: 'ataglance', // Page to navigate to after unlock
 
     /**
      * Initialize the application
@@ -54,7 +57,7 @@ const App = {
             
             // Check if unlocked, show passkey modal if not
             if (!this.appUnlocked) {
-                this.pendingPage = 'medicine';
+                this.pendingPage = 'ataglance';
                 this.showPasskeyModal();
             } else {
                 // Handle initial page based on URL hash
@@ -314,8 +317,8 @@ const App = {
      * Handle URL hash changes for navigation
      */
     handleHashChange() {
-        const hash = window.location.hash.slice(1) || 'medicine';
-        if (hash === 'medicine' || hash === 'backstory') {
+        const hash = window.location.hash.slice(1) || 'ataglance';
+        if (hash === 'ataglance' || hash === 'medicine' || hash === 'backstory') {
             this.switchPage(hash, false);
         }
     },
@@ -348,8 +351,13 @@ const App = {
             window.location.hash = pageName;
         }
 
+        // Load At a Glance content if switching to that page
+        if (pageName === 'ataglance' && !this.ataglanceData) {
+            this.loadAtAGlance();
+        }
+        
         // Load backstory content if switching to backstory page
-        if (pageName === 'backstory' && !this.worksheetContent) {
+        if (pageName === 'backstory' && !this.backgroundContent) {
             this.loadBackstoryContent();
         }
     },
@@ -371,9 +379,7 @@ const App = {
         });
 
         // Load content if needed
-        if (subtabName === 'ataglance' && !this.worksheetContent) {
-            this.loadWorksheet();
-        } else if (subtabName === 'background' && !this.backgroundContent) {
+        if (subtabName === 'background' && !this.backgroundContent) {
             this.loadBackground();
         } else if (subtabName === 'overview' && !this.backstoryContent) {
             this.loadBackstoryOverview();
@@ -984,11 +990,121 @@ const App = {
     },
 
     /**
+     * Load At a Glance page data
+     */
+    async loadAtAGlance() {
+        try {
+            const response = await fetch('content/character/ataglance.json');
+            if (!response.ok) {
+                throw new Error('Failed to fetch At a Glance data');
+            }
+            this.ataglanceData = await response.json();
+            this.renderAtAGlance();
+        } catch (error) {
+            console.error('Error loading At a Glance:', error);
+        }
+    },
+
+    /**
+     * Render the At a Glance page
+     */
+    renderAtAGlance() {
+        const data = this.ataglanceData;
+        if (!data) return;
+
+        // Hero section
+        const tagline = `${data.background} | ${data.class} | ${data.species}`;
+        document.getElementById('aag-tagline').textContent = tagline;
+        document.getElementById('aag-quote').textContent = data.quote;
+
+        // Core Concept
+        document.getElementById('aag-thesis').textContent = data.coreConcept.thesis;
+        document.querySelector('#aag-trouble .aag-detail-text').textContent = data.coreConcept.trouble;
+        document.querySelector('#aag-defining .aag-detail-text').textContent = data.coreConcept.definingDetail;
+
+        // Summary
+        document.getElementById('aag-summary').textContent = data.summary;
+
+        // Drives card
+        const drivesContainer = document.getElementById('aag-drives-list');
+        drivesContainer.innerHTML = `
+            <li><span class="item-label">Want:</span><span class="item-value">${data.drives.want}</span></li>
+            <li><span class="item-label">Need:</span><span class="item-value">${data.drives.need}</span></li>
+            <li><span class="item-label">Fear:</span><span class="item-value">${data.drives.fear}</span></li>
+            <li><span class="item-label">Temptation:</span><span class="item-value">${data.drives.temptation}</span></li>
+            <li><span class="item-label">Duty:</span><span class="item-value">${data.drives.responsibility}</span></li>
+        `;
+
+        // Boundaries card
+        const boundariesContainer = document.getElementById('aag-boundaries-list');
+        boundariesContainer.innerHTML = `
+            <li><span class="item-label">Hard Line:</span><span class="item-value">${data.boundaries.hardLine}</span></li>
+            <li><span class="item-label">Gray Area:</span><span class="item-value">${data.boundaries.grayArea}</span></li>
+            <li><span class="item-label">Earns Trust:</span><span class="item-value">${data.boundaries.earnsTrust}</span></li>
+            <li><span class="item-label">Breaks Trust:</span><span class="item-value">${data.boundaries.breaksTrust}</span></li>
+        `;
+
+        // Party Glue card
+        const glueContainer = document.getElementById('aag-glue-list');
+        glueContainer.innerHTML = `
+            <li><span class="item-label">I Need:</span><span class="item-value">${data.partyGlue.whyINeed}</span></li>
+            <li><span class="item-label">I Offer:</span><span class="item-value">${data.partyGlue.howIHelp}</span></li>
+            <li><span class="item-label">My Role:</span><span class="item-value">${data.partyGlue.myRole}</span></li>
+            <li><span class="item-label">Fear:</span><span class="item-value">${data.partyGlue.secretFear}</span></li>
+        `;
+
+        // Secrets section
+        const secretsContainer = document.getElementById('aag-secrets-grid');
+        secretsContainer.innerHTML = `
+            <div class="aag-secret-card">
+                <div class="aag-secret-label">Keeping Hidden</div>
+                <div class="aag-secret-text">${data.secrets.keeping}</div>
+            </div>
+            <div class="aag-secret-card">
+                <div class="aag-secret-label">Mystery</div>
+                <div class="aag-secret-text">${data.secrets.mystery}</div>
+            </div>
+            <div class="aag-secret-card">
+                <div class="aag-secret-label">Last Voyage</div>
+                <div class="aag-secret-text">${data.secrets.lastVoyage}</div>
+            </div>
+        `;
+
+        // Update quick link counts
+        document.getElementById('aag-knives-count').textContent = `${data.quickStats.knivesCount} hooks for the DM`;
+        document.getElementById('aag-relationships-count').textContent = `${data.quickStats.relationshipsCount} connections`;
+        document.getElementById('aag-chapters-count').textContent = `${data.quickStats.chaptersCount} chapters`;
+
+        // Bind quick link navigation
+        this.bindQuickLinkEvents();
+    },
+
+    /**
+     * Bind events for quick link cards on At a Glance page
+     */
+    bindQuickLinkEvents() {
+        document.querySelectorAll('.aag-link-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetPage = card.dataset.navigate;
+                const targetSubtab = card.dataset.subtab;
+                
+                // Switch to the backstory page
+                this.switchPage(targetPage);
+                
+                // Then switch to the specific sub-tab
+                if (targetSubtab) {
+                    this.switchSubtab(targetSubtab);
+                }
+            });
+        });
+    },
+
+    /**
      * Load all backstory content (worksheet, overview, chapters, vignettes, npcs)
      */
     async loadBackstoryContent() {
         await Promise.all([
-            this.loadWorksheet(),
             this.loadBackground(),
             this.loadBackstoryOverview(),
             this.loadChapters(),

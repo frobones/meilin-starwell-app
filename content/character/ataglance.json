@@ -1,0 +1,47 @@
+{
+  "name": "Meilin Starwell",
+  "gender": "Female",
+  "age": 26,
+  "species": "Human",
+  "class": "Rogue",
+  "background": "Apothecary (custom)",
+  "look": "Waxed-canvas cloak, structured medical satchel strapped down like it expects theft, labeled vials at the belt, ink-stained hands with faint chemical-burn marks.",
+  "quote": "If you die, I have to carry your kit. Don't be selfish.",
+  "coreConcept": {
+    "thesis": "I am a ship's apothecary who follows supply chains like symptoms, but I won't buy truth with other people's lives.",
+    "trouble": "I stole proof from a powerful distributor, and now the wrong people have reasons to find me.",
+    "definingDetail": "I nearly died in public from a contaminated tea, traced it to a corporate dosing scheme, and stole a ledger page that proves intent."
+  },
+  "summary": "Meilin Starwell was raised dockside on the Rock of Bral, learning triage and hard practicality in her father Kaito's tiny apothecary. A tea stall incident nearly killed her, and she traced it to mindersand, a 'drying powder' that can fog judgment and make people easier to steer. She followed the pattern through vendors and warehouse marks to Smith's Coster, stole a ledger page tying them to MS-13 mindersand and intent notes about 'increasing compliance,' and fled when pressure tightened around her father, patients, and witnesses. Now she's in Wildspace to keep the proof alive, stop the dosing chain, and avoid the leash disguised as 'official work.'",
+  "drives": {
+    "want": "Keep the crew functional and unpoisoned, and find the next link in the mindersand chain.",
+    "need": "Learn to trust others enough to share the burden instead of carrying it alone.",
+    "fear": "Being domesticated by 'help,' a job offer, protection, or paperwork that turns into ownership.",
+    "temptation": "Following the pattern past safety, pulling on a thread when she should rest or stay quiet.",
+    "responsibility": "The people she left behind on Bral are still within Smith's Coster's reach."
+  },
+  "boundaries": {
+    "hardLine": "No patient or witness is leverage. No covert dosing.",
+    "grayArea": "Bribery, smuggling, forged paperwork, or quiet blackmail of the powerful.",
+    "earnsTrust": "Competence under pressure. Honest logs. Someone who takes notes.",
+    "breaksTrust": "Messing with food or meds. Selling someone out. Taking my notes without consent.",
+    "instantAnger": "Anyone suggesting covert dosing, or treating a witness as a bargaining chip.",
+    "meltsGuard": "Competence under pressure. Someone who helps by handling the unpleasant task without drama."
+  },
+  "partyGlue": {
+    "whyINeed": "I can't watch my own back while I'm watching the cargo. I need people who won't sell me out when the pressure lands.",
+    "howIHelp": "Contamination checks, triage, pattern-hunting, and the discipline to ask 'what changed?' before anyone panics.",
+    "myRole": "Ship's apothecary, contamination checker, and the person who audits what 'safe' really means.",
+    "secretFear": "The ledger page exists. If they know I'm carrying proof, they become targets too."
+  },
+  "secrets": {
+    "keeping": "The ledger page exists and I'm carrying it.",
+    "mystery": "Why does mindersand hit me so much harder than everyone else?",
+    "lastVoyage": "The night I left Bral, someone helped me disappear, and I don't know what they traded to make it happen."
+  },
+  "quickStats": {
+    "knivesCount": 5,
+    "relationshipsCount": 8,
+    "chaptersCount": 12
+  }
+}
