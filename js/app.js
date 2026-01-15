@@ -1279,7 +1279,7 @@ const App = {
                 chapterIndex: 10,
                 chapterNumber: '11',
                 chapterTitle: 'Exit Strategy',
-                paragraphs: [41, 42, 43, 44, 45, 46, 47, 48, 49, 50], // Leaving Bral
+                paragraphs: [41, 42, 43, 44, 45, 46, 47, 48], // Leaving Bral - ends with "And now that warning had a heartbeat."
                 pullQuote: null
             },
             {
@@ -1288,8 +1288,8 @@ const App = {
                 chapterIndex: 11,
                 chapterNumber: '12',
                 chapterTitle: 'Astral Bazaar',
-                paragraphs: [51], // Current state
-                pullQuote: null
+                paragraphs: [49], // Current state - "In the Astral Bazaar..."
+                pullQuote: '"Where anything can be bought, everything is leverage."'
             }
         ];
 
