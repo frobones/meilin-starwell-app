@@ -30,6 +30,11 @@
       "terrain": "Grassland environments",
       "description": "Bloodgrass is a copper-colored grass with traditional use in Orcish battle culture, whereby it is dried and ground to produce a deep crimson warpaint, allowing for absorption quickly through the skin."
     },
+    "Bloodpurge": {
+      "rarity": "Uncommon flora",
+      "terrain": "Swamp environments",
+      "description": "Bloodpurge is a bulbous flowering plant in the genus allium, and is a close relative of garlic. It is easily identified by its purple stems, which can grow up to 1 foot tall."
+    },
     "Blue lotus flower": {
       "rarity": "Very rare flora",
       "terrain": "Coastal environments",
@@ -208,6 +213,7 @@
         {"name": "Maiden's tear", "dc": 25, "use": "Second Chance"}
       ],
       "Swamp": [
+        {"name": "Bloodpurge", "dc": 15, "use": "Antivenom"},
         {"name": "Wizard's fingers", "dc": 15, "use": "Magician's Friend"},
         {"name": "Knitbone", "dc": 20, "use": "Knitbone Poultice"},
         {"name": "Maiden's tear", "dc": 25, "use": "Second Chance"}

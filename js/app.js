@@ -13,6 +13,7 @@ const App = {
     ingredientInventory: {},
     ingredientsList: null,
     craftModalState: null,
+    calculatorEventsBound: false,
     INVENTORY_STORAGE_KEY: 'meilin-inventory',
     
     // At a Glance data (top-level page)
@@ -3202,31 +3203,49 @@ const App = {
 
     /**
      * Render the calculator inventory panel
+     * Preserves the expanded/collapsed state of each section across re-renders.
      */
     renderCalculatorInventory() {
         const container = document.getElementById('inventory-sections');
         if (!container || !this.ingredientsList) return;
         
+        // Preserve current expanded/collapsed state before re-rendering
+        const expandedSections = new Set();
+        container.querySelectorAll('.inventory-section').forEach(section => {
+            if (!section.classList.contains('collapsed')) {
+                const title = section.querySelector('.inventory-section-title')?.textContent;
+                if (title) expandedSections.add(title);
+            }
+        });
+        
+        // Determine if this is the first render (no existing sections)
+        const isFirstRender = expandedSections.size === 0 && 
+            container.querySelectorAll('.inventory-section').length === 0;
+        
         let html = '';
         
-        // Common Flora section (always expanded)
-        html += this.createInventorySection('Common Flora', this.ingredientsList.commonFlora, false);
+        // Common Flora section (expanded by default on first render)
+        const commonFloraExpanded = isFirstRender ? true : expandedSections.has('Common Flora');
+        html += this.createInventorySection('Common Flora', this.ingredientsList.commonFlora, !commonFloraExpanded);
         
         // Rare Flora sections by terrain
         for (const terrain in this.ingredientsList.rareFlora) {
+            const title = `${terrain} Flora`;
+            const isExpanded = expandedSections.has(title);
             html += this.createInventorySection(
-                `${terrain} Flora`, 
+                title, 
                 this.ingredientsList.rareFlora[terrain], 
-                true
+                !isExpanded
             );
         }
         
         // Creature Parts sections by type
         for (const creatureType in this.ingredientsList.creatureParts) {
+            const isExpanded = expandedSections.has(creatureType);
             html += this.createInventorySection(
                 creatureType, 
                 this.ingredientsList.creatureParts[creatureType], 
-                true
+                !isExpanded
             );
         }
         
@@ -3275,8 +3294,14 @@ const App = {
 
     /**
      * Bind calculator event listeners
+     * Uses event delegation on container elements, so only needs to be called once.
+     * Subsequent calls are no-ops to prevent duplicate event listeners.
      */
     bindCalculatorEvents() {
+        // Prevent duplicate event listener binding
+        if (this.calculatorEventsBound) return;
+        this.calculatorEventsBound = true;
+        
         const inventoryContainer = document.getElementById('inventory-sections');
         if (inventoryContainer) {
             // Collapsible section headers
@@ -3297,12 +3322,19 @@ const App = {
             });
             
             // Direct input changes
+            // Note: Some ingredients appear in multiple locations, so we sync all matching inputs
             inventoryContainer.addEventListener('change', (e) => {
                 if (e.target.classList.contains('spinner-value')) {
                     const name = e.target.dataset.ingredient;
                     const value = Math.max(0, Math.min(99, parseInt(e.target.value) || 0));
                     this.ingredientInventory[name] = value;
-                    e.target.value = value;
+                    
+                    // Update ALL inputs with this ingredient name (handles duplicates)
+                    const allInputs = document.querySelectorAll(`.spinner-value[data-ingredient="${name}"]`);
+                    allInputs.forEach(input => {
+                        input.value = value;
+                    });
+                    
                     this.updateIngredientRowState(name);
                     this.saveInventory();
                     this.renderCraftableMedicines();
@@ -3358,15 +3390,17 @@ const App = {
 
     /**
      * Update ingredient count by delta
+     * Note: Some ingredients appear in multiple locations (e.g., Mistletoe in Arctic and Forest),
+     * so we must update ALL rows with matching ingredient name using querySelectorAll.
      */
     updateIngredientCount(name, delta) {
         const current = this.ingredientInventory[name] || 0;
         const newValue = Math.max(0, Math.min(99, current + delta));
         this.ingredientInventory[name] = newValue;
         
-        // Update UI
-        const row = document.querySelector(`.ingredient-row[data-ingredient="${name}"]`);
-        if (row) {
+        // Update ALL UI rows with this ingredient (handles duplicates across terrains/creature types)
+        const rows = document.querySelectorAll(`.ingredient-row[data-ingredient="${name}"]`);
+        rows.forEach(row => {
             const input = row.querySelector('.spinner-value');
             const decBtn = row.querySelector('.spinner-dec');
             if (input) input.value = newValue;
@@ -3375,7 +3409,7 @@ const App = {
             row.classList.toggle('has-count', newValue > 0);
             row.classList.add('updated');
             setTimeout(() => row.classList.remove('updated'), 500);
-        }
+        });
         
         this.saveInventory();
         this.renderCraftableMedicines();
@@ -3383,15 +3417,16 @@ const App = {
 
     /**
      * Update ingredient row visual state
+     * Note: Some ingredients appear in multiple locations, so we update all matching rows.
      */
     updateIngredientRowState(name) {
-        const row = document.querySelector(`.ingredient-row[data-ingredient="${name}"]`);
-        if (row) {
+        const rows = document.querySelectorAll(`.ingredient-row[data-ingredient="${name}"]`);
+        rows.forEach(row => {
             const count = this.ingredientInventory[name] || 0;
             const decBtn = row.querySelector('.spinner-dec');
             if (decBtn) decBtn.disabled = count === 0;
             row.classList.toggle('has-count', count > 0);
-        }
+        });
     },
 
     /**
@@ -3771,7 +3806,7 @@ const App = {
                 <div class="enhancement-row ${alchemillaDisabled ? 'disabled' : ''}">
                     <div class="enhancement-label">
                         <span class="enhancement-name">Alchemilla</span>
-                        <span class="enhancement-effect">Extends duration${medicine.indefiniteStar ? ' (can reach indefinite ✧)' : ''}</span>
+                        <span class="enhancement-effect">Extends duration</span>
                     </div>
                     <div class="enhancement-control">
                         <div class="number-spinner">
@@ -3807,11 +3842,88 @@ const App = {
         // Enhancement section HTML
         let enhancementHtml = '';
         if (enhancementRows) {
-            const slotsDisplay = `${remainingSlots} slot${remainingSlots !== 1 ? 's' : ''} remaining`;
             enhancementHtml = `
                 <div class="craft-modal-section">
-                    <h4>Enhancements <span class="slots-remaining ${remainingSlots === 0 ? 'at-max' : ''}">(${slotsDisplay})</span></h4>
+                    <h4>Enhancements</h4>
                     ${enhancementRows}
+                </div>
+            `;
+        }
+        
+        // Build effect preview section (only show enhanceable effects)
+        let effectItems = [];
+        
+        // Duration display (only if it can be enhanced with Alchemilla)
+        const canEnhanceDuration = medicine.alchemilla && hasEnhancementSlots && canUseAlchemilla;
+        if (canEnhanceDuration) {
+            const baseDuration = this.durationLadder[medicine.alchemilla.durationIndex];
+            if (alchemillaCount > 0) {
+                const enhancedDuration = this.getEnhancedDuration(
+                    medicine, 
+                    alchemillaCount, 
+                    medicine.indefiniteStar, 
+                    remainingSlots
+                );
+                effectItems.push(`
+                    <div class="effect-item">
+                        <span class="effect-label">Duration:</span>
+                        <span class="effect-value enhanced">
+                            <span class="base-value">${baseDuration}</span>
+                            <span class="arrow">→</span>
+                            <span class="enhanced-value">${enhancedDuration}</span>
+                        </span>
+                    </div>
+                `);
+            } else {
+                effectItems.push(`
+                    <div class="effect-item">
+                        <span class="effect-label">Duration:</span>
+                        <span class="effect-value">${baseDuration}</span>
+                    </div>
+                `);
+            }
+        }
+        
+        // Potency/dice display (only if it can be enhanced with Ephedra)
+        const canEnhancePotency = medicine.ephedra && hasEnhancementSlots && maxEphedraSlots > 0 && canUseEphedra;
+        if (canEnhancePotency) {
+            const { diceCount, diceType, modifier } = medicine.ephedra;
+            let baseDice = `${diceCount}d${diceType}`;
+            if (modifier > 0) baseDice += ` + ${modifier}`;
+            else if (modifier < 0) baseDice += ` - ${Math.abs(modifier)}`;
+            
+            if (ephedraCount > 0) {
+                const enhancedDice = this.getEnhancedDice(medicine, ephedraCount);
+                effectItems.push(`
+                    <div class="effect-item">
+                        <span class="effect-label">Potency:</span>
+                        <span class="effect-value enhanced">
+                            <span class="base-value">${baseDice}</span>
+                            <span class="arrow">→</span>
+                            <span class="enhanced-value">${enhancedDice}</span>
+                        </span>
+                    </div>
+                `);
+            } else {
+                effectItems.push(`
+                    <div class="effect-item">
+                        <span class="effect-label">Potency:</span>
+                        <span class="effect-value">${baseDice}</span>
+                    </div>
+                `);
+            }
+        }
+        
+        // Build the effect section HTML
+        let effectSectionHtml = '';
+        if (effectItems.length > 0) {
+            const isEnhanced = alchemillaCount > 0 || ephedraCount > 0;
+            effectSectionHtml = `
+                <div class="craft-modal-section effect-section ${isEnhanced ? 'has-enhancements' : ''}">
+                    <h4>Effect</h4>
+                    <div class="effect-preview-details">
+                        ${effectItems.join('')}
+                    </div>
                 </div>
             `;
         }
@@ -3830,6 +3942,7 @@ const App = {
             
             ${alternativeHtml}
             ${enhancementHtml}
+            ${effectSectionHtml}
             
             <div class="craft-modal-actions">
                 <button class="confirm-craft-btn" id="confirm-craft">Confirm Craft</button>
@@ -3879,6 +3992,50 @@ const App = {
     getDCForDifficulty(difficulty) {
         const dcMap = { 1: 10, 2: 15, 3: 20, 4: 25, 5: 28 };
         return dcMap[Math.min(5, difficulty)] || 28;
+    },
+
+    /**
+     * Duration ladder for Alchemilla enhancement
+     */
+    durationLadder: ['1 minute', '10 minutes', '1 hour', '8 hours', '24 hours'],
+
+    /**
+     * Get enhanced duration string based on Alchemilla count
+     */
+    getEnhancedDuration(medicine, alchemillaCount, hasIndefinite, slotsRemaining) {
+        if (!medicine.alchemilla) return null;
+        
+        const baseIndex = medicine.alchemilla.durationIndex;
+        let newIndex = baseIndex + alchemillaCount;
+        
+        // Check if reaching indefinite (✧)
+        if (hasIndefinite && slotsRemaining === 0 && alchemillaCount > 0) {
+            return 'Indefinite';
+        }
+        
+        // Cap at max index (24 hours = index 4)
+        newIndex = Math.min(newIndex, this.durationLadder.length - 1);
+        return this.durationLadder[newIndex];
+    },
+
+    /**
+     * Get enhanced dice string based on Ephedra count
+     */
+    getEnhancedDice(medicine, ephedraCount) {
+        if (!medicine.ephedra) return null;
+        
+        const { diceCount, diceType, modifier } = medicine.ephedra;
+        const multiplier = Math.pow(2, ephedraCount);
+        const enhancedCount = diceCount * multiplier;
+        
+        let result = `${enhancedCount}d${diceType}`;
+        if (modifier > 0) {
+            result += ` + ${modifier}`;
+        } else if (modifier < 0) {
+            result += ` - ${Math.abs(modifier)}`;
+        }
+        
+        return result;
     },
 
     /**

@@ -6183,7 +6183,8 @@ details[open] .rules-toggle::after {
 }
 
 .dc-stars .enhancement-stars {
-  color: var(--herb-green);
+  color: #d4a017;
+  text-shadow: 0 0 2px rgba(212, 160, 23, 0.3);
 }
 
 .dc-value {
@@ -6320,6 +6321,79 @@ details[open] .rules-toggle::after {
   width: 18px;
   height: 18px;
   accent-color: var(--herb-green);
+}
+
+/* Effect Section in Craft Modal */
+.effect-section {
+  background: var(--parchment);
+  border: 1px solid var(--ink-faint);
+  border-radius: 6px;
+  padding: var(--space-md);
+  margin-top: var(--space-md);
+  transition: all 0.3s ease;
+}
+
+.effect-section.has-enhancements {
+  background: linear-gradient(135deg, rgba(45, 106, 79, 0.08) 0%, rgba(139, 69, 19, 0.05) 100%);
+  border-color: var(--herb-green);
+}
+
+.effect-section h4 {
+  color: var(--ink-brown);
+  margin-bottom: var(--space-sm);
+  transition: color 0.3s ease;
+}
+
+.effect-section.has-enhancements h4 {
+  color: var(--herb-green-dark);
+}
+
+.effect-preview-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.effect-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-xs) 0;
+}
+
+.effect-item .effect-label {
+  font-weight: 500;
+  color: var(--ink-brown);
+  min-width: 80px;
+}
+
+.effect-item .effect-value {
+  color: var(--ink-brown);
+  transition: all 0.3s ease;
+}
+
+.effect-item .effect-value.enhanced {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.effect-item .effect-value .base-value {
+  color: var(--ink-light);
+  text-decoration: line-through;
+  font-size: 0.9rem;
+}
+
+.effect-item .effect-value .arrow {
+  color: var(--herb-green);
+  font-weight: bold;
+}
+
+.effect-item .effect-value .enhanced-value {
+  color: var(--herb-green-dark);
+  font-weight: 600;
+  font-size: 1.05rem;
 }
 
 /* Craft Modal Actions */
