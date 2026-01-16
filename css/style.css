@@ -5538,7 +5538,15 @@ details[open] .rules-toggle::after {
   font-size: 2rem;
   color: var(--ink-dark);
   text-align: center;
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.rumors-hint {
+  text-align: center;
+  color: var(--ink-faded);
+  font-size: 0.9rem;
   margin: 0 0 var(--space-xl) 0;
+  opacity: 0.7;
 }
 
 .rumors-list {
@@ -5577,15 +5585,10 @@ details[open] .rules-toggle::after {
   font-family: var(--font-body);
 }
 
-/* Readable text - determines the container size, visible on hover */
+/* Readable text - determines the container size, partially visible via mask */
 .rumor-readable {
   display: block;
-  opacity: 0;
-  transition: opacity 0.2s ease 0.1s;
-}
-
-.rumor-item:hover .rumor-readable {
-  opacity: 1;
+  transition: opacity 0.2s ease 0.1s, -webkit-mask-image 0.2s ease, mask-image 0.2s ease;
 }
 
 /* Cipher text - overlays the readable, visible by default */
@@ -5597,7 +5600,7 @@ details[open] .rules-toggle::after {
   bottom: 0;
   font-family: 'Redacted Script', cursive;
   opacity: 1;
-  transition: opacity 0.15s ease, filter 0.15s ease;
+  transition: opacity 0.15s ease, filter 0.15s ease, -webkit-mask-image 0.2s ease, mask-image 0.2s ease;
   pointer-events: none;
   overflow: hidden;
 }
@@ -5605,6 +5608,29 @@ details[open] .rules-toggle::after {
 .rumor-item:hover .rumor-cipher {
   opacity: 0;
   filter: blur(2px);
+}
+
+/* Partial peek - shows beginning of each rumor to teach the interaction */
+.rumor-item .rumor-readable {
+  opacity: 1;
+  -webkit-mask-image: linear-gradient(to right, black 0%, black 25%, transparent 40%);
+  mask-image: linear-gradient(to right, black 0%, black 25%, transparent 40%);
+}
+
+.rumor-item .rumor-cipher {
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 20%, black 35%, black 100%);
+  mask-image: linear-gradient(to right, transparent 0%, transparent 20%, black 35%, black 100%);
+}
+
+/* On hover, remove the masks to show full text */
+.rumor-item:hover .rumor-readable {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.rumor-item:hover .rumor-cipher {
+  -webkit-mask-image: none;
+  mask-image: none;
 }
 
 /* Brief blur during reveal to create "decoding" effect */
