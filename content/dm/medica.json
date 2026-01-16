@@ -78,7 +78,7 @@
         "Recognized as an Arcanist of the Arcanum",
         "+1 bonus to checks for your final medicine category",
         "Awarded an arcanist's medallion",
-        "Can create medicines with indefinite duration (✧)"
+        "Can create medicines with indefinite duration (✦)"
       ],
       "tuition": { "weeks": 12, "cost": 800 },
       "exam": "Any 5-star medicine from the remaining category",
@@ -104,6 +104,556 @@
     "selling": {
       "rate": "20%",
       "description": "Merchants purchase items at 20% of normal sale price. Better offers may be found through downtime activities."
+    },
+    "stocks": {
+      "plants": {
+        "title": "Plants",
+        "categories": [
+          {
+            "name": "Common Flora",
+            "items": [
+              { "name": "All types", "stockScore": 1, "cost": "10 gp" }
+            ]
+          },
+          {
+            "name": "Rare Flora",
+            "items": [
+              { "name": "Alil", "stockScore": 6, "cost": "75 gp" },
+              { "name": "Angel skin", "stockScore": 6, "cost": "75 gp" },
+              { "name": "Arctic root", "stockScore": 2, "cost": "25 gp" },
+              { "name": "Bittergrass", "stockScore": 5, "cost": "50 gp" },
+              { "name": "Blodgrass", "stockScore": 3, "cost": "25 gp" },
+              { "name": "Bloodpurge", "stockScore": 2, "cost": "25 gp" },
+              { "name": "Blue lotus flower", "stockScore": 6, "cost": "75 gp" },
+              { "name": "Darkberry", "stockScore": 5, "cost": "75 gp" },
+              { "name": "Desert aloe", "stockScore": 3, "cost": "25 gp" },
+              { "name": "Dragonwort", "stockScore": 3, "cost": "25 gp" },
+              { "name": "Fairy bells", "stockScore": 3, "cost": "25 gp" },
+              { "name": "Flintmoss", "stockScore": 4, "cost": "50 gp" },
+              { "name": "Glowshroom", "stockScore": 2, "cost": "25 gp" },
+              { "name": "Kava root", "stockScore": 3, "cost": "25 gp" },
+              { "name": "Knitbone", "stockScore": 4, "cost": "50 gp" },
+              { "name": "Lunar holly berries", "stockScore": 4, "cost": "50 gp" },
+              { "name": "Maiden's tear", "stockScore": 6, "cost": "75 gp" },
+              { "name": "Mistletoe", "stockScore": 2, "cost": "25 gp" },
+              { "name": "Red lichen", "stockScore": 3, "cost": "25 gp" },
+              { "name": "Red mountain flower", "stockScore": 5, "cost": "50 gp" },
+              { "name": "Sabito seeds", "stockScore": 2, "cost": "25 gp" },
+              { "name": "Sand palm seeds", "stockScore": 2, "cost": "25 gp" },
+              { "name": "Silverleaf sap", "stockScore": 4, "cost": "50 gp" },
+              { "name": "Sweet elorien", "stockScore": 2, "cost": "25 gp" },
+              { "name": "White magnolia", "stockScore": 5, "cost": "75 gp" },
+              { "name": "Witch hazel", "stockScore": 4, "cost": "50 gp" },
+              { "name": "Wizard's fingers", "stockScore": 3, "cost": "25 gp" }
+            ]
+          }
+        ]
+      },
+      "creatureParts": {
+        "title": "Creature Parts",
+        "items": [
+          { "name": "Aboleth brain", "stockScore": 9, "cost": "150 gp" },
+          { "name": "Adhesive filament", "stockScore": 5, "cost": "100 gp" },
+          { "name": "Awakened brain", "stockScore": 6, "cost": "100 gp" },
+          { "name": "Balor ash", "stockScore": 11, "cost": "400 gp" },
+          { "name": "Basilisk oil", "stockScore": 6, "cost": "100 gp" },
+          { "name": "Couatl eye", "stockScore": 9, "cost": "250 gp" },
+          { "name": "Demon ichor", "stockScore": 4, "cost": "50 gp" },
+          { "name": "Devil blood", "stockScore": 4, "cost": "50 gp" },
+          { "name": "Doppelganger brain", "stockScore": 8, "cost": "150 gp" },
+          { "name": "Doppelganger eye", "stockScore": 7, "cost": "100 gp" },
+          { "name": "Dragon dust", "stockScore": 4, "cost": "50 gp" },
+          { "name": "Dryad root", "stockScore": 5, "cost": "100 gp" },
+          { "name": "Ectoplasm", "stockScore": 3, "cost": "50 gp" },
+          { "name": "Enchanted gelatin", "stockScore": 5, "cost": "75 gp" },
+          { "name": "Giant heartsblood", "stockScore": 4, "cost": "50 gp" },
+          { "name": "Grave dust", "stockScore": 3, "cost": "50 gp" },
+          { "name": "Greater slaad eye", "stockScore": 7, "cost": "100 gp" },
+          { "name": "Hydra blood", "stockScore": 10, "cost": "350 gp" },
+          { "name": "Metallic dragon eye", "stockScore": 9, "cost": "250 gp" },
+          { "name": "Monster blood", "stockScore": 3, "cost": "50 gp" },
+          { "name": "Nothic eye", "stockScore": 6, "cost": "75 gp" },
+          { "name": "Pixie dust", "stockScore": 5, "cost": "75 gp" },
+          { "name": "Rakshasa blood", "stockScore": 10, "cost": "350 gp" },
+          { "name": "Shimmering scale", "stockScore": 10, "cost": "250 gp" },
+          { "name": "Slaad tongue", "stockScore": 7, "cost": "150 gp" },
+          { "name": "Snake oil", "stockScore": 8, "cost": "300 gp" },
+          { "name": "Sphinx eye", "stockScore": 9, "cost": "250 gp" },
+          { "name": "Tarrasque blood", "stockScore": 11, "cost": "1,000 gp" },
+          { "name": "Troll tongue", "stockScore": 7, "cost": "150 gp" },
+          { "name": "Unicorn horn", "stockScore": 12, "cost": "10,000 gp" },
+          { "name": "Vampire dust", "stockScore": 6, "cost": "75 gp" },
+          { "name": "Wyrm blood", "stockScore": 4, "cost": "50 gp" }
+        ]
+      },
+      "finishedItems": {
+        "title": "Finished Item Stocks",
+        "note": "POA = Price on Application. Items with special requirements or exotic components have no fixed price and availability may be limited.",
+        "herbalMedicines": {
+          "title": "Herbal Medicines",
+          "items": [
+            { "name": "Abyssal shroud", "variants": [
+              { "strength": "★★★★★", "cost": "POA" }
+            ]},
+            { "name": "Air pod", "variants": [
+              { "strength": "★★", "cost": "150 gp" }
+            ]},
+            { "name": "Ambrosia", "variants": [
+              { "strength": "★★★★★", "cost": "POA" }
+            ]},
+            { "name": "Animal scent lotion", "variants": [
+              { "strength": "★★", "cost": "150 gp" },
+              { "strength": "★★★", "cost": "500 gp" },
+              { "strength": "★★★★", "cost": "1,500 gp" },
+              { "strength": "★★★★✦", "cost": "POA" }
+            ]},
+            { "name": "Antitoxin", "variants": [
+              { "strength": "★", "cost": "50 gp" },
+              { "strength": "★★", "cost": "150 gp" },
+              { "strength": "★★★", "cost": "500 gp" },
+              { "strength": "★★★✦", "cost": "1,500 gp" }
+            ]},
+            { "name": "Antivenom", "variants": [
+              { "strength": "★★", "cost": "150 gp" }
+            ]},
+            { "name": "Archer's gum", "variants": [
+              { "strength": "★★★", "cost": "500 gp" },
+              { "strength": "★★★★", "cost": "1,500 gp" }
+            ]},
+            { "name": "Banshee", "variants": [
+              { "strength": "★★★", "cost": "500 gp" },
+              { "strength": "★★★★", "cost": "1,500 gp" }
+            ]},
+            { "name": "Barkskin unguent", "variants": [
+              { "strength": "★★", "cost": "200 gp" },
+              { "strength": "★★★", "cost": "600 gp" }
+            ]},
+            { "name": "Changeling brew", "variants": [
+              { "strength": "★★", "cost": "300 gp" },
+              { "strength": "★★★", "cost": "750 gp" },
+              { "strength": "★★★★", "cost": "1,500 gp" },
+              { "strength": "★★★★✦", "cost": "5,000 gp" }
+            ]},
+            { "name": "Cold weather tonic", "variants": [
+              { "strength": "★", "cost": "75 gp" },
+              { "strength": "★★", "cost": "200 gp" },
+              { "strength": "★★✦", "cost": "600 gp" }
+            ]},
+            { "name": "Devil's sight", "variants": [
+              { "strength": "★★", "cost": "150 gp" },
+              { "strength": "★★★", "cost": "500 gp" },
+              { "strength": "★★★★", "cost": "1,500 gp" },
+              { "strength": "★★★★✦", "cost": "5,000 gp" }
+            ]},
+            { "name": "Dragon tea", "variants": [
+              { "strength": "★★", "cost": "300 gp" },
+              { "strength": "★★★", "cost": "750 gp" },
+              { "strength": "★★★★", "cost": "1,500 gp" },
+              { "strength": "★★★★★", "cost": "5,000 gp" }
+            ]},
+            { "name": "Draught of the living dead", "variants": [
+              { "strength": "★★", "cost": "350 gp" },
+              { "strength": "★★★", "cost": "750 gp" },
+              { "strength": "★★★★", "cost": "1,750 gp" },
+              { "strength": "★★★★✦", "cost": "5,000 gp" }
+            ]},
+            { "name": "Draught of giant's strength", "variants": [
+              { "strength": "★", "cost": "100 gp" },
+              { "strength": "★★", "cost": "300 gp" },
+              { "strength": "★★★", "cost": "750 gp" },
+              { "strength": "★★★★", "cost": "1,500 gp" },
+              { "strength": "★★★★★", "cost": "5,000 gp" }
+            ]},
+            { "name": "Dream tobacco", "variants": [
+              { "strength": "★★★", "cost": "750 gp" }
+            ]},
+            { "name": "Dust of disappearance", "variants": [
+              { "strength": "★★", "cost": "300 gp" }
+            ]},
+            { "name": "Dwarven fire-oil", "variants": [
+              { "strength": "★★", "cost": "150 gp" },
+              { "strength": "★★★", "cost": "500 gp" }
+            ]},
+            { "name": "Faerie dust", "variants": [
+              { "strength": "★★", "cost": "200 gp" },
+              { "strength": "★★★", "cost": "600 gp" }
+            ]},
+            { "name": "Fleshknit", "variants": [
+              { "strength": "★★★★", "cost": "2,250 gp" }
+            ]},
+            { "name": "Fortune's favor", "variants": [
+              { "strength": "★★", "cost": "150 gp" },
+              { "strength": "★★★★", "cost": "1,500 gp" }
+            ]},
+            { "name": "Glow stick", "variants": [
+              { "strength": "★", "cost": "50 gp" }
+            ]},
+            { "name": "Havenash's manawall", "variants": [
+              { "strength": "★★★★", "cost": "2,250 gp" },
+              { "strength": "★★★★★", "cost": "6,000 gp" }
+            ]},
+            { "name": "Healing salve", "variants": [
+              { "strength": "★★", "cost": "250 gp" }
+            ]},
+            { "name": "Healing tonic", "variants": [
+              { "strength": "★", "cost": "50 gp" },
+              { "strength": "★★", "cost": "150 gp" },
+              { "strength": "★★★", "cost": "500 gp" },
+              { "strength": "★★★★", "cost": "1,500 gp" }
+            ]},
+            { "name": "Hero's elixir", "variants": [
+              { "strength": "★★★★★", "cost": "POA" }
+            ]},
+            { "name": "Hot weather balm", "variants": [
+              { "strength": "★", "cost": "75 gp" },
+              { "strength": "★★", "cost": "200 gp" },
+              { "strength": "★★✦", "cost": "600 gp" }
+            ]},
+            { "name": "Incense of warding", "variants": [
+              { "strength": "★★", "cost": "150 gp" }
+            ]},
+            { "name": "Iorien's favor", "variants": [
+              { "strength": "★★", "cost": "150 gp" }
+            ]},
+            { "name": "Ironskin ointment", "variants": [
+              { "strength": "★★", "cost": "150 gp" },
+              { "strength": "★★★", "cost": "500 gp" },
+              { "strength": "★★★★", "cost": "1,500 gp" },
+              { "strength": "★★★★✦", "cost": "5,000 gp" }
+            ]},
+            { "name": "Knitbone poultice", "variants": [
+              { "strength": "★★", "cost": "250 gp" }
+            ]},
+            { "name": "Lionheart tea", "variants": [
+              { "strength": "★★", "cost": "150 gp" },
+              { "strength": "★★★", "cost": "500 gp" },
+              { "strength": "★★★★", "cost": "1,500 gp" },
+              { "strength": "★★★★✦", "cost": "5,000 gp" }
+            ]},
+            { "name": "Magician's friend", "variants": [
+              { "strength": "★★", "cost": "150 gp" }
+            ]},
+            { "name": "Mana tonic", "variants": [
+              { "strength": "★★★", "cost": "600 gp" },
+              { "strength": "★★★★", "cost": "1,500 gp" },
+              { "strength": "★★★★★", "cost": "5,000 gp" }
+            ]},
+            { "name": "Marko's miracle balm", "variants": [
+              { "strength": "★★★★", "cost": "2,000 gp" }
+            ]},
+            { "name": "Mastermind", "variants": [
+              { "strength": "★★★", "cost": "600 gp" },
+              { "strength": "★★★★", "cost": "1,500 gp" }
+            ]},
+            { "name": "Orcish war paint", "variants": [
+              { "strength": "★★", "cost": "150 gp" },
+              { "strength": "★★★", "cost": "500 gp" }
+            ]},
+            { "name": "Prismatic balm", "variants": [
+              { "strength": "★★★★", "cost": "1,500 gp" },
+              { "strength": "★★★★★", "cost": "5,000 gp" }
+            ]},
+            { "name": "Red mist", "variants": [
+              { "strength": "★★", "cost": "150 gp" },
+              { "strength": "★★★", "cost": "500 gp" },
+              { "strength": "★★★✦", "cost": "1,500 gp" }
+            ]},
+            { "name": "Second chance", "variants": [
+              { "strength": "★★★★", "cost": "1,200 gp" }
+            ]},
+            { "name": "Shapechange tincture", "variants": [
+              { "strength": "★★★", "cost": "1,000 gp" },
+              { "strength": "★★★★", "cost": "3,000 gp" }
+            ]},
+            { "name": "Sovereign glue", "variants": [
+              { "strength": "★★★★★", "cost": "2,000 gp" }
+            ]},
+            { "name": "Spymaster's bane", "variants": [
+              { "strength": "★★★", "cost": "900 gp" },
+              { "strength": "★★★★", "cost": "1,800 gp" },
+              { "strength": "★★★★✦", "cost": "6,000 gp" }
+            ]},
+            { "name": "Stone salve", "variants": [
+              { "strength": "★★★", "cost": "600 gp" }
+            ]},
+            { "name": "Tahlia's respite", "variants": [
+              { "strength": "★★", "cost": "200 gp" }
+            ]},
+            { "name": "Telepathy tonic", "variants": [
+              { "strength": "★★", "cost": "350 gp" },
+              { "strength": "★★★", "cost": "800 gp" },
+              { "strength": "★★★★", "cost": "1,800 gp" },
+              { "strength": "★★★★✦", "cost": "5,000 gp" }
+            ]},
+            { "name": "Third eye", "variants": [
+              { "strength": "★★★", "cost": "600 gp" }
+            ]},
+            { "name": "Tincture of magic resistance", "variants": [
+              { "strength": "★★★", "cost": "500 gp" },
+              { "strength": "★★★★", "cost": "1,500 gp" }
+            ]},
+            { "name": "Troll unguent", "variants": [
+              { "strength": "★★★", "cost": "750 gp" },
+              { "strength": "★★★★", "cost": "1,500 gp" },
+              { "strength": "★★★★★", "cost": "3,500 gp" }
+            ]},
+            { "name": "Universal solvent", "variants": [
+              { "strength": "★★★★★", "cost": "1,600 gp" }
+            ]},
+            { "name": "White magnolia tea", "variants": [
+              { "strength": "★★★", "cost": "600 gp" }
+            ]},
+            { "name": "White willow", "variants": [
+              { "strength": "★", "cost": "50 gp" },
+              { "strength": "★★", "cost": "150 gp" },
+              { "strength": "★★★", "cost": "500 gp" },
+              { "strength": "★★★★", "cost": "1,500 gp" }
+            ]},
+            { "name": "Wight powder", "variants": [
+              { "strength": "★★", "cost": "150 gp" }
+            ]},
+            { "name": "Willem's cure-all", "variants": [
+              { "strength": "★★", "cost": "300 gp" }
+            ]},
+            { "name": "Witch ward", "variants": [
+              { "strength": "★★★", "cost": "500 gp" }
+            ]},
+            { "name": "Witch's tears", "variants": [
+              { "strength": "★", "cost": "50 gp" },
+              { "strength": "★★", "cost": "150 gp" },
+              { "strength": "★★★", "cost": "500 gp" },
+              { "strength": "★★★✦", "cost": "1,500 gp" }
+            ]},
+            { "name": "Woodland balm", "variants": [
+              { "strength": "★★★", "cost": "600 gp" }
+            ]}
+          ]
+        },
+        "alchemicalItems": {
+          "title": "Alchemical Items",
+          "items": [
+            { "name": "Acid", "variants": [
+              { "strength": "★", "cost": "50 gp", "note": "aqua fortis" },
+              { "strength": "★★", "cost": "150 gp", "note": "oil of vitriol" },
+              { "strength": "★★★", "cost": "500 gp", "note": "spirit of salt" }
+            ]},
+            { "name": "Alchemist's fire", "variants": [
+              { "strength": "★", "cost": "50 gp" }
+            ]},
+            { "name": "Antitoxin", "variants": [
+              { "strength": "★", "cost": "50 gp" }
+            ]},
+            { "name": "Arwen's mirror", "variants": [
+              { "strength": "★★★★", "cost": "1,800 gp" }
+            ]},
+            { "name": "Blood of the mountain king", "variants": [
+              { "strength": "★★★★", "cost": "1,500 gp" }
+            ]},
+            { "name": "Bottled brilliance", "variants": [
+              { "strength": "★★★", "cost": "500 gp" }
+            ]},
+            { "name": "Choking cinder bomb", "variants": [
+              { "strength": "★★★", "cost": "250 gp" }
+            ]},
+            { "name": "Dust of dryness", "variants": [
+              { "strength": "★★", "cost": "150 gp" }
+            ]},
+            { "name": "Dynamite", "variants": [
+              { "strength": "★★", "cost": "250 gp" }
+            ]},
+            { "name": "Elemental gem", "variants": [
+              { "strength": "★★", "cost": "POA" }
+            ]},
+            { "name": "Elixir of good health", "variants": [
+              { "strength": "★★★", "cost": "500 gp" }
+            ]},
+            { "name": "Elixir of life", "variants": [
+              { "strength": "★★★★★", "cost": "POA" }
+            ]},
+            { "name": "Ever-burning torch", "variants": [
+              { "strength": "★", "cost": "50 gp" }
+            ]},
+            { "name": "Flash pellet", "variants": [
+              { "strength": "★★", "cost": "150 gp" }
+            ]},
+            { "name": "Foehammer", "variants": [
+              { "strength": "★★★★★", "cost": "5,000 gp" }
+            ]},
+            { "name": "Hexbreaker", "variants": [
+              { "strength": "★★★", "cost": "500 gp" }
+            ]},
+            { "name": "Jabberwock", "variants": [
+              { "strength": "★★", "cost": "250 gp" }
+            ]},
+            { "name": "Liquid courage", "variants": [
+              { "strength": "★★", "cost": "150 gp" }
+            ]},
+            { "name": "Liquid luck", "variants": [
+              { "strength": "★★★★★", "cost": "5,000 gp" }
+            ]},
+            { "name": "Mana potion", "variants": [
+              { "strength": "★★★", "cost": "750 gp" }
+            ]},
+            { "name": "Marvelous pigments", "variants": [
+              { "strength": "★★★★", "cost": "POA" }
+            ]},
+            { "name": "Mimic potion", "variants": [
+              { "strength": "★★", "cost": "150 gp" }
+            ]},
+            { "name": "Oil of darkness", "variants": [
+              { "strength": "★★★", "cost": "500 gp" }
+            ]},
+            { "name": "Oil of etherealness", "variants": [
+              { "strength": "★★★", "cost": "750 gp" }
+            ]},
+            { "name": "Oil of invisibility", "variants": [
+              { "strength": "★★★", "cost": "500 gp" }
+            ]},
+            { "name": "Oil of keen edge", "variants": [
+              { "strength": "★★", "cost": "150 gp" }
+            ]},
+            { "name": "Oil of levitation", "variants": [
+              { "strength": "★★", "cost": "150 gp" }
+            ]},
+            { "name": "Oil of sharpness", "variants": [
+              { "strength": "★★", "cost": "150 gp" },
+              { "strength": "★★★", "cost": "500 gp" },
+              { "strength": "★★★★", "cost": "1,500 gp" }
+            ]},
+            { "name": "Oil of slipperiness", "variants": [
+              { "strength": "★★", "cost": "150 gp" }
+            ]},
+            { "name": "Philosopher's stone", "variants": [
+              { "strength": "★★★★★", "cost": "POA" }
+            ]},
+            { "name": "Philter of love", "variants": [
+              { "strength": "★★", "cost": "250 gp" }
+            ]},
+            { "name": "Polyglot potion", "variants": [
+              { "strength": "★★★", "cost": "500 gp" }
+            ]},
+            { "name": "Polymath potion", "variants": [
+              { "strength": "★★", "cost": "150 gp" }
+            ]},
+            { "name": "Potion of aid", "variants": [
+              { "strength": "★★★", "cost": "600 gp" }
+            ]},
+            { "name": "Potion of climbing", "variants": [
+              { "strength": "★", "cost": "50 gp" }
+            ]},
+            { "name": "Potion of diminution", "variants": [
+              { "strength": "★★★", "cost": "500 gp" }
+            ]},
+            { "name": "Potion of fire breathing", "variants": [
+              { "strength": "★★", "cost": "150 gp" }
+            ]},
+            { "name": "Potion of flying", "variants": [
+              { "strength": "★★★★", "cost": "1,500 gp" }
+            ]},
+            { "name": "Potion of growth", "variants": [
+              { "strength": "★★", "cost": "150 gp" }
+            ]},
+            { "name": "Potion of healing", "variants": [
+              { "strength": "★", "cost": "50 gp" },
+              { "strength": "★★", "cost": "150 gp", "note": "Greater" },
+              { "strength": "★★★", "cost": "500 gp", "note": "Superior" },
+              { "strength": "★★★★", "cost": "1,500 gp", "note": "Supreme" }
+            ]},
+            { "name": "Potion of heroism", "variants": [
+              { "strength": "★★★", "cost": "600 gp" }
+            ]},
+            { "name": "Potion of invisibility", "variants": [
+              { "strength": "★★★★", "cost": "1,500 gp" }
+            ]},
+            { "name": "Potion of invulnerability", "variants": [
+              { "strength": "★★★", "cost": "750 gp" }
+            ]},
+            { "name": "Potion of magic resistance", "variants": [
+              { "strength": "★★★", "cost": "600 gp" }
+            ]},
+            { "name": "Potion of magic strikes", "variants": [
+              { "strength": "★★", "cost": "150 gp" },
+              { "strength": "★★★", "cost": "500 gp", "note": "Greater" },
+              { "strength": "★★★★", "cost": "1,500 gp", "note": "Superior" }
+            ]},
+            { "name": "Potion of minor restoration", "variants": [
+              { "strength": "★★", "cost": "150 gp" }
+            ]},
+            { "name": "Potion of misdirection", "variants": [
+              { "strength": "★★★", "cost": "500 gp" }
+            ]},
+            { "name": "Potion of poison", "variants": [
+              { "strength": "★★", "cost": "N/A" }
+            ]},
+            { "name": "Potion of prot. from poison", "variants": [
+              { "strength": "★★★", "cost": "500 gp" }
+            ]},
+            { "name": "Potion of resistance", "variants": [
+              { "strength": "★★", "cost": "150 gp" }
+            ]},
+            { "name": "Potion of springing", "variants": [
+              { "strength": "★", "cost": "50 gp" }
+            ]},
+            { "name": "Potion of stasis", "variants": [
+              { "strength": "★★★★", "cost": "1,500 gp" }
+            ]},
+            { "name": "Potion of swiftness", "variants": [
+              { "strength": "★★★", "cost": "500 gp" }
+            ]},
+            { "name": "Potion of truesight", "variants": [
+              { "strength": "★★★★", "cost": "1,500 gp" }
+            ]},
+            { "name": "Potion of vigor", "variants": [
+              { "strength": "★★★", "cost": "500 gp" }
+            ]},
+            { "name": "Potion of water breathing", "variants": [
+              { "strength": "★★", "cost": "150 gp" }
+            ]},
+            { "name": "Potion of wizard's bane", "variants": [
+              { "strength": "★★★★", "cost": "1,800 gp" }
+            ]},
+            { "name": "Raging bull", "variants": [
+              { "strength": "★★★", "cost": "500 gp" }
+            ]},
+            { "name": "Smoke grenade", "variants": [
+              { "strength": "★★", "cost": "150 gp" }
+            ]},
+            { "name": "Spell-storing potion", "variants": [
+              { "strength": "★★", "cost": "POA" },
+              { "strength": "★★★", "cost": "POA", "note": "Greater" },
+              { "strength": "★★★★", "cost": "POA", "note": "Superior" },
+              { "strength": "★★★★★", "cost": "POA", "note": "Supreme" }
+            ]},
+            { "name": "Stafford's boon", "variants": [
+              { "strength": "★★★★★", "cost": "5,000 gp" }
+            ]},
+            { "name": "Tanglefoot bag", "variants": [
+              { "strength": "★★", "cost": "150 gp" }
+            ]},
+            { "name": "Thermite", "variants": [
+              { "strength": "★★", "cost": "250 gp" }
+            ]},
+            { "name": "Thunderstone", "variants": [
+              { "strength": "★★", "cost": "150 gp" }
+            ]},
+            { "name": "Truth serum", "variants": [
+              { "strength": "★★★", "cost": "600 gp" }
+            ]},
+            { "name": "Virgil's muse", "variants": [
+              { "strength": "★★★", "cost": "500 gp" }
+            ]},
+            { "name": "Watchman's ward", "variants": [
+              { "strength": "★", "cost": "50 gp" }
+            ]},
+            { "name": "Wolfsbane oil", "variants": [
+              { "strength": "★★★★", "cost": "1,500 gp" }
+            ]},
+            { "name": "Yaxha's purgatory", "variants": [
+              { "strength": "★★★", "cost": "500 gp" }
+            ]}
+          ]
+        }
+      }
     }
   },
 
@@ -124,14 +674,6 @@
         "benefit": "If you complete a full term's tuition, make your exam check with advantage."
       },
       {
-        "name": "Guild Work",
-        "icon": "briefcase",
-        "requirement": "Seeker rank or above",
-        "description": "Fill orders in the Crucible (a great workshop).",
-        "benefit": "Earn money based on your rank. All equipment and materials supplied.",
-        "complication": "10% chance per workweek of a complication arising."
-      },
-      {
         "name": "Research",
         "icon": "flask-conical",
         "requirement": "Speaker rank or above",
@@ -140,14 +682,30 @@
         "duration": "Takes workweeks equal to the new item's strength."
       }
     ],
-    "complications": [
-      { "roll": 1, "result": "Customer cancels order, reducing earnings by one rank" },
-      { "roll": 2, "result": "Secure a lucrative contract, increasing earnings by one rank" },
-      { "roll": 3, "result": "Tools damaged or stolen, must buy new ones" },
-      { "roll": 4, "result": "Blamed for an incident, barred from crucible for 1d6 weeks" },
-      { "roll": 5, "result": "Compound explodes, blinded for 24 hours" },
-      { "roll": 6, "result": "Accused of theft, barred from guild merchant until cleared" }
-    ]
+    "guildWork": {
+      "title": "Guild Work",
+      "icon": "briefcase",
+      "requirement": "Seeker rank or above",
+      "intro": "Characters of seeker rank and above can spend downtime in the Crucible—a great alchemical workshop—filling orders placed by customers.",
+      "resources": "Each day spent performing guild work counts as a full day of work. All necessary equipment and materials are supplied to you by the Guild.",
+      "resolution": "The amount of money you earn performing guild work is based on your guild rank as follows:",
+      "earnings": [
+        { "rank": "Seeker", "earnings": "Modest lifestyle for the week + 5 gp per day of work" },
+        { "rank": "Seer", "earnings": "Comfortable lifestyle for the week + 10 gp per day of work" },
+        { "rank": "Speaker", "earnings": "Wealthy lifestyle for the week + 25 gp per day of work" },
+        { "rank": "Master", "earnings": "Aristocratic lifestyle for the week + 50 gp per day of work" }
+      ],
+      "complicationsIntro": "Undertaking guild work rarely results in significant complications. Still, such activities aren't without risk. Each workweek spent filling orders brings a 10% chance a complication arises.",
+      "complications": [
+        { "roll": 1, "result": "A customer cancels an order, reducing your earnings for the week by one rank." },
+        { "roll": 2, "result": "You secure a lucrative contract, increasing your earnings for the week by one rank." },
+        { "roll": 3, "result": "Your tools are damaged or stolen, forcing you to buy new ones.*" },
+        { "roll": 4, "result": "An incident occurs in the crucible for which you are blamed (justified or not, as you choose). You are barred from the crucible for 1d6 weeks.*" },
+        { "roll": 5, "result": "A compound you are mixing explodes while you aren't wearing safety goggles. You are blinded for 24 hours as your sight slowly recovers." },
+        { "roll": 6, "result": "Items have gone missing from stocks, and someone has pointed the finger at you. Until your name is cleared, the party is barred from using the guild merchant.*" }
+      ],
+      "complicationsNote": "* Might involve a rival."
+    }
   },
 
   "exams": {
@@ -226,8 +784,8 @@
         "text": "In dock communities, access to healing is power. The Medica's services can be withheld, traded, or used as political tools."
       },
       {
-        "title": "Meilin's Position",
-        "text": "As a Seeker, Meilin can use workshops unsupervised and take guild work. She's building toward Emerald Seer, which requires sponsorship."
+        "title": "Opportunity for Meilin",
+        "text": "Meilin's skills with a herbalism kit would make her a natural fit for the Medica. A senior member impressed by her work—or word of her reputation—could extend an invitation to join as a Novice."
       }
     ]
   }
