@@ -127,6 +127,34 @@ export function getIngredientBadges(medicine, forModal = false) {
 }
 
 /**
+ * Sort medicines based on the specified sort option
+ * @param {Array} medicineList - Array of medicines to sort
+ * @param {string} sortBy - Sort option: 'name', 'category', or 'difficulty'
+ * @returns {Array} - Sorted array of medicines
+ */
+function sortMedicines(medicineList, sortBy = 'name') {
+    return [...medicineList].sort((a, b) => {
+        switch (sortBy) {
+            case 'category':
+                // Sort by category first, then by name
+                const categoryCompare = a.category.localeCompare(b.category);
+                if (categoryCompare !== 0) return categoryCompare;
+                return a.name.localeCompare(b.name);
+            
+            case 'difficulty':
+                // Sort by difficulty (ascending), then by name
+                const diffCompare = a.difficulty - b.difficulty;
+                if (diffCompare !== 0) return diffCompare;
+                return a.name.localeCompare(b.name);
+            
+            case 'name':
+            default:
+                return a.name.localeCompare(b.name);
+        }
+    });
+}
+
+/**
  * Get filtered medicines based on current filters
  */
 export function getFilteredMedicines() {
@@ -134,7 +162,7 @@ export function getFilteredMedicines() {
     // Use store to get medicines - the local variable may have been reassigned
     const allMedicines = store.get('medicines') || medicines;
     
-    return allMedicines.filter(medicine => {
+    const filtered = allMedicines.filter(medicine => {
         // Search filter
         if (filters.search) {
             const searchTerm = filters.search.toLowerCase();
@@ -173,6 +201,10 @@ export function getFilteredMedicines() {
 
         return true;
     });
+    
+    // Apply sorting (default to 'name' if no sort specified)
+    const sortBy = filters.sort || 'name';
+    return sortMedicines(filtered, sortBy);
 }
 
 /**

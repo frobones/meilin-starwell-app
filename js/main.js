@@ -105,7 +105,7 @@ function bindFilterEvents() {
         });
     }
     
-    ['category-filter', 'difficulty-filter', 'ingredient-type-filter'].forEach(id => {
+    ['category-filter', 'difficulty-filter', 'ingredient-type-filter', 'sort-filter'].forEach(id => {
         const el = document.getElementById(id);
         if (el) {
             el.addEventListener('change', (e) => {

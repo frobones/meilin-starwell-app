@@ -320,11 +320,13 @@ function canCraftMedicine(medicine) {
 }
 
 /**
- * Get all craftable medicines based on current inventory
+ * Get all craftable medicines based on current inventory, sorted by name
  */
 function getCraftableMedicines() {
     const medicines = store.get('medicines') || [];
-    return medicines.filter(medicine => canCraftMedicine(medicine));
+    const craftable = medicines.filter(medicine => canCraftMedicine(medicine));
+    // Sort strictly by name
+    return craftable.sort((a, b) => a.name.localeCompare(b.name));
 }
 
 /**

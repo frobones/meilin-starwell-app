@@ -682,6 +682,7 @@ details[open] .rules-toggle::after {
   flex-wrap: wrap;
   gap: var(--space-md);
   align-items: center;
+  justify-content: center;
   margin-bottom: var(--space-md);
 }
 
