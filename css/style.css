@@ -518,6 +518,101 @@ details[open] .rules-toggle::after {
   font-weight: 600;
   color: var(--herb-green-dark);
   margin-bottom: var(--space-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.rules-card h4 svg {
+  width: 16px;
+  height: 16px;
+  color: var(--herb-green);
+}
+
+.rules-callout {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.rules-callout svg {
+  width: 18px;
+  height: 18px;
+  color: var(--gold-accent);
+  flex-shrink: 0;
+}
+
+#rules-content h3 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--ink-brown);
+  margin: var(--space-lg) 0 var(--space-md) 0;
+  border-bottom: 2px solid var(--parchment-dark);
+  padding-bottom: var(--space-xs);
+}
+
+#rules-content h3 svg {
+  width: 18px;
+  height: 18px;
+  color: var(--herb-green);
+}
+
+#rules-content h3:first-of-type {
+  margin-top: 0;
+}
+
+.rules-intro-text {
+  font-style: italic;
+  color: var(--ink-light);
+  margin-bottom: var(--space-md);
+}
+
+.enhancing-agent-card {
+  background: linear-gradient(135deg, rgba(184, 134, 11, 0.06) 0%, var(--parchment) 100%);
+  border-color: rgba(184, 134, 11, 0.2);
+}
+
+.enhancing-agent-card h4 svg {
+  color: var(--gold-accent);
+}
+
+.agent-effect {
+  font-size: 0.9rem;
+  margin-bottom: var(--space-xs);
+}
+
+.agent-dc {
+  font-size: 0.85rem;
+  color: var(--ink-light);
+}
+
+.gathering-thresholds-card {
+  background: linear-gradient(135deg, rgba(45, 106, 79, 0.06) 0%, var(--parchment) 100%);
+  border-color: rgba(45, 106, 79, 0.2);
+}
+
+.gotchas-list {
+  list-style: none;
+  padding: 0;
+}
+
+.gotchas-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  padding: var(--space-xs) 0;
+  color: var(--ink-brown);
+}
+
+.gotchas-list li svg {
+  width: 14px;
+  height: 14px;
+  color: var(--creature-red);
+  flex-shrink: 0;
+  margin-top: 3px;
 }
 
 /* ============================================
@@ -4960,6 +5055,20 @@ details[open] .rules-toggle::after {
   height: 14px;
 }
 
+.flora-use {
+  margin-top: var(--space-sm);
+  padding: var(--space-sm);
+  background: var(--parchment);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: var(--ink-faded);
+  border-left: 3px solid var(--herb-green);
+}
+
+.flora-use strong {
+  color: var(--ink-brown);
+}
+
 .flora-modal-description {
   font-family: var(--font-body);
   font-size: 1rem;
@@ -6835,6 +6944,109 @@ details[open] .rules-toggle::after {
   color: var(--sepia);
 }
 
+/* Enhanced DC Display State */
+.craft-dc-display.enhanced {
+  background: linear-gradient(135deg, rgba(184, 134, 11, 0.15) 0%, var(--parchment-aged) 100%);
+  border-color: var(--gold-accent);
+  box-shadow: 0 2px 8px rgba(184, 134, 11, 0.15);
+}
+
+.craft-dc-display.enhanced .dc-stars {
+  color: #d4a017;
+  text-shadow: 0 0 6px rgba(212, 160, 23, 0.4);
+}
+
+.craft-dc-display.enhanced .dc-value {
+  color: #b8860b;
+}
+
+/* Effect Preview Section */
+.craft-effect-preview {
+  background: linear-gradient(135deg, rgba(45, 106, 79, 0.08) 0%, var(--parchment-light) 100%);
+  border: 1px solid rgba(45, 106, 79, 0.2);
+}
+
+.craft-effect-preview .section-header h4 {
+  color: var(--herb-green-dark);
+}
+
+.enhancement-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.enhancement-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: var(--font-heading);
+}
+
+.enhancement-badge svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Duration badge - always has tab-like background */
+.enhancement-badge.duration {
+  background: linear-gradient(135deg, rgba(184, 134, 11, 0.15) 0%, rgba(184, 134, 11, 0.05) 100%);
+  color: #8b6914;
+  border: 1px solid rgba(184, 134, 11, 0.3);
+}
+
+.enhancement-badge.duration svg {
+  color: var(--gold-accent);
+}
+
+/* Potency badge - always has tab-like background */
+.enhancement-badge.potency {
+  background: linear-gradient(135deg, rgba(45, 106, 79, 0.15) 0%, rgba(45, 106, 79, 0.05) 100%);
+  color: var(--herb-green-dark);
+  border: 1px solid rgba(45, 106, 79, 0.3);
+}
+
+.enhancement-badge.potency svg {
+  color: var(--herb-green);
+}
+
+/* Active/Enhanced state - more vibrant with glow */
+.enhancement-badge.duration.active {
+  background: linear-gradient(135deg, rgba(184, 134, 11, 0.25) 0%, rgba(184, 134, 11, 0.1) 100%);
+  border: 1px solid rgba(184, 134, 11, 0.5);
+  box-shadow: 0 2px 8px rgba(184, 134, 11, 0.2);
+}
+
+.enhancement-badge.potency.active {
+  background: linear-gradient(135deg, rgba(45, 106, 79, 0.25) 0%, rgba(45, 106, 79, 0.1) 100%);
+  border: 1px solid rgba(45, 106, 79, 0.5);
+  box-shadow: 0 2px 8px rgba(45, 106, 79, 0.2);
+}
+
+/* Indefinite duration - special golden glow */
+.enhancement-badge.duration.indefinite {
+  background: linear-gradient(135deg, rgba(184, 134, 11, 0.35) 0%, rgba(184, 134, 11, 0.15) 100%);
+  border: 1px solid rgba(184, 134, 11, 0.6);
+  box-shadow: 0 2px 12px rgba(184, 134, 11, 0.3);
+  font-weight: 700;
+}
+
+/* Enhanced effect preview section */
+.craft-effect-preview.enhanced {
+  background: linear-gradient(135deg, rgba(184, 134, 11, 0.06) 0%, var(--parchment-light) 100%);
+  border-color: rgba(184, 134, 11, 0.2);
+}
+
+/* Active enhancement row */
+.enhancement-row.active {
+  background: linear-gradient(135deg, rgba(184, 134, 11, 0.08) 0%, white 100%);
+  border-color: var(--gold-accent);
+}
+
 .slots-remaining {
   margin-left: auto;
   font-size: 0.85rem;
@@ -7120,6 +7332,98 @@ details[open] .rules-toggle::after {
   width: 18px;
   height: 18px;
   accent-color: var(--herb-green);
+}
+
+.enhancement-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.enhancement-info {
+  font-size: 0.85rem;
+  color: var(--ink-light);
+  margin-bottom: var(--space-sm);
+  font-style: italic;
+}
+
+.enhancement-slots {
+  font-size: 0.8rem;
+  color: var(--gold-accent);
+  background: rgba(184, 134, 11, 0.1);
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.enhancement-details {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.enhancement-name {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-weight: 600;
+  color: var(--ink-brown);
+  font-family: var(--font-heading);
+}
+
+.enhancement-name i {
+  width: 16px;
+  height: 16px;
+  color: var(--gold-accent);
+}
+
+.enhancement-effect {
+  font-size: 0.8rem;
+  color: var(--ink-light);
+}
+
+.enhancement-spinner {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.enhancement-spinner button {
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--ink-faint);
+  background: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--ink-brown);
+  transition: all 0.15s ease;
+}
+
+.enhancement-spinner button:hover:not(:disabled) {
+  background: var(--gold-accent);
+  color: white;
+  border-color: var(--gold-accent);
+}
+
+.enhancement-spinner button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.enhancement-count {
+  min-width: 24px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--ink-brown);
+}
+
+.enhancement-available {
+  font-size: 0.75rem;
+  color: var(--ink-light);
+  margin-left: var(--space-sm);
 }
 
 /* Effect Section in Craft Modal - Improved */
