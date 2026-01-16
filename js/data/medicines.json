@@ -1070,7 +1070,7 @@
       "indefiniteStar": false,
       "primary": null,
       "secondary": ["Unicorn horn"],
-      "brief": "Grants a wish",
+      "brief": "Grants a wish; destroys evil creature",
       "effect": "Non-evil creatures gain a wish; evil creatures are destroyed.",
       "fullEffect": "A non-evil creature that drinks ambrosia is granted a wish, as if they had cast the wish spell. An evil creature that drinks it is destroyed.",
       "duration": "Instant",

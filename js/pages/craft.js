@@ -182,13 +182,12 @@ export function renderCraftInventory() {
         container.querySelectorAll('.inventory-section, .inventory-group').length === 0;
     
     let floraHtml = '';
-    const commonFloraExpanded = isFirstRender ? true : expandedSections.has('Common Flora');
-    floraHtml += createInventorySection('Common Flora', ingredientsList.commonFlora, !commonFloraExpanded, 'common');
+    const commonFloraExpanded = isFirstRender ? true : expandedSections.has('Common');
+    floraHtml += createInventorySection('Common', ingredientsList.commonFlora, !commonFloraExpanded, 'common');
     
     for (const terrain in ingredientsList.rareFlora) {
-        const title = `${terrain} Flora`;
-        const isExpanded = expandedSections.has(title);
-        floraHtml += createInventorySection(title, ingredientsList.rareFlora[terrain], !isExpanded, 'rare');
+        const isExpanded = expandedSections.has(terrain);
+        floraHtml += createInventorySection(terrain, ingredientsList.rareFlora[terrain], !isExpanded, 'rare');
     }
     
     let creatureHtml = '';
@@ -604,55 +603,9 @@ function renderCraftModalContent() {
     // Get enhanced stars that reflect current enhancements
     const stars = getEnhancedStars(medicine, totalEnhancementsUsed);
     
-    // Build ingredients list
-    const ingredientsHtml = buildIngredientsListHtml(medicine, chosenAlternative, alchemillaCount, ephedraCount, chosenPrimary);
-    
-    // Build enhanced effect preview
-    const effectPreviewHtml = buildEffectPreview(medicine, alchemillaCount, ephedraCount);
-    
-    // Primary alternatives section
-    let primaryAlternativeHtml = '';
-    if (primaryAlternatives && primaryAlternatives.length > 1) {
-        primaryAlternativeHtml = `
-            <div class="craft-modal-section craft-modal-alternatives">
-                <div class="section-header">
-                    <i data-lucide="flower-2"></i>
-                    <h4>Choose Primary Ingredient</h4>
-                </div>
-                <div class="alternative-options">
-                    ${primaryAlternatives.map(alt => `
-                        <label class="alternative-option ingredient-flora ${chosenPrimary === alt.name ? 'selected' : ''}">
-                            <input type="radio" name="primary-alternative" value="${alt.name}" 
-                                ${chosenPrimary === alt.name ? 'checked' : ''}>
-                            <span>${alt.name}</span>
-                        </label>
-                    `).join('')}
-                </div>
-            </div>
-        `;
-    }
-    
-    // Secondary alternatives section
-    let alternativeHtml = '';
-    if (alternatives && alternatives.length > 1) {
-        alternativeHtml = `
-            <div class="craft-modal-section craft-modal-alternatives">
-                <div class="section-header">
-                    <i data-lucide="git-branch"></i>
-                    <h4>Choose Ingredient</h4>
-                </div>
-                <div class="alternative-options">
-                    ${alternatives.map(alt => `
-                        <label class="alternative-option ingredient-${alt.type} ${chosenAlternative === alt.name ? 'selected' : ''}">
-                            <input type="radio" name="alternative" value="${alt.name}" 
-                                ${chosenAlternative === alt.name ? 'checked' : ''}>
-                            <span>${alt.name}</span>
-                        </label>
-                    `).join('')}
-                </div>
-            </div>
-        `;
-    }
+    // Build the unified recipe section with stars and DC
+    const recipeHtml = buildRecipeSection(medicine, alchemillaCount, ephedraCount, maxEnhancements, 
+        chosenAlternative, alternatives, chosenPrimary, primaryAlternatives, stars, effectiveDC);
     
     content.innerHTML = `
         <div class="craft-modal-header" data-category="${medicine.category}">
@@ -660,42 +613,16 @@ function renderCraftModalContent() {
                 <span class="craft-category-badge ${medicine.category}">${medicine.category}</span>
                 <h2>${medicine.name}</h2>
             </div>
-            <p class="effect-preview">${medicine.effect}</p>
+            <p class="effect-full">${medicine.fullEffect || medicine.effect}</p>
         </div>
         
-        <div class="craft-dc-display ${totalEnhancementsUsed > 0 ? 'enhanced' : ''}">
-            <div class="dc-stars-wrapper">
-                <span class="dc-stars">${stars}</span>
-            </div>
-            <div class="dc-info">
-                <span class="dc-label">Crafting DC</span>
-                <span class="dc-value">${effectiveDC}</span>
-            </div>
-        </div>
-        
-        <div class="craft-modal-section craft-modal-ingredients">
-            <div class="section-header">
-                <i data-lucide="flask-conical"></i>
-                <h4>Ingredients Required</h4>
-            </div>
-            <div class="ingredients-chips">
-                ${ingredientsHtml}
-            </div>
-        </div>
-        
-        ${primaryAlternativeHtml}
-        ${alternativeHtml}
-        
-        ${renderEnhancementSection(medicine, alchemillaCount, ephedraCount, maxEnhancements)}
-        
-        ${effectPreviewHtml}
+        ${recipeHtml}
         
         <div class="craft-modal-actions">
             <button class="confirm-craft-btn" id="confirm-craft">
                 <i data-lucide="flask-conical"></i>
                 Confirm Craft
             </button>
-            <button class="details-craft-btn" id="view-details">View Details</button>
             <button class="cancel-craft-btn" id="cancel-craft">Cancel</button>
         </div>
     `;
@@ -705,190 +632,193 @@ function renderCraftModalContent() {
 }
 
 /**
- * Build effect preview - always shown, values update with enhancements
+ * Build the unified Recipe section
  */
-function buildEffectPreview(medicine, alchemillaCount, ephedraCount) {
-    const hasEnhancements = alchemillaCount > 0 || ephedraCount > 0;
-    const totalEnhancements = alchemillaCount + ephedraCount;
-    const showDuration = canUseAlchemilla(medicine);
-    const showHealing = canUseEphedra(medicine);
+function buildRecipeSection(medicine, alchemillaCount, ephedraCount, maxEnhancements, 
+    chosenAlternative, alternatives, chosenPrimary, primaryAlternatives, stars, effectiveDC) {
     
-    // If medicine has neither duration nor healing dice, don't show preview
-    if (!showDuration && !showHealing) return '';
-    
-    const badges = [];
-    
-    // Duration badge - show current (base or enhanced)
-    if (showDuration) {
-        const currentDuration = getEnhancedDuration(medicine, alchemillaCount, totalEnhancements);
-        const isEnhanced = alchemillaCount > 0;
-        const isIndefinite = currentDuration === 'Indefinite';
-        badges.push(`<span class="enhancement-badge duration ${isEnhanced || isIndefinite ? 'active' : ''} ${isIndefinite ? 'indefinite' : ''}"><i data-lucide="clock"></i> Duration: ${currentDuration}</span>`);
-    }
-    
-    // Healing dice badge - show current (base or enhanced)
-    if (showHealing && medicine.ephedra) {
-        const baseDice = `${medicine.ephedra.diceCount}d${medicine.ephedra.diceType}`;
-        const currentDice = ephedraCount > 0 ? getEnhancedDice(medicine, ephedraCount) : baseDice;
-        const isEnhanced = ephedraCount > 0;
-        badges.push(`<span class="enhancement-badge potency ${isEnhanced ? 'active' : ''}"><i data-lucide="heart"></i> Restores: ${currentDice} HP</span>`);
-    }
-    
-    if (badges.length === 0) return '';
-    
-    return `
-        <div class="craft-modal-section craft-effect-preview ${hasEnhancements ? 'enhanced' : ''}">
-            <div class="section-header">
-                <i data-lucide="eye"></i>
-                <h4>Effect Preview</h4>
-            </div>
-            <div class="enhancement-badges">
-                ${badges.join('')}
-            </div>
-        </div>
-    `;
-}
-
-/**
- * Render enhancement section for adding Alchemilla/Ephedra
- */
-function renderEnhancementSection(medicine, alchemillaCount, ephedraCount, maxEnhancements) {
     const totalUsed = alchemillaCount + ephedraCount;
     const canAddMore = totalUsed < maxEnhancements;
     const alchemillaAvailable = ingredientInventory['Alchemilla'] || 0;
     const ephedraAvailable = ingredientInventory['Ephedra'] || 0;
     
-    // Check which enhancements are applicable for this medicine
     const showAlchemilla = canUseAlchemilla(medicine);
     const showEphedra = canUseEphedra(medicine);
+    const hasEnhancements = showAlchemilla || showEphedra;
     
-    // Don't show if no enhancement flora available, no room for enhancements, or no applicable enhancements
-    if (maxEnhancements <= 0 || (!showAlchemilla && !showEphedra)) {
-        return '';
+    // Get current values for result display
+    const currentDuration = getEnhancedDuration(medicine, alchemillaCount, totalUsed);
+    const isIndefinite = currentDuration === 'Indefinite';
+    
+    const getBaseDice = () => {
+        if (!medicine.ephedra) return '';
+        const { diceCount, diceType, modifier } = medicine.ephedra;
+        return `${diceCount}d${diceType}${modifier > 0 ? '+' + modifier : ''}`;
+    };
+    const baseDice = getBaseDice();
+    const currentDice = ephedraCount > 0 ? getEnhancedDice(medicine, ephedraCount) : baseDice;
+    
+    // Build result display (only if medicine has enhanceable properties)
+    let resultHtml = '';
+    if (hasEnhancements && maxEnhancements > 0) {
+        let resultCards = '';
+        
+        if (showAlchemilla) {
+            resultCards += `
+                <div class="recipe-result-card duration ${alchemillaCount > 0 ? 'active' : ''} ${isIndefinite ? 'indefinite' : ''}">
+                    <i data-lucide="clock"></i>
+                    <span class="recipe-result-value">${currentDuration}</span>
+                    <span class="recipe-result-label">Duration</span>
+                </div>
+            `;
+        }
+        
+        if (showEphedra && medicine.ephedra) {
+            resultCards += `
+                <div class="recipe-result-card potency ${ephedraCount > 0 ? 'active' : ''}">
+                    <i data-lucide="heart"></i>
+                    <span class="recipe-result-value">${currentDice}</span>
+                    <span class="recipe-result-label">Potency</span>
+                </div>
+            `;
+        }
+        
+        if (resultCards) {
+            resultHtml = `<div class="recipe-results">${resultCards}</div>`;
+        }
     }
     
-    const effectiveDifficulty = medicine.difficulty + totalUsed;
-    const effectiveDC = getDCForDifficulty(effectiveDifficulty);
-    const nextDC = getDCForDifficulty(effectiveDifficulty + 1);
-    
-    // Get current duration for Alchemilla display
-    const currentDuration = getEnhancedDuration(medicine, alchemillaCount);
-    const nextDuration = getEnhancedDuration(medicine, alchemillaCount + 1);
-    
-    // Get current dice multiplier for Ephedra display
-    const diceMultiplier = Math.pow(2, ephedraCount);
-    const nextDiceMultiplier = Math.pow(2, ephedraCount + 1);
-    
-    // Build enhancement rows
-    let enhancementRows = '';
-    
-    if (showAlchemilla) {
-        const alchemillaRemaining = alchemillaAvailable - alchemillaCount;
-        const durationPreview = alchemillaCount > 0 ? ` → ${currentDuration}` : '';
-        enhancementRows += `
-            <div class="enhancement-row ${alchemillaCount > 0 ? 'active' : ''}">
-                <div class="enhancement-details">
-                    <span class="enhancement-name"><i data-lucide="clock"></i> Alchemilla</span>
-                    <span class="enhancement-effect">Extends duration${durationPreview}</span>
-                </div>
-                <div class="enhancement-spinner">
-                    <button class="enhancement-dec" data-type="alchemilla" ${alchemillaCount === 0 ? 'disabled' : ''}>−</button>
-                    <span class="enhancement-count">${alchemillaCount}</span>
-                    <button class="enhancement-inc" data-type="alchemilla" ${!canAddMore || alchemillaRemaining <= 0 ? 'disabled' : ''}>+</button>
-                </div>
-                <span class="enhancement-available">(${alchemillaRemaining} available)</span>
-            </div>
-        `;
-    }
-    
-    if (showEphedra) {
-        const ephedraRemaining = ephedraAvailable - ephedraCount;
-        enhancementRows += `
-            <div class="enhancement-row ${ephedraCount > 0 ? 'active' : ''}">
-                <div class="enhancement-details">
-                    <span class="enhancement-name"><i data-lucide="dice-6"></i> Ephedra</span>
-                    <span class="enhancement-effect">Doubles dice (×${diceMultiplier})</span>
-                </div>
-                <div class="enhancement-spinner">
-                    <button class="enhancement-dec" data-type="ephedra" ${ephedraCount === 0 ? 'disabled' : ''}>−</button>
-                    <span class="enhancement-count">${ephedraCount}</span>
-                    <button class="enhancement-inc" data-type="ephedra" ${!canAddMore || ephedraRemaining <= 0 ? 'disabled' : ''}>+</button>
-                </div>
-                <span class="enhancement-available">(${ephedraRemaining} available)</span>
-            </div>
-        `;
-    }
-    
-    return `
-        <div class="craft-modal-section craft-modal-enhancements">
-            <div class="section-header">
-                <i data-lucide="sparkles"></i>
-                <h4>Enhance Recipe</h4>
-                <span class="enhancement-slots">${totalUsed}/${maxEnhancements} used</span>
-            </div>
-            <div class="enhancement-controls">
-                ${enhancementRows}
-            </div>
-        </div>
-    `;
-}
-
-/**
- * Build the ingredients list HTML for the craft modal
- */
-function buildIngredientsListHtml(medicine, chosenAlternative, alchemillaCount, ephedraCount, chosenPrimary = null) {
-    const ingredients = [];
+    // Build ingredient rows
+    let ingredientRows = '';
     
     // Primary ingredient
     if (medicine.primary) {
-        if (hasAlternativePrimaries(medicine) && chosenPrimary) {
-            ingredients.push({ name: chosenPrimary, type: 'primary', count: 1 });
-        } else if (!hasAlternativePrimaries(medicine)) {
-            ingredients.push({ name: medicine.primary, type: 'primary', count: 1 });
-        }
+        const hasPrimaryAlts = primaryAlternatives && primaryAlternatives.length > 1;
+        const primaryName = hasPrimaryAlts ? chosenPrimary : medicine.primary;
+        
+        ingredientRows += `
+            <div class="recipe-ingredient-row primary">
+                <div class="recipe-ingredient-info">
+                    <i data-lucide="flower-2"></i>
+                    <span class="recipe-ingredient-name">${primaryName}</span>
+                </div>
+                ${hasPrimaryAlts ? `
+                    <div class="recipe-ingredient-alternatives">
+                        ${primaryAlternatives.map(alt => `
+                            <label class="recipe-alt-option ${chosenPrimary === alt.name ? 'selected' : ''}">
+                                <input type="radio" name="primary-alternative" value="${alt.name}" 
+                                    ${chosenPrimary === alt.name ? 'checked' : ''}>
+                                <span>${alt.name}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                ` : ''}
+            </div>
+        `;
     }
     
     // Secondary ingredients
     const isOrAlternative = hasAlternativeSecondaries(medicine);
-    if (isOrAlternative && chosenAlternative) {
-        ingredients.push({ name: chosenAlternative, type: 'secondary', count: 1 });
-    } else if (!isOrAlternative && medicine.secondary) {
-        medicine.secondary.forEach(s => {
-            const name = getSecondaryName(s);
-            ingredients.push({ name: name, type: 'secondary', count: 1 });
-        });
+    const hasSecondaryAlts = alternatives && alternatives.length > 1;
+    
+    if (medicine.secondary && medicine.secondary.length > 0) {
+        if (isOrAlternative) {
+            // OR alternatives - show chosen one with options
+            const secondaryName = chosenAlternative || getSecondaryName(medicine.secondary[0]);
+            const isCreature = creaturePartsLookup?.[secondaryName];
+            
+            ingredientRows += `
+                <div class="recipe-ingredient-row secondary ${isCreature ? 'creature' : ''}">
+                    <div class="recipe-ingredient-info">
+                        <i data-lucide="${isCreature ? 'skull' : 'leaf'}"></i>
+                        <span class="recipe-ingredient-name">${secondaryName}</span>
+                    </div>
+                    ${hasSecondaryAlts ? `
+                        <div class="recipe-ingredient-alternatives">
+                            ${alternatives.map(alt => `
+                                <label class="recipe-alt-option ${alt.type === 'creature' ? 'creature' : ''} ${chosenAlternative === alt.name ? 'selected' : ''}">
+                                    <input type="radio" name="alternative" value="${alt.name}" 
+                                        ${chosenAlternative === alt.name ? 'checked' : ''}>
+                                    <span>${alt.name}</span>
+                                </label>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        } else {
+            // AND - all required
+            medicine.secondary.forEach(s => {
+                const name = getSecondaryName(s);
+                const isCreature = creaturePartsLookup?.[name];
+                
+                ingredientRows += `
+                    <div class="recipe-ingredient-row secondary ${isCreature ? 'creature' : ''}">
+                        <div class="recipe-ingredient-info">
+                            <i data-lucide="${isCreature ? 'skull' : 'leaf'}"></i>
+                            <span class="recipe-ingredient-name">${name}</span>
+                        </div>
+                    </div>
+                `;
+            });
+        }
     }
     
-    // Enhancement ingredients
-    if (alchemillaCount > 0) {
-        ingredients.push({ name: 'Alchemilla', type: 'enhancement', count: alchemillaCount });
-    }
-    if (ephedraCount > 0) {
-        ingredients.push({ name: 'Ephedra', type: 'enhancement', count: ephedraCount });
-    }
-    
-    return ingredients.map(ing => {
-        const showCount = ing.type === 'enhancement' || ing.count > 1;
-        const isCreature = creaturePartsLookup?.[ing.name];
-        let icon = 'leaf';
-        if (ing.type === 'enhancement') {
-            icon = 'sparkles';
-        } else if (isCreature) {
-            icon = 'skull';
-        } else if (ing.type === 'primary') {
-            icon = 'flower-2';
+    // Enhancement ingredients (Alchemilla / Ephedra)
+    if (hasEnhancements && maxEnhancements > 0) {
+        if (showAlchemilla) {
+            const alchemillaRemaining = alchemillaAvailable - alchemillaCount;
+            ingredientRows += `
+                <div class="recipe-ingredient-row enhancement ${alchemillaCount > 0 ? 'active' : ''}">
+                    <div class="recipe-ingredient-info">
+                        <i data-lucide="sparkles"></i>
+                        <span class="recipe-ingredient-name">Alchemilla</span>
+                        <span class="recipe-ingredient-available">${alchemillaRemaining} avail</span>
+                    </div>
+                    <div class="recipe-ingredient-spinner">
+                        <button class="enhancement-dec" data-type="alchemilla" ${alchemillaCount === 0 ? 'disabled' : ''}>−</button>
+                        <span class="enhancement-count">${alchemillaCount}</span>
+                        <button class="enhancement-inc" data-type="alchemilla" ${!canAddMore || alchemillaRemaining <= 0 ? 'disabled' : ''}>+</button>
+                    </div>
+                </div>
+            `;
         }
         
-        const chipClass = isCreature ? 'creature' : ing.type;
-        
-        return `
-            <div class="ingredient-chip ${chipClass}">
-                <i data-lucide="${icon}"></i>
-                <span class="ingredient-chip-name">${ing.name}</span>
-                ${showCount ? `<span class="ingredient-chip-count">×${ing.count}</span>` : ''}
+        if (showEphedra) {
+            const ephedraRemaining = ephedraAvailable - ephedraCount;
+            ingredientRows += `
+                <div class="recipe-ingredient-row enhancement ${ephedraCount > 0 ? 'active' : ''}">
+                    <div class="recipe-ingredient-info">
+                        <i data-lucide="sparkles"></i>
+                        <span class="recipe-ingredient-name">Ephedra</span>
+                        <span class="recipe-ingredient-available">${ephedraRemaining} avail</span>
+                    </div>
+                    <div class="recipe-ingredient-spinner">
+                        <button class="enhancement-dec" data-type="ephedra" ${ephedraCount === 0 ? 'disabled' : ''}>−</button>
+                        <span class="enhancement-count">${ephedraCount}</span>
+                        <button class="enhancement-inc" data-type="ephedra" ${!canAddMore || ephedraRemaining <= 0 ? 'disabled' : ''}>+</button>
+                    </div>
+                </div>
+            `;
+        }
+    }
+    
+    return `
+        <div class="craft-modal-section craft-recipe">
+            <div class="section-header">
+                <i data-lucide="flask-conical"></i>
+                <h4>Recipe</h4>
+                <div class="recipe-header-stats">
+                    <span class="recipe-stars">${stars}</span>
+                    <span class="recipe-dc">DC ${effectiveDC}</span>
+                </div>
             </div>
-        `;
-    }).join('');
+            ${resultHtml}
+            <div class="recipe-ingredients">
+                ${ingredientRows}
+            </div>
+        </div>
+    `;
 }
 
 /**
@@ -947,16 +877,6 @@ function bindCraftModalEvents() {
     const confirmBtn = document.getElementById('confirm-craft');
     if (confirmBtn) {
         confirmBtn.addEventListener('click', () => executeCraft());
-    }
-    
-    const detailsBtn = document.getElementById('view-details');
-    if (detailsBtn) {
-        detailsBtn.addEventListener('click', () => {
-            const medicine = craftModalState?.medicine;
-            if (medicine) {
-                events.emit('medicine:open', medicine);
-            }
-        });
     }
     
     const cancelBtn = document.getElementById('cancel-craft');
