@@ -7172,6 +7172,15 @@ details[open] .rules-toggle::after {
   color: var(--gold-accent);
 }
 
+.ingredient-chip.creature {
+  background: linear-gradient(135deg, #fff 0%, #f8e8e8 100%);
+  border-color: #b35a5a;
+}
+
+.ingredient-chip.creature svg {
+  color: #b35a5a;
+}
+
 .ingredient-chip-name {
   color: var(--ink-brown);
   font-weight: 500;

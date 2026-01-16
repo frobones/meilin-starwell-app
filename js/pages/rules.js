@@ -349,8 +349,7 @@ export function renderPotionRules() {
 
                 <div class="terminology-card extended-rest">
                     <h3><i data-lucide="bed"></i> Extended Rest</h3>
-                    <p>An extended rest is a period of <strong>downtime</strong> between adventures, at least <strong>1 week</strong> long, during which a character attends to other affairs.</p>
-                    <p>Some potions in the Alchemy Almanac require the drinker to finish an extended rest before it can benefit from the effects of that potion again.</p>
+                    <p>An extended rest is a period of <strong>downtime</strong> between adventures, at least <strong>1 week</strong> long, during which a character attends to other affairs. Some potions in the Alchemy Almanac require the drinker to finish an extended rest before it can benefit from the effects of that potion again.</p>
                 </div>
             </div>
         </div>

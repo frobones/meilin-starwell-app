@@ -673,8 +673,6 @@ function renderCraftModalContent() {
             </div>
         </div>
         
-        ${effectPreviewHtml}
-        
         <div class="craft-modal-section craft-modal-ingredients">
             <div class="section-header">
                 <i data-lucide="flask-conical"></i>
@@ -689,6 +687,8 @@ function renderCraftModalContent() {
         ${alternativeHtml}
         
         ${renderEnhancementSection(medicine, alchemillaCount, ephedraCount, maxEnhancements)}
+        
+        ${effectPreviewHtml}
         
         <div class="craft-modal-actions">
             <button class="confirm-craft-btn" id="confirm-craft">
@@ -739,7 +739,7 @@ function buildEffectPreview(medicine, alchemillaCount, ephedraCount) {
     return `
         <div class="craft-modal-section craft-effect-preview ${hasEnhancements ? 'enhanced' : ''}">
             <div class="section-header">
-                <i data-lucide="sparkles"></i>
+                <i data-lucide="eye"></i>
                 <h4>Effect Preview</h4>
             </div>
             <div class="enhancement-badges">
@@ -783,6 +783,7 @@ function renderEnhancementSection(medicine, alchemillaCount, ephedraCount, maxEn
     let enhancementRows = '';
     
     if (showAlchemilla) {
+        const alchemillaRemaining = alchemillaAvailable - alchemillaCount;
         const durationPreview = alchemillaCount > 0 ? ` → ${currentDuration}` : '';
         enhancementRows += `
             <div class="enhancement-row ${alchemillaCount > 0 ? 'active' : ''}">
@@ -793,27 +794,27 @@ function renderEnhancementSection(medicine, alchemillaCount, ephedraCount, maxEn
                 <div class="enhancement-spinner">
                     <button class="enhancement-dec" data-type="alchemilla" ${alchemillaCount === 0 ? 'disabled' : ''}>−</button>
                     <span class="enhancement-count">${alchemillaCount}</span>
-                    <button class="enhancement-inc" data-type="alchemilla" ${!canAddMore || alchemillaAvailable <= alchemillaCount ? 'disabled' : ''}>+</button>
+                    <button class="enhancement-inc" data-type="alchemilla" ${!canAddMore || alchemillaRemaining <= 0 ? 'disabled' : ''}>+</button>
                 </div>
-                <span class="enhancement-available">(${alchemillaAvailable} available)</span>
+                <span class="enhancement-available">(${alchemillaRemaining} available)</span>
             </div>
         `;
     }
     
     if (showEphedra) {
-        const dicePreview = ephedraCount > 0 ? ` (×${diceMultiplier})` : '';
+        const ephedraRemaining = ephedraAvailable - ephedraCount;
         enhancementRows += `
             <div class="enhancement-row ${ephedraCount > 0 ? 'active' : ''}">
                 <div class="enhancement-details">
                     <span class="enhancement-name"><i data-lucide="dice-6"></i> Ephedra</span>
-                    <span class="enhancement-effect">Doubles healing dice${dicePreview}</span>
+                    <span class="enhancement-effect">Doubles dice (×${diceMultiplier})</span>
                 </div>
                 <div class="enhancement-spinner">
                     <button class="enhancement-dec" data-type="ephedra" ${ephedraCount === 0 ? 'disabled' : ''}>−</button>
                     <span class="enhancement-count">${ephedraCount}</span>
-                    <button class="enhancement-inc" data-type="ephedra" ${!canAddMore || ephedraAvailable <= ephedraCount ? 'disabled' : ''}>+</button>
+                    <button class="enhancement-inc" data-type="ephedra" ${!canAddMore || ephedraRemaining <= 0 ? 'disabled' : ''}>+</button>
                 </div>
-                <span class="enhancement-available">(${ephedraAvailable} available)</span>
+                <span class="enhancement-available">(${ephedraRemaining} available)</span>
             </div>
         `;
     }
@@ -825,8 +826,6 @@ function renderEnhancementSection(medicine, alchemillaCount, ephedraCount, maxEn
                 <h4>Enhance Recipe</h4>
                 <span class="enhancement-slots">${totalUsed}/${maxEnhancements} used</span>
             </div>
-            <p class="enhancement-info">Add enhancing agents to strengthen the medicine. Each adds +1 difficulty level (DC ${effectiveDC} → ${nextDC}).</p>
-            
             <div class="enhancement-controls">
                 ${enhancementRows}
             </div>
@@ -870,17 +869,20 @@ function buildIngredientsListHtml(medicine, chosenAlternative, alchemillaCount, 
     
     return ingredients.map(ing => {
         const showCount = ing.type === 'enhancement' || ing.count > 1;
+        const isCreature = creaturePartsLookup?.[ing.name];
         let icon = 'leaf';
         if (ing.type === 'enhancement') {
             icon = 'sparkles';
-        } else if (creaturePartsLookup?.[ing.name]) {
+        } else if (isCreature) {
             icon = 'skull';
         } else if (ing.type === 'primary') {
             icon = 'flower-2';
         }
         
+        const chipClass = isCreature ? 'creature' : ing.type;
+        
         return `
-            <div class="ingredient-chip ${ing.type}">
+            <div class="ingredient-chip ${chipClass}">
                 <i data-lucide="${icon}"></i>
                 <span class="ingredient-chip-name">${ing.name}</span>
                 ${showCount ? `<span class="ingredient-chip-count">×${ing.count}</span>` : ''}
@@ -1025,6 +1027,51 @@ export function closeCraftModal() {
 }
 
 /**
+ * Export inventory to JSON file
+ */
+function exportInventory() {
+    const data = {
+        version: 1,
+        exportedAt: new Date().toISOString(),
+        inventory: ingredientInventory
+    };
+    
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `meilin-inventory-${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+/**
+ * Import inventory from JSON file
+ */
+function importInventory(file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        try {
+            const data = JSON.parse(e.target.result);
+            if (data.inventory && typeof data.inventory === 'object') {
+                ingredientInventory = data.inventory;
+                saveInventory();
+                renderCraftInventory();
+                renderCraftableMedicines();
+            } else {
+                throw new Error('Invalid inventory format');
+            }
+        } catch (err) {
+            alert('Failed to import inventory: Invalid file format');
+            console.error('Import error:', err);
+        }
+    };
+    reader.readAsText(file);
+}
+
+/**
  * Bind craft event listeners
  */
 export function bindCraftEvents() {
@@ -1088,6 +1135,21 @@ export function bindCraftEvents() {
                 saveInventory();
                 renderCraftInventory();
                 renderCraftableMedicines();
+            }
+        });
+    }
+    
+    const exportBtn = document.getElementById('export-inventory');
+    if (exportBtn) {
+        exportBtn.addEventListener('click', () => exportInventory());
+    }
+    
+    const importInput = document.getElementById('import-inventory');
+    if (importInput) {
+        importInput.addEventListener('change', (e) => {
+            if (e.target.files && e.target.files[0]) {
+                importInventory(e.target.files[0]);
+                e.target.value = '';
             }
         });
     }

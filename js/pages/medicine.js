@@ -194,7 +194,7 @@ export function createMedicineCard(medicine) {
                 <span class="medicine-category ${medicine.category}">${medicine.category}</span>
                 <span class="medicine-dc">DC ${medicine.dc}</span>
             </div>
-            <p class="medicine-preview">${medicine.brief || medicine.effect}</p>
+            <p class="medicine-preview">${medicine.effect || medicine.brief}</p>
         </div>
     `;
 }
