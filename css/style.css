@@ -623,42 +623,40 @@ details[open] .rules-toggle::after {
 
 .tab-nav {
   display: flex;
-  gap: var(--space-sm);
-  margin-bottom: var(--space-lg);
+  gap: 0;
+  padding: 0;
+  margin-bottom: 0;
   border-bottom: 2px solid var(--parchment-dark);
-  padding-bottom: var(--space-sm);
+  background: var(--bg-cream);
 }
 
 .tab-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: var(--font-heading);
   font-size: 1.1rem;
   font-weight: 600;
-  padding: var(--space-sm) var(--space-lg);
+  padding: var(--space-md) var(--space-lg);
   background: transparent;
   border: none;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
   color: var(--ink-faded);
   cursor: pointer;
-  position: relative;
-  transition: color 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .tab-btn:hover {
   color: var(--sepia);
+  background: rgba(139, 90, 43, 0.05);
 }
 
 .tab-btn.active {
   color: var(--sepia);
-}
-
-.tab-btn.active::after {
-  content: '';
-  position: absolute;
-  bottom: calc(-1 * var(--space-sm) - 2px);
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: var(--herb-green);
-  border-radius: 2px 2px 0 0;
+  border-bottom-color: var(--herb-green);
+  background: var(--parchment-light);
 }
 
 /* ============================================
