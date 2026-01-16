@@ -593,6 +593,65 @@
     };
 
     /**
+     * Build the ingredients list HTML for the craft modal
+     */
+    App.buildIngredientsListHtml = function(medicine, chosenAlternative, alchemillaCount, ephedraCount) {
+        const ingredients = [];
+        
+        // Primary ingredient
+        if (medicine.primary) {
+            ingredients.push({
+                name: medicine.primary,
+                type: 'primary',
+                count: 1
+            });
+        }
+        
+        // Secondary ingredients
+        const isOrAlternative = this.hasAlternativeSecondaries(medicine);
+        if (isOrAlternative && chosenAlternative) {
+            ingredients.push({
+                name: chosenAlternative,
+                type: 'secondary',
+                count: 1
+            });
+        } else if (!isOrAlternative && medicine.secondary) {
+            medicine.secondary.forEach(s => {
+                const name = this.getSecondaryName(s);
+                ingredients.push({
+                    name: name,
+                    type: 'secondary',
+                    count: 1
+                });
+            });
+        }
+        
+        // Enhancement ingredients
+        if (alchemillaCount > 0) {
+            ingredients.push({
+                name: 'Alchemilla',
+                type: 'enhancement',
+                count: alchemillaCount
+            });
+        }
+        if (ephedraCount > 0) {
+            ingredients.push({
+                name: 'Ephedra',
+                type: 'enhancement',
+                count: ephedraCount
+            });
+        }
+        
+        return ingredients.map(ing => `
+            <div class="ingredient-chip ${ing.type}">
+                <i data-lucide="${ing.type === 'primary' ? 'flower-2' : ing.type === 'enhancement' ? 'sparkles' : 'leaf'}"></i>
+                <span class="ingredient-chip-name">${ing.name}</span>
+                ${ing.count > 1 ? `<span class="ingredient-chip-count">×${ing.count}</span>` : ''}
+            </div>
+        `).join('');
+    };
+
+    /**
      * Render craft modal content based on current state
      */
     App.renderCraftModalContent = function() {
@@ -629,11 +688,17 @@
             medicine.indefiniteStar
         );
         
+        // Build ingredients required section
+        const ingredientsHtml = this.buildIngredientsListHtml(medicine, chosenAlternative, alchemillaCount, ephedraCount);
+        
         let alternativeHtml = '';
         if (alternatives && alternatives.length > 1) {
             alternativeHtml = `
-                <div class="craft-modal-section">
-                    <h4>Choose Ingredient</h4>
+                <div class="craft-modal-section craft-modal-alternatives">
+                    <div class="section-header">
+                        <i data-lucide="git-branch"></i>
+                        <h4>Choose Ingredient</h4>
+                    </div>
                     <div class="alternative-options">
                         ${alternatives.map(alt => `
                             <label class="alternative-option ingredient-${alt.type} ${chosenAlternative === alt.name ? 'selected' : ''}">
@@ -655,8 +720,11 @@
             enhancementRows += `
                 <div class="enhancement-row ${alchemillaDisabled ? 'disabled' : ''}">
                     <div class="enhancement-label">
-                        <span class="enhancement-name">Alchemilla</span>
-                        <span class="enhancement-effect">Extends duration</span>
+                        <i data-lucide="clock"></i>
+                        <div class="enhancement-text">
+                            <span class="enhancement-name">Alchemilla</span>
+                            <span class="enhancement-effect">Extends duration</span>
+                        </div>
                     </div>
                     <div class="enhancement-control">
                         <div class="number-spinner">
@@ -674,8 +742,11 @@
             enhancementRows += `
                 <div class="enhancement-row ${ephedraDisabled ? 'disabled' : ''}">
                     <div class="enhancement-label">
-                        <span class="enhancement-name">Ephedra</span>
-                        <span class="enhancement-effect">Doubles dice (×${Math.pow(2, ephedraCount)})</span>
+                        <i data-lucide="zap"></i>
+                        <div class="enhancement-text">
+                            <span class="enhancement-name">Ephedra</span>
+                            <span class="enhancement-effect">Doubles dice (×${Math.pow(2, ephedraCount)})</span>
+                        </div>
                     </div>
                     <div class="enhancement-control">
                         <div class="number-spinner">
@@ -691,8 +762,12 @@
         let enhancementHtml = '';
         if (enhancementRows) {
             enhancementHtml = `
-                <div class="craft-modal-section">
-                    <h4>Enhancements</h4>
+                <div class="craft-modal-section craft-modal-enhancements">
+                    <div class="section-header">
+                        <i data-lucide="sparkles"></i>
+                        <h4>Enhancements</h4>
+                        <span class="slots-badge">${remainingSlots} slot${remainingSlots !== 1 ? 's' : ''} remaining</span>
+                    </div>
                     ${enhancementRows}
                 </div>
             `;
@@ -712,6 +787,7 @@
                 );
                 effectItems.push(`
                     <div class="effect-item">
+                        <i data-lucide="hourglass"></i>
                         <span class="effect-label">Duration:</span>
                         <span class="effect-value enhanced">
                             <span class="base-value">${baseDuration}</span>
@@ -723,6 +799,7 @@
             } else {
                 effectItems.push(`
                     <div class="effect-item">
+                        <i data-lucide="hourglass"></i>
                         <span class="effect-label">Duration:</span>
                         <span class="effect-value">${baseDuration}</span>
                     </div>
@@ -741,6 +818,7 @@
                 const enhancedDice = this.getEnhancedDice(medicine, ephedraCount);
                 effectItems.push(`
                     <div class="effect-item">
+                        <i data-lucide="dices"></i>
                         <span class="effect-label">Potency:</span>
                         <span class="effect-value enhanced">
                             <span class="base-value">${baseDice}</span>
@@ -752,6 +830,7 @@
             } else {
                 effectItems.push(`
                     <div class="effect-item">
+                        <i data-lucide="dices"></i>
                         <span class="effect-label">Potency:</span>
                         <span class="effect-value">${baseDice}</span>
                     </div>
@@ -764,7 +843,10 @@
             const isEnhanced = alchemillaCount > 0 || ephedraCount > 0;
             effectSectionHtml = `
                 <div class="craft-modal-section effect-section ${isEnhanced ? 'has-enhancements' : ''}">
-                    <h4>Effect</h4>
+                    <div class="section-header">
+                        <i data-lucide="activity"></i>
+                        <h4>Effect Preview</h4>
+                    </div>
                     <div class="effect-preview-details">
                         ${effectItems.join('')}
                     </div>
@@ -773,15 +855,32 @@
         }
         
         content.innerHTML = `
-            <div class="craft-modal-header">
-                <h2>${medicine.name}</h2>
+            <div class="craft-modal-header" data-category="${medicine.category}">
+                <div class="craft-modal-title-row">
+                    <span class="craft-category-badge ${medicine.category}">${medicine.category}</span>
+                    <h2>${medicine.name}</h2>
+                </div>
                 <p class="effect-preview">${medicine.effect}</p>
             </div>
             
             <div class="craft-dc-display">
-                <span class="dc-label">Crafting DC:</span>
-                <span class="dc-stars">${starDisplay}</span>
-                <span class="dc-value">DC ${effectiveDC}</span>
+                <div class="dc-stars-wrapper">
+                    <span class="dc-stars">${starDisplay}</span>
+                </div>
+                <div class="dc-info">
+                    <span class="dc-label">Crafting DC</span>
+                    <span class="dc-value">${effectiveDC}</span>
+                </div>
+            </div>
+            
+            <div class="craft-modal-section craft-modal-ingredients">
+                <div class="section-header">
+                    <i data-lucide="flask-conical"></i>
+                    <h4>Ingredients Required</h4>
+                </div>
+                <div class="ingredients-chips">
+                    ${ingredientsHtml}
+                </div>
             </div>
             
             ${alternativeHtml}
@@ -789,13 +888,17 @@
             ${effectSectionHtml}
             
             <div class="craft-modal-actions">
-                <button class="confirm-craft-btn" id="confirm-craft">Confirm Craft</button>
+                <button class="confirm-craft-btn" id="confirm-craft">
+                    <i data-lucide="flask-conical"></i>
+                    Confirm Craft
+                </button>
                 <button class="details-craft-btn" id="view-details">View Details</button>
                 <button class="cancel-craft-btn" id="cancel-craft">Cancel</button>
             </div>
         `;
         
         this.bindCraftModalEvents();
+        this.refreshIcons();
     };
 
     /**
