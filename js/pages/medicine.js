@@ -108,10 +108,10 @@ export function getIngredientBadges(medicine, forModal = false) {
     
     if (hasFlora && hasCreature) {
         if (forModal) {
-            badges = `<span class="modal-badges-group"><span class="medicine-flora-badge" title="Has flora option"><i data-lucide="sprout"></i> Flora</span><span class="medicine-creature-badge" title="Has creature option"><i data-lucide="bone"></i> Creature</span></span>`;
+            badges = `<span class="modal-badges-group"><span class="medicine-flora-badge" title="Has flora option"><i data-lucide="sprout"></i> Flora</span><span class="medicine-creature-badge" title="Has creature option"><i data-lucide="skull"></i> Creature</span></span>`;
         } else {
             badges = `<span class="medicine-flora-badge" title="Has flora option"><i data-lucide="sprout"></i></span>`;
-            badges += `<span class="medicine-creature-badge" title="Has creature option"><i data-lucide="bone"></i></span>`;
+            badges += `<span class="medicine-creature-badge" title="Has creature option"><i data-lucide="skull"></i></span>`;
         }
     } else if (hasFlora) {
         badges = forModal 
@@ -119,8 +119,8 @@ export function getIngredientBadges(medicine, forModal = false) {
             : `<span class="medicine-flora-badge" title="Flora option available"><i data-lucide="sprout"></i></span>`;
     } else if (hasCreature) {
         badges = forModal
-            ? `<span class="medicine-creature-badge" title="Requires creature parts"><i data-lucide="bone"></i> Creature</span>`
-            : `<span class="medicine-creature-badge" title="Requires creature parts"><i data-lucide="bone"></i></span>`;
+            ? `<span class="medicine-creature-badge" title="Requires creature parts"><i data-lucide="skull"></i> Creature</span>`
+            : `<span class="medicine-creature-badge" title="Requires creature parts"><i data-lucide="skull"></i></span>`;
     }
     
     return badges;

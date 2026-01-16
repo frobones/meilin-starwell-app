@@ -55,12 +55,14 @@
 .knife-card.leverage::before { background: var(--gold-accent); }
 .knife-card.complication::before { background: var(--copper-accent); }
 .knife-card.flaw::before { background: var(--herb-green); }
+.knife-card.mystery::before { background: var(--augmenting); }
 
 .knife-card.evidence:hover { border-color: var(--sepia); }
 .knife-card.vulnerability:hover { border-color: var(--blood-red); }
 .knife-card.leverage:hover { border-color: var(--gold-accent); }
 .knife-card.complication:hover { border-color: var(--copper-accent); }
 .knife-card.flaw:hover { border-color: var(--herb-green); }
+.knife-card.mystery:hover { border-color: var(--augmenting); }
 
 .knife-card-header {
   display: flex;
@@ -84,6 +86,7 @@
 .knife-card.leverage:hover .knife-card-icon { color: var(--gold-accent); }
 .knife-card.complication:hover .knife-card-icon { color: var(--copper-accent); }
 .knife-card.flaw:hover .knife-card-icon { color: var(--herb-green); }
+.knife-card.mystery:hover .knife-card-icon { color: var(--augmenting); }
 
 .knife-card-name {
   font-family: var(--font-heading);
@@ -121,6 +124,10 @@
 .knife-card.flaw .knife-card-type {
   background: rgba(74, 93, 74, 0.15);
   color: var(--herb-green-dark);
+}
+.knife-card.mystery .knife-card-type {
+  background: rgba(107, 76, 138, 0.15);
+  color: var(--augmenting);
 }
 
 .knife-card-summary {
@@ -187,6 +194,10 @@
 .knife-modal-type.flaw {
   background: rgba(74, 93, 74, 0.15);
   color: var(--herb-green-dark);
+}
+.knife-modal-type.mystery {
+  background: rgba(107, 76, 138, 0.15);
+  color: var(--augmenting);
 }
 
 .knife-detail-section {

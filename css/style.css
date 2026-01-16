@@ -1094,6 +1094,9 @@ details[open] .rules-toggle::after {
 }
 
 .size-amounts-ref {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
   font-size: 0.8rem;
   color: var(--ink-faded);
   background: var(--parchment);
@@ -1101,6 +1104,13 @@ details[open] .rules-toggle::after {
   border-radius: var(--radius-sm);
   margin-bottom: var(--space-md);
   border-left: 3px solid var(--herb-green);
+}
+
+.size-amounts-ref svg {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  color: var(--herb-green);
 }
 
 .size-amounts-ref strong {
@@ -2574,12 +2584,14 @@ details[open] .rules-toggle::after {
 .knife-card.leverage::before { background: var(--gold-accent); }
 .knife-card.complication::before { background: var(--copper-accent); }
 .knife-card.flaw::before { background: var(--herb-green); }
+.knife-card.mystery::before { background: var(--augmenting); }
 
 .knife-card.evidence:hover { border-color: var(--sepia); }
 .knife-card.vulnerability:hover { border-color: var(--blood-red); }
 .knife-card.leverage:hover { border-color: var(--gold-accent); }
 .knife-card.complication:hover { border-color: var(--copper-accent); }
 .knife-card.flaw:hover { border-color: var(--herb-green); }
+.knife-card.mystery:hover { border-color: var(--augmenting); }
 
 .knife-card-header {
   display: flex;
@@ -2603,6 +2615,7 @@ details[open] .rules-toggle::after {
 .knife-card.leverage:hover .knife-card-icon { color: var(--gold-accent); }
 .knife-card.complication:hover .knife-card-icon { color: var(--copper-accent); }
 .knife-card.flaw:hover .knife-card-icon { color: var(--herb-green); }
+.knife-card.mystery:hover .knife-card-icon { color: var(--augmenting); }
 
 .knife-card-name {
   font-family: var(--font-heading);
@@ -2640,6 +2653,10 @@ details[open] .rules-toggle::after {
 .knife-card.flaw .knife-card-type {
   background: rgba(74, 93, 74, 0.15);
   color: var(--herb-green-dark);
+}
+.knife-card.mystery .knife-card-type {
+  background: rgba(107, 76, 138, 0.15);
+  color: var(--augmenting);
 }
 
 .knife-card-summary {
@@ -2715,6 +2732,10 @@ details[open] .rules-toggle::after {
 .knife-modal-type.flaw {
   background: rgba(74, 93, 74, 0.15);
   color: var(--herb-green-dark);
+}
+.knife-modal-type.mystery {
+  background: rgba(107, 76, 138, 0.15);
+  color: var(--augmenting);
 }
 
 .knife-detail-section {
@@ -4847,11 +4868,15 @@ details[open] .rules-toggle::after {
   color: var(--herb-green-dark);
   font-weight: 500;
   position: relative;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 2px;
+  transition: all 0.2s ease;
 }
 
 .flora-clickable:hover {
   color: var(--herb-green);
-  text-decoration: underline;
+  text-decoration-style: solid;
 }
 
 /* Medicine link in Used In column */
@@ -4859,42 +4884,18 @@ details[open] .rules-toggle::after {
   cursor: pointer;
   color: var(--sepia);
   font-weight: 500;
-  position: relative;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 2px;
+  transition: all 0.2s ease;
 }
 
 .medicine-link:hover {
-  text-decoration: underline;
+  color: var(--ink-brown);
+  text-decoration-style: solid;
 }
 
-.medicine-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--gold-accent);
-  transition: width 0.2s ease;
-}
-
-.medicine-link:hover::after {
-  width: 100%;
-}
-
-.flora-clickable::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--herb-green);
-  transition: width 0.2s ease;
-}
-
-.flora-clickable:hover::after {
-  width: 100%;
-}
+/* Flora clickable now uses text-decoration instead of ::after pseudo-element */
 
 /* Add buffer to ingredient tables to prevent scrollbar on hover */
 .ingredient-table tbody tr:last-child td {
@@ -5894,7 +5895,7 @@ details[open] .rules-toggle::after {
   font-size: 2rem;
   color: var(--ink-dark);
   text-align: center;
-  margin: 0 0 var(--space-xl) 0;
+  margin: 0;
 }
 
 .rumors-details-grid {
@@ -5903,45 +5904,7 @@ details[open] .rules-toggle::after {
   gap: var(--space-lg);
 }
 
-.rumors-detail-card {
-  background: var(--parchment-light);
-  border-radius: var(--radius-lg);
-  padding: var(--space-xl);
-  border: 1px solid var(--parchment-aged);
-  text-align: center;
-}
-
-.rumors-detail-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(135deg, var(--gold-accent) 0%, var(--gold-highlight) 100%);
-  border-radius: 50%;
-  margin-bottom: var(--space-md);
-}
-
-.rumors-detail-icon svg {
-  width: 28px;
-  height: 28px;
-  color: var(--brown-leather-dark);
-}
-
-.rumors-detail-card h3 {
-  font-family: var(--font-heading);
-  font-size: 1.2rem;
-  color: var(--ink-dark);
-  margin: 0 0 var(--space-sm) 0;
-}
-
-.rumors-detail-card p {
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  color: var(--ink-faded);
-  line-height: 1.6;
-  margin: 0;
-}
+/* rumors-detail-card styles moved to css/pages/rumors.css */
 
 /* Responsive */
 @media (max-width: 1024px) {

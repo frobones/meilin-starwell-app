@@ -138,7 +138,7 @@
             <!-- Rumors Page (Player-Facing) -->
             <div class="page active" id="rumors-page">
                 <!-- Hero with Key Art -->
-                <header class="rumors-hero" data-lightbox="img/key_art.png">
+                <header class="rumors-hero">
                     <img src="img/key_art.png" alt="Meilin Starwell" class="rumors-hero-image" />
                 </header>
 
@@ -172,6 +172,7 @@
                 <!-- Visual Details -->
                 <section class="rumors-details">
                     <h2 class="rumors-details-title">What You Notice</h2>
+                    <p class="rumors-details-hint"><em>Hover to illuminate the details...</em></p>
                     <div class="rumors-details-grid">
                         <div class="rumors-detail-card">
                             <span class="rumors-detail-icon"><i data-lucide="eye"></i></span>
@@ -194,10 +195,69 @@
                 <!-- Divider -->
                 <hr class="rumors-divider" />
 
-                <!-- Character Turnaround -->
+                <!-- Character Turnaround with Interactive Hotspots -->
                 <section class="rumors-views">
-                    <div class="rumors-turnaround" data-lightbox="img/turnaround.png">
-                        <img src="img/turnaround.png" alt="Meilin Starwell - Character Turnaround" />
+                    <h2 class="turnaround-title">Character Design</h2>
+                    <p class="turnaround-hint"><em>Hover over the glowing points to explore details...</em></p>
+                    <div class="rumors-turnaround" id="turnaround-container">
+                        <img src="img/turnaround.png" alt="Meilin Starwell - Character Turnaround" data-lightbox="img/turnaround.png" />
+                        
+                        <!-- Interactive Hotspots -->
+                        <div class="hotspot" data-hotspot="potion-vials" style="left: 40%; top: 44%;">
+                            <span class="hotspot-pulse"></span>
+                            <div class="hotspot-tooltip">
+                                <h4>Potion Vials</h4>
+                                <p>Glass vials filled with prepared remedies: antitoxins, stimulants, and numbing agents. Each color-coded by effect.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="hotspot" data-hotspot="satchel" style="left: 8%; top: 49%;">
+                            <span class="hotspot-pulse"></span>
+                            <div class="hotspot-tooltip">
+                                <h4>Herbalist's Satchel</h4>
+                                <p>A reinforced leather pouch containing mortar, pestle, and dried ingredients. The buckles are worn smooth from years of use.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="hotspot" data-hotspot="cape" style="left: 82%; top: 29%;">
+                            <span class="hotspot-pulse"></span>
+                            <div class="hotspot-tooltip tooltip-left">
+                                <h4>Hooded Cape</h4>
+                                <p>A weathered traveler's cloak. The mottled brown fabric helps her blend into crowds when she'd rather not be noticed.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="hotspot" data-hotspot="hair" style="left: 60%; top: 15%;">
+                            <span class="hotspot-pulse"></span>
+                            <div class="hotspot-tooltip">
+                                <h4>Hair Buns</h4>
+                                <p>Practical space buns keep her hair out of the way during delicate work. The gold ties were a gift from her father.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="hotspot" data-hotspot="apron" style="left: 14%; top: 34%;">
+                            <span class="hotspot-pulse"></span>
+                            <div class="hotspot-tooltip">
+                                <h4>Work Apron</h4>
+                                <p>A faded rose-colored apron, stained with tinctures and herb residue. The fabric is worn thin at the edges from countless washings.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="hotspot" data-hotspot="constellation" style="left: 59%; top: 46%;">
+                            <span class="hotspot-pulse hotspot-pulse-mystery"></span>
+                            <div class="hotspot-tooltip">
+                                <h4>Constellation Mark</h4>
+                                <p>A cluster of pale scars just above her wrist. It looks like an old chemical burn, but the pattern seems oddly deliberate.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="hotspot" data-hotspot="boots" style="left: 36%; top: 81%;">
+                            <span class="hotspot-pulse"></span>
+                            <div class="hotspot-tooltip">
+                                <h4>Boots</h4>
+                                <p>Sturdy leather boots with reinforced soles. Made for standing long hours at a workbench, but practical enough for the docks.</p>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
@@ -531,6 +591,7 @@
                     <input type="password" id="passkey-input" class="passkey-input" placeholder="Enter passkey..." autocomplete="off">
                     <p class="passkey-error" id="passkey-error"></p>
                     <div class="passkey-buttons">
+                        <button type="button" class="passkey-cancel" id="passkey-cancel">Go Back</button>
                         <button type="submit" class="passkey-submit">Unlock</button>
                     </div>
                 </form>

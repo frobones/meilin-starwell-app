@@ -185,7 +185,8 @@ function createCreaturePartsSection() {
     
     const sizeRef = sizeAmounts ? `
         <div class="size-amounts-ref">
-            <strong>Δ amounts by size:</strong> Medium or smaller = 1, Large = 2, Huge = 4, Gargantuan+ = 8
+            <i data-lucide="info"></i>
+            <span><strong>Δ amounts by size:</strong> Medium or smaller = 1, Large = 2, Huge = 4, Gargantuan+ = 8</span>
         </div>
     ` : '';
     

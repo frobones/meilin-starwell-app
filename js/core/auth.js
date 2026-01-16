@@ -81,6 +81,16 @@ export function closePasskeyModal() {
 }
 
 /**
+ * Cancel passkey entry and navigate to a safe page
+ */
+export function cancelPasskey() {
+    store.set('pendingPage', null);
+    closePasskeyModal();
+    // Navigate to the default safe page (rumors)
+    events.emit('navigate:to', { page: 'rumors' });
+}
+
+/**
  * Handle passkey submission
  */
 export function checkPasskey() {
@@ -110,6 +120,7 @@ export function checkPasskey() {
 export function bindPasskeyEvents() {
     const form = document.getElementById('passkey-form');
     const input = document.getElementById('passkey-input');
+    const cancelBtn = document.getElementById('passkey-cancel');
     
     if (form) {
         form.addEventListener('submit', (e) => {
@@ -123,6 +134,12 @@ export function bindPasskeyEvents() {
             input.classList.remove('error');
             const errorEl = document.getElementById('passkey-error');
             if (errorEl) errorEl.textContent = '';
+        });
+    }
+    
+    if (cancelBtn) {
+        cancelBtn.addEventListener('click', () => {
+            cancelPasskey();
         });
     }
 }

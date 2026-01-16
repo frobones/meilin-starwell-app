@@ -399,9 +399,17 @@ function getCraftableMedicines() {
 }
 
 /**
- * Get star display for a medicine
+ * Get star display for a medicine (base configuration for cards)
  */
 function getMedicineStars(medicine) {
+    // For variable-stars medicines, show the base (×1) configuration
+    if (medicine.variableStars && medicine.starVariants && medicine.starVariants.length > 0) {
+        const baseVariant = medicine.starVariants[0];
+        const filled = '★'.repeat(baseVariant.stars);
+        const empty = '☆'.repeat(Math.max(0, baseVariant.maxStars - baseVariant.stars));
+        return filled + empty;
+    }
+    
     const difficulty = medicine.difficulty;
     const maxStars = medicine.maxStars || 5;
     const indefiniteStar = medicine.indefiniteStar || false;
@@ -415,6 +423,29 @@ function getMedicineStars(medicine) {
     const indefinite = indefiniteStar ? '✧' : '';
     
     return filled + empty + indefinite;
+}
+
+/**
+ * Get stars for variable-strength medicines based on selected multiplier
+ * @param {Object} medicine - The medicine object
+ * @param {number} multiplier - The multiplier (1-4)
+ * @param {number} enhancementCount - Number of enhancement slots used
+ */
+function getVariableStars(medicine, multiplier, enhancementCount = 0) {
+    if (!medicine.variableStars || !medicine.starVariants) {
+        return getEnhancedStars(medicine, enhancementCount);
+    }
+    
+    const variant = medicine.starVariants.find(v => v.multiplier === multiplier) || medicine.starVariants[0];
+    const baseStars = variant.stars;
+    const maxStars = variant.maxStars;
+    const enhanceableSlots = maxStars - baseStars;
+    
+    // Apply enhancements up to available slots
+    const effectiveStars = Math.min(baseStars + enhancementCount, maxStars);
+    const emptySlots = maxStars - effectiveStars;
+    
+    return '★'.repeat(effectiveStars) + '☆'.repeat(Math.max(0, emptySlots));
 }
 
 /**
@@ -453,6 +484,11 @@ function getEnhancedStars(medicine, enhancementCount) {
  * Check if medicine can use Alchemilla (has extendable duration)
  */
 function canUseAlchemilla(medicine) {
+    // Variable-strength medicines only use Alchemilla if explicitly configured
+    if (medicine.variableStars) {
+        return !!medicine.alchemilla;
+    }
+    
     // Check if medicine has alchemilla data or has a valid duration
     if (medicine.alchemilla) return true;
     
@@ -613,10 +649,20 @@ export function openCraftModal(medicine) {
     const alternatives = getAvailableAlternatives(medicine);
     const primaryAlternatives = getAvailablePrimaryAlternatives(medicine);
     
+    // For variable-strength medicines, calculate max multiplier based on inventory
+    let maxSecondaryMultiplier = 1;
+    if (medicine.variableStars && medicine.secondary && medicine.secondary.length === 1) {
+        const secondaryName = getSecondaryName(medicine.secondary[0]);
+        const available = ingredientInventory[secondaryName] || 0;
+        maxSecondaryMultiplier = Math.min(4, Math.max(1, available));
+    }
+    
     craftModalState = {
         medicine: medicine,
         alchemillaCount: 0,
         ephedraCount: 0,
+        secondaryMultiplier: 1,
+        maxSecondaryMultiplier: maxSecondaryMultiplier,
         chosenAlternative: alternatives.length > 0 ? alternatives[0].name : null,
         chosenPrimary: primaryAlternatives.length > 0 ? primaryAlternatives[0].name : null,
         alternatives: alternatives,
@@ -665,18 +711,27 @@ function renderCraftModalContent() {
     const content = document.getElementById('craft-modal-content');
     if (!content || !craftModalState) return;
     
-    const { medicine, alchemillaCount, ephedraCount, chosenAlternative, alternatives, chosenPrimary, primaryAlternatives, maxEnhancements } = craftModalState;
+    const { medicine, alchemillaCount, ephedraCount, secondaryMultiplier, maxSecondaryMultiplier, chosenAlternative, alternatives, chosenPrimary, primaryAlternatives, maxEnhancements } = craftModalState;
     
     const totalEnhancementsUsed = alchemillaCount + ephedraCount;
-    const effectiveDifficulty = medicine.difficulty + totalEnhancementsUsed;
-    const effectiveDC = getDCForDifficulty(effectiveDifficulty);
     
-    // Get enhanced stars that reflect current enhancements
-    const stars = getEnhancedStars(medicine, totalEnhancementsUsed);
+    // For variable-stars medicines, calculate effective difficulty from the selected variant
+    let effectiveDifficulty;
+    let stars;
+    if (medicine.variableStars && medicine.starVariants) {
+        const variant = medicine.starVariants.find(v => v.multiplier === secondaryMultiplier) || medicine.starVariants[0];
+        effectiveDifficulty = variant.stars + totalEnhancementsUsed;
+        stars = getVariableStars(medicine, secondaryMultiplier, totalEnhancementsUsed);
+    } else {
+        effectiveDifficulty = medicine.difficulty + totalEnhancementsUsed;
+        stars = getEnhancedStars(medicine, totalEnhancementsUsed);
+    }
+    const effectiveDC = getDCForDifficulty(effectiveDifficulty);
     
     // Build the unified recipe section with stars and DC
     const recipeHtml = buildRecipeSection(medicine, alchemillaCount, ephedraCount, maxEnhancements, 
-        chosenAlternative, alternatives, chosenPrimary, primaryAlternatives, stars, effectiveDC);
+        chosenAlternative, alternatives, chosenPrimary, primaryAlternatives, stars, effectiveDC,
+        secondaryMultiplier, maxSecondaryMultiplier);
     
     content.innerHTML = `
         <div class="craft-modal-header" data-category="${medicine.category}">
@@ -707,9 +762,11 @@ function renderCraftModalContent() {
  * Build the unified Recipe section
  */
 function buildRecipeSection(medicine, alchemillaCount, ephedraCount, maxEnhancements, 
-    chosenAlternative, alternatives, chosenPrimary, primaryAlternatives, stars, effectiveDC) {
+    chosenAlternative, alternatives, chosenPrimary, primaryAlternatives, stars, effectiveDC,
+    secondaryMultiplier = 1, maxSecondaryMultiplier = 1) {
     
     const totalUsed = alchemillaCount + ephedraCount;
+    const isVariableStrength = medicine.variableStars && medicine.starVariants;
     const canAddMore = totalUsed < maxEnhancements;
     const alchemillaAvailable = ingredientInventory['Alchemilla'] || 0;
     const ephedraAvailable = ingredientInventory['Ephedra'] || 0;
@@ -730,34 +787,36 @@ function buildRecipeSection(medicine, alchemillaCount, ephedraCount, maxEnhancem
     const baseDice = getBaseDice();
     const currentDice = ephedraCount > 0 ? getEnhancedDice(medicine, ephedraCount) : baseDice;
     
-    // Build result display (only if medicine has enhanceable properties)
+    // Build result display
     let resultHtml = '';
-    if (hasEnhancements && maxEnhancements > 0) {
-        let resultCards = '';
-        
-        if (showAlchemilla) {
-            resultCards += `
-                <div class="recipe-result-card duration ${alchemillaCount > 0 ? 'active' : ''} ${isIndefinite ? 'indefinite' : ''}">
-                    <i data-lucide="clock"></i>
-                    <span class="recipe-result-value">${currentDuration}</span>
-                    <span class="recipe-result-label">Duration</span>
-                </div>
-            `;
-        }
-        
-        if (showEphedra && medicine.ephedra) {
-            resultCards += `
-                <div class="recipe-result-card potency ${ephedraCount > 0 ? 'active' : ''}">
-                    <i data-lucide="heart"></i>
-                    <span class="recipe-result-value">${currentDice}</span>
-                    <span class="recipe-result-label">Potency</span>
-                </div>
-            `;
-        }
-        
-        if (resultCards) {
-            resultHtml = `<div class="recipe-results">${resultCards}</div>`;
-        }
+    let resultCards = '';
+    
+    // Show duration for medicines that have one (enhanceable or fixed)
+    const hasDuration = medicine.duration && medicine.duration.toLowerCase() !== 'instant';
+    if (hasDuration) {
+        const durationDisplay = showAlchemilla ? currentDuration : medicine.duration;
+        resultCards += `
+            <div class="recipe-result-card duration ${alchemillaCount > 0 ? 'active' : ''} ${isIndefinite ? 'indefinite' : ''}">
+                <i data-lucide="clock"></i>
+                <span class="recipe-result-value">${durationDisplay}</span>
+                <span class="recipe-result-label">Duration</span>
+            </div>
+        `;
+    }
+    
+    // Show potency for medicines with Ephedra enhancement
+    if (hasEnhancements && maxEnhancements > 0 && showEphedra && medicine.ephedra) {
+        resultCards += `
+            <div class="recipe-result-card potency ${ephedraCount > 0 ? 'active' : ''}">
+                <i data-lucide="heart"></i>
+                <span class="recipe-result-value">${currentDice}</span>
+                <span class="recipe-result-label">Potency</span>
+            </div>
+        `;
+    }
+    
+    if (resultCards) {
+        resultHtml = `<div class="recipe-results">${resultCards}</div>`;
     }
     
     // Build ingredient rows
@@ -818,6 +877,27 @@ function buildRecipeSection(medicine, alchemillaCount, ephedraCount, maxEnhancem
                     ` : ''}
                 </div>
             `;
+        } else if (isVariableStrength && medicine.secondary.length === 1) {
+            // Variable-strength medicine with single secondary (e.g., Dragon Tea, Draught of Giant Strength)
+            const name = getSecondaryName(medicine.secondary[0]);
+            const isCreature = creaturePartsLookup?.[name];
+            const available = ingredientInventory[name] || 0;
+            const remaining = available - secondaryMultiplier;
+            
+            ingredientRows += `
+                <div class="recipe-ingredient-row secondary variable-strength ${isCreature ? 'creature' : ''}">
+                    <div class="recipe-ingredient-info">
+                        <i data-lucide="${isCreature ? 'skull' : 'leaf'}"></i>
+                        <span class="recipe-ingredient-name">${name}</span>
+                        <span class="recipe-ingredient-available">${available} in stock</span>
+                    </div>
+                    <div class="recipe-ingredient-spinner">
+                        <button class="secondary-dec" data-type="secondary" ${secondaryMultiplier <= 1 ? 'disabled' : ''}>−</button>
+                        <span class="secondary-count">×${secondaryMultiplier}</span>
+                        <button class="secondary-inc" data-type="secondary" ${secondaryMultiplier >= maxSecondaryMultiplier ? 'disabled' : ''}>+</button>
+                    </div>
+                </div>
+            `;
         } else {
             // AND - all required
             medicine.secondary.forEach(s => {
@@ -845,7 +925,7 @@ function buildRecipeSection(medicine, alchemillaCount, ephedraCount, maxEnhancem
                     <div class="recipe-ingredient-info">
                         <i data-lucide="sparkles"></i>
                         <span class="recipe-ingredient-name">Alchemilla</span>
-                        <span class="recipe-ingredient-available">${alchemillaRemaining} avail</span>
+                        <span class="recipe-ingredient-available">${alchemillaAvailable} in stock</span>
                     </div>
                     <div class="recipe-ingredient-spinner">
                         <button class="enhancement-dec" data-type="alchemilla" ${alchemillaCount === 0 ? 'disabled' : ''}>−</button>
@@ -863,7 +943,7 @@ function buildRecipeSection(medicine, alchemillaCount, ephedraCount, maxEnhancem
                     <div class="recipe-ingredient-info">
                         <i data-lucide="sparkles"></i>
                         <span class="recipe-ingredient-name">Ephedra</span>
-                        <span class="recipe-ingredient-available">${ephedraRemaining} avail</span>
+                        <span class="recipe-ingredient-available">${ephedraAvailable} in stock</span>
                     </div>
                     <div class="recipe-ingredient-spinner">
                         <button class="enhancement-dec" data-type="ephedra" ${ephedraCount === 0 ? 'disabled' : ''}>−</button>
@@ -891,6 +971,32 @@ function buildRecipeSection(medicine, alchemillaCount, ephedraCount, maxEnhancem
             </div>
         </div>
     `;
+}
+
+/**
+ * Update max enhancements based on current variant (for variable-strength medicines)
+ */
+function updateMaxEnhancements() {
+    if (!craftModalState) return;
+    
+    const { medicine, secondaryMultiplier } = craftModalState;
+    
+    if (medicine.variableStars && medicine.starVariants) {
+        const variant = medicine.starVariants.find(v => v.multiplier === secondaryMultiplier) || medicine.starVariants[0];
+        const maxEnhancements = variant.maxStars - variant.stars;
+        craftModalState.maxEnhancements = maxEnhancements;
+        
+        // Clamp current enhancements to new max
+        const totalUsed = craftModalState.alchemillaCount + craftModalState.ephedraCount;
+        if (totalUsed > maxEnhancements) {
+            // Reduce proportionally, preferring to keep alchemilla
+            const excess = totalUsed - maxEnhancements;
+            craftModalState.ephedraCount = Math.max(0, craftModalState.ephedraCount - excess);
+            if (craftModalState.alchemillaCount + craftModalState.ephedraCount > maxEnhancements) {
+                craftModalState.alchemillaCount = maxEnhancements - craftModalState.ephedraCount;
+            }
+        }
+    }
 }
 
 /**
@@ -946,6 +1052,28 @@ function bindCraftModalEvents() {
         });
     });
     
+    // Secondary multiplier controls (for variable-strength medicines like Dragon Tea)
+    document.querySelectorAll('.secondary-inc').forEach(btn => {
+        btn.addEventListener('click', () => {
+            craftModalState.secondaryMultiplier = Math.min(
+                craftModalState.secondaryMultiplier + 1,
+                craftModalState.maxSecondaryMultiplier
+            );
+            // Update max enhancements based on new variant
+            updateMaxEnhancements();
+            renderCraftModalContent();
+        });
+    });
+    
+    document.querySelectorAll('.secondary-dec').forEach(btn => {
+        btn.addEventListener('click', () => {
+            craftModalState.secondaryMultiplier = Math.max(1, craftModalState.secondaryMultiplier - 1);
+            // Update max enhancements based on new variant
+            updateMaxEnhancements();
+            renderCraftModalContent();
+        });
+    });
+    
     const confirmBtn = document.getElementById('confirm-craft');
     if (confirmBtn) {
         confirmBtn.addEventListener('click', () => executeCraft());
@@ -963,7 +1091,7 @@ function bindCraftModalEvents() {
 function executeCraft() {
     if (!craftModalState) return;
     
-    const { medicine, alchemillaCount, ephedraCount, chosenAlternative, chosenPrimary } = craftModalState;
+    const { medicine, alchemillaCount, ephedraCount, secondaryMultiplier, chosenAlternative, chosenPrimary } = craftModalState;
     
     // Deduct primary ingredient
     if (medicine.primary) {
@@ -975,9 +1103,14 @@ function executeCraft() {
     }
     
     const isOrAlternative = hasAlternativeSecondaries(medicine);
+    const isVariableStrength = medicine.variableStars && medicine.starVariants;
     
     if (isOrAlternative && chosenAlternative) {
         ingredientInventory[chosenAlternative] = (ingredientInventory[chosenAlternative] || 0) - 1;
+    } else if (isVariableStrength && medicine.secondary && medicine.secondary.length === 1) {
+        // Variable-strength medicine: deduct based on multiplier
+        const name = getSecondaryName(medicine.secondary[0]);
+        ingredientInventory[name] = (ingredientInventory[name] || 0) - secondaryMultiplier;
     } else if (!isOrAlternative) {
         (medicine.secondary || []).forEach(s => {
             const name = getSecondaryName(s);

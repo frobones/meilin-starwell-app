@@ -40,13 +40,23 @@
     "escalation": "Cassian's 'favor' creates a debt. His patron has expectations. Family loyalty conflicts with crew safety."
   },
   {
-    "id": "pattern-obsession",
-    "name": "Pattern Obsession",
-    "type": "flaw",
-    "icon": "search",
-    "summary": "She can't let go of something that doesn't make sense.",
-    "details": "If something doesn't match the pattern, Meilin will keep pulling until she understands it, even when she should stop. This has saved lives. It has also nearly ended hers.",
-    "trigger": "A detail doesn't add up. Someone's story has a gap. The 'obvious' answer is too clean.",
-    "escalation": "She stays too long. Asks the wrong question. Puts herself (or others) in danger chasing the thread."
+    "id": "constellation-mark",
+    "name": "The Mark I Can't Explain",
+    "type": "mystery",
+    "icon": "sparkles",
+    "summary": "The constellation scar on her forearm predates any accident she remembers.",
+    "details": "The small cluster of micro-scars on Meilin's left forearm looks like a starfield. Her father says she had it before she could walk, but he won't say more. It's not a chemical burn from the shop. It's something older.",
+    "trigger": "Someone notices the mark. A healer asks about its origin. A pattern emerges that matches the scar's shape.",
+    "escalation": "The mark connects to something larger: her mother, her sensitivity to mindersand, or something waiting to be found. Kaito's silence becomes a wall she has to break."
+  },
+  {
+    "id": "absent-mother",
+    "name": "The Mother Who Wasn't There",
+    "type": "mystery",
+    "icon": "user-x",
+    "summary": "Her father never speaks of her mother. The silence is too complete to be grief.",
+    "details": "No portrait, no name in the ledgers, no grave to visit. Kaito raised Meilin and Cassian alone, and he treats questions about their mother like closed wounds. Something happened, and he's protecting her from knowing what.",
+    "trigger": "Someone asks about her family. A document surfaces with her mother's name. Cassian mentions something he shouldn't know.",
+    "escalation": "The truth forces a reckoning: with her father's choices, her own origins, or enemies who knew her mother before Meilin existed."
   }
 ]

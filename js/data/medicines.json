@@ -707,21 +707,17 @@
       "fullEffect": "After drinking this tea, you can use an action to exhale fire in a cone, the size and strength of which is determined by the amount of dragon dust used. Each creature in the area must make a Dexterity saving throw (DC equal to 8 + your proficiency bonus + your Constitution modifier). A target takes the fire damage shown on a failed save, or half as much damage on a successful one. This effect ends after you exhale the fire three times or when 1 hour has passed.",
       "detailsTable": {
         "title": "Dragon Dust Potency",
-        "headers": ["Dragon Dust", "Damage", "Range"],
+        "headers": ["Dragon Dust", "Strength", "Damage", "Range"],
         "rows": [
-          ["×1", "4d6", "15-foot cone"],
-          ["×2", "6d6", "30-foot cone"],
-          ["×3", "8d6", "45-foot cone"],
-          ["×4", "12d6", "60-foot cone"]
+          ["×1", "★★", "4d6", "15-foot cone"],
+          ["×2", "★★★", "6d6", "30-foot cone"],
+          ["×3", "★★★★", "8d6", "45-foot cone"],
+          ["×4", "★★★★★", "12d6", "60-foot cone"]
         ]
       },
       "duration": "1 hour or 3 uses",
-      "notes": "Strength scales with dragon dust amount (×1 to ×4)",
-      "floraOnly": false,
-      "alchemilla": {
-        "baseDurationMinutes": 60,
-        "durationIndex": 2
-      }
+      "notes": "Strength scales with dragon dust amount (×1 to ×4). Not enhanceable.",
+      "floraOnly": false
     },
     {
       "id": "draught-of-giants-strength",
@@ -745,12 +741,12 @@
       "fullEffect": "When you drink this tonic, your Strength score changes for 1 hour. The new score is determined by the amount of giant heartsblood used. The tonic has no effect on you if your Strength is equal to or greater than the listed score.",
       "detailsTable": {
         "title": "Giant Heartsblood Potency",
-        "headers": ["Heartsblood", "Strength Score"],
+        "headers": ["Heartsblood", "Strength", "Score"],
         "rows": [
-          ["×1", "21"],
-          ["×2", "23"],
-          ["×3", "27"],
-          ["×4", "29"]
+          ["×1", "★☆", "21"],
+          ["×2", "★★☆", "23"],
+          ["×3", "★★★☆", "27"],
+          ["×4", "★★★★☆", "29"]
         ]
       },
       "duration": "1 hour",

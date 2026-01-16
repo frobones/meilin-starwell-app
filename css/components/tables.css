@@ -112,6 +112,9 @@
 }
 
 .size-amounts-ref {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
   font-size: 0.8rem;
   color: var(--ink-faded);
   background: var(--parchment);
@@ -119,6 +122,13 @@
   border-radius: var(--radius-sm);
   margin-bottom: var(--space-md);
   border-left: 3px solid var(--herb-green);
+}
+
+.size-amounts-ref svg {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  color: var(--herb-green);
 }
 
 .size-amounts-ref strong {

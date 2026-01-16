@@ -66,6 +66,43 @@ export function setupRumorHoverEffects() {
             }
         });
     });
+    
+    // Setup banner pan effect
+    setupBannerPanEffect();
+}
+
+/**
+ * Setup banner panning animation with smooth return
+ */
+function setupBannerPanEffect() {
+    const hero = document.querySelector('.rumors-hero');
+    const heroImage = document.querySelector('.rumors-hero-image');
+    
+    if (!hero || !heroImage) return;
+    
+    hero.addEventListener('mouseenter', () => {
+        // Clear any inline styles from previous return transition
+        heroImage.style.objectPosition = '';
+        heroImage.classList.add('panning');
+    });
+    
+    hero.addEventListener('mouseleave', () => {
+        // Get current computed position before removing animation
+        const computedStyle = getComputedStyle(heroImage);
+        const currentPosition = computedStyle.objectPosition;
+        
+        // Remove the animation class
+        heroImage.classList.remove('panning');
+        
+        // Set the current position as inline style to prevent snap
+        heroImage.style.objectPosition = currentPosition;
+        
+        // Force reflow to ensure the inline style is applied
+        heroImage.offsetHeight;
+        
+        // Transition back to default position
+        heroImage.style.objectPosition = 'center 5%';
+    });
 }
 
 /**
