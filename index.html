@@ -13,7 +13,9 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     
-    <!-- Styles -->
+    <!-- Styles (Modular CSS) -->
+    <link rel="stylesheet" href="css/main.css">
+    <!-- Legacy styles for sections not yet migrated -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -559,5 +561,8 @@
             lucide.createIcons();
         });
     </script>
+    
+    <!-- ES Module System (gradual migration) -->
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>

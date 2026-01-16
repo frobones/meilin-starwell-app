@@ -1,0 +1,194 @@
+/* ============================================
+   Form Components - Search, Filters, Inputs
+   ============================================ */
+
+/* Search Section */
+.search-section {
+  margin-bottom: var(--space-lg);
+}
+
+.search-bar {
+  position: relative;
+  margin-bottom: var(--space-md);
+}
+
+.search-bar input {
+  width: 100%;
+  padding: var(--space-md) var(--space-lg);
+  padding-right: 3rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--ink-black);
+  background: var(--parchment-light);
+  border: 2px solid var(--parchment-dark);
+  border-radius: var(--radius-md);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-bar input::placeholder {
+  color: var(--ink-faded);
+  font-style: italic;
+}
+
+.search-bar input:focus {
+  outline: none;
+  border-color: var(--herb-green);
+  box-shadow: 0 0 0 3px rgba(74, 93, 74, 0.15);
+}
+
+.clear-search {
+  position: absolute;
+  right: var(--space-md);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--ink-faded);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.search-bar input:not(:placeholder-shown) + .clear-search {
+  opacity: 1;
+}
+
+.clear-search:hover {
+  color: var(--ink-brown);
+}
+
+/* Filter Controls */
+.filter-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  align-items: center;
+  margin-bottom: var(--space-md);
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.filter-group label {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  color: var(--ink-brown);
+  font-weight: 600;
+}
+
+.filter-group select {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--parchment-light);
+  border: 1px solid var(--parchment-dark);
+  border-radius: var(--radius-sm);
+  color: var(--ink-black);
+  cursor: pointer;
+}
+
+.filter-group select:focus {
+  outline: none;
+  border-color: var(--herb-green);
+}
+
+/* Checkbox */
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--ink-brown);
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--herb-green);
+  cursor: pointer;
+}
+
+/* Component item (used in modal components section) */
+.component-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 0.95rem;
+}
+
+.component-label {
+  font-weight: 600;
+  color: var(--ink-brown);
+  min-width: 80px;
+}
+
+.component-value {
+  color: var(--herb-green-dark);
+}
+
+.component-value.component-flora {
+  color: var(--herb-green);
+  font-weight: 600;
+}
+
+.component-value.component-creature {
+  color: var(--creature-red);
+  font-weight: 600;
+}
+
+.component-type {
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  margin-left: 4px;
+}
+
+.component-type.flora {
+  background: var(--herb-green);
+  color: var(--parchment-light);
+}
+
+.component-type.creature {
+  background: var(--creature-red);
+  color: var(--parchment-light);
+}
+
+.component-icon {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 4px;
+}
+
+.component-icon.flora {
+  color: var(--herb-green);
+}
+
+.component-icon.creature {
+  color: var(--creature-red);
+}
+
+/* Responsive forms */
+@media (max-width: 768px) {
+  .filter-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .filter-group {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .filter-group select {
+    width: 100%;
+  }
+}

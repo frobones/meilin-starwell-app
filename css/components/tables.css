@@ -1,0 +1,223 @@
+/* ============================================
+   Table Components
+   ============================================ */
+
+/* Ingredient Tables */
+.ingredients-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.ingredient-group {
+  background: var(--parchment-light);
+  border: 1px solid var(--parchment-dark);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.ingredient-group-header {
+  background: linear-gradient(135deg, var(--parchment-dark) 0%, var(--parchment-aged) 100%);
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid var(--parchment-dark);
+}
+
+.ingredient-group-title {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--sepia);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.ingredient-group-icon {
+  font-size: 1.3rem;
+}
+
+.ingredient-table-container {
+  overflow-x: auto;
+}
+
+.ingredient-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.ingredient-table th,
+.ingredient-table td {
+  padding: var(--space-sm) var(--space-md);
+  text-align: left;
+  border-bottom: 1px solid var(--parchment-dark);
+}
+
+.ingredient-table th {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--ink-brown);
+  background: var(--parchment);
+  position: sticky;
+  top: 0;
+}
+
+.ingredient-table tr:last-child td {
+  border-bottom: none;
+}
+
+.ingredient-table tr:hover td {
+  background: var(--parchment);
+}
+
+.ingredient-name {
+  font-weight: 600;
+  color: var(--herb-green-dark);
+}
+
+.ingredient-dc {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--ink-faded);
+}
+
+.ingredient-amount {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--ink-brown);
+  text-align: center;
+}
+
+.amount-delta {
+  display: inline-block;
+  font-weight: 700;
+  color: var(--herb-green-dark);
+  cursor: help;
+}
+
+/* Creature Parts Table */
+.creature-parts-table th:nth-child(2),
+.creature-parts-table td:nth-child(2) {
+  text-align: center;
+  width: 50px;
+}
+
+.creature-source {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--ink-faded);
+  font-style: italic;
+  margin-top: 2px;
+}
+
+.size-amounts-ref {
+  font-size: 0.8rem;
+  color: var(--ink-faded);
+  background: var(--parchment);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-md);
+  border-left: 3px solid var(--herb-green);
+}
+
+.size-amounts-ref strong {
+  color: var(--ink-brown);
+}
+
+.creature-type-details {
+  margin-bottom: var(--space-sm);
+}
+
+.creature-type-details summary {
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--ink-brown);
+  padding: var(--space-sm) var(--space-md);
+  padding-left: calc(var(--space-md) + 1.2em);
+  background: var(--parchment);
+  border-radius: var(--radius-sm);
+  transition: background 0.2s ease;
+  list-style-position: outside;
+  margin-left: var(--space-sm);
+}
+
+.creature-type-details summary::marker {
+  font-size: 0.8em;
+}
+
+.creature-type-details summary:hover {
+  background: var(--parchment-dark);
+}
+
+.creature-type-details[open] summary {
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  background: var(--parchment-dark);
+}
+
+.creature-type-details .ingredient-table {
+  border: 1px solid var(--parchment-dark);
+  border-top: none;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  margin-left: var(--space-sm);
+}
+
+/* Medicine links in creature parts */
+.creature-used-in .medicine-link {
+  color: var(--sepia);
+  cursor: pointer;
+  font-weight: 500;
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.creature-used-in .medicine-link:hover {
+  text-decoration: underline;
+}
+
+.creature-used-in .medicine-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gold-accent);
+  transition: width 0.2s ease;
+}
+
+.creature-used-in .medicine-link:hover::after {
+  width: 100%;
+}
+
+/* Variable Stars Table */
+.variable-stars-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  margin-top: var(--space-sm);
+}
+
+.variable-stars-table th,
+.variable-stars-table td {
+  padding: var(--space-xs) var(--space-sm);
+  text-align: left;
+  border-bottom: 1px solid var(--parchment-dark);
+}
+
+.variable-stars-table th {
+  background: var(--parchment-dark);
+  font-weight: 600;
+  color: var(--ink-dark);
+}
+
+.variable-stars-table td.variant-stars {
+  color: var(--star-filled);
+  letter-spacing: -1px;
+  font-size: 0.9rem;
+}
+
+.variable-stars-table tbody tr:hover {
+  background: var(--parchment-light);
+}

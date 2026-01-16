@@ -1,0 +1,92 @@
+/* ============================================
+   CSS Variables - Apothecary Color Palette
+   ============================================ */
+
+:root {
+  /* Parchment tones */
+  --parchment-light: #f5f0e1;
+  --parchment: #e8dcc4;
+  --parchment-dark: #d4c4a8;
+  --parchment-aged: #c9b896;
+  
+  /* Earth and herb tones */
+  --herb-green: #4a5d4a;
+  --herb-green-dark: #3a4a3a;
+  --dried-herb: #8b7355;
+  --bark-brown: #6b5344;
+  --sepia: #704214;
+  --sepia-light: #8b6914;
+  
+  /* Ink and accent */
+  --ink-black: #2c2416;
+  --ink-brown: #3d2914;
+  --ink-faded: #5c4934;
+  --gold-accent: #b8860b;
+  --gold-dim: #8b6914;
+  --copper-accent: #b87333;
+  --blood-red: #8b2323;
+  
+  /* Category colors */
+  --augmenting: #6b4c8a;
+  --curative: #2d6a4f;
+  --fortifying: #7c4a3a;
+  --restorative: #2a5c8a;
+  --special: #8b6914;
+  
+  /* Difficulty star colors */
+  --star-filled: #b8860b;
+  --star-empty: #c9b89666;
+  
+  /* Functional */
+  --success: #2d6a4f;
+  --failure: #8b3a3a;
+  --creature-red: #8b4a4a;
+  --shadow: rgba(44, 36, 22, 0.15);
+  --shadow-heavy: rgba(44, 36, 22, 0.25);
+  
+  /* Biome/Terrain colors */
+  --biome-arctic: #87ceeb;
+  --biome-arctic-dark: #5fa8c7;
+  --biome-coast: #3a7a8c;
+  --biome-coast-dark: #2d5f6d;
+  --biome-desert: #b8956b;
+  --biome-desert-dark: #8f7352;
+  --biome-forest: #4a5d4a;
+  --biome-forest-dark: #3a4a3a;
+  --biome-grassland: #7a8c4a;
+  --biome-grassland-dark: #5f6d3a;
+  --biome-mountain: #a04040;
+  --biome-mountain-dark: #7a3030;
+  --biome-swamp: #2a2a2a;
+  --biome-swamp-dark: #1a1a1a;
+  --biome-underground: #6a5a7a;
+  --biome-underground-dark: #524560;
+  
+  /* Typography */
+  --font-display: 'Uncial Antiqua', serif;
+  --font-heading: 'Cormorant Garamond', serif;
+  --font-body: 'Crimson Text', serif;
+  --font-mono: 'Courier New', monospace;
+  
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-xxl: 3rem;
+  
+  /* Border radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* Aliases for compatibility */
+  --bg-cream: var(--parchment-light);
+  --text-muted: var(--ink-faded);
+  --ink: var(--ink-black);
+  --ink-dark: var(--ink-brown);
+  --accent-gold: #d4a574;
+  --accent-gold-light: #fff8e6;
+  --potion-blue: #4a90d9;
+}

@@ -1,0 +1,353 @@
+/* ============================================
+   Card Components
+   ============================================ */
+
+/* Medicine Card Grid */
+.medicine-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-md);
+}
+
+.medicine-card {
+  background: linear-gradient(135deg, var(--parchment-light) 0%, var(--parchment) 100%);
+  border: 1px solid var(--parchment-dark);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.medicine-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--dried-herb);
+  transition: background 0.2s ease;
+}
+
+.medicine-card[data-category="Augmenting"]::before { background: var(--augmenting); }
+.medicine-card[data-category="Curative"]::before { background: var(--curative); }
+.medicine-card[data-category="Fortifying"]::before { background: var(--fortifying); }
+.medicine-card[data-category="Restorative"]::before { background: var(--restorative); }
+.medicine-card[data-category="Special"]::before { background: var(--special); }
+
+.medicine-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px var(--shadow-heavy);
+  border-color: var(--dried-herb);
+}
+
+.medicine-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-sm);
+  gap: var(--space-md);
+  padding-right: var(--space-xl);
+}
+
+.medicine-name {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--ink-brown);
+  line-height: 1.3;
+}
+
+.medicine-stars {
+  font-size: 0.85rem;
+  white-space: nowrap;
+  color: var(--star-filled);
+  letter-spacing: -1px;
+}
+
+.medicine-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.medicine-category {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.medicine-category.Augmenting { background: rgba(107, 76, 138, 0.15); color: var(--augmenting); }
+.medicine-category.Curative { background: rgba(45, 106, 79, 0.15); color: var(--curative); }
+.medicine-category.Fortifying { background: rgba(124, 74, 58, 0.15); color: var(--fortifying); }
+.medicine-category.Restorative { background: rgba(42, 92, 138, 0.15); color: var(--restorative); }
+.medicine-category.Special { background: rgba(139, 105, 20, 0.15); color: var(--special); }
+
+.medicine-dc {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--ink-faded);
+}
+
+.medicine-preview {
+  font-size: 0.9rem;
+  color: var(--ink-faded);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.medicine-count {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--ink-faded);
+  margin-bottom: var(--space-md);
+  font-style: italic;
+}
+
+/* Ingredient badges on cards */
+.medicine-ingredient-badges {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.medicine-flora-badge {
+  font-size: 0.75rem;
+  color: var(--herb-green);
+  opacity: 0.7;
+}
+
+.medicine-creature-badge {
+  font-size: 0.75rem;
+  color: var(--creature-red);
+  opacity: 0.7;
+}
+
+/* Variable star indicator */
+.variable-star-indicator {
+  color: var(--potion-blue);
+  margin-left: 0.25rem;
+  font-size: 0.75rem;
+}
+
+/* Vignette Card */
+.vignettes-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-lg);
+}
+
+.vignettes-grid .vignette-card {
+  flex: 0 0 calc(33.333% - var(--space-lg));
+  min-width: 280px;
+  max-width: calc(33.333% - var(--space-lg));
+}
+
+.vignette-card {
+  background: var(--parchment-light);
+  border: 1px solid var(--parchment-aged);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.vignette-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--gold-accent);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.vignette-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow);
+  border-color: var(--gold-dim);
+}
+
+.vignette-card:hover::before {
+  opacity: 1;
+}
+
+.vignette-number {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--space-xs);
+}
+
+.vignette-title {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--sepia);
+  margin-bottom: var(--space-sm);
+  line-height: 1.3;
+}
+
+.vignette-preview {
+  font-size: 0.9rem;
+  color: var(--ink-faded);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.vignette-read-more {
+  margin-top: var(--space-md);
+  font-size: 0.85rem;
+  color: var(--herb-green);
+  font-weight: 600;
+}
+
+.vignette-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: var(--space-sm);
+}
+
+.vignette-skill-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: rgba(74, 93, 74, 0.15);
+  color: var(--herb-green-dark);
+}
+
+/* NPC Card */
+.npcs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-lg);
+}
+
+.npc-card {
+  background: var(--parchment-light);
+  border: 1px solid var(--parchment-aged);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.npc-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--bark-brown);
+}
+
+.npc-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow);
+  border-color: var(--bark-brown);
+}
+
+.npc-card.ally::before { background: var(--herb-green); }
+.npc-card.complicated::before { background: var(--gold-accent); }
+.npc-card.antagonist::before { background: var(--blood-red); }
+.npc-card.contact::before { background: var(--sepia); }
+
+.npc-card-header {
+  margin-bottom: var(--space-md);
+}
+
+.npc-card-name {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  color: var(--sepia);
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.npc-card-role {
+  font-size: 0.85rem;
+  color: var(--ink-faded);
+  margin: 0;
+}
+
+.npc-card-type {
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  margin-top: var(--space-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.npc-card.ally .npc-card-type {
+  background: rgba(76, 115, 74, 0.15);
+  color: var(--herb-green-dark);
+}
+
+.npc-card.complicated .npc-card-type {
+  background: rgba(184, 134, 11, 0.15);
+  color: var(--gold-accent);
+}
+
+.npc-card.antagonist .npc-card-type {
+  background: rgba(139, 35, 35, 0.15);
+  color: var(--blood-red);
+}
+
+.npc-card.contact .npc-card-type {
+  background: rgba(101, 67, 33, 0.15);
+  color: var(--bark-brown);
+}
+
+.npc-card-vibe {
+  font-size: 0.9rem;
+  color: var(--ink-brown);
+  font-style: italic;
+  margin: var(--space-md) 0 0 0;
+  line-height: 1.5;
+}
+
+/* Responsive cards */
+@media (max-width: 768px) {
+  .medicine-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .vignettes-grid .vignette-card {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}

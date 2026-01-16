@@ -1,0 +1,150 @@
+/* ============================================
+   Page Headers
+   ============================================ */
+
+.page-header {
+  text-align: center;
+  padding: var(--space-xl) var(--space-md);
+  margin-bottom: var(--space-lg);
+  border-bottom: 2px solid var(--dried-herb);
+}
+
+/* Hero variant with background image */
+.page-header-hero {
+  background-size: cover;
+  background-position: center 20%;
+  padding: 0;
+  margin: 0 calc(-1 * var(--space-xl)) var(--space-lg);
+  border-bottom: none;
+  min-height: 300px;
+  display: flex;
+  align-items: flex-end;
+  position: relative;
+}
+
+.page-header-hero .page-header-overlay {
+  width: 100%;
+  padding: var(--space-xxl) var(--space-xl) var(--space-lg);
+  background: linear-gradient(to top, rgba(26, 18, 11, 0.98) 0%, rgba(26, 18, 11, 0.8) 40%, rgba(26, 18, 11, 0.3) 70%, transparent 100%);
+}
+
+.page-header-hero .page-title {
+  color: var(--parchment-light);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.page-header-hero .page-subtitle {
+  color: var(--gold-accent);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* Specific positioning for backstory (key_art - full body) */
+#backstory-page .page-header-hero {
+  background-position: center 15%;
+  min-height: 320px;
+}
+
+/* Specific positioning for medicine (scene - upper body at table) */
+#medicine-page .page-header-hero {
+  background-position: center 25%;
+  min-height: 280px;
+}
+
+.page-title {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 400;
+  color: var(--sepia);
+  letter-spacing: 0.05em;
+  text-shadow: 1px 1px 0 var(--parchment-light);
+  margin-bottom: var(--space-xs);
+}
+
+.page-subtitle {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--ink-faded);
+  font-weight: 400;
+}
+
+/* Standard header with decorative ornaments */
+.header {
+  text-align: center;
+  padding: var(--space-xl) var(--space-md);
+  margin-bottom: var(--space-lg);
+  position: relative;
+  border-bottom: 2px solid var(--dried-herb);
+}
+
+.header::before,
+.header::after {
+  content: '✦';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gold-accent);
+  font-size: 1.5rem;
+  opacity: 0.6;
+}
+
+.header::before {
+  left: var(--space-lg);
+}
+
+.header::after {
+  right: var(--space-lg);
+}
+
+.header-title {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: var(--sepia);
+  letter-spacing: 0.05em;
+  text-shadow: 1px 1px 0 var(--parchment-light);
+  margin-bottom: var(--space-xs);
+}
+
+.header-subtitle {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--ink-faded);
+  font-weight: 400;
+}
+
+/* Responsive headers */
+@media (max-width: 900px) {
+  .page-header-hero {
+    margin-left: calc(-1 * var(--space-md));
+    margin-right: calc(-1 * var(--space-md));
+    min-height: 220px;
+  }
+  
+  .page-header-hero .page-header-overlay {
+    padding: var(--space-xl) var(--space-md) var(--space-md);
+  }
+  
+  #backstory-page .page-header-hero,
+  #medicine-page .page-header-hero {
+    min-height: 220px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header::before,
+  .header::after {
+    display: none;
+  }
+  
+  .header-title {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-title {
+    font-size: 1.5rem;
+  }
+}

@@ -1,0 +1,329 @@
+/* ============================================
+   Tab Navigation Components
+   ============================================ */
+
+/* Main Tab Navigation */
+.tab-nav {
+  display: flex;
+  gap: 0;
+  padding: 0;
+  margin-bottom: var(--space-lg);
+  border-bottom: 2px solid var(--parchment-dark);
+  background: var(--bg-cream);
+}
+
+.tab-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: var(--space-md) var(--space-lg);
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  color: var(--ink-faded);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tab-btn:hover {
+  color: var(--sepia);
+  background: rgba(139, 90, 43, 0.05);
+}
+
+.tab-btn.active {
+  color: var(--sepia);
+  border-bottom-color: var(--herb-green);
+  background: var(--parchment-light);
+}
+
+/* Sub-tab Navigation (Backstory) */
+.sub-tab-nav {
+  display: flex;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xl);
+  border-bottom: 2px solid var(--parchment-dark);
+  padding-bottom: var(--space-sm);
+}
+
+.sub-tab-btn {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: var(--space-sm) var(--space-lg);
+  background: transparent;
+  border: none;
+  color: var(--ink-faded);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  position: relative;
+}
+
+.sub-tab-btn:hover {
+  color: var(--sepia);
+  background: rgba(139, 115, 85, 0.1);
+}
+
+.sub-tab-btn.active {
+  color: var(--sepia);
+  background: var(--parchment-light);
+}
+
+.sub-tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gold-accent);
+}
+
+.sub-tab-content {
+  display: none;
+}
+
+.sub-tab-content.active {
+  display: block;
+}
+
+/* DM Tools Tab Navigation */
+.dmtools-tabs {
+  display: flex;
+  gap: 0;
+  padding: 0;
+  margin-bottom: 0;
+  border-bottom: 2px solid var(--parchment-dark);
+  background: var(--bg-cream);
+}
+
+.dmtools-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-lg);
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dmtools-tab:hover {
+  color: var(--sepia);
+  background: rgba(139, 90, 43, 0.05);
+}
+
+.dmtools-tab.active {
+  color: var(--sepia);
+  border-bottom-color: var(--gold-accent);
+  background: var(--parchment-light);
+}
+
+.dmtools-tab-icon {
+  font-size: 1.2rem;
+}
+
+.dmtools-tab-text {
+  font-weight: 600;
+}
+
+/* DM Tools Tab Panels */
+.dmtools-panel {
+  display: none;
+  padding: var(--space-lg);
+}
+
+.dmtools-panel.active {
+  display: block;
+}
+
+.dmtools-panel-header {
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--parchment-aged);
+}
+
+.dmtools-panel-title {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: var(--sepia);
+  margin: 0 0 var(--space-sm) 0;
+}
+
+.dmtools-panel-subtitle {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin: 0;
+  font-style: italic;
+}
+
+.dmtools-panel-subtitle strong {
+  color: var(--sepia);
+  font-style: normal;
+}
+
+.dmtools-content {
+  padding: 0;
+}
+
+/* Terrain Tabs (Ingredients) */
+.terrain-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--parchment);
+  border-bottom: 1px solid var(--parchment-dark);
+}
+
+.terrain-tab {
+  flex: 1;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  padding: var(--space-xs) var(--space-sm);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  color: var(--ink-faded);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.terrain-tab:hover {
+  color: var(--ink-brown);
+  background: var(--parchment-dark);
+}
+
+.terrain-tab.active {
+  background: var(--herb-green);
+  color: var(--parchment-light);
+  border-color: var(--herb-green-dark);
+}
+
+/* Biome-specific terrain tab colors */
+.terrain-tab.active[data-terrain="Arctic"] {
+  background: var(--biome-arctic);
+  border-color: var(--biome-arctic-dark);
+  color: var(--ink-brown);
+}
+
+.terrain-tab.active[data-terrain="Coast"] {
+  background: var(--biome-coast);
+  border-color: var(--biome-coast-dark);
+}
+
+.terrain-tab.active[data-terrain="Desert"] {
+  background: var(--biome-desert);
+  border-color: var(--biome-desert-dark);
+  color: var(--ink-brown);
+}
+
+.terrain-tab.active[data-terrain="Forest"] {
+  background: var(--biome-forest);
+  border-color: var(--biome-forest-dark);
+}
+
+.terrain-tab.active[data-terrain="Grassland"] {
+  background: var(--biome-grassland);
+  border-color: var(--biome-grassland-dark);
+}
+
+.terrain-tab.active[data-terrain="Mountain"] {
+  background: var(--biome-mountain);
+  border-color: var(--biome-mountain-dark);
+}
+
+.terrain-tab.active[data-terrain="Swamp"] {
+  background: var(--biome-swamp);
+  border-color: var(--biome-swamp-dark);
+}
+
+.terrain-tab.active[data-terrain="Underground"] {
+  background: var(--biome-underground);
+  border-color: var(--biome-underground-dark);
+}
+
+/* Biome-specific hover hints */
+.terrain-tab[data-terrain="Arctic"]:hover:not(.active) {
+  background: color-mix(in srgb, var(--biome-arctic) 20%, var(--parchment-dark));
+}
+
+.terrain-tab[data-terrain="Coast"]:hover:not(.active) {
+  background: color-mix(in srgb, var(--biome-coast) 20%, var(--parchment-dark));
+}
+
+.terrain-tab[data-terrain="Desert"]:hover:not(.active) {
+  background: color-mix(in srgb, var(--biome-desert) 20%, var(--parchment-dark));
+}
+
+.terrain-tab[data-terrain="Forest"]:hover:not(.active) {
+  background: color-mix(in srgb, var(--biome-forest) 20%, var(--parchment-dark));
+}
+
+.terrain-tab[data-terrain="Grassland"]:hover:not(.active) {
+  background: color-mix(in srgb, var(--biome-grassland) 20%, var(--parchment-dark));
+}
+
+.terrain-tab[data-terrain="Mountain"]:hover:not(.active) {
+  background: color-mix(in srgb, var(--biome-mountain) 20%, var(--parchment-dark));
+}
+
+.terrain-tab[data-terrain="Swamp"]:hover:not(.active) {
+  background: color-mix(in srgb, var(--biome-swamp) 20%, var(--parchment-dark));
+}
+
+.terrain-tab[data-terrain="Underground"]:hover:not(.active) {
+  background: color-mix(in srgb, var(--biome-underground) 20%, var(--parchment-dark));
+}
+
+/* Responsive tabs */
+@media (max-width: 768px) {
+  .tab-nav {
+    justify-content: center;
+  }
+  
+  .dmtools-tabs {
+    padding: 0 var(--space-md);
+    gap: 0;
+  }
+  
+  .dmtools-tab {
+    flex: 1;
+    justify-content: center;
+    padding: var(--space-sm) var(--space-xs);
+  }
+  
+  .dmtools-tab-text {
+    display: none;
+  }
+  
+  .dmtools-tab-icon {
+    font-size: 1.4rem;
+  }
+  
+  .dmtools-panel {
+    padding: var(--space-md);
+  }
+  
+  .dmtools-panel-title {
+    font-size: 1.4rem;
+  }
+  
+  .terrain-tabs {
+    justify-content: center;
+  }
+}

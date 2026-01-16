@@ -1,0 +1,44 @@
+/* ============================================
+   Meilin's Apothecary - Main CSS Entry Point
+   
+   This file imports all modular CSS files.
+   Organized by: Base → Layout → Components → Pages
+   ============================================ */
+
+/* Base Styles */
+@import url('./base/variables.css');
+@import url('./base/reset.css');
+@import url('./base/typography.css');
+
+/* Layout */
+@import url('./layout/app-layout.css');
+@import url('./layout/sidebar.css');
+@import url('./layout/header.css');
+
+/* Components */
+@import url('./components/modals.css');
+@import url('./components/lightbox.css');
+@import url('./components/cards.css');
+@import url('./components/tabs.css');
+@import url('./components/forms.css');
+@import url('./components/tables.css');
+@import url('./components/rules.css');
+@import url('./components/footer.css');
+
+/* Pages */
+@import url('./pages/overview.css');
+@import url('./pages/rumors.css');
+@import url('./pages/backstory.css');
+@import url('./pages/dmtools.css');
+@import url('./pages/medicine.css');
+
+/* ============================================
+   Legacy styles that haven't been migrated yet
+   (keeping original style.css for backwards compatibility)
+   
+   TODO: Continue migrating remaining styles from style.css
+   - Mindersand reference section
+   - Medica reference section  
+   - Flora/Creature modals
+   - Craft modal details
+   ============================================ */

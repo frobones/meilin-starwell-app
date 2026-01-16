@@ -1,0 +1,346 @@
+/* ============================================
+   Rumors Page (Player-Facing)
+   ============================================ */
+
+/* Hero Section */
+.rumors-hero {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-heavy);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rumors-hero-image {
+  width: 100%;
+  height: 350px;
+  display: block;
+  object-fit: cover;
+  object-position: center 5%;
+}
+
+.rumors-hero:hover {
+  transform: scale(1.01);
+  box-shadow: 0 8px 24px var(--shadow-heavy);
+}
+
+.rumors-hero-subtitle {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--parchment-light);
+  margin: 0;
+  text-align: center;
+  padding: var(--space-sm);
+}
+
+/* Dividers */
+.rumors-divider {
+  border: none;
+  border-top: 2px solid var(--parchment-aged);
+  margin: var(--space-lg) auto;
+  max-width: 200px;
+  opacity: 0.5;
+}
+
+/* Main Layout */
+.rumors-layout {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: var(--space-xl);
+  padding: var(--space-xl) var(--space-xxl);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Rumors Sidebar */
+.rumors-sidebar {
+  background: var(--parchment-dark);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--parchment-aged);
+  overflow: hidden;
+}
+
+.rumors-section-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--ink-brown);
+  text-align: center;
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.rumors-hint {
+  text-align: center;
+  color: var(--ink-faded);
+  font-size: 0.9rem;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+.rumors-list {
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.rumor-item {
+  padding: var(--space-md);
+  background: var(--parchment-light);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  position: relative;
+  padding-left: var(--space-xl);
+  border-left: 3px solid transparent;
+  opacity: 0.9;
+  transition: opacity 0.2s ease, border-color 0.2s ease, transform 0.2s ease,
+              background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rumor-item:hover {
+  opacity: 1;
+  transform: translateX(4px);
+  background: var(--parchment);
+  box-shadow: 0 2px 8px var(--shadow);
+}
+
+.rumor-item::before {
+  content: '"';
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--gold-dim);
+  position: absolute;
+  left: var(--space-sm);
+  top: var(--space-xs);
+  opacity: 0.6;
+}
+
+/* Cipher text effect - dual layer approach for consistent sizing */
+.rumor-text {
+  position: relative;
+  display: block;
+  font-family: var(--font-body);
+}
+
+/* Readable text - determines the container size, partially visible via mask */
+.rumor-readable {
+  display: block;
+  transition: opacity 0.2s ease 0.1s, -webkit-mask-image 0.2s ease, mask-image 0.2s ease;
+}
+
+/* Cipher text - overlays the readable, visible by default */
+.rumor-cipher {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  font-family: 'Redacted Script', cursive;
+  opacity: 1;
+  transition: opacity 0.15s ease, filter 0.15s ease, -webkit-mask-image 0.2s ease, mask-image 0.2s ease;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.rumor-item:hover .rumor-cipher {
+  opacity: 0;
+  filter: blur(2px);
+}
+
+/* Partial peek - shows beginning of each rumor to teach the interaction */
+.rumor-item .rumor-readable {
+  opacity: 1;
+  -webkit-mask-image: linear-gradient(to right, black 0%, black 25%, transparent 40%);
+  mask-image: linear-gradient(to right, black 0%, black 25%, transparent 40%);
+}
+
+.rumor-item .rumor-cipher {
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 20%, black 35%, black 100%);
+  mask-image: linear-gradient(to right, transparent 0%, transparent 20%, black 35%, black 100%);
+}
+
+/* On hover, remove the masks to show full text */
+.rumor-item:hover .rumor-readable {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.rumor-item:hover .rumor-cipher {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+/* Brief blur during reveal to create "decoding" effect */
+@keyframes decipherText {
+  0% {
+    filter: blur(3px);
+    opacity: 0.7;
+  }
+  50% {
+    filter: blur(1px);
+    opacity: 0.9;
+  }
+  100% {
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+
+/* Character Gallery */
+.rumors-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.rumors-gallery-single {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-heavy);
+  background: var(--parchment-dark);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rumors-gallery-single:hover {
+  transform: scale(1.01);
+  box-shadow: 0 8px 24px var(--shadow-heavy);
+}
+
+.rumors-gallery-single img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* Character Views Grid */
+.rumors-views {
+  width: 100%;
+  padding: var(--space-lg) var(--space-xxl);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.rumors-turnaround {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-heavy);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: block;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.rumors-turnaround:hover {
+  transform: scale(1.01);
+  box-shadow: 0 8px 24px var(--shadow-heavy);
+}
+
+.rumors-turnaround img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* Visual Details Section */
+.rumors-details {
+  padding: var(--space-xxl) var(--space-xxl) var(--space-xl);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.rumors-details-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--ink-brown);
+  text-align: center;
+  margin: 0 0 var(--space-xl) 0;
+}
+
+.rumors-details-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+}
+
+.rumors-detail-card {
+  background: var(--parchment-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  border: 1px solid var(--parchment-aged);
+  text-align: center;
+}
+
+.rumors-detail-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  background: var(--parchment-dark);
+  border-radius: 50%;
+  margin-bottom: var(--space-md);
+}
+
+.rumors-detail-icon svg {
+  width: 28px;
+  height: 28px;
+  color: var(--bark-brown);
+}
+
+.rumors-detail-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  color: var(--ink-brown);
+  margin: 0 0 var(--space-sm) 0;
+}
+
+.rumors-detail-card p {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--ink-faded);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .rumors-layout {
+    grid-template-columns: 1fr;
+    padding: var(--space-lg);
+  }
+  
+  .rumors-sidebar {
+    order: 2;
+  }
+  
+  .rumors-gallery {
+    order: 1;
+  }
+  
+  .rumors-details-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .rumors-hero {
+    padding: 0 var(--space-lg);
+  }
+}
+
+@media (max-width: 768px) {
+  .rumors-gallery-single img {
+    max-height: 400px;
+    object-fit: cover;
+  }
+  
+  .rumors-views {
+    padding: var(--space-lg);
+  }
+}

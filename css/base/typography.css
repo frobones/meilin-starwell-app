@@ -1,0 +1,157 @@
+/* ============================================
+   Typography - Markdown and Content Styles
+   ============================================ */
+
+/* Narrative Container - For Markdown Content */
+.narrative-container,
+.worksheet-container {
+  background: var(--parchment-light);
+  padding: var(--space-xl);
+  border-radius: var(--radius-md);
+  box-shadow: inset 0 1px 3px var(--shadow);
+  border: 1px solid var(--parchment-aged);
+}
+
+.narrative-container h1,
+.narrative-container h2,
+.narrative-container h3,
+.narrative-container h4,
+.worksheet-container h1,
+.worksheet-container h2,
+.worksheet-container h3,
+.worksheet-container h4 {
+  font-family: var(--font-heading);
+  color: var(--sepia);
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-md);
+  line-height: 1.3;
+}
+
+.narrative-container h1:first-child,
+.narrative-container h2:first-child,
+.worksheet-container h1:first-child,
+.worksheet-container h2:first-child {
+  margin-top: 0;
+}
+
+.narrative-container h1,
+.worksheet-container h1 {
+  font-size: 1.8rem;
+  border-bottom: 1px solid var(--parchment-aged);
+  padding-bottom: var(--space-sm);
+}
+
+.narrative-container h2,
+.worksheet-container h2 {
+  font-size: 1.5rem;
+  color: var(--herb-green-dark);
+}
+
+.narrative-container h3,
+.worksheet-container h3 {
+  font-size: 1.25rem;
+  color: var(--bark-brown);
+}
+
+.narrative-container h4,
+.worksheet-container h4 {
+  font-size: 1.1rem;
+  font-style: italic;
+}
+
+.narrative-container p,
+.worksheet-container p {
+  margin-bottom: var(--space-md);
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.narrative-container p:last-child,
+.worksheet-container p:last-child {
+  margin-bottom: 0;
+}
+
+.narrative-container em,
+.worksheet-container em {
+  font-style: italic;
+}
+
+.narrative-container strong,
+.worksheet-container strong {
+  font-weight: 700;
+  color: var(--ink-brown);
+}
+
+.narrative-container blockquote,
+.worksheet-container blockquote {
+  margin: var(--space-lg) 0;
+  padding: var(--space-md) var(--space-lg);
+  border-left: 4px solid var(--gold-accent);
+  background: rgba(184, 134, 11, 0.08);
+  font-style: italic;
+  color: var(--ink-faded);
+}
+
+.narrative-container blockquote p:last-child,
+.worksheet-container blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.narrative-container ul,
+.narrative-container ol,
+.worksheet-container ul,
+.worksheet-container ol {
+  margin: var(--space-md) 0;
+  padding-left: var(--space-xl);
+}
+
+.narrative-container li,
+.worksheet-container li {
+  margin-bottom: var(--space-sm);
+}
+
+.narrative-container hr,
+.worksheet-container hr {
+  border: none;
+  border-top: 1px solid var(--parchment-aged);
+  margin: var(--space-xl) 0;
+}
+
+.narrative-container a,
+.worksheet-container a {
+  color: var(--herb-green);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--herb-green);
+  transition: all 0.2s ease;
+}
+
+.narrative-container a:hover,
+.worksheet-container a:hover {
+  color: var(--herb-green-dark);
+  border-bottom-style: solid;
+}
+
+.narrative-container code,
+.worksheet-container code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: var(--parchment-dark);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+}
+
+.narrative-container pre,
+.worksheet-container pre {
+  background: var(--ink-brown);
+  color: var(--parchment-light);
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  margin: var(--space-md) 0;
+}
+
+.narrative-container pre code,
+.worksheet-container pre code {
+  background: none;
+  padding: 0;
+}

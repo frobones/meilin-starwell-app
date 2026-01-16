@@ -1,0 +1,317 @@
+/* ============================================
+   Modal Components
+   ============================================ */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(44, 36, 22, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 1000;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Craft modal at base z-index, medicine detail modal higher so it can overlay */
+#craft-modal-overlay {
+  z-index: 1000;
+}
+
+#modal-overlay {
+  z-index: 1100;
+}
+
+.modal {
+  background: linear-gradient(180deg, var(--parchment-light) 0%, var(--parchment) 100%);
+  border: 3px solid var(--dried-herb);
+  border-radius: var(--radius-lg);
+  max-width: 600px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(44, 36, 22, 0.4);
+  transform: scale(0.9) translateY(20px);
+  transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal {
+  transform: scale(1) translateY(0);
+}
+
+.modal-close {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  width: 32px;
+  height: 32px;
+  background: var(--parchment-dark);
+  border: 1px solid var(--dried-herb);
+  border-radius: 50%;
+  font-size: 1.5rem;
+  color: var(--ink-faded);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 1;
+}
+
+.modal-close:hover {
+  background: var(--dried-herb);
+  color: var(--parchment-light);
+}
+
+.modal-content {
+  padding: var(--space-xl);
+}
+
+.modal-header {
+  margin-bottom: var(--space-lg);
+  padding-right: 50px;
+}
+
+.modal-title {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--sepia);
+  margin-bottom: var(--space-sm);
+}
+
+.modal-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  align-items: center;
+}
+
+.modal-stars {
+  font-size: 1.1rem;
+  color: var(--star-filled);
+  letter-spacing: -1px;
+}
+
+.modal-dc {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  color: var(--ink-brown);
+  font-weight: 600;
+}
+
+.modal-category {
+  font-size: 0.9rem;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.modal-section {
+  margin-bottom: var(--space-lg);
+}
+
+.modal-section:last-child {
+  margin-bottom: 0;
+}
+
+.modal-section-title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--herb-green-dark);
+  margin-bottom: var(--space-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.modal-effect {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--ink-black);
+}
+
+.modal-duration {
+  font-size: 0.95rem;
+  color: var(--ink-brown);
+}
+
+.modal-duration strong {
+  color: var(--sepia);
+}
+
+.modal-components {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.modal-notes {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--ink-faded);
+  background: var(--parchment);
+  padding: var(--space-md);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--gold-accent);
+}
+
+/* Flora and creature badges in modal */
+.modal-badges-group {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.modal-meta .medicine-flora-badge,
+.modal-meta .medicine-creature-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  opacity: 1;
+  font-size: 0.85rem;
+}
+
+/* Vignette Modal */
+.vignette-modal {
+  max-width: 800px;
+}
+
+.vignette-modal .modal-content {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.vignette-modal-title {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  color: var(--sepia);
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--parchment-aged);
+}
+
+.vignette-modal .vignette-number {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--space-xs);
+}
+
+/* NPC Modal */
+.npc-modal {
+  max-width: 700px;
+}
+
+.npc-modal .modal-content {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+/* Knife Modal */
+.knife-modal {
+  max-width: 580px;
+}
+
+.knife-modal .modal-content {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+/* Passkey Modal */
+.passkey-modal {
+  max-width: 400px;
+  text-align: center;
+}
+
+.passkey-content {
+  padding: var(--space-xl);
+}
+
+.passkey-title {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: var(--sepia);
+  margin-bottom: var(--space-md);
+}
+
+.passkey-subtitle {
+  color: var(--ink-faded);
+  margin-bottom: var(--space-lg);
+}
+
+.passkey-input {
+  width: 100%;
+  padding: var(--space-md);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  text-align: center;
+  border: 2px solid var(--parchment-dark);
+  border-radius: var(--radius-md);
+  background: var(--parchment-light);
+  margin-bottom: var(--space-md);
+}
+
+.passkey-input:focus {
+  outline: none;
+  border-color: var(--gold-accent);
+}
+
+.passkey-error {
+  color: var(--blood-red);
+  font-size: 0.9rem;
+  min-height: 1.5em;
+}
+
+.passkey-buttons {
+  margin-top: var(--space-md);
+}
+
+.passkey-submit {
+  padding: var(--space-sm) var(--space-xl);
+  background: var(--gold-accent);
+  color: var(--parchment-light);
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.passkey-submit:hover {
+  background: var(--gold-dim);
+}
+
+.passkey-hint {
+  margin-top: var(--space-lg);
+  font-size: 0.85rem;
+  color: var(--ink-faded);
+  font-style: italic;
+}
+
+/* Responsive modal */
+@media (max-width: 768px) {
+  .modal-content {
+    padding: var(--space-lg);
+  }
+  
+  .modal-title {
+    font-size: 1.4rem;
+  }
+}

@@ -1,0 +1,333 @@
+/* ============================================
+   Medicine / Herbal Apothecary Page
+   ============================================ */
+
+/* Craft Section */
+.craft-section {
+  min-height: 500px;
+}
+
+.craft-layout {
+  display: flex;
+  gap: var(--space-xl);
+}
+
+.craft-inventory {
+  flex: 0 0 280px;
+  background: var(--parchment-light);
+  border: 1px solid var(--parchment-dark);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  max-height: 70vh;
+  overflow-y: auto;
+  position: sticky;
+  top: var(--space-lg);
+}
+
+.inventory-title {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--sepia);
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 2px solid var(--dried-herb);
+}
+
+.inventory-sections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.inventory-section details {
+  background: var(--parchment);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.inventory-section summary {
+  padding: var(--space-sm) var(--space-md);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--ink-brown);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.inventory-section summary::-webkit-details-marker {
+  display: none;
+}
+
+.inventory-section summary::before {
+  content: '▸';
+  transition: transform 0.2s ease;
+}
+
+.inventory-section details[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.inventory-item-list {
+  padding: var(--space-sm) var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.inventory-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-xs);
+  background: var(--parchment-light);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+}
+
+.inventory-item-name {
+  flex: 1;
+  color: var(--ink-brown);
+}
+
+.inventory-item-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.inventory-btn {
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--parchment-dark);
+  background: var(--parchment);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--ink-brown);
+  transition: all 0.2s ease;
+}
+
+.inventory-btn:hover {
+  background: var(--dried-herb);
+  color: var(--parchment-light);
+}
+
+.inventory-count {
+  min-width: 24px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--herb-green-dark);
+}
+
+.inventory-actions {
+  margin-top: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.clear-inventory-btn {
+  padding: var(--space-sm) var(--space-md);
+  background: var(--parchment);
+  border: 1px solid var(--blood-red);
+  color: var(--blood-red);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: all 0.2s ease;
+}
+
+.clear-inventory-btn:hover {
+  background: var(--blood-red);
+  color: var(--parchment-light);
+}
+
+.inventory-io {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.io-btn {
+  flex: 1;
+  padding: var(--space-sm);
+  background: var(--parchment);
+  border: 1px solid var(--herb-green);
+  color: var(--herb-green-dark);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  transition: all 0.2s ease;
+}
+
+.io-btn:hover {
+  background: var(--herb-green);
+  color: var(--parchment-light);
+}
+
+/* Craft Results */
+.craft-results {
+  flex: 1;
+}
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-sm);
+  border-bottom: 2px solid var(--dried-herb);
+}
+
+.results-title {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--sepia);
+}
+
+.results-count {
+  font-size: 0.9rem;
+  color: var(--ink-faded);
+}
+
+.craftable-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-md);
+}
+
+.empty-state {
+  text-align: center;
+  padding: var(--space-xxl);
+  color: var(--ink-faded);
+  font-style: italic;
+}
+
+/* Craftable Card */
+.craftable-card {
+  background: var(--parchment-light);
+  border: 1px solid var(--parchment-dark);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.craftable-card:hover {
+  border-color: var(--herb-green);
+  box-shadow: 0 4px 12px var(--shadow);
+}
+
+.craftable-card.can-craft {
+  border-left: 4px solid var(--herb-green);
+}
+
+.craftable-card.partial {
+  border-left: 4px solid var(--gold-accent);
+  opacity: 0.8;
+}
+
+/* Potion Rules Section */
+.potion-rules-section {
+  padding: var(--space-lg);
+}
+
+.potion-rules-content {
+  background: var(--parchment-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-xl);
+}
+
+.potion-rules-content .divider-text {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 0 var(--space-xl);
+}
+
+.potion-rules-content .section-divider {
+  margin-top: var(--space-xl);
+}
+
+.potion-rules-content .section-divider::before,
+.potion-rules-content .section-divider::after {
+  width: 30%;
+}
+
+/* Flora/Creature clickable links */
+.flora-clickable {
+  cursor: pointer;
+  color: var(--herb-green-dark);
+  font-weight: 500;
+  position: relative;
+}
+
+.flora-clickable:hover {
+  color: var(--herb-green);
+  text-decoration: underline;
+}
+
+.flora-clickable::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--herb-green);
+  transition: width 0.2s ease;
+}
+
+.flora-clickable:hover::after {
+  width: 100%;
+}
+
+.medicine-link {
+  cursor: pointer;
+  color: var(--sepia);
+  font-weight: 500;
+  position: relative;
+}
+
+.medicine-link:hover {
+  text-decoration: underline;
+}
+
+.medicine-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gold-accent);
+  transition: width 0.2s ease;
+}
+
+.medicine-link:hover::after {
+  width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .craft-layout {
+    flex-direction: column;
+  }
+  
+  .craft-inventory {
+    flex: none;
+    position: static;
+    max-height: none;
+  }
+}

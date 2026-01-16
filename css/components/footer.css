@@ -1,0 +1,31 @@
+/* ============================================
+   Footer
+   ============================================ */
+
+.footer {
+  text-align: center;
+  padding: var(--space-xl) var(--space-md);
+  margin-top: var(--space-xl);
+  border-top: 2px solid var(--dried-herb);
+}
+
+.footer-quote {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--sepia);
+  margin-bottom: var(--space-sm);
+}
+
+.footer-quote::before {
+  content: '"';
+}
+
+.footer-quote::after {
+  content: '"';
+}
+
+.footer-credit {
+  font-size: 0.85rem;
+  color: var(--ink-faded);
+}
