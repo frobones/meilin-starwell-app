@@ -67,7 +67,8 @@
       "tuition": { "weeks": 8, "cost": 400 },
       "exam": "Any 4-star medicine from a category of your choice",
       "stockDie": "d10",
-      "earnings": "Wealthy lifestyle + 25 gp/day"
+      "earnings": "Wealthy lifestyle + 25 gp/day",
+      "note": "Advancement may require sponsorship by a senior member"
     },
     {
       "name": "Master Physic",
@@ -82,7 +83,8 @@
       "tuition": { "weeks": 12, "cost": 800 },
       "exam": "Any 5-star medicine from the remaining category",
       "stockDie": "d12",
-      "earnings": "Aristocratic lifestyle + 50 gp/day"
+      "earnings": "Aristocratic lifestyle + 50 gp/day",
+      "note": "Advancement may require sponsorship by a senior member"
     }
   ],
 

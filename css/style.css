@@ -476,6 +476,17 @@ details[open] .rules-toggle::after {
   margin-top: var(--space-md);
 }
 
+.rules-callout {
+  background: var(--accent-gold-light, #fff8e6);
+  border: 1px solid var(--accent-gold, #d4a574);
+  border-left: 4px solid var(--accent-gold, #d4a574);
+  border-radius: var(--radius-sm);
+  padding: var(--space-sm) var(--space-md);
+  margin-bottom: var(--space-md);
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+
 .rules-card {
   background: var(--parchment);
   border: 1px solid var(--parchment-dark);
@@ -935,6 +946,116 @@ details[open] .rules-toggle::after {
   font-family: var(--font-mono);
   font-size: 0.85rem;
   color: var(--ink-faded);
+}
+
+/* Creature Parts Harvesting Styles */
+.creature-parts-table th:nth-child(2),
+.creature-parts-table td:nth-child(2) {
+  text-align: center;
+  width: 50px;
+}
+
+.ingredient-amount {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--ink-brown);
+  text-align: center;
+}
+
+.amount-delta {
+  display: inline-block;
+  font-weight: 700;
+  color: var(--herb-green-dark);
+  cursor: help;
+}
+
+.creature-source {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--ink-faded);
+  font-style: italic;
+  margin-top: 2px;
+}
+
+.size-amounts-ref {
+  font-size: 0.8rem;
+  color: var(--ink-faded);
+  background: var(--parchment);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-md);
+  border-left: 3px solid var(--herb-green);
+}
+
+.size-amounts-ref strong {
+  color: var(--ink-brown);
+}
+
+.creature-type-details {
+  margin-bottom: var(--space-sm);
+}
+
+.creature-type-details summary {
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--ink-brown);
+  padding: var(--space-sm) var(--space-md);
+  padding-left: calc(var(--space-md) + 1.2em);
+  background: var(--parchment);
+  border-radius: var(--radius-sm);
+  transition: background 0.2s ease;
+  list-style-position: outside;
+  margin-left: var(--space-sm);
+}
+
+.creature-type-details summary::marker {
+  font-size: 0.8em;
+}
+
+.creature-type-details summary:hover {
+  background: var(--parchment-dark);
+}
+
+.creature-type-details[open] summary {
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  background: var(--parchment-dark);
+}
+
+.creature-type-details .ingredient-table {
+  border: 1px solid var(--parchment-dark);
+  border-top: none;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  margin-left: var(--space-sm);
+}
+
+/* Creature parts medicine links - use same styling as Flora table */
+.creature-used-in .medicine-link {
+  color: var(--sepia);
+  cursor: pointer;
+  font-weight: 500;
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.creature-used-in .medicine-link:hover {
+  text-decoration: underline;
+}
+
+.creature-used-in .medicine-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gold-accent);
+  transition: width 0.2s ease;
+}
+
+.creature-used-in .medicine-link:hover::after {
+  width: 100%;
 }
 
 .terrain-tabs {
@@ -3991,6 +4112,220 @@ details[open] .rules-toggle::after {
   .medica-rank-card {
     min-width: 80px;
   }
+}
+
+/* ============================================
+   Flora Clickable & Modal
+   ============================================ */
+
+.flora-clickable {
+  cursor: pointer;
+  color: var(--herb-green-dark);
+  font-weight: 500;
+  position: relative;
+}
+
+.flora-clickable:hover {
+  color: var(--herb-green);
+  text-decoration: underline;
+}
+
+/* Medicine link in Used In column */
+.medicine-link {
+  cursor: pointer;
+  color: var(--sepia);
+  font-weight: 500;
+  position: relative;
+}
+
+.medicine-link:hover {
+  text-decoration: underline;
+}
+
+.medicine-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gold-accent);
+  transition: width 0.2s ease;
+}
+
+.medicine-link:hover::after {
+  width: 100%;
+}
+
+.flora-clickable::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--herb-green);
+  transition: width 0.2s ease;
+}
+
+.flora-clickable:hover::after {
+  width: 100%;
+}
+
+/* Add buffer to ingredient tables to prevent scrollbar on hover */
+.ingredient-table tbody tr:last-child td {
+  padding-bottom: var(--space-sm);
+}
+
+/* Flora Modal Overlay */
+.flora-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  padding: var(--space-lg);
+}
+
+.flora-modal-overlay.active {
+  opacity: 1;
+}
+
+.flora-modal-overlay.closing {
+  opacity: 0;
+}
+
+/* Flora Modal */
+.flora-modal {
+  background: var(--parchment-light);
+  border-radius: 12px;
+  max-width: 500px;
+  width: 100%;
+  padding: var(--space-xl);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  position: relative;
+  transform: scale(0.9) translateY(20px);
+  transition: transform 0.2s ease;
+  border: 2px solid var(--herb-green);
+}
+
+.flora-modal-overlay.active .flora-modal {
+  transform: scale(1) translateY(0);
+}
+
+.flora-modal-overlay.closing .flora-modal {
+  transform: scale(0.9) translateY(20px);
+}
+
+.flora-modal-close {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: var(--ink-faded);
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.flora-modal-close:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: var(--ink-brown);
+}
+
+.flora-modal-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.flora-modal-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--herb-green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--parchment-light);
+  flex-shrink: 0;
+}
+
+.flora-modal-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.flora-modal-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--ink-brown);
+  margin: 0;
+}
+
+.flora-modal-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.flora-rarity {
+  display: inline-block;
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--herb-green);
+  color: var(--parchment-light);
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.flora-terrain {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--parchment);
+  color: var(--ink-faded);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  border: 1px solid var(--parchment-aged);
+}
+
+.flora-terrain svg {
+  width: 14px;
+  height: 14px;
+}
+
+.flora-modal-description {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--ink-brown);
+  margin: 0;
+  padding: var(--space-md);
+  background: var(--parchment);
+  border-radius: 8px;
+  border-left: 4px solid var(--herb-green);
 }
 
 /* ============================================

@@ -1,4 +1,166 @@
 {
+  "floraDetails": {
+    "Alchemilla": {
+      "rarity": "Common flora",
+      "terrain": "All environments",
+      "description": "Alchemilla is a genus of herbaceous perennial commonly known as lady's mantle. It forms dense, leafy mounds of scallop-edged, toothed green leaves, which have valuable application in creating stronger medicines."
+    },
+    "Alil": {
+      "rarity": "Very rare flora",
+      "terrain": "Arctic environments",
+      "description": "Alil is a small, fountain-like, semi-evergreen shrub that grows up to 3 feet tall. It has small blue flowers that bloom irregularly, typically in late winter and early spring."
+    },
+    "Angel skin": {
+      "rarity": "Very rare flora",
+      "terrain": "Underground environments",
+      "description": "Angel skin is a tiny delicate mushroom that grows underground and in other cool dark places. It is characterized by multiple thin stalks and gills of pure white that emit a faint bioluminescent glow."
+    },
+    "Arctic root": {
+      "rarity": "Uncommon flora",
+      "terrain": "Arctic environments",
+      "description": "Arctic root is a succulent, perennial flowering plant that grows in cold, high-altitude regions. It is also known as rhodiola rosea, golden root, king's crown, and roseroot."
+    },
+    "Bittergrass": {
+      "rarity": "Rare flora",
+      "terrain": "Desert environments",
+      "description": "Bittergrass is a species of flowering plant in the aster family also known as calea or dream herb. It has a long history as a psychedelic, and is smoked or brewed and drunk as tea to induce lucid dreams."
+    },
+    "Blodgrass": {
+      "rarity": "Uncommon flora",
+      "terrain": "Grassland environments",
+      "description": "Bloodgrass is a copper-colored grass with traditional use in Orcish battle culture, whereby it is dried and ground to produce a deep crimson warpaint, allowing for absorption quickly through the skin."
+    },
+    "Blue lotus flower": {
+      "rarity": "Very rare flora",
+      "terrain": "Coastal environments",
+      "description": "The blue lotus is a rare species of freshwater lily native to temperate and tropical climates. Seeing a blue lotus in bloom is believed by some to bring good fortune."
+    },
+    "Darkberry": {
+      "rarity": "Very rare flora",
+      "terrain": "Forest environments",
+      "description": "The darkberry is a bramble fruit with thick thorny vines that grows in deep shaded forest. The dark, berry-like fruits grow inside large blue flowers that bloom only under a new moon."
+    },
+    "Deadly nightshade": {
+      "rarity": "Common flora",
+      "terrain": "All environments",
+      "description": "Also known as belladonna, nightshade is a toxic perennial plant most often found in scrub and woodland identified by its small violet flowers. Though highly poisonous, its small dark berries have strong medicinal properties when properly handled."
+    },
+    "Desert aloe": {
+      "rarity": "Uncommon flora",
+      "terrain": "Desert environments",
+      "description": "Desert aloe is a succulent evergreen perennial that grows in arid and tropical climates. It has thick, fleshy green leaves with serrated edges that contain a clear gel, which can be used in its raw form to treat minor burns."
+    },
+    "Dragonwort": {
+      "rarity": "Uncommon flora",
+      "terrain": "Mountain environments",
+      "description": "Dragonwort is a species of aroid flowering plant that grows up to 3' tall and has large, dark green leaves streaked with white, and a spadix that resembles a dragon's claw."
+    },
+    "Ephedra": {
+      "rarity": "Common flora",
+      "terrain": "All environments",
+      "description": "Ephedra is a genus of gymnosperm low evergreen shrub with small scaly leaves that grows in any environment with sun exposure."
+    },
+    "Fairy bells": {
+      "rarity": "Uncommon flora",
+      "terrain": "Grassland environments",
+      "description": "Fairy bells are the small white flowers that grow on a small, leafy shrub commonly found in grassy terrain, and are particularly common around battle sites and graveyards."
+    },
+    "Fleshwort": {
+      "rarity": "Common flora",
+      "terrain": "All environments",
+      "description": "Fleshwort is a common ivy used to treat injury and fatigue. Its leaves are used to create many types of poultice or medicine (often mixed with other plants) that have a variety of healing effects."
+    },
+    "Flintmoss": {
+      "rarity": "Rare flora",
+      "terrain": "Coastal and underground environments",
+      "description": "This rust-colored moss grows near freshwater in caves and shaded riverbanks. Its large oily leaves burn bright and hot."
+    },
+    "Glowshroom": {
+      "rarity": "Uncommon flora",
+      "terrain": "Underground environments",
+      "description": "The glowshroom is a common underground mushroom known for its remarkably strong bio-luminescence. It typically grows in large clusters that can light up even the largest underground caves."
+    },
+    "Juniper berries": {
+      "rarity": "Common flora",
+      "terrain": "All environments",
+      "description": "Juniper berries, found on juniper shrubs and trees, are small blue seed cones with an unusually fleshy and merged scales, which gives them their berry-like appearance."
+    },
+    "Kava root": {
+      "rarity": "Uncommon flora",
+      "terrain": "Forest environments",
+      "description": "Kava is an upright, dioecious, evergreen shrub that grows to 10-15' tall with heart-shaped glossy dark green leaves. Its roots have been used for centuries to brew tea that relieves anxiety and stress."
+    },
+    "Knitbone": {
+      "rarity": "Rare flora",
+      "terrain": "Swamp environments",
+      "description": "Knitbone, also called comfrey, is a perennial plant with small purple flowers that grows around swamps and in other moist grasslands. It has a long history of use as a medicinal herb for topical and internal injuries."
+    },
+    "Lunar holly berries": {
+      "rarity": "Rare flora",
+      "terrain": "Forest environments",
+      "description": "Lunar holly grows in temperate and subtropical regions, particularly in forested areas. It flowers while the moon is full, producing tiny speckled blue-white berries."
+    },
+    "Maiden's tear": {
+      "rarity": "Very rare flora",
+      "terrain": "Mountain and swamp environments",
+      "description": "The maiden's tear is a flowering vine that only grows on trees overhanging still or slow-moving water. In full bloom, the flowers have three large petals of white-streaked violet which possess remarkable magical properties."
+    },
+    "Mistletoe": {
+      "rarity": "Uncommon flora",
+      "terrain": "Arctic and forest environments",
+      "description": "Mistletoe is a parasitic plant that attaches itself to a host tree, from which it draws water and nutrition. It has smooth-edged green leaves borne in pairs along a woody stem, and waxy, white berries."
+    },
+    "Red lichen": {
+      "rarity": "Uncommon flora",
+      "terrain": "Coastal environments",
+      "description": "Red lichen is recognizable by its striking red podetia, which grow up to 1 inch tall with purple caps. This lichen tends to grow on rotting wood near riverbanks and other water sources."
+    },
+    "Red mountain flower": {
+      "rarity": "Rare flora",
+      "terrain": "Mountain environments",
+      "description": "Red mountain flowers, also called skeggel, are a short-lived perennial wildflower found in mountain regions known for their brilliant red color and ability to restore magic to an exhausted mage."
+    },
+    "Sabito seeds": {
+      "rarity": "Uncommon flora",
+      "terrain": "Coastal environments",
+      "description": "The sabito is a vining plant with large fleshy fruit, which is a berry with a hard rind similar to a watermelon. The fruit appears similar to a watermelon, and is edible, though slightly bitter and unpleasant."
+    },
+    "Sand palm seeds": {
+      "rarity": "Uncommon flora",
+      "terrain": "Desert environments",
+      "description": "The sand palm is a small slender palm that grows up to 20 feet tall with fan-shaped leaves. The oils in sand palm seeds are used to make a topical balm that protects from long exposure to the sun."
+    },
+    "Silverleaf sap": {
+      "rarity": "Rare flora",
+      "terrain": "Arctic environments",
+      "description": "The silverleaf is a medium-sized deciduous tree that grows in forests in cold climates. Although its bark is tough, its sap can be extracted, and has popular use among big game hunters."
+    },
+    "Sweet elorien": {
+      "rarity": "Uncommon flora",
+      "terrain": "Mountain environments",
+      "description": "Sweet elorien is a flowering plant that produces a short stem and a daisy-like flower, commonly found at high elevation. It is named in memory of Iorien's first daughter, who died at a young age."
+    },
+    "White magnolia": {
+      "rarity": "Very rare flora",
+      "terrain": "Desert and grassland environments",
+      "description": "The white magnolia, also called little gem, is a plant that flowers a single bloom. It prefers dry soil, and only flowers at night under a clear sky."
+    },
+    "Willow bark": {
+      "rarity": "Common flora",
+      "terrain": "All environments",
+      "description": "Willow trees are a common type of tree found in all environments, but prefer moist soil and a temperate climate. Bark from a mature willow tree contains salicin, which numbs or reduces the pain sensations."
+    },
+    "Witch hazel": {
+      "rarity": "Rare flora",
+      "terrain": "Grassland environments",
+      "description": "Witch hazel is a genus of flowering deciduous bush or small tree that grows in damp woods and shaded grassy areas that can grow up to 6 meters tall. A potent healing salve can be made from its bark and leaves."
+    },
+    "Wizard's fingers": {
+      "rarity": "Uncommon flora",
+      "terrain": "Swamp and underground environments",
+      "description": "Wizard's fingers is a species of fungus in the family hypocreaceae that resemble fleshy red carrots sprouting up from the ground. The fingers are highly toxic without proper preparation, and are responsible for dozens of fatalities every year."
+    }
+  },
   "flora": {
     "common": [
       {"name": "Deadly nightshade", "dc": "10/+5", "terrain": "All", "use": "Augmenting primary component"},
@@ -13,13 +175,13 @@
         {"name": "Arctic root", "dc": 15, "use": "Cold Weather Tonic"},
         {"name": "Mistletoe", "dc": 15, "use": "Fortune's Favor"},
         {"name": "Silverleaf sap", "dc": 20, "use": "Archer's Gum"},
-        {"name": "Alil", "dc": 25, "use": "Mastermind (flora version)"}
+        {"name": "Alil", "dc": 25, "use": "Mastermind"}
       ],
       "Coast": [
-        {"name": "Red lichen", "dc": 15, "use": "Red Mist (flora version)"},
+        {"name": "Red lichen", "dc": 15, "use": "Red Mist"},
         {"name": "Sabito seeds", "dc": 15, "use": "Air Pod"},
         {"name": "Flintmoss", "dc": 20, "use": "Dwarven Fire-Oil"},
-        {"name": "Blue lotus flower", "dc": 25, "use": "Third Eye (flora version)"}
+        {"name": "Blue lotus flower", "dc": 25, "use": "Third Eye"}
       ],
       "Desert": [
         {"name": "Desert aloe", "dc": 15, "use": "Tahlia's Respite"},
@@ -42,7 +204,7 @@
       "Mountain": [
         {"name": "Dragonwort", "dc": 15, "use": "Ironskin Ointment"},
         {"name": "Sweet elorien", "dc": 15, "use": "Iorien's Favor"},
-        {"name": "Red mountain flower", "dc": 20, "use": "Mana Tonic (flora version)"},
+        {"name": "Red mountain flower", "dc": 20, "use": "Mana Tonic"},
         {"name": "Maiden's tear", "dc": 25, "use": "Second Chance"}
       ],
       "Swamp": [
@@ -54,67 +216,72 @@
         {"name": "Glowshroom", "dc": 15, "use": "Glow Stick"},
         {"name": "Wizard's fingers", "dc": 15, "use": "Magician's Friend"},
         {"name": "Flintmoss", "dc": 20, "use": "Dwarven Fire-Oil"},
-        {"name": "Angel skin", "dc": 25, "use": "Willem's Cure-all (flora version)"}
+        {"name": "Angel skin", "dc": 25, "use": "Willem's Cure-all"}
       ]
     }
   },
   "creatureParts": {
-    "All creatures": [
-      {"name": "Elemental essence", "dc": "10/+5", "use": "Alchemy (not a herbal medicine component)"}
-    ],
     "Aberrations": [
-      {"name": "Aboleth brain", "dc": 20, "use": "Telepathy Tonic"},
-      {"name": "Awakened brain", "dc": 20, "use": "Mastermind (creature version)"},
-      {"name": "Slaad tongue", "dc": 15, "use": "Troll Unguent"},
-      {"name": "Greater slaad eye", "dc": "15/+5", "use": "Changeling Brew"}
+      {"name": "Aboleth brain", "dc": 20, "amount": 1, "source": "Aboleths", "use": "Telepathy Tonic"},
+      {"name": "Awakened brain", "dc": 20, "amount": 1, "source": "Mind flayers, Neothelids", "use": "Mastermind"},
+      {"name": "Slaad tongue", "dc": 15, "amount": 1, "source": "Slaadi (all types)", "use": "Troll Unguent"},
+      {"name": "Greater slaad eye", "dc": "15/+5", "amount": 2, "source": "Slaadi (green, grey, death only)", "use": "Changeling Brew"}
     ],
     "Celestials": [
-      {"name": "Couatl eye", "dc": 10, "use": "Shapechange Tincture, Spymaster's Bane"},
-      {"name": "Unicorn horn", "dc": 20, "use": "Ambrosia"}
+      {"name": "Couatl eye", "dc": 10, "amount": 2, "source": "Couatl", "use": "Shapechange Tincture, Spymaster's Bane"},
+      {"name": "Unicorn horn", "dc": 20, "amount": 1, "source": "Unicorns", "use": "Ambrosia"}
     ],
     "Dragons": [
-      {"name": "Wyrm blood", "dc": "10/+5", "use": "Tincture of Magic Resistance"},
-      {"name": "Dragon dust", "dc": "10/+5", "use": "Dragon Tea"},
-      {"name": "Shimmering scale", "dc": "15/+5", "use": "Prismatic Balm"},
-      {"name": "Metallic dragon eye", "dc": "15/+5", "use": "Shapechange Tincture"}
+      {"name": "Wyrm blood", "dc": "10/+5", "amount": "Δ", "source": "All dragon types", "use": "Tincture of Magic Resistance"},
+      {"name": "Dragon dust", "dc": "10/+5", "amount": "Δ", "source": "Dragons with breath weapon", "use": "Dragon Tea"},
+      {"name": "Shimmering scale", "dc": "15/+5", "amount": "Δ", "source": "True dragons (adult/ancient only)", "use": "Prismatic Balm"},
+      {"name": "Metallic dragon eye", "dc": "15/+5", "amount": 2, "source": "True metallic dragons (adult/ancient only)", "use": "Shapechange Tincture"}
     ],
     "Fey": [
-      {"name": "Dryad root", "dc": "10/+5", "use": "Barkskin Unguent, Woodland Balm"},
-      {"name": "Pixie dust", "dc": "10/+5", "use": "Faerie Dust, Dust of Disappearance"}
+      {"name": "Dryad root", "dc": "10/+5", "amount": "Δ", "source": "Dryads", "use": "Barkskin Unguent, Woodland Balm"},
+      {"name": "Pixie dust", "dc": "10/+5", "amount": "Δ", "source": "Pixies and sprites", "use": "Faerie Dust, Dust of Disappearance"}
     ],
     "Fiends": [
-      {"name": "Demon ichor", "dc": "10/+5", "use": "Tincture of Magic Resistance"},
-      {"name": "Devil blood", "dc": "10/+5", "use": "Devil's Sight, Tincture of Magic Resistance"},
-      {"name": "Balor ash", "dc": "15/+5", "use": "Abyssal Shroud"},
-      {"name": "Rakshasa blood", "dc": "10/+5", "use": "Havenash's Manawall"}
+      {"name": "Demon ichor", "dc": "10/+5", "amount": "Δ", "source": "Demons (all types)", "use": "Tincture of Magic Resistance"},
+      {"name": "Devil blood", "dc": "10/+5", "amount": "Δ", "source": "Devils (all types)", "use": "Devil's Sight, Tincture of Magic Resistance"},
+      {"name": "Balor ash", "dc": "15/+5", "amount": "Δ", "source": "Balors", "use": "Abyssal Shroud"},
+      {"name": "Rakshasa blood", "dc": "10/+5", "amount": "Δ", "source": "Rakshasas", "use": "Havenash's Manawall"}
     ],
     "Giants": [
-      {"name": "Giant heartsblood", "dc": "10/+5", "use": "Draught of Giant's Strength"},
-      {"name": "Troll tongue", "dc": 15, "use": "Troll Unguent"}
+      {"name": "Giant heartsblood", "dc": "10/+5", "amount": "Δ", "source": "Giants (all types)", "use": "Draught of Giant's Strength"},
+      {"name": "Troll tongue", "dc": 15, "amount": 1, "source": "Trolls (all types)", "use": "Troll Unguent"}
     ],
     "Humanoids": [
-      {"name": "Awakened brain", "dc": 20, "use": "Mastermind (gith)"}
+      {"name": "Awakened brain", "dc": 20, "amount": 1, "source": "Gith (all types)", "use": "Mastermind"}
     ],
     "Monstrosities": [
-      {"name": "Monster blood", "dc": "10/+5", "use": "Red Mist (creature version)"},
-      {"name": "Basilisk oil", "dc": "15/+5", "use": "Stone Salve"},
-      {"name": "Adhesive filament", "dc": "15/+5", "use": "Sovereign Glue"},
-      {"name": "Doppelganger brain", "dc": 20, "use": "Telepathy Tonic"},
-      {"name": "Doppelganger eye", "dc": "15/+5", "use": "Changeling Brew"},
-      {"name": "Hydra blood", "dc": "10/+5", "use": "Fleshknit"},
-      {"name": "Snake oil", "dc": "15/+5", "use": "Marko's Miracle Balm"},
-      {"name": "Nothic eye", "dc": 15, "use": "Third Eye (creature version)"},
-      {"name": "Sphinx eye", "dc": "15/+5", "use": "Spymaster's Bane"},
-      {"name": "Tarrasque blood", "dc": "10/+5", "use": "Hero's Elixir"}
+      {"name": "Monster blood", "dc": "10/+5", "amount": "Δ", "source": "Monstrosities (all types)", "use": "Red Mist"},
+      {"name": "Basilisk oil", "dc": "15/+5", "amount": "Δ", "source": "Basilisks", "use": "Stone Salve"},
+      {"name": "Adhesive filament", "dc": "15/+5", "amount": "Δ", "source": "Cave fishers", "use": "Sovereign Glue"},
+      {"name": "Dragon dust", "dc": "10/+5", "amount": "Δ", "source": "Behirs, Chimeras", "use": "Dragon Tea"},
+      {"name": "Doppelganger brain", "dc": 20, "amount": 1, "source": "Doppelgangers", "use": "Telepathy Tonic"},
+      {"name": "Doppelganger eye", "dc": "15/+5", "amount": 2, "source": "Doppelgangers", "use": "Changeling Brew"},
+      {"name": "Hydra blood", "dc": "10/+5", "amount": "Δ", "source": "Hydras (replaces monster blood)", "use": "Fleshknit"},
+      {"name": "Snake oil", "dc": "15/+5", "amount": "Δ", "source": "Nagas (all types)", "use": "Marko's Miracle Balm"},
+      {"name": "Nothic eye", "dc": 15, "amount": 1, "source": "Nothics", "use": "Third Eye"},
+      {"name": "Sphinx eye", "dc": "15/+5", "amount": 2, "source": "Sphinxes (all types)", "use": "Spymaster's Bane"},
+      {"name": "Tarrasque blood", "dc": "10/+5", "amount": "Δ", "source": "Tarrasques (replaces monster blood)", "use": "Hero's Elixir"}
     ],
     "Oozes": [
-      {"name": "Enchanted gelatin", "dc": "15/+5", "use": "Universal Solvent"}
+      {"name": "Enchanted gelatin", "dc": "15/+5", "amount": "Δ", "source": "Oozes (all types)", "use": "Universal Solvent"}
     ],
     "Undead": [
-      {"name": "Grave dust", "dc": "10/+5", "use": "Wight Powder, Draught of the Living Dead"},
-      {"name": "Ectoplasm", "dc": "10/+5", "use": "Banshee, Draught of the Living Dead"},
-      {"name": "Vampire dust", "dc": "10/+5", "use": "Willem's Cure-all, Mana Tonic (creature versions)"}
+      {"name": "Grave dust", "dc": "10/+5", "amount": "Δ", "source": "Corporeal undead (all types)", "use": "Wight Powder, Draught of the Living Dead"},
+      {"name": "Ectoplasm", "dc": "10/+5", "amount": "Δ", "source": "Incorporeal undead (all types)", "use": "Banshee, Draught of the Living Dead"},
+      {"name": "Vampire dust", "dc": "10/+5", "amount": "Δ", "source": "Vampires (replaces grave dust)", "use": "Willem's Cure-all, Mana Tonic"}
     ]
+  },
+  "sizeAmounts": {
+    "description": "Δ (delta) amounts depend on creature size",
+    "Medium or smaller": 1,
+    "Large": 2,
+    "Huge": 4,
+    "Gargantuan or larger": 8
   },
   "terrains": [
     "Arctic",
@@ -145,6 +312,13 @@
     "resolution": "Make a harvesting check using your harvesting kit",
     "advantage": "If you (or a helper) is proficient in the skill associated with the target's creature type",
     "favoredEnemy": "+2 if you (or a helper) has Favored Enemy and the target matches",
-    "dcNote": "DC X/+5 means DC X for the first unit, +5 per additional unit"
+    "dcNote": "DC X/+5 means DC X for the first unit, +5 per additional unit",
+    "amountRules": {
+      "fixed": "Components with a fixed number (×1 or ×2) have that exact amount available",
+      "delta": "Components marked with Δ depend on creature size: Medium or smaller = 1, Large = 2, Huge = 4, Gargantuan+ = 8",
+      "dcScaling": "For components with more than one unit, DC increases by +5 for each unit after the first",
+      "example": "A Huge frost giant has 4 units of giant heartsblood (DC 10/+5): DC 10 for 1 unit, DC 15 for 2, DC 20 for 3, DC 25 for all 4",
+      "failure": "Any components you fail to harvest are lost—you cannot retry for fewer units"
+    }
   }
 }

@@ -63,6 +63,7 @@ const App = {
             this.renderMedicines();
             this.renderIngredients();
             this.renderQuickRules();
+            this.renderHarvestingRules();
             
             // Check if unlocked, show passkey modal if not
             if (!this.appUnlocked) {
@@ -178,6 +179,7 @@ const App = {
 
         this.medicines = medicinesData.medicines;
         this.rules = medicinesData.rules;
+        this.harvesting = medicinesData.harvesting;
         this.primaryComponents = medicinesData.primaryComponents;
         this.ingredients = ingredientsData;
     },
@@ -817,6 +819,9 @@ const App = {
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
         this.refreshIcons();
+        
+        // Bind flora click events in the modal
+        this.bindFloraClickEvents(content);
     },
 
     /**
@@ -856,16 +861,29 @@ const App = {
     },
 
     /**
+     * Create clickable flora span
+     */
+    makeFloraClickable(floraName) {
+        // Check if we have details for this flora
+        if (this.ingredients?.floraDetails?.[floraName]) {
+            return `<span class="flora-clickable" data-flora="${floraName}">${floraName}</span>`;
+        }
+        return floraName;
+    },
+
+    /**
      * Create HTML for medicine components
      */
     createComponentsHtml(medicine) {
         let html = '';
         
         if (medicine.primary) {
+            // Primary is always flora - make it clickable
+            const primaryClickable = this.makeFloraClickable(medicine.primary);
             html += `
                 <div class="component-item">
                     <span class="component-label">Primary:</span>
-                    <span class="component-value">${medicine.primary}</span>
+                    <span class="component-value">${primaryClickable}</span>
                 </div>
             `;
         }
@@ -880,10 +898,11 @@ const App = {
                 const creatureOptions = medicine.secondary.filter(s => s.type === 'creature').map(s => s.name);
                 
                 if (floraOptions.length > 0) {
+                    const floraClickables = floraOptions.map(f => this.makeFloraClickable(f)).join(' or ');
                     html += `
                         <div class="component-item">
                             <span class="component-label">Secondary:</span>
-                            <span class="component-value component-flora">${floraOptions.join(' or ')}</span>
+                            <span class="component-value component-flora">${floraClickables}</span>
                         </div>
                     `;
                 }
@@ -896,16 +915,14 @@ const App = {
                     `;
                 }
             } else {
-                // Old format: simple string array
-            const secondaryList = medicine.secondary.length > 1 
-                ? medicine.secondary.join(' or ')
-                : medicine.secondary[0];
-            html += `
-                <div class="component-item">
-                    <span class="component-label">Secondary:</span>
-                    <span class="component-value">${secondaryList}</span>
-                </div>
-            `;
+                // Old format: simple string array - check each one for flora
+                const secondaryClickables = medicine.secondary.map(s => this.makeFloraClickable(s)).join(' or ');
+                html += `
+                    <div class="component-item">
+                        <span class="component-label">Secondary:</span>
+                        <span class="component-value">${secondaryClickables}</span>
+                    </div>
+                `;
             }
         }
         
@@ -963,6 +980,107 @@ const App = {
                 this.selectTerrain(terrain);
             });
         });
+
+        // Bind flora click events
+        this.bindFloraClickEvents(section);
+        
+        // Refresh Lucide icons for dynamically rendered content
+        this.refreshIcons();
+    },
+
+    /**
+     * Bind click events for flora items and medicine links
+     */
+    bindFloraClickEvents(container) {
+        container.querySelectorAll('.flora-clickable').forEach(el => {
+            el.addEventListener('click', (e) => {
+                const floraName = e.target.dataset.flora;
+                this.showFloraDetails(floraName);
+            });
+        });
+
+        container.querySelectorAll('.medicine-link').forEach(el => {
+            el.addEventListener('click', (e) => {
+                const medicineName = e.target.dataset.medicine;
+                this.openMedicineByName(medicineName);
+            });
+        });
+    },
+
+    /**
+     * Open medicine modal by name
+     */
+    openMedicineByName(name) {
+        // Clean up the name (remove parenthetical notes like "(flora version)")
+        const cleanName = name.replace(/\s*\([^)]*\)\s*/g, '').trim();
+        
+        // Find the medicine by name (case-insensitive partial match)
+        const medicine = this.medicines.find(m => 
+            m.name.toLowerCase() === cleanName.toLowerCase() ||
+            m.name.toLowerCase().includes(cleanName.toLowerCase()) ||
+            cleanName.toLowerCase().includes(m.name.toLowerCase())
+        );
+        
+        if (medicine) {
+            this.openModal(medicine);
+        } else {
+            console.warn(`Medicine not found: ${name} (searched: ${cleanName})`);
+        }
+    },
+
+    /**
+     * Show flora details modal
+     */
+    showFloraDetails(floraName) {
+        const details = this.ingredients.floraDetails?.[floraName];
+        if (!details) {
+            console.warn(`No details found for flora: ${floraName}`);
+            return;
+        }
+
+        // Create modal overlay
+        const overlay = document.createElement('div');
+        overlay.className = 'flora-modal-overlay';
+        overlay.innerHTML = `
+            <div class="flora-modal">
+                <button class="flora-modal-close" aria-label="Close">&times;</button>
+                <div class="flora-modal-header">
+                    <span class="flora-modal-icon"><i data-lucide="leaf"></i></span>
+                    <h3 class="flora-modal-title">${floraName}</h3>
+                </div>
+                <div class="flora-modal-meta">
+                    <span class="flora-rarity">${details.rarity}</span>
+                    <span class="flora-terrain"><i data-lucide="map-pin"></i> ${details.terrain}</span>
+                </div>
+                <p class="flora-modal-description">${details.description}</p>
+            </div>
+        `;
+
+        document.body.appendChild(overlay);
+        this.refreshIcons();
+
+        // Close handlers
+        const closeModal = () => {
+            overlay.classList.add('closing');
+            setTimeout(() => overlay.remove(), 200);
+        };
+
+        overlay.querySelector('.flora-modal-close').addEventListener('click', closeModal);
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) closeModal();
+        });
+
+        // Escape key to close
+        const escHandler = (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+                document.removeEventListener('keydown', escHandler);
+            }
+        };
+        document.addEventListener('keydown', escHandler);
+
+        // Animate in
+        requestAnimationFrame(() => overlay.classList.add('active'));
     },
 
     /**
@@ -980,7 +1098,7 @@ const App = {
 
         const commonRows = common.map(item => `
             <tr>
-                <td class="ingredient-name">${item.name}</td>
+                <td class="ingredient-name flora-clickable" data-flora="${item.name}">${item.name}</td>
                 <td class="ingredient-dc">${item.dc}</td>
                 <td>${item.terrain}</td>
                 <td>${item.use}</td>
@@ -990,9 +1108,9 @@ const App = {
         const rareFlora = rare[this.selectedTerrain] || [];
         const rareRows = rareFlora.map(item => `
             <tr>
-                <td class="ingredient-name">${item.name}</td>
-                <td class="ingredient-dc">DC ${item.dc}</td>
-                <td>${item.use}</td>
+                <td class="ingredient-name flora-clickable" data-flora="${item.name}">${item.name}</td>
+                <td class="ingredient-dc">${item.dc}</td>
+                <td class="medicine-link" data-medicine="${item.use}">${item.use}</td>
             </tr>
         `).join('');
 
@@ -1048,27 +1166,51 @@ const App = {
      */
     createCreaturePartsSection() {
         const creatureParts = this.ingredients.creatureParts;
+        const sizeAmounts = this.ingredients.sizeAmounts;
         
         let tablesHtml = '';
         
         for (const [creatureType, parts] of Object.entries(creatureParts)) {
             if (creatureType === 'All creatures') continue;
             
-            const rows = parts.map(item => `
-                <tr>
-                    <td class="ingredient-name">${item.name}</td>
-                    <td class="ingredient-dc">${typeof item.dc === 'number' ? 'DC ' + item.dc : item.dc}</td>
-                    <td>${item.use}</td>
-                </tr>
-            `).join('');
+            const rows = parts.map(item => {
+                // Format amount display
+                let amountDisplay = item.amount;
+                if (item.amount === 'Δ') {
+                    amountDisplay = '<span class="amount-delta" title="Amount depends on creature size: Medium or smaller = 1, Large = 2, Huge = 4, Gargantuan+ = 8">Δ</span>';
+                } else {
+                    amountDisplay = `×${item.amount}`;
+                }
+                
+                // Format source display
+                const sourceDisplay = item.source ? `<span class="creature-source">${item.source}</span>` : '';
+                
+                // Format used in - make each medicine clickable
+                const usedInLinks = item.use.split(', ').map(medicine => 
+                    `<span class="medicine-link" data-medicine="${medicine}">${medicine}</span>`
+                ).join(', ');
+                
+                return `
+                    <tr>
+                        <td class="ingredient-name">
+                            ${item.name}
+                            ${sourceDisplay}
+                        </td>
+                        <td class="ingredient-amount">${amountDisplay}</td>
+                        <td class="ingredient-dc">${item.dc}</td>
+                        <td class="creature-used-in">${usedInLinks}</td>
+                    </tr>
+                `;
+            }).join('');
 
             tablesHtml += `
                 <details class="creature-type-details">
                     <summary>${creatureType}</summary>
-                    <table class="ingredient-table">
+                    <table class="ingredient-table creature-parts-table">
                         <thead>
                             <tr>
                                 <th>Component</th>
+                                <th>Amt</th>
                                 <th>DC</th>
                                 <th>Used In</th>
                             </tr>
@@ -1081,19 +1223,24 @@ const App = {
             `;
         }
 
+        // Build size amounts reference
+        const sizeRef = sizeAmounts ? `
+            <div class="size-amounts-ref">
+                <strong>Δ amounts by size:</strong> 
+                Medium or smaller = 1, Large = 2, Huge = 4, Gargantuan+ = 8
+            </div>
+        ` : '';
+
         return `
             <div class="ingredient-group">
                 <div class="ingredient-group-header">
                     <h3 class="ingredient-group-title">
-                        <span class="ingredient-group-icon">🦴</span>
+                        <span class="ingredient-group-icon"><i data-lucide="bone"></i></span>
                         Creature Parts (Harvesting)
                     </h3>
                 </div>
                 <div style="padding: var(--space-md);">
-                    <p style="font-size: 0.9rem; color: var(--ink-faded); margin-bottom: var(--space-md);">
-                        <strong>Harvesting:</strong> Requires a harvesting kit. Takes 5+ minutes. 
-                        DC X/+5 means DC X for first unit, +5 per additional.
-                    </p>
+                    ${sizeRef}
                     ${tablesHtml}
                 </div>
             </div>
@@ -1115,9 +1262,9 @@ const App = {
         const rareFlora = this.ingredients.flora.rare[terrain] || [];
         const rareRows = rareFlora.map(item => `
             <tr>
-                <td class="ingredient-name">${item.name}</td>
-                <td class="ingredient-dc">DC ${item.dc}</td>
-                <td>${item.use}</td>
+                <td class="ingredient-name flora-clickable" data-flora="${item.name}">${item.name}</td>
+                <td class="ingredient-dc">${item.dc}</td>
+                <td class="medicine-link" data-medicine="${item.use}">${item.use}</td>
             </tr>
         `).join('');
 
@@ -1126,6 +1273,9 @@ const App = {
             tbody.innerHTML = rareRows.length > 0 
                 ? rareRows 
                 : '<tr><td colspan="3">No rare flora in this terrain</td></tr>';
+            
+            // Rebind flora click events for the new rows
+            this.bindFloraClickEvents(tbody);
         }
 
         // Update the header to show current terrain
@@ -1177,6 +1327,11 @@ const App = {
         const ephedraAgent = this.rules.enhancingAgents?.find(a => a.name === 'Ephedra');
 
         rulesContent.innerHTML = `
+            ${this.rules.downtimeLimit ? `
+            <div class="rules-callout">
+                <strong>Daily Limit:</strong> ${this.rules.downtimeLimit}
+            </div>
+            ` : ''}
             <div class="rules-grid">
                 <div class="rules-card">
                     <h4>Gathering Plants</h4>
@@ -1276,6 +1431,111 @@ const App = {
             <ul>
                 ${this.rules.crafting.gotchas.map(g => `<li>${g}</li>`).join('')}
             </ul>
+        `;
+    },
+
+    /**
+     * Render harvesting rules reference
+     */
+    renderHarvestingRules() {
+        const harvestingContent = document.getElementById('harvesting-content');
+        
+        if (!this.harvesting) {
+            harvestingContent.innerHTML = '<p>Harvesting data not available.</p>';
+            return;
+        }
+
+        const creatureSkillRows = this.harvesting.creatureTypeSkills?.map(cs => `
+            <tr>
+                <td><strong>${cs.skill}</strong></td>
+                <td>${cs.types}</td>
+            </tr>
+        `).join('') || '';
+
+        const kitActivityRows = this.harvesting.kitActivities?.map(ka => `
+            <tr>
+                <td>${ka.activity}</td>
+                <td>${ka.dc}</td>
+            </tr>
+        `).join('') || '';
+
+        harvestingContent.innerHTML = `
+            <p style="margin-bottom: 1rem; font-style: italic;">${this.harvesting.overview}</p>
+            
+            <div class="rules-grid">
+                <div class="rules-card">
+                    <h4>Harvesting Creatures</h4>
+                    <ul>
+                        <li><strong>Time:</strong> ${this.harvesting.process.time}</li>
+                        <li><strong>Rest:</strong> ${this.harvesting.process.restCompatible}</li>
+                        <li><strong>Requirement:</strong> ${this.harvesting.process.requirement}</li>
+                        <li><strong>Check:</strong> Proficiency + Strength or Dexterity</li>
+                        <li><strong>Spoilage:</strong> ${this.harvesting.storage?.spoilage}</li>
+                    </ul>
+                </div>
+                
+                <div class="rules-card">
+                    <h4>Harvesting Kit</h4>
+                    <ul>
+                        <li><strong>Cost:</strong> ${this.harvesting.tool.cost} (${this.harvesting.tool.weight})</li>
+                        <li><strong>Advantage:</strong> ${this.harvesting.modifiers.advantage}</li>
+                        <li><strong>Favored Enemy:</strong> ${this.harvesting.modifiers.favoredEnemy}</li>
+                    </ul>
+                </div>
+                
+                <div class="rules-card">
+                    <h4>Harvesting Results</h4>
+                    <ul>
+                        <li><strong>On success:</strong> ${this.harvesting.results.success}</li>
+                        <li><strong>Component DC:</strong> ${this.harvesting.results.componentDC}</li>
+                        <li><strong>On failure:</strong> ${this.harvesting.results.failure}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Creature Type Skills</h3>
+            <p style="margin-bottom: 0.5rem; font-style: italic;">Proficiency in the associated skill grants advantage on the harvesting check.</p>
+            <table class="ingredient-table" style="font-size: 0.85rem; margin-bottom: 1.5rem;">
+                <thead>
+                    <tr>
+                        <th>Skill</th>
+                        <th>Creature Types</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${creatureSkillRows}
+                </tbody>
+            </table>
+
+            ${this.harvesting.groupHarvesting ? `
+            <div class="rules-callout">
+                <strong>Group Harvesting:</strong> ${this.harvesting.groupHarvesting.description}. ${this.harvesting.groupHarvesting.benefit}.
+            </div>
+            ` : ''}
+
+            ${this.harvesting.modifiers?.temporaryEffects ? `
+            <div class="rules-callout" style="border-left-color: var(--herb-green-dark, #2d6a4f);">
+                <strong>Important:</strong> ${this.harvesting.modifiers.temporaryEffects}
+            </div>
+            ` : ''}
+
+            ${this.harvesting.kitActivities ? `
+            <h3>Kit Activities</h3>
+            <table class="ingredient-table" style="font-size: 0.85rem; margin-bottom: 1.5rem;">
+                <thead>
+                    <tr>
+                        <th>Activity</th>
+                        <th>DC</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${kitActivityRows}
+                </tbody>
+            </table>
+            ` : ''}
+
+            <h3>Kit Contents</h3>
+            <p style="font-size: 0.85rem;">${this.harvesting.tool.components}</p>
         `;
     },
 

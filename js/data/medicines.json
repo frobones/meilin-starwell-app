@@ -943,6 +943,7 @@
     }
   ],
   "rules": {
+    "downtimeLimit": "A character can make up to two attempts at gathering or crafting per day during periods of downtime",
     "crafting": {
       "tool": "Herbalism kit (proficiency required)",
       "time": "1 hour of uninterrupted work",
@@ -1038,5 +1039,52 @@
     "Curative": "Juniper berries",
     "Fortifying": "Willow bark",
     "Restorative": "Fleshwort"
+  },
+  "harvesting": {
+    "overview": "Some herbal medicines are created using organs and viscera of certain creatures, often replicating some essential aspect of that creature.",
+    "tool": {
+      "name": "Harvesting kit",
+      "cost": "10 gp",
+      "weight": "7 lb",
+      "proficiency": "Allows you to identify anatomical aspects of creatures and recover their useful resources",
+      "components": "Hunting knife, small hatchet, dental pliers, bone saw, bone cutter, rib-spreader, clamps, rubber tubing, glass vials and jars"
+    },
+    "process": {
+      "time": "5 minutes or longer (GM discretion)",
+      "restCompatible": "Can be performed during a short or long rest",
+      "requirement": "Target must be dead or incapacitated",
+      "checkFormula": "Proficiency bonus + Strength or Dexterity modifier (your choice)",
+      "successThreshold": 10
+    },
+    "storage": {
+      "components": "Harvesting kit containers (indefinite)",
+      "spoilage": "8 hours without proper storage"
+    },
+    "modifiers": {
+      "advantage": "If you or a helper is proficient in the creature type's associated skill",
+      "favoredEnemy": "+2 bonus if you or a helper has the Favored Enemy class feature and the target is a favored enemy",
+      "temporaryEffects": "Temporary modifiers and other effects (such as Bardic Inspiration and effects that grant advantage) don't apply to this check, unless they applied for the duration of the harvesting attempt"
+    },
+    "creatureTypeSkills": [
+      {"skill": "Arcana", "types": "Aberrations, Elementals, Fey"},
+      {"skill": "Survival", "types": "Beasts, Dragons, Monstrosities"},
+      {"skill": "Religion", "types": "Celestials, Fiends, Undead"},
+      {"skill": "Investigation", "types": "Constructs"},
+      {"skill": "Medicine", "types": "Giants, Humanoids"},
+      {"skill": "Nature", "types": "Oozes, Plants"}
+    ],
+    "results": {
+      "success": "On 10+, harvest one or more components based on the creature's harvesting index",
+      "componentDC": "Each component has a DC and available amount. DC increases by +5 per additional unit (e.g., DC 10/+5 means 10 for 1st unit, 15 for 2nd, etc.)",
+      "failure": "Any components you fail to harvest are lost"
+    },
+    "groupHarvesting": {
+      "description": "When harvesting multiple creatures of the same type and CR, combine the time and make a single check at the end",
+      "benefit": "Treat any d20 roll of 9 or lower as a 10"
+    },
+    "kitActivities": [
+      {"activity": "Identify a creature (including unusual characteristics)", "dc": "10"},
+      {"activity": "Determine time of death", "dc": "10–20"}
+    ]
   }
 }
