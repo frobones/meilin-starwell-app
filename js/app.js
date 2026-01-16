@@ -41,6 +41,8 @@ const App = {
     // Change this passkey to whatever you want!
     PASSKEY: 'ms-13',
     STORAGE_KEY: 'meilin-backstory-unlocked',
+    // Pages that require passkey to access
+    PROTECTED_PAGES: ['overview', 'backstory', 'dmtools'],
     
     // Current state
     currentFilters: {
@@ -80,14 +82,9 @@ const App = {
             this.renderCraftableMedicines();
             this.bindCraftEvents();
             
-            // Check if unlocked, show passkey modal if not
-            if (!this.appUnlocked) {
-                this.pendingPage = 'overview';
-                this.showPasskeyModal();
-            } else {
-                // Handle initial page based on URL hash
-                this.handleHashChange();
-            }
+            // Handle initial page based on URL hash
+            // Passkey modal will show if trying to access a protected page
+            this.handleHashChange();
             
             console.log('Meilin Starwell Companion initialized successfully');
         } catch (error) {
@@ -386,7 +383,8 @@ const App = {
      * Handle URL hash changes for navigation
      */
     handleHashChange() {
-        const hash = window.location.hash.slice(1) || 'overview';
+        // Default to 'rumors' (a non-protected page) if no hash
+        const hash = window.location.hash.slice(1) || 'rumors';
         if (hash === 'overview' || hash === 'medicine' || hash === 'backstory' || hash === 'dmtools' || hash === 'rumors') {
             this.switchPage(hash, false);
         }
@@ -396,8 +394,9 @@ const App = {
      * Switch between main pages
      */
     switchPage(pageName, updateHash = true) {
-        // Check if app is unlocked
-        if (!this.appUnlocked) {
+        // Check if passkey is required for this page
+        const isProtected = this.PROTECTED_PAGES.includes(pageName);
+        if (isProtected && !this.appUnlocked) {
             this.pendingPage = pageName;
             this.showPasskeyModal();
             return;
