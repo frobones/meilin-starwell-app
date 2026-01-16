@@ -197,6 +197,49 @@ const App = {
         this.harvesting = medicinesData.harvesting;
         this.primaryComponents = medicinesData.primaryComponents;
         this.ingredients = ingredientsData;
+        
+        // Build creature parts lookup by name for quick access
+        this.creaturePartsLookup = this.buildCreaturePartsLookup();
+    },
+    
+    /**
+     * Build a lookup map for creature parts by name
+     * Returns an object where keys are part names and values contain details
+     * Combines sources when the same part appears in multiple creature types
+     */
+    buildCreaturePartsLookup() {
+        const lookup = {};
+        const creatureParts = this.ingredients?.creatureParts;
+        
+        if (!creatureParts) return lookup;
+        
+        for (const [creatureType, parts] of Object.entries(creatureParts)) {
+            for (const part of parts) {
+                if (lookup[part.name]) {
+                    // Part already exists - combine the sources
+                    lookup[part.name].creatureTypes.push(creatureType);
+                    lookup[part.name].sources.push({
+                        creatureType: creatureType,
+                        source: part.source
+                    });
+                } else {
+                    // New part - create entry with arrays for multiple sources
+                    lookup[part.name] = {
+                        name: part.name,
+                        creatureTypes: [creatureType],
+                        dc: part.dc,
+                        amount: part.amount,
+                        sources: [{
+                            creatureType: creatureType,
+                            source: part.source
+                        }],
+                        use: part.use
+                    };
+                }
+            }
+        }
+        
+        return lookup;
     },
 
     /**
@@ -374,8 +417,11 @@ const App = {
 
         // Update URL hash
         if (updateHash) {
-            window.location.hash = pageName;
+            history.replaceState(null, '', `#${pageName}`);
         }
+
+        // Scroll to top of page
+        window.scrollTo(0, 0);
 
         // Load At a Glance content if switching to that page
         if (pageName === 'overview' && !this.overviewData) {
@@ -421,12 +467,56 @@ const App = {
         if (!container || !this.rumorsData) return;
         
         container.innerHTML = this.rumorsData.rumors.map(rumor => `
-            <div class="rumor-item">
-                ${rumor.text}
+            <div class="rumor-item" data-image="img/${rumor.image}">
+                <span class="rumor-text">
+                    <span class="rumor-readable">${rumor.text}</span>
+                    <span class="rumor-cipher" aria-hidden="true">${rumor.text}</span>
+                </span>
             </div>
         `).join('');
         
+        // Add hover listeners for image swapping
+        this.setupRumorHoverEffects();
+        
         this.refreshIcons();
+    },
+    
+    /**
+     * Setup hover effects for rumors to swap gallery image
+     */
+    setupRumorHoverEffects() {
+        const rumorItems = document.querySelectorAll('.rumor-item');
+        const galleryImage = document.getElementById('rumors-gallery-image');
+        const galleryContainer = document.getElementById('rumors-gallery-container');
+        const defaultImage = 'img/scene.png';
+        
+        if (!galleryImage || !galleryContainer) return;
+        
+        rumorItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                const newImage = item.dataset.image;
+                if (newImage && galleryImage.src !== newImage) {
+                    // Add fade transition
+                    galleryImage.style.opacity = '0';
+                    setTimeout(() => {
+                        galleryImage.src = newImage;
+                        galleryContainer.dataset.lightbox = newImage;
+                        galleryImage.style.opacity = '1';
+                    }, 150);
+                }
+            });
+            
+            item.addEventListener('mouseleave', () => {
+                // Optional: return to default on mouse leave
+                // Uncomment below to enable return-to-default behavior
+                // galleryImage.style.opacity = '0';
+                // setTimeout(() => {
+                //     galleryImage.src = defaultImage;
+                //     galleryContainer.dataset.lightbox = defaultImage;
+                //     galleryImage.style.opacity = '1';
+                // }, 150);
+            });
+        });
     },
     
     /**
@@ -914,6 +1004,43 @@ const App = {
         }
         return floraName;
     },
+    
+    /**
+     * Create clickable creature part span
+     */
+    makeCreatureClickable(partName) {
+        // Check if we have details for this creature part
+        if (this.creaturePartsLookup?.[partName]) {
+            return `<span class="creature-clickable" data-creature="${partName}">${partName}</span>`;
+        }
+        return partName;
+    },
+    
+    /**
+     * Make an ingredient clickable - checks both flora and creature parts
+     * Returns object with html and type for styling purposes
+     */
+    makeIngredientClickable(ingredientName) {
+        // Check if it's a flora
+        if (this.ingredients?.floraDetails?.[ingredientName]) {
+            return {
+                html: `<span class="flora-clickable" data-flora="${ingredientName}">${ingredientName}</span>`,
+                type: 'flora'
+            };
+        }
+        // Check if it's a creature part
+        if (this.creaturePartsLookup?.[ingredientName]) {
+            return {
+                html: `<span class="creature-clickable" data-creature="${ingredientName}">${ingredientName}</span>`,
+                type: 'creature'
+            };
+        }
+        // Neither - return plain text
+        return {
+            html: ingredientName,
+            type: 'unknown'
+        };
+    },
 
     /**
      * Create HTML for medicine components
@@ -951,20 +1078,34 @@ const App = {
                     `;
                 }
                 if (creatureOptions.length > 0) {
+                    const creatureClickables = creatureOptions.map(c => this.makeCreatureClickable(c)).join(' or ');
                     html += `
                         <div class="component-item">
                             <span class="component-label">Secondary:</span>
-                            <span class="component-value component-creature">${creatureOptions.join(' or ')}</span>
+                            <span class="component-value component-creature">${creatureClickables}</span>
                         </div>
                     `;
                 }
             } else {
-                // Old format: simple string array - check each one for flora
-                const secondaryClickables = medicine.secondary.map(s => this.makeFloraClickable(s)).join(' or ');
+                // Old format: simple string array - check each one for flora or creature
+                const ingredients = medicine.secondary.map(s => this.makeIngredientClickable(s));
+                const secondaryClickables = ingredients.map(i => i.html).join(' or ');
+                
+                // Determine styling class based on ingredient types
+                // If all are creature parts, use creature styling; if all flora, use flora styling
+                const hasCreature = ingredients.some(i => i.type === 'creature');
+                const hasFlora = ingredients.some(i => i.type === 'flora');
+                let valueClass = '';
+                if (hasCreature && !hasFlora) {
+                    valueClass = ' component-creature';
+                } else if (hasFlora && !hasCreature) {
+                    valueClass = ' component-flora';
+                }
+                
                 html += `
                     <div class="component-item">
                         <span class="component-label">Secondary:</span>
-                        <span class="component-value">${secondaryClickables}</span>
+                        <span class="component-value${valueClass}">${secondaryClickables}</span>
                     </div>
                 `;
             }
@@ -1033,13 +1174,20 @@ const App = {
     },
 
     /**
-     * Bind click events for flora items and medicine links
+     * Bind click events for flora items, creature parts, and medicine links
      */
     bindFloraClickEvents(container) {
         container.querySelectorAll('.flora-clickable').forEach(el => {
             el.addEventListener('click', (e) => {
                 const floraName = e.target.dataset.flora;
                 this.showFloraDetails(floraName);
+            });
+        });
+        
+        container.querySelectorAll('.creature-clickable').forEach(el => {
+            el.addEventListener('click', (e) => {
+                const partName = e.target.dataset.creature;
+                this.showCreatureDetails(partName);
             });
         });
 
@@ -1073,6 +1221,26 @@ const App = {
     },
 
     /**
+     * Look up DC for a flora by name
+     */
+    getFloraGatherDC(floraName) {
+        // Check common flora first
+        const common = this.ingredients?.flora?.common?.find(f => f.name === floraName);
+        if (common) return common.dc;
+        
+        // Check rare flora across all terrains
+        const rare = this.ingredients?.flora?.rare;
+        if (rare) {
+            for (const terrain of Object.values(rare)) {
+                const found = terrain.find(f => f.name === floraName);
+                if (found) return found.dc;
+            }
+        }
+        
+        return null;
+    },
+    
+    /**
      * Show flora details modal
      */
     showFloraDetails(floraName) {
@@ -1081,6 +1249,10 @@ const App = {
             console.warn(`No details found for flora: ${floraName}`);
             return;
         }
+        
+        // Look up the DC for gathering this flora
+        const dc = this.getFloraGatherDC(floraName);
+        const dcHtml = dc ? `<span class="flora-dc"><i data-lucide="target"></i> DC ${dc}</span>` : '';
 
         // Create modal overlay
         const overlay = document.createElement('div');
@@ -1095,6 +1267,7 @@ const App = {
                 <div class="flora-modal-meta">
                     <span class="flora-rarity">${details.rarity}</span>
                     <span class="flora-terrain"><i data-lucide="map-pin"></i> ${details.terrain}</span>
+                    ${dcHtml}
                 </div>
                 <p class="flora-modal-description">${details.description}</p>
             </div>
@@ -1110,6 +1283,100 @@ const App = {
         };
 
         overlay.querySelector('.flora-modal-close').addEventListener('click', closeModal);
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) closeModal();
+        });
+
+        // Escape key to close
+        const escHandler = (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+                document.removeEventListener('keydown', escHandler);
+            }
+        };
+        document.addEventListener('keydown', escHandler);
+
+        // Animate in
+        requestAnimationFrame(() => overlay.classList.add('active'));
+    },
+    
+    /**
+     * Show creature part details modal
+     */
+    showCreatureDetails(partName) {
+        const details = this.creaturePartsLookup?.[partName];
+        if (!details) {
+            console.warn(`No details found for creature part: ${partName}`);
+            return;
+        }
+
+        // Format amount display
+        let amountDisplay = details.amount;
+        if (details.amount === 'Δ') {
+            amountDisplay = '<abbr title="Amount depends on creature size: Medium or smaller = 1, Large = 2, Huge = 4, Gargantuan+ = 8">Δ (varies by size)</abbr>';
+        }
+        
+        // Format creature type badges (may have multiple)
+        const typeBadges = details.creatureTypes.map(t => 
+            `<span class="creature-type-badge">${t}</span>`
+        ).join('');
+        
+        // Format sources - group by creature type if multiple
+        // Strip out "(replaces X)" notes as they're not needed for display
+        const cleanSource = (source) => source.replace(/\s*\(replaces[^)]*\)/gi, '').trim();
+        
+        let sourcesHtml;
+        if (details.sources.length === 1) {
+            // Single source - simple display
+            sourcesHtml = cleanSource(details.sources[0].source);
+        } else {
+            // Multiple sources - show creature type with each source
+            sourcesHtml = details.sources.map(s => 
+                `<div class="creature-source-item"><strong>${s.creatureType}:</strong> ${cleanSource(s.source)}</div>`
+            ).join('');
+        }
+
+        // Create modal overlay
+        const overlay = document.createElement('div');
+        overlay.className = 'creature-modal-overlay';
+        overlay.innerHTML = `
+            <div class="creature-modal">
+                <button class="creature-modal-close" aria-label="Close">&times;</button>
+                <div class="creature-modal-header">
+                    <span class="creature-modal-icon"><i data-lucide="bone"></i></span>
+                    <h3 class="creature-modal-title">${partName}</h3>
+                </div>
+                <div class="creature-modal-meta">
+                    ${typeBadges}
+                    <span class="creature-dc"><i data-lucide="target"></i> DC ${details.dc}</span>
+                </div>
+                <div class="creature-modal-details">
+                    <div class="creature-detail-row">
+                        <span class="creature-detail-label">Source:</span>
+                        <span class="creature-detail-value">${sourcesHtml}</span>
+                    </div>
+                    <div class="creature-detail-row">
+                        <span class="creature-detail-label">Amount:</span>
+                        <span class="creature-detail-value">${amountDisplay}</span>
+                    </div>
+                    <div class="creature-detail-row">
+                        <span class="creature-detail-label">Used in:</span>
+                        <span class="creature-detail-value">${details.use}</span>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(overlay);
+        this.refreshIcons();
+
+        // Close handlers
+        const closeModal = () => {
+            overlay.classList.add('closing');
+            setTimeout(() => overlay.remove(), 200);
+        };
+
+        overlay.querySelector('.creature-modal-close').addEventListener('click', closeModal);
         overlay.addEventListener('click', (e) => {
             if (e.target === overlay) closeModal();
         });
@@ -1851,8 +2118,13 @@ const App = {
                 // Switch to the target page
                 this.switchPage(targetPage);
                 
-                // If there's a section to scroll to, wait for content to load then scroll
-                if (targetSection) {
+                // If navigating to DM Tools with a section, switch to that tab
+                if (targetPage === 'dmtools' && targetSection) {
+                    setTimeout(() => {
+                        this.switchDMToolsTab(targetSection);
+                    }, 100);
+                } else if (targetSection) {
+                    // For other pages, scroll to section
                     setTimeout(() => {
                         this.scrollToSection(`${targetSection}-section`);
                     }, 100);

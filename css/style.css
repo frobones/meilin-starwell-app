@@ -46,6 +46,24 @@
   --shadow: rgba(44, 36, 22, 0.15);
   --shadow-heavy: rgba(44, 36, 22, 0.25);
   
+  /* Biome/Terrain colors */
+  --biome-arctic: #87ceeb;
+  --biome-arctic-dark: #5fa8c7;
+  --biome-coast: #3a7a8c;
+  --biome-coast-dark: #2d5f6d;
+  --biome-desert: #b8956b;
+  --biome-desert-dark: #8f7352;
+  --biome-forest: #4a5d4a;
+  --biome-forest-dark: #3a4a3a;
+  --biome-grassland: #7a8c4a;
+  --biome-grassland-dark: #5f6d3a;
+  --biome-mountain: #a04040;
+  --biome-mountain-dark: #7a3030;
+  --biome-swamp: #2a2a2a;
+  --biome-swamp-dark: #1a1a1a;
+  --biome-underground: #6a5a7a;
+  --biome-underground-dark: #524560;
+  
   /* Typography */
   --font-display: 'Uncial Antiqua', serif;
   --font-heading: 'Cormorant Garamond', serif;
@@ -1086,10 +1104,86 @@ details[open] .rules-toggle::after {
   background: var(--parchment-dark);
 }
 
+/* Biome-specific hover hints */
+.terrain-tab[data-terrain="Arctic"]:hover:not(.active) {
+  background: color-mix(in srgb, var(--biome-arctic) 20%, var(--parchment-dark));
+}
+
+.terrain-tab[data-terrain="Coast"]:hover:not(.active) {
+  background: color-mix(in srgb, var(--biome-coast) 20%, var(--parchment-dark));
+}
+
+.terrain-tab[data-terrain="Desert"]:hover:not(.active) {
+  background: color-mix(in srgb, var(--biome-desert) 20%, var(--parchment-dark));
+}
+
+.terrain-tab[data-terrain="Forest"]:hover:not(.active) {
+  background: color-mix(in srgb, var(--biome-forest) 20%, var(--parchment-dark));
+}
+
+.terrain-tab[data-terrain="Grassland"]:hover:not(.active) {
+  background: color-mix(in srgb, var(--biome-grassland) 20%, var(--parchment-dark));
+}
+
+.terrain-tab[data-terrain="Mountain"]:hover:not(.active) {
+  background: color-mix(in srgb, var(--biome-mountain) 20%, var(--parchment-dark));
+}
+
+.terrain-tab[data-terrain="Swamp"]:hover:not(.active) {
+  background: color-mix(in srgb, var(--biome-swamp) 20%, var(--parchment-dark));
+}
+
+.terrain-tab[data-terrain="Underground"]:hover:not(.active) {
+  background: color-mix(in srgb, var(--biome-underground) 20%, var(--parchment-dark));
+}
+
 .terrain-tab.active {
   background: var(--herb-green);
   color: var(--parchment-light);
   border-color: var(--herb-green-dark);
+}
+
+/* Biome-specific terrain tab colors */
+.terrain-tab.active[data-terrain="Arctic"] {
+  background: var(--biome-arctic);
+  border-color: var(--biome-arctic-dark);
+  color: var(--ink-brown);
+}
+
+.terrain-tab.active[data-terrain="Coast"] {
+  background: var(--biome-coast);
+  border-color: var(--biome-coast-dark);
+}
+
+.terrain-tab.active[data-terrain="Desert"] {
+  background: var(--biome-desert);
+  border-color: var(--biome-desert-dark);
+  color: var(--ink-brown);
+}
+
+.terrain-tab.active[data-terrain="Forest"] {
+  background: var(--biome-forest);
+  border-color: var(--biome-forest-dark);
+}
+
+.terrain-tab.active[data-terrain="Grassland"] {
+  background: var(--biome-grassland);
+  border-color: var(--biome-grassland-dark);
+}
+
+.terrain-tab.active[data-terrain="Mountain"] {
+  background: var(--biome-mountain);
+  border-color: var(--biome-mountain-dark);
+}
+
+.terrain-tab.active[data-terrain="Swamp"] {
+  background: var(--biome-swamp);
+  border-color: var(--biome-swamp-dark);
+}
+
+.terrain-tab.active[data-terrain="Underground"] {
+  background: var(--biome-underground);
+  border-color: var(--biome-underground-dark);
 }
 
 /* ============================================
@@ -4849,6 +4943,23 @@ details[open] .rules-toggle::after {
   height: 14px;
 }
 
+.flora-dc {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--parchment);
+  color: var(--ink-faded);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  border: 1px solid var(--parchment-aged);
+}
+
+.flora-dc svg {
+  width: 14px;
+  height: 14px;
+}
+
 .flora-modal-description {
   font-family: var(--font-body);
   font-size: 1rem;
@@ -4859,6 +4970,219 @@ details[open] .rules-toggle::after {
   background: var(--parchment);
   border-radius: 8px;
   border-left: 4px solid var(--herb-green);
+}
+
+/* ============================================
+   Creature Part Modal
+   ============================================ */
+
+/* Creature Modal Overlay */
+.creature-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  padding: var(--space-lg);
+}
+
+.creature-modal-overlay.active {
+  opacity: 1;
+}
+
+.creature-modal-overlay.closing {
+  opacity: 0;
+}
+
+/* Creature Modal */
+.creature-modal {
+  background: var(--parchment-light);
+  border-radius: 12px;
+  max-width: 500px;
+  width: 100%;
+  padding: var(--space-xl);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  position: relative;
+  transform: scale(0.9) translateY(20px);
+  transition: transform 0.2s ease;
+  border: 2px solid var(--creature-red);
+}
+
+.creature-modal-overlay.active .creature-modal {
+  transform: scale(1) translateY(0);
+}
+
+.creature-modal-overlay.closing .creature-modal {
+  transform: scale(0.9) translateY(20px);
+}
+
+.creature-modal-close {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: var(--ink-faded);
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.creature-modal-close:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: var(--ink-brown);
+}
+
+.creature-modal-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.creature-modal-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--creature-red);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--parchment-light);
+  flex-shrink: 0;
+}
+
+.creature-modal-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.creature-modal-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--ink-brown);
+  margin: 0;
+}
+
+.creature-modal-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.creature-type-badge {
+  display: inline-block;
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--creature-red);
+  color: var(--parchment-light);
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.creature-dc {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--parchment);
+  color: var(--ink-faded);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  border: 1px solid var(--parchment-aged);
+}
+
+.creature-dc svg {
+  width: 14px;
+  height: 14px;
+}
+
+.creature-modal-details {
+  background: var(--parchment);
+  border-radius: 8px;
+  border-left: 4px solid var(--creature-red);
+  padding: var(--space-md);
+}
+
+.creature-detail-row {
+  display: flex;
+  gap: var(--space-sm);
+  padding: var(--space-sm) 0;
+  border-bottom: 1px solid var(--parchment-aged);
+}
+
+.creature-detail-row:last-child {
+  border-bottom: none;
+}
+
+.creature-detail-label {
+  font-weight: 600;
+  color: var(--ink-faded);
+  min-width: 80px;
+  flex-shrink: 0;
+}
+
+.creature-detail-value {
+  color: var(--ink-brown);
+  font-family: var(--font-body);
+  line-height: 1.5;
+}
+
+/* Remove dotted underline from abbr in creature modal */
+.creature-detail-value abbr {
+  text-decoration: none;
+  border-bottom: none;
+  cursor: help;
+}
+
+/* Multiple source items for parts from different creature types */
+.creature-source-item {
+  padding: var(--space-xs) 0;
+}
+
+.creature-source-item:first-child {
+  padding-top: 0;
+}
+
+.creature-source-item:last-child {
+  padding-bottom: 0;
+}
+
+.creature-source-item + .creature-source-item {
+  border-top: 1px dashed var(--parchment-aged);
+}
+
+/* Clickable creature parts styling */
+.creature-clickable {
+  cursor: pointer;
+  color: var(--creature-red);
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 2px;
+  transition: all 0.2s ease;
+}
+
+.creature-clickable:hover {
+  color: #6a3535;
+  text-decoration-style: solid;
 }
 
 /* ============================================
@@ -5229,11 +5553,74 @@ details[open] .rules-toggle::after {
   background: var(--parchment-light);
   border-radius: var(--radius-md);
   border-left: 3px solid var(--gold-accent);
-  font-family: var(--font-body);
   font-size: 0.95rem;
   line-height: 1.5;
   color: var(--ink-dark);
   position: relative;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s ease, transform 0.2s ease, 
+              background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rumor-item:hover {
+  opacity: 1;
+  transform: translateX(4px);
+  background: var(--parchment-cream);
+  box-shadow: var(--shadow-md);
+}
+
+/* Cipher text effect - dual layer approach for consistent sizing */
+.rumor-text {
+  position: relative;
+  display: block;
+  font-family: var(--font-body);
+}
+
+/* Readable text - determines the container size, visible on hover */
+.rumor-readable {
+  display: block;
+  opacity: 0;
+  transition: opacity 0.2s ease 0.1s;
+}
+
+.rumor-item:hover .rumor-readable {
+  opacity: 1;
+}
+
+/* Cipher text - overlays the readable, visible by default */
+.rumor-cipher {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  font-family: 'Redacted Script', cursive;
+  opacity: 1;
+  transition: opacity 0.15s ease, filter 0.15s ease;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.rumor-item:hover .rumor-cipher {
+  opacity: 0;
+  filter: blur(2px);
+}
+
+/* Brief blur during reveal to create "decoding" effect */
+@keyframes decipherText {
+  0% {
+    filter: blur(3px);
+    opacity: 0.7;
+  }
+  50% {
+    filter: blur(1px);
+    opacity: 0.9;
+  }
+  100% {
+    filter: blur(0);
+    opacity: 1;
+  }
 }
 
 .rumor-item::before {
@@ -5266,6 +5653,7 @@ details[open] .rules-toggle::after {
   width: 100%;
   height: auto;
   display: block;
+  transition: opacity 0.15s ease;
 }
 
 
