@@ -338,6 +338,15 @@ export function showCreatureDetails(partName) {
     
     const typeBadges = details.creatureTypes.map(t => `<span class="creature-type-badge">${t}</span>`).join('');
     
+    // Get unique sources
+    const sourceList = details.sources.map(s => s.source).filter((v, i, a) => a.indexOf(v) === i).join(', ');
+    
+    // Format amount - explain delta if present
+    let amountDisplay = details.amount;
+    if (details.amount === 'Δ') {
+        amountDisplay = 'Δ (size-dependent: M=1, L=2, H=4, G=8)';
+    }
+    
     const overlay = document.createElement('div');
     overlay.className = 'creature-modal-overlay';
     overlay.innerHTML = `
@@ -349,7 +358,8 @@ export function showCreatureDetails(partName) {
             </div>
             <div class="creature-modal-meta">${typeBadges}<span class="creature-dc"><i data-lucide="target"></i> DC ${details.dc}</span></div>
             <div class="creature-modal-details">
-                <div class="creature-detail-row"><span class="creature-detail-label">Amount:</span><span class="creature-detail-value">${details.amount}</span></div>
+                <div class="creature-detail-row"><span class="creature-detail-label">Source:</span><span class="creature-detail-value">${sourceList}</span></div>
+                <div class="creature-detail-row"><span class="creature-detail-label">Amount:</span><span class="creature-detail-value">${amountDisplay}</span></div>
                 <div class="creature-detail-row"><span class="creature-detail-label">Used in:</span><span class="creature-detail-value">${details.use}</span></div>
             </div>
         </div>
