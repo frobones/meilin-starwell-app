@@ -253,6 +253,53 @@
   color: var(--ink-brown);
 }
 
+/* Chapter Expand Cue */
+.chapter-expand-cue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+  padding: var(--space-md) var(--space-lg);
+  background: linear-gradient(to bottom, transparent, rgba(184, 134, 11, 0.08));
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.chapter-expand-cue:hover {
+  background: rgba(184, 134, 11, 0.15);
+}
+
+.chapter-expand-cue:hover .expand-text {
+  text-decoration: underline;
+}
+
+.chapter-expand-cue .expand-text {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--gold-accent);
+  letter-spacing: 0.02em;
+}
+
+.chapter-expand-cue .expand-icon {
+  display: flex;
+  align-items: center;
+  color: var(--gold-accent);
+  transition: transform 0.3s ease;
+}
+
+.chapter-expand-cue .expand-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Hide expand cue when chapter is expanded */
+.backstory-section.expanded .chapter-expand-cue {
+  display: none;
+}
+
 /* Epilogue */
 .backstory-epilogue {
   text-align: center;

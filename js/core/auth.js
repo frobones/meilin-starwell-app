@@ -7,10 +7,23 @@ import { store } from './state.js';
 import { events } from './events.js';
 
 const CONFIG = {
-    PASSKEY: 'ms-13',
+    // SHA-256 hash of the passkey (obfuscated for security)
+    PASSKEY_HASH: 'e339999870b56a14ec00a640677a673c68e0cb0d88e8115235671f370ef80915',
     STORAGE_KEY: 'meilin-backstory-unlocked',
     PROTECTED_PAGES: ['overview', 'backstory', 'dmtools']
 };
+
+/**
+ * Hash a string using SHA-256
+ */
+async function hashString(str) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(str.toLowerCase().trim());
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    return Array.from(new Uint8Array(hashBuffer))
+        .map(b => b.toString(16).padStart(2, '0'))
+        .join('');
+}
 
 /**
  * Check if a page requires authentication
@@ -37,10 +50,11 @@ export function checkStoredUnlock() {
 }
 
 /**
- * Verify the passkey
+ * Verify the passkey (async - uses SHA-256 hash comparison)
  */
-export function verifyPasskey(entered) {
-    return entered.toLowerCase().trim() === CONFIG.PASSKEY.toLowerCase();
+export async function verifyPasskey(entered) {
+    const hash = await hashString(entered);
+    return hash === CONFIG.PASSKEY_HASH;
 }
 
 /**
@@ -91,14 +105,16 @@ export function cancelPasskey() {
 }
 
 /**
- * Handle passkey submission
+ * Handle passkey submission (async)
  */
-export function checkPasskey() {
+export async function checkPasskey() {
     const input = document.getElementById('passkey-input');
     const errorEl = document.getElementById('passkey-error');
     const entered = input?.value || '';
     
-    if (verifyPasskey(entered)) {
+    const isValid = await verifyPasskey(entered);
+    
+    if (isValid) {
         unlock();
         closePasskeyModal();
         const pendingPage = store.get('pendingPage');
@@ -123,9 +139,9 @@ export function bindPasskeyEvents() {
     const cancelBtn = document.getElementById('passkey-cancel');
     
     if (form) {
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            checkPasskey();
+            await checkPasskey();
         });
     }
     

@@ -111,6 +111,10 @@ export function renderEnhancedBackstory(markdown) {
                 <div class="backstory-section-content">
                     ${sectionParagraphs}
                 </div>
+                <div class="chapter-expand-cue">
+                    <span class="expand-text">Read full chapter</span>
+                    <span class="expand-icon"><i data-lucide="chevron-down"></i></span>
+                </div>
                 <div class="chapter-content-expanded" data-chapter="${section.chapterIndex}">
                     <div class="chapter-loading">Loading chapter...</div>
                 </div>
@@ -131,9 +135,10 @@ export function renderEnhancedBackstory(markdown) {
 }
 
 /**
- * Bind click events for section headers
+ * Bind click events for section headers and expand cues
  */
 export function bindChapterLinkEvents() {
+    // Bind header clicks
     document.querySelectorAll('.backstory-section-header').forEach(header => {
         header.addEventListener('click', () => {
             const section = header.closest('.backstory-section');
@@ -146,6 +151,14 @@ export function bindChapterLinkEvents() {
                 const section = header.closest('.backstory-section');
                 toggleChapterExpansion(section);
             }
+        });
+    });
+    
+    // Bind expand cue clicks
+    document.querySelectorAll('.chapter-expand-cue').forEach(cue => {
+        cue.addEventListener('click', () => {
+            const section = cue.closest('.backstory-section');
+            toggleChapterExpansion(section);
         });
     });
 }

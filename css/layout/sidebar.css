@@ -119,9 +119,110 @@
   opacity: 0.7;
 }
 
-/* Responsive sidebar */
+/* ============================================
+   Mobile Header
+   ============================================ */
+
+.mobile-header {
+  display: none; /* Hidden on desktop */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background: var(--ink-brown);
+  color: var(--parchment-light);
+  z-index: 200;
+  padding: 0 var(--space-md);
+  align-items: center;
+  gap: var(--space-md);
+  box-shadow: 0 2px 10px var(--shadow-heavy);
+}
+
+.hamburger-btn {
+  background: none;
+  border: none;
+  color: var(--parchment-light);
+  cursor: pointer;
+  padding: var(--space-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  transition: background 0.2s ease;
+}
+
+.hamburger-btn:hover {
+  background: rgba(245, 240, 225, 0.1);
+}
+
+.hamburger-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+.mobile-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--gold-accent);
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+/* ============================================
+   Drawer Overlay
+   ============================================ */
+
+.drawer-overlay {
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 150;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.drawer-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ============================================
+   Responsive Sidebar - Mobile Drawer
+   ============================================ */
+
 @media (max-width: 768px) {
+  /* Show mobile header */
+  .mobile-header {
+    display: flex;
+  }
+
+  /* Show drawer overlay */
+  .drawer-overlay {
+    display: block;
+  }
+
+  /* Transform sidebar into slide-out drawer */
   .sidebar {
-    display: none; /* Hide on mobile - would need mobile nav implementation */
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    top: 0;
+    z-index: 175;
+  }
+
+  /* Sidebar open state */
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  /* Adjust main content for mobile header */
+  .main-area {
+    margin-top: 56px;
   }
 }

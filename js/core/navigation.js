@@ -1,12 +1,82 @@
 /**
  * Navigation Module
- * Handles page switching, tab handling, and URL hash routing.
+ * Handles page switching, tab handling, URL hash routing, and mobile drawer.
  */
 
 import { store } from './state.js';
 import { events } from './events.js';
 import { icons } from './icons.js';
 import { canNavigateTo } from './auth.js';
+
+// ============================================
+// Mobile Drawer
+// ============================================
+
+/**
+ * Open the mobile drawer
+ */
+export function openDrawer() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('drawer-overlay');
+    if (sidebar) sidebar.classList.add('open');
+    if (overlay) overlay.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent scroll when drawer is open
+}
+
+/**
+ * Close the mobile drawer
+ */
+export function closeDrawer() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('drawer-overlay');
+    if (sidebar) sidebar.classList.remove('open');
+    if (overlay) overlay.classList.remove('active');
+    document.body.style.overflow = ''; // Restore scroll
+}
+
+/**
+ * Toggle the mobile drawer
+ */
+export function toggleDrawer() {
+    const sidebar = document.getElementById('sidebar');
+    if (sidebar?.classList.contains('open')) {
+        closeDrawer();
+    } else {
+        openDrawer();
+    }
+}
+
+/**
+ * Check if we're on mobile (drawer mode)
+ */
+function isMobileView() {
+    return window.innerWidth <= 768;
+}
+
+/**
+ * Bind mobile drawer events
+ */
+export function bindDrawerEvents() {
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const overlay = document.getElementById('drawer-overlay');
+    
+    // Hamburger button toggles drawer
+    if (hamburgerBtn) {
+        hamburgerBtn.addEventListener('click', toggleDrawer);
+    }
+    
+    // Overlay click closes drawer
+    if (overlay) {
+        overlay.addEventListener('click', closeDrawer);
+    }
+    
+    // Close drawer on escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeDrawer();
+        }
+    });
+}
 
 /**
  * Handle URL hash changes
@@ -97,12 +167,20 @@ export function scrollToSection(sectionId) {
  * Bind navigation events
  */
 export function bindNavigationEvents() {
+    // Bind mobile drawer events
+    bindDrawerEvents();
+    
     // Sidebar navigation
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const page = link.dataset.page;
             switchPage(page);
+            
+            // Close drawer on mobile after navigation
+            if (isMobileView()) {
+                closeDrawer();
+            }
         });
     });
     

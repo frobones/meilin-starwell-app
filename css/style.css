@@ -5356,44 +5356,70 @@ details[open] .rules-toggle::after {
     flex-direction: column;
   }
   
+  /* Sidebar is now a slide-out drawer on mobile - see sidebar.css */
+  /* Hidden by default, shown via .open class when hamburger is clicked */
   .sidebar {
-    position: relative;
-    width: 100%;
-    height: auto;
-    flex-direction: row;
-    align-items: center;
-    padding: var(--space-sm) var(--space-md);
+    position: fixed !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 280px !important;
+    min-width: 280px !important;
+    height: 100vh !important;
+    flex-direction: column !important;
+    transform: translateX(-100%) !important;
+    transition: transform 0.3s ease !important;
+    z-index: 175 !important;
+  }
+  
+  .sidebar.open {
+    transform: translateX(0) !important;
   }
   
   .sidebar-header {
-    display: none;
+    display: block !important;
+    padding: var(--space-xl) var(--space-lg) !important;
+  }
+  
+  .sidebar-portrait {
+    display: block !important;
+    width: 120px !important;
+    height: 120px !important;
+  }
+  
+  .sidebar-title,
+  .sidebar-subtitle {
+    display: block !important;
+  }
+  
+  .sidebar-footer {
+    display: block !important;
   }
   
   .sidebar-nav {
-    flex-direction: row;
-    padding: 0;
+    flex-direction: column;
+    padding: var(--space-lg) 0;
     flex: 1;
-    justify-content: center;
+    justify-content: flex-start;
   }
   
   .nav-link {
-    padding: var(--space-sm) var(--space-md);
-    border-left: none;
-    border-bottom: 2px solid transparent;
+    padding: var(--space-md) var(--space-lg);
+    border-left: 3px solid transparent;
+    border-bottom: none;
   }
   
   .nav-link.active {
-    border-left-color: transparent;
-    border-bottom-color: var(--gold-accent);
+    border-left-color: var(--gold-accent);
+    border-bottom-color: transparent;
   }
   
   .nav-text {
     display: block;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
   }
   
   .nav-icon {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
   }
   
   .main-area {

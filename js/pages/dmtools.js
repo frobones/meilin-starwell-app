@@ -20,6 +20,13 @@ const TYPE_LABELS = {
     'antagonist': 'Antagonist'
 };
 
+// Type icons for visual clarity
+const TYPE_ICONS = {
+    'ally': 'shield',
+    'complicated': 'alert-triangle',
+    'antagonist': 'sword'
+};
+
 /**
  * Load all DM Tools content
  */
@@ -189,12 +196,16 @@ export function renderRelationships() {
  */
 function renderRelationshipCard(connection) {
     const hasDetails = connection.details !== undefined;
+    const icon = TYPE_ICONS[connection.type] || 'user';
     
     return `
         <div class="relationship-card ${connection.type} ${hasDetails ? 'clickable' : ''}" 
              data-connection-name="${connection.name}"
              ${hasDetails ? 'title="Click for details"' : ''}>
-            <h4 class="relationship-card-name">${connection.name}</h4>
+            <div class="relationship-card-header">
+                <span class="relationship-card-icon"><i data-lucide="${icon}"></i></span>
+                <h4 class="relationship-card-name">${connection.name}</h4>
+            </div>
             <span class="relationship-card-type">${TYPE_LABELS[connection.type] || connection.type}</span>
             <p class="relationship-card-role">${connection.role}</p>
             <p class="relationship-card-tension">${connection.tension}</p>

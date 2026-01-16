@@ -309,6 +309,44 @@
 .relationship-card.complicated.clickable:hover { border-color: var(--gold-accent); }
 .relationship-card.antagonist.clickable:hover { border-color: var(--blood-red); }
 
+.relationship-card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xs);
+}
+
+.relationship-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.relationship-card-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Type-specific icon colors */
+.relationship-card.ally .relationship-card-icon {
+  background: rgba(74, 93, 74, 0.15);
+  color: var(--herb-green-dark);
+}
+
+.relationship-card.complicated .relationship-card-icon {
+  background: rgba(184, 134, 11, 0.15);
+  color: var(--gold-accent);
+}
+
+.relationship-card.antagonist .relationship-card-icon {
+  background: rgba(139, 35, 35, 0.15);
+  color: var(--blood-red);
+}
+
 .relationship-card-name {
   font-family: var(--font-heading);
   font-size: 1.1rem;

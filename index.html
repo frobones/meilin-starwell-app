@@ -19,9 +19,20 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <!-- Mobile Header (visible on small screens) -->
+    <header class="mobile-header" id="mobile-header">
+        <button class="hamburger-btn" id="hamburger-btn" aria-label="Open menu">
+            <i data-lucide="menu"></i>
+        </button>
+        <h1 class="mobile-title">Meilin Starwell</h1>
+    </header>
+
+    <!-- Drawer Overlay (for closing mobile menu) -->
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+
     <div class="app-layout">
         <!-- Sidebar Navigation -->
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <div class="sidebar-portrait" data-lightbox="img/portrait.png">
                     <img src="img/portrait.png" alt="Meilin Starwell" />
@@ -690,5 +701,37 @@
     
     <!-- ES Module Application -->
     <script type="module" src="js/main.js"></script>
+    
+    <!-- Mobile Drawer Fallback (inline for immediate availability) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('drawer-overlay');
+            
+            if (hamburgerBtn && sidebar) {
+                hamburgerBtn.addEventListener('click', function() {
+                    const isOpen = sidebar.classList.contains('open');
+                    if (isOpen) {
+                        sidebar.classList.remove('open');
+                        if (overlay) overlay.classList.remove('active');
+                        document.body.style.overflow = '';
+                    } else {
+                        sidebar.classList.add('open');
+                        if (overlay) overlay.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    }
+                });
+                
+                if (overlay) {
+                    overlay.addEventListener('click', function() {
+                        sidebar.classList.remove('open');
+                        overlay.classList.remove('active');
+                        document.body.style.overflow = '';
+                    });
+                }
+            }
+        });
+    </script>
 </body>
 </html>
