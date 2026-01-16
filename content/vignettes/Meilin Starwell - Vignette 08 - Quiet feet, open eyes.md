@@ -11,7 +11,7 @@
 
 ---
 
-**Skill Spotlight:** Perception, Stealth, Common Sign Language
+**Skill Spotlight:** Perception, Stealth
 
 Meilin walks a route unarmed to see the truth. She reads shifted stalls and sight lines, lets a pick commit before catching them, and uses sign language to warn a stallkeeper without making a scene. Stealth is choosing what people notice.
 

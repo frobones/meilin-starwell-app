@@ -11,7 +11,7 @@
 
 ---
 
-**Skill Spotlight:** Thieves' Tools, Insight
+**Skill Spotlight:** Thieves' Tools
 
 Theo teaches Meilin that speed is a symptom, not a virtue. She practices locks like she practices medicine: documenting errors, slowing down under stress, and treating calm hands as the first survival skill.
 

@@ -1581,14 +1581,6 @@ const App = {
                             <li>The GM decides which, if any, herbal medicines are nonmagical.</li>
                         </ul>
                     </div>
-
-                    <div class="rules-card">
-                        <h4><i data-lucide="wand"></i> Potions and Dispel Magic</h4>
-                        <ul>
-                            <li><em>Dispel magic</em> can be used against a spell effect created by a potion, but it has <strong>no effect</strong> on the potion itself.</li>
-                            <li><em>Dispel magic</em> has no effect on those effects created by a potion that don't explicitly reference a spell effect.</li>
-                        </ul>
-                    </div>
                 </div>
 
                 <div class="section-divider">
@@ -1768,7 +1760,7 @@ const App = {
             <li><span class="item-label">Melts Guard:</span><span class="item-value">${data.boundaries.meltsGuard}</span></li>
         `;
 
-        // Party Glue card
+        // Shared Anchor card
         const glueContainer = document.getElementById('aag-glue-list');
         glueContainer.innerHTML = `
             <li><span class="item-label">I Need:</span><span class="item-value">${data.partyGlue.whyINeed}</span></li>
@@ -1902,7 +1894,7 @@ const App = {
                 chapterNumber: '02',
                 chapterTitle: 'Cassian Leaves',
                 paragraphs: [3], // Cassian paragraph
-                pullQuote: null
+                pullQuote: 'She kept it because paper didn\'t change shape when people did.'
             },
             {
                 title: 'Politics of Medicine',
@@ -1920,7 +1912,7 @@ const App = {
                 chapterNumber: '04',
                 chapterTitle: 'Near-death',
                 paragraphs: [7, 8, 9, 10, 11, 12], // Tea stall incident, discovery of mindersand
-                pullQuote: null
+                pullQuote: 'Pain is data. Fear is data. Curiosity outranks comfort.'
             },
             {
                 title: 'The Pattern-Hunter',
@@ -1947,7 +1939,7 @@ const App = {
                 chapterNumber: '07',
                 chapterTitle: 'Shipboard Scare',
                 paragraphs: [19, 20, 21, 22, 23, 24], // Ship contract and discovery
-                pullQuote: '"Mindersand."'
+                pullQuote: 'The easiest way to control people wasn\'t a blade. It was what you fed them.'
             },
             {
                 title: 'Sera\'s Trail',
@@ -1956,7 +1948,7 @@ const App = {
                 chapterNumber: '08',
                 chapterTitle: 'Sera Trail',
                 paragraphs: [25, 26, 27, 28], // Sera Quill, tracing to Smith's Coster
-                pullQuote: null
+                pullQuote: 'It\'s control shaped like help.'
             },
             {
                 title: 'Smith\'s Coster',
@@ -1983,7 +1975,7 @@ const App = {
                 chapterNumber: '11',
                 chapterTitle: 'Exit Strategy',
                 paragraphs: [41, 42, 43, 44, 45, 46, 47, 48], // Leaving Bral - ends with "And now that warning had a heartbeat."
-                pullQuote: null
+                pullQuote: 'You\'re not the reason. You\'re the symptom. This is the disease.'
             },
             {
                 title: 'The Astral Bazaar',
@@ -2498,7 +2490,6 @@ const App = {
                         <h5><i data-lucide="package"></i> Buying Components</h5>
                         <p>${data.guildMerchant.components.description}</p>
                         <p><strong>Mechanic:</strong> ${data.guildMerchant.components.mechanic}</p>
-                        <p class="medica-note">${data.guildMerchant.components.replenish}</p>
                     </div>
                     <div class="medica-merchant-section">
                         <h5><i data-lucide="shopping-bag"></i> Buying Finished Items</h5>
@@ -2508,13 +2499,13 @@ const App = {
                     <div class="medica-merchant-section">
                         <h5><i data-lucide="coins"></i> Selling</h5>
                         <p>Merchants purchase at <strong>${data.guildMerchant.selling.rate}</strong> of sale price.</p>
-                        <p class="medica-note">${data.guildMerchant.selling.description}</p>
                     </div>
                 </div>
 
                 <hr class="medica-divider">
 
                 <h5 class="medica-section-title"><i data-lucide="package-open"></i> Craft Component Stocks</h5>
+                <p class="medica-note"><i data-lucide="refresh-cw"></i> ${data.guildMerchant.components.replenish}</p>
                 <h6 class="medica-stock-title">Stock Dice by Rank</h6>
                 <div class="medica-stock-grid">
                     ${data.ranks.map(rank => `
@@ -3005,13 +2996,39 @@ const App = {
             tempDiv.innerHTML = html;
             const firstH1 = tempDiv.querySelector('h1');
             if (firstH1) firstH1.remove();
-            const firstP = tempDiv.querySelector('p');
-            const preview = firstP ? firstP.textContent.substring(0, 150) + '...' : '';
+            
+            // Extract skills from "Skill Spotlight:" line and remove those paragraphs
+            let skills = [];
+            const allParagraphs = tempDiv.querySelectorAll('p');
+            const paragraphsToRemove = [];
+            allParagraphs.forEach(p => {
+                const text = p.textContent;
+                if (text.startsWith('Skill Spotlight:')) {
+                    const skillsText = text.replace('Skill Spotlight:', '').trim();
+                    skills = skillsText.split(',').map(s => s.trim()).filter(s => s.length > 0);
+                    paragraphsToRemove.push(p);
+                }
+            });
+            // Remove skill spotlight paragraphs from content
+            paragraphsToRemove.forEach(p => p.remove());
+            
+            // Find first narrative paragraph (skip "At a glance" section items)
+            let preview = '';
+            const remainingParagraphs = tempDiv.querySelectorAll('p');
+            for (const p of remainingParagraphs) {
+                const text = p.textContent.trim();
+                // Skip empty paragraphs and list-like items (starting with -)
+                if (text && !text.startsWith('-') && text.length > 50) {
+                    preview = text.substring(0, 150) + '...';
+                    break;
+                }
+            }
             
             return {
                 ...vignette,
                 content: tempDiv.innerHTML,
-                preview: preview
+                preview: preview,
+                skills: skills
             };
         });
 
@@ -3030,6 +3047,11 @@ const App = {
             <div class="vignette-card" data-vignette="${index}">
                 <div class="vignette-number">Vignette ${vignette.number}</div>
                 <h3 class="vignette-title">${vignette.title}</h3>
+                ${vignette.skills && vignette.skills.length > 0 ? `
+                    <div class="vignette-skills">
+                        ${vignette.skills.map(skill => `<span class="vignette-skill-tag">${skill}</span>`).join('')}
+                    </div>
+                ` : ''}
                 <p class="vignette-preview">${vignette.preview}</p>
                 <span class="vignette-read-more">Read more →</span>
             </div>
