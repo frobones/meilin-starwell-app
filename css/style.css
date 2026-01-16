@@ -822,6 +822,7 @@ details[open] .rules-toggle::after {
   line-height: 1.5;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -2830,6 +2831,7 @@ details[open] .rules-toggle::after {
   line-height: 1.5;
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -5770,6 +5772,7 @@ details[open] .rules-toggle::after {
   padding: var(--space-lg);
   max-height: calc(100vh - 200px);
   overflow-y: auto;
+  scrollbar-gutter: stable; /* Reserve space for scrollbar to prevent content shift */
 }
 
 .inventory-title {
@@ -5784,10 +5787,74 @@ details[open] .rules-toggle::after {
 .inventory-sections {
   display: flex;
   flex-direction: column;
+  gap: var(--space-md);
+}
+
+/* Parent Inventory Groups (Flora, Creature Parts) */
+.inventory-group {
+  border: 2px solid var(--ink-faint);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--parchment-aged);
+}
+
+.inventory-group-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-sm) var(--space-md);
+  background: linear-gradient(to bottom, var(--parchment-dark), rgba(139, 90, 43, 0.2));
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s;
+  border-bottom: 1px solid var(--ink-faint);
+}
+
+.inventory-group-header:hover {
+  background: linear-gradient(to bottom, rgba(139, 90, 43, 0.25), rgba(139, 90, 43, 0.15));
+}
+
+.inventory-group-title {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--sepia);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
   gap: var(--space-sm);
 }
 
-/* Collapsible Ingredient Sections */
+.inventory-group-title svg {
+  width: 18px;
+  height: 18px;
+  color: var(--herb-green-dark);
+}
+
+.inventory-group-toggle {
+  font-size: 0.9rem;
+  color: var(--ink-light);
+  transition: transform 0.2s;
+}
+
+.inventory-group.collapsed .inventory-group-toggle {
+  transform: rotate(-90deg);
+}
+
+.inventory-group-content {
+  padding: var(--space-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.inventory-group.collapsed .inventory-group-content {
+  display: none;
+}
+
+/* Collapsible Ingredient Sections (nested inside groups) */
 .inventory-section {
   border: 1px solid var(--ink-faint);
   border-radius: 4px;
@@ -5852,7 +5919,65 @@ details[open] .rules-toggle::after {
   background: rgba(45, 106, 79, 0.08);
 }
 
-.ingredient-row.has-count {
+/* Type-specific colors when ingredient has quantity */
+/* Creature parts - red */
+.ingredient-row.ingredient-creature.has-count {
+  background: rgba(139, 35, 35, 0.15);
+}
+.ingredient-row.ingredient-creature:hover {
+  background: rgba(139, 35, 35, 0.10);
+}
+
+/* Rare flora - green */
+.ingredient-row.ingredient-rare.has-count {
+  background: rgba(45, 106, 79, 0.18);
+}
+.ingredient-row.ingredient-rare:hover {
+  background: rgba(45, 106, 79, 0.10);
+}
+
+/* Enhancing agents (Alchemilla, Ephedra) - bright teal */
+.ingredient-row.ingredient-enhancing.has-count {
+  background: rgba(0, 180, 180, 0.22);
+}
+.ingredient-row.ingredient-enhancing:hover {
+  background: rgba(0, 180, 180, 0.14);
+}
+
+/* Augmenting (Deadly nightshade) - purple */
+.ingredient-row.ingredient-augmenting.has-count {
+  background: rgba(107, 76, 138, 0.18);
+}
+.ingredient-row.ingredient-augmenting:hover {
+  background: rgba(107, 76, 138, 0.10);
+}
+
+/* Curative (Juniper berries) - green */
+.ingredient-row.ingredient-curative.has-count {
+  background: rgba(45, 106, 79, 0.18);
+}
+.ingredient-row.ingredient-curative:hover {
+  background: rgba(45, 106, 79, 0.10);
+}
+
+/* Fortifying (Willow bark) - brown/rust */
+.ingredient-row.ingredient-fortifying.has-count {
+  background: rgba(124, 74, 58, 0.18);
+}
+.ingredient-row.ingredient-fortifying:hover {
+  background: rgba(124, 74, 58, 0.10);
+}
+
+/* Restorative (Fleshwort) - blue */
+.ingredient-row.ingredient-restorative.has-count {
+  background: rgba(42, 92, 138, 0.18);
+}
+.ingredient-row.ingredient-restorative:hover {
+  background: rgba(42, 92, 138, 0.10);
+}
+
+/* Fallback for common without specific type */
+.ingredient-row.ingredient-common.has-count {
   background: rgba(45, 106, 79, 0.12);
 }
 

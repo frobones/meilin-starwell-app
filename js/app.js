@@ -3204,6 +3204,7 @@ const App = {
     /**
      * Render the calculator inventory panel
      * Preserves the expanded/collapsed state of each section across re-renders.
+     * Organizes ingredients into nested Flora and Creatures parent groups.
      */
     renderCalculatorInventory() {
         const container = document.getElementById('inventory-sections');
@@ -3211,43 +3212,72 @@ const App = {
         
         // Preserve current expanded/collapsed state before re-rendering
         const expandedSections = new Set();
-        container.querySelectorAll('.inventory-section').forEach(section => {
+        container.querySelectorAll('.inventory-section, .inventory-group').forEach(section => {
             if (!section.classList.contains('collapsed')) {
-                const title = section.querySelector('.inventory-section-title')?.textContent;
+                const title = section.querySelector('.inventory-section-title, .inventory-group-title')?.textContent;
                 if (title) expandedSections.add(title);
             }
         });
         
         // Determine if this is the first render (no existing sections)
         const isFirstRender = expandedSections.size === 0 && 
-            container.querySelectorAll('.inventory-section').length === 0;
+            container.querySelectorAll('.inventory-section, .inventory-group').length === 0;
         
-        let html = '';
+        // Build Flora sections
+        let floraHtml = '';
         
         // Common Flora section (expanded by default on first render)
         const commonFloraExpanded = isFirstRender ? true : expandedSections.has('Common Flora');
-        html += this.createInventorySection('Common Flora', this.ingredientsList.commonFlora, !commonFloraExpanded);
+        floraHtml += this.createInventorySection('Common Flora', this.ingredientsList.commonFlora, !commonFloraExpanded, 'common');
         
         // Rare Flora sections by terrain
         for (const terrain in this.ingredientsList.rareFlora) {
             const title = `${terrain} Flora`;
             const isExpanded = expandedSections.has(title);
-            html += this.createInventorySection(
+            floraHtml += this.createInventorySection(
                 title, 
                 this.ingredientsList.rareFlora[terrain], 
-                !isExpanded
+                !isExpanded,
+                'rare'
             );
         }
         
-        // Creature Parts sections by type
+        // Build Creature Parts sections
+        let creatureHtml = '';
         for (const creatureType in this.ingredientsList.creatureParts) {
             const isExpanded = expandedSections.has(creatureType);
-            html += this.createInventorySection(
+            creatureHtml += this.createInventorySection(
                 creatureType, 
                 this.ingredientsList.creatureParts[creatureType], 
-                !isExpanded
+                !isExpanded,
+                'creature'
             );
         }
+        
+        // Wrap in parent groups
+        const floraGroupExpanded = isFirstRender ? true : expandedSections.has('Flora');
+        const creatureGroupExpanded = expandedSections.has('Creature Parts');
+        
+        const html = `
+            <div class="inventory-group ${floraGroupExpanded ? '' : 'collapsed'}">
+                <div class="inventory-group-header">
+                    <h3 class="inventory-group-title"><i data-lucide="leaf"></i> Flora</h3>
+                    <span class="inventory-group-toggle">▼</span>
+                </div>
+                <div class="inventory-group-content">
+                    ${floraHtml}
+                </div>
+            </div>
+            <div class="inventory-group ${creatureGroupExpanded ? '' : 'collapsed'}">
+                <div class="inventory-group-header">
+                    <h3 class="inventory-group-title"><i data-lucide="skull"></i> Creature Parts</h3>
+                    <span class="inventory-group-toggle">▼</span>
+                </div>
+                <div class="inventory-group-content">
+                    ${creatureHtml}
+                </div>
+            </div>
+        `;
         
         container.innerHTML = html;
         this.refreshIcons();
@@ -3255,10 +3285,14 @@ const App = {
 
     /**
      * Create HTML for an inventory section
+     * @param {string} title - Section title
+     * @param {string[]} ingredients - List of ingredient names
+     * @param {boolean} collapsed - Whether section starts collapsed
+     * @param {string} sectionType - Type of section: 'common', 'rare', or 'creature'
      */
-    createInventorySection(title, ingredients, collapsed = true) {
+    createInventorySection(title, ingredients, collapsed = true, sectionType = 'common') {
         const uniqueIngredients = [...new Set(ingredients)]; // Remove duplicates
-        const rows = uniqueIngredients.map(name => this.createIngredientRow(name)).join('');
+        const rows = uniqueIngredients.map(name => this.createIngredientRow(name, sectionType)).join('');
         
         return `
             <div class="inventory-section ${collapsed ? 'collapsed' : ''}">
@@ -3274,14 +3308,42 @@ const App = {
     },
 
     /**
-     * Create HTML for an ingredient row with number spinner
+     * Get the ingredient type class for color-coding
+     * Common flora: matches medicine category colors
+     * Rare flora: green
+     * Creature parts: red
      */
-    createIngredientRow(name) {
+    getIngredientTypeClass(name, sectionType) {
+        if (sectionType === 'creature') {
+            return 'ingredient-creature';
+        }
+        if (sectionType === 'rare') {
+            return 'ingredient-rare';
+        }
+        // Common flora - match by name to category
+        const commonFloraTypes = {
+            'Deadly nightshade': 'ingredient-augmenting',
+            'Juniper berries': 'ingredient-curative',
+            'Willow bark': 'ingredient-fortifying',
+            'Fleshwort': 'ingredient-restorative',
+            'Alchemilla': 'ingredient-enhancing',
+            'Ephedra': 'ingredient-enhancing'
+        };
+        return commonFloraTypes[name] || 'ingredient-common';
+    },
+
+    /**
+     * Create HTML for an ingredient row with number spinner
+     * @param {string} name - Ingredient name
+     * @param {string} sectionType - Type of section: 'common', 'rare', or 'creature'
+     */
+    createIngredientRow(name, sectionType = 'common') {
         const count = this.ingredientInventory[name] || 0;
         const hasCount = count > 0;
+        const typeClass = this.getIngredientTypeClass(name, sectionType);
         
         return `
-            <div class="ingredient-row ${hasCount ? 'has-count' : ''}" data-ingredient="${name}">
+            <div class="ingredient-row ${typeClass} ${hasCount ? 'has-count' : ''}" data-ingredient="${name}">
                 <span class="ingredient-name" title="${name}">${name}</span>
                 <div class="number-spinner">
                     <button class="spinner-dec" data-ingredient="${name}" ${count === 0 ? 'disabled' : ''}>−</button>
@@ -3304,12 +3366,22 @@ const App = {
         
         const inventoryContainer = document.getElementById('inventory-sections');
         if (inventoryContainer) {
-            // Collapsible section headers
+            // Collapsible section and group headers
             inventoryContainer.addEventListener('click', (e) => {
+                // Parent group headers (Flora, Creature Parts)
+                const groupHeader = e.target.closest('.inventory-group-header');
+                if (groupHeader) {
+                    const group = groupHeader.closest('.inventory-group');
+                    group.classList.toggle('collapsed');
+                    return; // Don't process further
+                }
+                
+                // Child section headers
                 const header = e.target.closest('.inventory-section-header');
                 if (header) {
                     const section = header.closest('.inventory-section');
                     section.classList.toggle('collapsed');
+                    return; // Don't process further
                 }
                 
                 // Spinner buttons
