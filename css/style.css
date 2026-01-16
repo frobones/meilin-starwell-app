@@ -6249,6 +6249,34 @@ details[open] .rules-toggle::after {
   accent-color: var(--herb-green);
 }
 
+/* Flora ingredient option - green theme */
+.alternative-option.ingredient-flora:hover {
+  border-color: var(--herb-green);
+}
+
+.alternative-option.ingredient-flora.selected {
+  border-color: var(--herb-green);
+  background: rgba(45, 106, 79, 0.12);
+}
+
+.alternative-option.ingredient-flora input[type="radio"] {
+  accent-color: var(--herb-green);
+}
+
+/* Creature ingredient option - red/crimson theme */
+.alternative-option.ingredient-creature:hover {
+  border-color: #9b2c2c;
+}
+
+.alternative-option.ingredient-creature.selected {
+  border-color: #9b2c2c;
+  background: rgba(155, 44, 44, 0.12);
+}
+
+.alternative-option.ingredient-creature input[type="radio"] {
+  accent-color: #9b2c2c;
+}
+
 /* Enhancement Options */
 .enhancement-row {
   display: flex;

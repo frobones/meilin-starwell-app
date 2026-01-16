@@ -94,7 +94,16 @@
         {"name": "Awakened brain", "type": "creature"}
       ],
       "effect": "For 1 hour, gain mage hand (invisible) and limited casts from its table, with an Int save risk of exhaustion.",
-      "fullEffect": "This cerulean elixir unlocks psionic potential, but can quickly overwhelm an unprepared mind. For 1 hour after drinking it, you can cast the mage hand cantrip (the hand is invisible). In addition, you can cast the following spells a limited number of times, without providing material components. Intelligence is your spellcasting ability for these spells. When you cast one of these spells, you succeed on an Intelligence saving throw or gain 1 level of exhaustion: levitate (3 uses, DC 15), telekinesis (1 use, DC 20), plane shift—self only (1 use, DC 25).",
+      "fullEffect": "This cerulean elixir unlocks psionic potential, but can quickly overwhelm an unprepared mind. For 1 hour after drinking it, you can cast the mage hand cantrip (the hand is invisible). In addition, you can cast the following spells a limited number of times, without providing material components. Intelligence is your spellcasting ability for these spells. When you cast one of these spells, you must succeed on an Intelligence saving throw or gain 1 level of exhaustion.",
+      "detailsTable": {
+        "title": "Psionic Spells",
+        "headers": ["Spell", "Maximum Uses", "Save DC"],
+        "rows": [
+          ["Levitate", "3", "15"],
+          ["Telekinesis", "1", "20"],
+          ["Plane Shift (self only)", "1", "25"]
+        ]
+      },
       "duration": "1 hour",
       "notes": null,
       "floraOnly": false
@@ -776,7 +785,18 @@
       "primary": "Willow bark",
       "secondary": ["Shimmering scale"],
       "effect": "For 1 hour, gain immunity to 1 damage type based on the dragon scale used.",
-      "fullEffect": "Applying this balm to your skin causes you to gain immunity to one type of damage for 1 hour. The type is determined by the GM or by the type of dragon from which the scale was harvested.\n\nBlack/Copper: Acid | Blue/Bronze: Lightning | Brass/Gold/Red: Fire | Green: Poison | Silver/White: Cold",
+      "fullEffect": "Applying this balm to your skin causes you to gain immunity to one type of damage for 1 hour. The type is determined by the GM or by the type of dragon from which the scale was harvested.",
+      "detailsTable": {
+        "title": "Dragon Immunity",
+        "headers": ["Dragon", "Damage Type"],
+        "rows": [
+          ["Black/Copper", "Acid"],
+          ["Blue/Bronze", "Lightning"],
+          ["Brass/Gold/Red", "Fire"],
+          ["Green", "Poison"],
+          ["Silver/White", "Cold"]
+        ]
+      },
       "duration": "1 hour",
       "notes": null,
       "floraOnly": false

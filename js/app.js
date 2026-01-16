@@ -792,6 +792,7 @@ const App = {
         const stars = this.getMedicineStars(medicine);
         const componentsHtml = this.createComponentsHtml(medicine);
         const variableStarsHtml = this.createVariableStarsHtml(medicine);
+        const detailsTableHtml = this.createDetailsTableHtml(medicine);
         
         content.innerHTML = `
             <div class="modal-header">
@@ -810,6 +811,7 @@ const App = {
             </div>
             
             ${variableStarsHtml}
+            ${detailsTableHtml}
             
             <div class="modal-section">
                 <h3 class="modal-section-title">Duration</h3>
@@ -866,6 +868,30 @@ const App = {
         return `
             <div class="modal-section">
                 <h3 class="modal-section-title">Variable Strength</h3>
+                <table class="variable-stars-table">
+                    <thead><tr>${headerCols}</tr></thead>
+                    <tbody>${rows}</tbody>
+                </table>
+            </div>
+        `;
+    },
+
+    /**
+     * Create HTML for details table (Mastermind, Prismatic Balm, etc.)
+     */
+    createDetailsTableHtml(medicine) {
+        const table = medicine.detailsTable;
+        if (!table) return '';
+        
+        const headerCols = table.headers.map(h => `<th>${h}</th>`).join('');
+        const rows = table.rows.map(row => {
+            const cols = row.map(cell => `<td>${cell}</td>`).join('');
+            return `<tr>${cols}</tr>`;
+        }).join('');
+        
+        return `
+            <div class="modal-section">
+                <h3 class="modal-section-title">${table.title}</h3>
                 <table class="variable-stars-table">
                     <thead><tr>${headerCols}</tr></thead>
                     <tbody>${rows}</tbody>
@@ -3415,6 +3441,34 @@ const App = {
     },
 
     /**
+     * Check if a medicine has alternative secondary ingredients (OR-type)
+     * Alternatives are detected by:
+     * 1. Notes containing "or"
+     * 2. Secondary array containing objects with different types (flora vs creature)
+     */
+    hasAlternativeSecondaries(medicine) {
+        // Check if notes mention "or"
+        if (medicine.notes?.toLowerCase().includes(' or ')) {
+            return true;
+        }
+        
+        // Check if secondary array has objects with different types
+        const secondaries = medicine.secondary || [];
+        if (secondaries.length < 2) return false;
+        
+        // Get unique types from secondary ingredients
+        const types = new Set();
+        for (const s of secondaries) {
+            if (typeof s === 'object' && s.type) {
+                types.add(s.type);
+            }
+        }
+        
+        // If we have multiple different types (flora and creature), it's alternatives
+        return types.size > 1;
+    },
+
+    /**
      * Check if a medicine can be crafted with current inventory
      */
     canCraftMedicine(medicine) {
@@ -3427,8 +3481,8 @@ const App = {
         const secondaries = medicine.secondary || [];
         if (secondaries.length === 0) return true;
         
-        // Check if this is an OR alternative (noted in medicine.notes)
-        const isOrAlternative = medicine.notes?.toLowerCase().includes(' or ');
+        // Check if this is an OR alternative
+        const isOrAlternative = this.hasAlternativeSecondaries(medicine);
         
         if (isOrAlternative) {
             // Need at least one of the alternatives
@@ -3447,15 +3501,28 @@ const App = {
 
     /**
      * Get available alternatives for OR-type medicines
+     * Returns array of objects with name and type
      */
     getAvailableAlternatives(medicine) {
-        const isOrAlternative = medicine.notes?.toLowerCase().includes(' or ');
-        if (!isOrAlternative) return [];
+        if (!this.hasAlternativeSecondaries(medicine)) return [];
         
         const secondaries = medicine.secondary || [];
         return secondaries
-            .map(s => this.getSecondaryName(s))
-            .filter(name => (this.ingredientInventory[name] || 0) >= 1);
+            .filter(s => {
+                const name = this.getSecondaryName(s);
+                return (this.ingredientInventory[name] || 0) >= 1;
+            })
+            .map(s => ({
+                name: this.getSecondaryName(s),
+                type: typeof s === 'object' && s.type ? s.type : 'flora'
+            }));
+    },
+
+    /**
+     * Get available alternative names only (for backward compatibility)
+     */
+    getAvailableAlternativeNames(medicine) {
+        return this.getAvailableAlternatives(medicine).map(a => a.name);
     },
 
     /**
@@ -3508,22 +3575,6 @@ const App = {
             ? medicine.effect.substring(0, 120) + '...'
             : medicine.effect;
         
-        const alternatives = this.getAvailableAlternatives(medicine);
-        const isOrMedicine = alternatives.length > 0;
-        
-        let craftButtons = '';
-        if (isOrMedicine && alternatives.length > 1) {
-            // Multiple craft buttons for different alternatives
-            craftButtons = alternatives.map(alt => 
-                `<button class="craft-btn craft-alt" data-medicine="${medicine.id}" data-alternative="${alt}">
-                    Craft with ${alt}
-                </button>`
-            ).join('');
-        } else {
-            // Single craft button
-            craftButtons = `<button class="craft-btn" data-medicine="${medicine.id}">Craft</button>`;
-        }
-        
         return `
             <article class="craftable-card ${isNew ? 'fade-in' : ''}" data-id="${medicine.id}">
                 <div class="card-header">
@@ -3536,7 +3587,7 @@ const App = {
                 </div>
                 <p class="medicine-preview">${previewText}</p>
                 <div class="card-actions">
-                    ${craftButtons}
+                    <button class="craft-btn" data-medicine="${medicine.id}">Craft</button>
                     <button class="details-btn" data-medicine="${medicine.id}">Details</button>
                 </div>
             </article>
@@ -3625,12 +3676,16 @@ const App = {
         const maxEphedraSlots = this.getMaxEphedraSlots(medicine);
         const alternatives = this.getAvailableAlternatives(medicine);
         
+        // Get default chosen alternative name
+        const defaultAlt = alternatives.length > 0 ? alternatives[0].name : null;
+        
         // Initialize modal state
         this.craftModalState = {
             medicine: medicine,
             alchemillaCount: 0,
             ephedraCount: 0,
-            chosenAlternative: preselectedAlternative || (alternatives.length > 0 ? alternatives[0] : null),
+            chosenAlternative: preselectedAlternative || defaultAlt,
+            alternatives: alternatives, // Store full alternatives with types
             maxEnhancements: maxEnhancements,
             maxAlchemillaSlots: maxAlchemillaSlots,
             maxEphedraSlots: maxEphedraSlots,
@@ -3651,7 +3706,7 @@ const App = {
         if (!content || !this.craftModalState) return;
         
         const { 
-            medicine, alchemillaCount, ephedraCount, chosenAlternative, 
+            medicine, alchemillaCount, ephedraCount, chosenAlternative, alternatives,
             maxEnhancements, maxAlchemillaSlots, maxEphedraSlots, canUseAlchemilla, canUseEphedra 
         } = this.craftModalState;
         
@@ -3661,7 +3716,6 @@ const App = {
         const effectiveDifficulty = medicine.difficulty + totalEnhancementsUsed;
         const effectiveDC = this.getDCForDifficulty(effectiveDifficulty);
         
-        const alternatives = this.getAvailableAlternatives(medicine);
         const hasAlchemillaInventory = (this.ingredientInventory['Alchemilla'] || 0) > 0;
         const hasEphedraInventory = (this.ingredientInventory['Ephedra'] || 0) > 0;
         
@@ -3687,16 +3741,16 @@ const App = {
         
         // Alternative selection HTML
         let alternativeHtml = '';
-        if (alternatives.length > 1) {
+        if (alternatives && alternatives.length > 1) {
             alternativeHtml = `
                 <div class="craft-modal-section">
                     <h4>Choose Ingredient</h4>
                     <div class="alternative-options">
                         ${alternatives.map(alt => `
-                            <label class="alternative-option ${chosenAlternative === alt ? 'selected' : ''}">
-                                <input type="radio" name="alternative" value="${alt}" 
-                                    ${chosenAlternative === alt ? 'checked' : ''}>
-                                <span>${alt}</span>
+                            <label class="alternative-option ingredient-${alt.type} ${chosenAlternative === alt.name ? 'selected' : ''}">
+                                <input type="radio" name="alternative" value="${alt.name}" 
+                                    ${chosenAlternative === alt.name ? 'checked' : ''}>
+                                <span>${alt.name}</span>
                             </label>
                         `).join('')}
                     </div>
@@ -3707,8 +3761,11 @@ const App = {
         // Build enhancement rows based on what's applicable
         let enhancementRows = '';
         
-        // Alchemilla row (only if medicine has extendable duration)
-        if (canUseAlchemilla && hasAlchemillaInventory) {
+        // Only show enhancement options if there are slots available
+        const hasEnhancementSlots = maxEnhancements > 0;
+        
+        // Alchemilla row (only if medicine has extendable duration and has slots)
+        if (hasEnhancementSlots && canUseAlchemilla && hasAlchemillaInventory) {
             const alchemillaDisabled = maxAlchemillaForSpinner === 0 && alchemillaCount === 0;
             enhancementRows += `
                 <div class="enhancement-row ${alchemillaDisabled ? 'disabled' : ''}">
@@ -3727,8 +3784,8 @@ const App = {
             `;
         }
         
-        // Ephedra row (only if medicine has dice to double)
-        if (canUseEphedra && hasEphedraInventory) {
+        // Ephedra row (only if medicine has dice to double and has non-indefinite slots)
+        if (hasEnhancementSlots && maxEphedraSlots > 0 && canUseEphedra && hasEphedraInventory) {
             const ephedraDisabled = maxEphedraForSpinner === 0 && ephedraCount === 0;
             enhancementRows += `
                 <div class="enhancement-row ${ephedraDisabled ? 'disabled' : ''}">
@@ -3916,14 +3973,14 @@ const App = {
         }
         
         // Deduct secondary components
-        const isOrAlternative = medicine.notes?.toLowerCase().includes(' or ');
+        const isOrAlternative = this.hasAlternativeSecondaries(medicine);
         
         if (isOrAlternative && chosenAlternative) {
             // Deduct only the chosen alternative
             this.ingredientInventory[chosenAlternative] = 
                 (this.ingredientInventory[chosenAlternative] || 0) - 1;
-        } else {
-            // Deduct all secondary components
+        } else if (!isOrAlternative) {
+            // Deduct all secondary components (only for non-alternative recipes)
             (medicine.secondary || []).forEach(s => {
                 const name = this.getSecondaryName(s);
                 this.ingredientInventory[name] = (this.ingredientInventory[name] || 0) - 1;
