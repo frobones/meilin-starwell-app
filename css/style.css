@@ -6696,25 +6696,17 @@ details[open] .rules-toggle::after {
 
 /* Craft Modal */
 .craft-modal {
-  max-width: 520px;
+  max-width: 580px;
+}
+
+.craft-modal .craft-modal-content {
+  padding: var(--space-xl) var(--space-xxl);
 }
 
 .craft-modal-header {
   margin-bottom: var(--space-lg);
   padding-bottom: var(--space-md);
-  border-bottom: 2px solid var(--ink-faint);
-  position: relative;
-}
-
-.craft-modal-header::before {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 2px;
-  background: var(--herb-green);
+  border-bottom: 1px solid var(--ink-faint);
 }
 
 .craft-modal-title-row {
@@ -6774,22 +6766,7 @@ details[open] .rules-toggle::after {
   border: 1px solid var(--ink-faint);
   border-radius: 8px;
   margin-bottom: var(--space-lg);
-  position: relative;
 }
-
-.craft-dc-display::before,
-.craft-dc-display::after {
-  content: '✦';
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--gold-dim);
-  font-size: 0.8rem;
-  opacity: 0.6;
-}
-
-.craft-dc-display::before { left: var(--space-sm); }
-.craft-dc-display::after { right: var(--space-sm); }
 
 .dc-stars-wrapper {
   display: flex;
@@ -7151,6 +7128,7 @@ details[open] .rules-toggle::after {
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);
+  min-height: 45px;
 }
 
 .effect-item {
@@ -7179,36 +7157,28 @@ details[open] .rules-toggle::after {
 
 .effect-item .effect-value {
   color: var(--ink-brown);
-  transition: all 0.3s ease;
   font-family: var(--font-heading);
 }
 
-.effect-item .effect-value.enhanced {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  flex-wrap: wrap;
-}
-
-.effect-item .effect-value .base-value {
-  color: var(--ink-light);
-  text-decoration: line-through;
-  font-size: 0.85rem;
-}
-
-.effect-item .effect-value .arrow {
-  color: var(--herb-green);
-  font-weight: bold;
-  font-size: 1.1rem;
-}
-
-.effect-item .effect-value .enhanced-value {
-  color: var(--herb-green-dark);
-  font-weight: 700;
-  font-size: 1.05rem;
-  background: rgba(45, 106, 79, 0.1);
-  padding: 2px 8px;
+.effect-item .effect-value .effect-tag {
+  display: inline-block;
+  padding: 4px 12px;
   border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  background: rgba(139, 69, 19, 0.08);
+  color: var(--ink-brown);
+  border: 1px solid var(--ink-faint);
+  transition: all 0.3s ease;
+  min-width: 80px;
+  text-align: center;
+}
+
+.effect-item .effect-value .effect-tag.enhanced {
+  background: rgba(45, 106, 79, 0.15);
+  color: var(--herb-green-dark);
+  border-color: var(--herb-green);
+  box-shadow: 0 1px 4px rgba(45, 106, 79, 0.2);
 }
 
 /* Craft Modal Actions - Improved */
@@ -7217,19 +7187,7 @@ details[open] .rules-toggle::after {
   gap: var(--space-sm);
   margin-top: var(--space-lg);
   padding-top: var(--space-lg);
-  border-top: 2px solid var(--ink-faint);
-  position: relative;
-}
-
-.craft-modal-actions::before {
-  content: '';
-  position: absolute;
-  top: -2px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 40px;
-  height: 2px;
-  background: var(--herb-green);
+  border-top: 1px solid var(--ink-faint);
 }
 
 .confirm-craft-btn {

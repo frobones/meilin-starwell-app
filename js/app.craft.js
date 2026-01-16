@@ -642,13 +642,28 @@
             });
         }
         
-        return ingredients.map(ing => `
-            <div class="ingredient-chip ${ing.type}">
-                <i data-lucide="${ing.type === 'primary' ? 'flower-2' : ing.type === 'enhancement' ? 'sparkles' : 'leaf'}"></i>
-                <span class="ingredient-chip-name">${ing.name}</span>
-                ${ing.count > 1 ? `<span class="ingredient-chip-count">×${ing.count}</span>` : ''}
-            </div>
-        `).join('');
+        return ingredients.map(ing => {
+            // Always show count for enhancement ingredients (even ×1) to avoid visual jarring when incrementing
+            const showCount = ing.type === 'enhancement' || ing.count > 1;
+            
+            // Determine icon based on ingredient type and whether it's a creature part
+            let icon = 'leaf'; // default for secondary flora
+            if (ing.type === 'enhancement') {
+                icon = 'sparkles';
+            } else if (this.creaturePartsLookup?.[ing.name]) {
+                icon = 'skull'; // creature part
+            } else if (ing.type === 'primary') {
+                icon = 'flower-2'; // primary flora
+            }
+            
+            return `
+                <div class="ingredient-chip ${ing.type}">
+                    <i data-lucide="${icon}"></i>
+                    <span class="ingredient-chip-name">${ing.name}</span>
+                    ${showCount ? `<span class="ingredient-chip-count">×${ing.count}</span>` : ''}
+                </div>
+            `;
+        }).join('');
     };
 
     /**
@@ -778,33 +793,19 @@
         const canEnhanceDuration = medicine.alchemilla && hasEnhancementSlots && canUseAlchemilla;
         if (canEnhanceDuration) {
             const baseDuration = this.durationLadder[medicine.alchemilla.durationIndex];
-            if (alchemillaCount > 0) {
-                const enhancedDuration = this.getEnhancedDuration(
-                    medicine, 
-                    alchemillaCount, 
-                    medicine.indefiniteStar, 
-                    remainingSlots
-                );
-                effectItems.push(`
-                    <div class="effect-item">
-                        <i data-lucide="hourglass"></i>
-                        <span class="effect-label">Duration:</span>
-                        <span class="effect-value enhanced">
-                            <span class="base-value">${baseDuration}</span>
-                            <span class="arrow">→</span>
-                            <span class="enhanced-value">${enhancedDuration}</span>
-                        </span>
-                    </div>
-                `);
-            } else {
-                effectItems.push(`
-                    <div class="effect-item">
-                        <i data-lucide="hourglass"></i>
-                        <span class="effect-label">Duration:</span>
-                        <span class="effect-value">${baseDuration}</span>
-                    </div>
-                `);
-            }
+            const isEnhanced = alchemillaCount > 0;
+            const displayDuration = isEnhanced 
+                ? this.getEnhancedDuration(medicine, alchemillaCount, medicine.indefiniteStar, remainingSlots)
+                : baseDuration;
+            effectItems.push(`
+                <div class="effect-item">
+                    <i data-lucide="hourglass"></i>
+                    <span class="effect-label">Duration:</span>
+                    <span class="effect-value">
+                        <span class="effect-tag ${isEnhanced ? 'enhanced' : ''}">${displayDuration}</span>
+                    </span>
+                </div>
+            `);
         }
         
         const canEnhancePotency = medicine.ephedra && hasEnhancementSlots && maxEphedraSlots > 0 && canUseEphedra;
@@ -814,28 +815,17 @@
             if (modifier > 0) baseDice += ` + ${modifier}`;
             else if (modifier < 0) baseDice += ` - ${Math.abs(modifier)}`;
             
-            if (ephedraCount > 0) {
-                const enhancedDice = this.getEnhancedDice(medicine, ephedraCount);
-                effectItems.push(`
-                    <div class="effect-item">
-                        <i data-lucide="dices"></i>
-                        <span class="effect-label">Potency:</span>
-                        <span class="effect-value enhanced">
-                            <span class="base-value">${baseDice}</span>
-                            <span class="arrow">→</span>
-                            <span class="enhanced-value">${enhancedDice}</span>
-                        </span>
-                    </div>
-                `);
-            } else {
-                effectItems.push(`
-                    <div class="effect-item">
-                        <i data-lucide="dices"></i>
-                        <span class="effect-label">Potency:</span>
-                        <span class="effect-value">${baseDice}</span>
-                    </div>
-                `);
-            }
+            const isEnhanced = ephedraCount > 0;
+            const displayDice = isEnhanced ? this.getEnhancedDice(medicine, ephedraCount) : baseDice;
+            effectItems.push(`
+                <div class="effect-item">
+                    <i data-lucide="dices"></i>
+                    <span class="effect-label">Potency:</span>
+                    <span class="effect-value">
+                        <span class="effect-tag ${isEnhanced ? 'enhanced' : ''}">${displayDice}</span>
+                    </span>
+                </div>
+            `);
         }
         
         let effectSectionHtml = '';
