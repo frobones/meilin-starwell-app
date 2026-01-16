@@ -9,11 +9,22 @@
  * all legacy code.
  */
 
+// Core modules
 import { store } from './core/state.js';
 import { router } from './core/router.js';
 import { events } from './core/events.js';
 import { dataLoader } from './core/data-loader.js';
 import { icons } from './core/icons.js';
+
+// Page controllers (import for side effects - registers event listeners)
+import * as rumorsPage from './pages/rumors.js';
+import * as overviewPage from './pages/overview.js';
+import * as backstoryPage from './pages/backstory.js';
+import * as dmtoolsPage from './pages/dmtools.js';
+import * as medicinePage from './pages/medicine.js';
+
+// Web Components (import for side effects - registers custom elements)
+import { ModalDialog, MedicineCard, RumorCard, LightBox } from './components/index.js';
 
 /**
  * Application configuration
@@ -139,17 +150,41 @@ function bindGlobalEvents() {
 function bridgeLegacyApp() {
     // Make modules available globally for legacy code
     window.AppModules = {
+        // Core
         store,
         router,
         events,
         dataLoader,
         icons,
-        CONFIG
+        CONFIG,
+        // Pages
+        pages: {
+            rumors: rumorsPage,
+            overview: overviewPage,
+            backstory: backstoryPage,
+            dmtools: dmtoolsPage,
+            medicine: medicinePage
+        }
     };
 
     // Listen for events from legacy code
     events.on('page:loaded', () => {
         icons.refresh();
+    });
+    
+    // Handle navigation requests from modules
+    events.on('navigate:request', ({ page, section }) => {
+        // Delegate to legacy App if available
+        if (window.App && window.App.switchPage) {
+            window.App.switchPage(page);
+            if (page === 'dmtools' && section && window.App.switchDMToolsTab) {
+                setTimeout(() => window.App.switchDMToolsTab(section), 100);
+            } else if (section && window.App.scrollToSection) {
+                setTimeout(() => window.App.scrollToSection(`${section}-section`), 100);
+            }
+        } else {
+            router.navigate(page);
+        }
     });
 }
 
@@ -195,4 +230,8 @@ if (document.readyState === 'loading') {
 }
 
 // Export for debugging
-export { store, router, events, dataLoader, icons, CONFIG };
+export { 
+    store, router, events, dataLoader, icons, CONFIG,
+    rumorsPage, overviewPage, backstoryPage, dmtoolsPage, medicinePage,
+    ModalDialog, MedicineCard, RumorCard, LightBox
+};

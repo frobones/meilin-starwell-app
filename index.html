@@ -537,6 +537,85 @@
         <img class="lightbox-image" id="lightbox-image" src="" alt="Enlarged view" />
     </div>
 
+    <!-- HTML Templates for JS-rendered content -->
+    
+    <!-- Medicine Card Template -->
+    <template id="medicine-card-template">
+        <div class="medicine-card" data-id="" data-category="">
+            <div class="medicine-ingredient-badges"></div>
+            <div class="medicine-card-header">
+                <h3 class="medicine-name"></h3>
+                <span class="medicine-stars"></span>
+            </div>
+            <div class="medicine-meta">
+                <span class="medicine-category"></span>
+                <span class="medicine-dc"></span>
+            </div>
+            <p class="medicine-preview"></p>
+        </div>
+    </template>
+    
+    <!-- Knife Card Template -->
+    <template id="knife-card-template">
+        <div class="knife-card" data-knife-index="">
+            <div class="knife-card-header">
+                <span class="knife-card-icon"><i data-lucide=""></i></span>
+                <h3 class="knife-card-name"></h3>
+            </div>
+            <span class="knife-card-type"></span>
+            <p class="knife-card-summary"></p>
+        </div>
+    </template>
+    
+    <!-- Rumor Item Template -->
+    <template id="rumor-item-template">
+        <div class="rumor-item" data-image="">
+            <span class="rumor-text">
+                <span class="rumor-readable"></span>
+                <span class="rumor-cipher" aria-hidden="true"></span>
+            </span>
+        </div>
+    </template>
+    
+    <!-- Relationship Card Template -->
+    <template id="relationship-card-template">
+        <div class="relationship-card" data-connection-name="">
+            <h4 class="relationship-card-name"></h4>
+            <span class="relationship-card-type"></span>
+            <p class="relationship-card-role"></p>
+            <p class="relationship-card-tension"></p>
+            <p class="relationship-card-location"></p>
+        </div>
+    </template>
+    
+    <!-- Vignette Card Template -->
+    <template id="vignette-card-template">
+        <div class="vignette-card" data-vignette-index="">
+            <div class="vignette-number"></div>
+            <h3 class="vignette-title"></h3>
+            <div class="vignette-skills"></div>
+            <p class="vignette-preview"></p>
+            <span class="vignette-read-more">Read more →</span>
+        </div>
+    </template>
+    
+    <!-- Backstory Section Template -->
+    <template id="backstory-section-template">
+        <section class="backstory-section" data-chapter-index="">
+            <div class="backstory-section-header" role="button" tabindex="0">
+                <span class="backstory-section-icon"><i data-lucide=""></i></span>
+                <h2 class="backstory-section-title"></h2>
+                <span class="chapter-badge"></span>
+                <span class="expand-indicator">▼</span>
+            </div>
+            <blockquote class="backstory-quote"></blockquote>
+            <div class="backstory-section-content"></div>
+            <div class="chapter-content-expanded">
+                <div class="chapter-loading">Loading chapter...</div>
+            </div>
+        </section>
+    </template>
+
     <!-- Markdown Parser -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     
