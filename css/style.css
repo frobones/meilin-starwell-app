@@ -1482,13 +1482,20 @@ details[open] .rules-toggle::after {
 
 /* Hero Section */
 .aag-hero {
-  background: linear-gradient(135deg, var(--ink-brown) 0%, var(--herb-green-dark) 100%);
+  background-color: var(--ink-brown);
+  background-size: cover;
+  background-position: center 25%;
+  background-repeat: no-repeat;
   color: var(--parchment-light);
   padding: var(--space-xxl) var(--space-xl);
   margin: 0 calc(-1 * var(--space-xl));
   text-align: center;
   position: relative;
   overflow: hidden;
+  min-height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .aag-hero::before {
@@ -1498,14 +1505,8 @@ details[open] .rules-toggle::after {
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(ellipse at top left, rgba(184, 134, 11, 0.15) 0%, transparent 50%),
-              radial-gradient(ellipse at bottom right, rgba(74, 93, 74, 0.2) 0%, transparent 50%);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.6) 100%);
   pointer-events: none;
-}
-
-.aag-hero-content {
-  position: relative;
-  z-index: 1;
 }
 
 .aag-hero-content {
@@ -2228,10 +2229,57 @@ details[open] .rules-toggle::after {
   margin: var(--space-xs) 0 var(--space-sm);
 }
 
+.relationship-modal-type {
+  display: inline-block;
+  font-size: 0.7rem;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--space-sm);
+}
+
+.relationship-modal-type.ally {
+  background: rgba(74, 93, 74, 0.15);
+  color: var(--herb-green-dark);
+}
+.relationship-modal-type.complicated {
+  background: rgba(196, 164, 105, 0.2);
+  color: #8a6914;
+}
+.relationship-modal-type.antagonist {
+  background: rgba(139, 35, 35, 0.12);
+  color: var(--blood-red);
+}
+
 .relationship-modal-role {
   color: var(--ink-faded);
   font-size: 0.95rem;
   margin-bottom: var(--space-sm);
+}
+
+.relationship-detail-section {
+  margin-bottom: var(--space-md);
+  padding: var(--space-md);
+  background: linear-gradient(135deg, rgba(101, 67, 33, 0.04), transparent);
+  border-radius: 6px;
+  border-left: 3px solid var(--parchment-aged);
+}
+
+.relationship-detail-section h4 {
+  font-family: var(--font-heading);
+  color: var(--sepia);
+  margin: 0 0 var(--space-xs) 0;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.relationship-detail-section p {
+  margin: 0;
+  color: var(--ink-brown);
+  line-height: 1.65;
 }
 
 .relationship-modal-location {
@@ -2264,21 +2312,21 @@ details[open] .rules-toggle::after {
 /* Knives Grid */
 .knives-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: var(--space-lg);
 }
 
 /* Knife Card */
 .knife-card {
-  background: var(--parchment-light);
+  background: linear-gradient(145deg, var(--parchment-light), var(--parchment));
   border: 1px solid var(--parchment-aged);
   border-radius: var(--radius-md);
   padding: var(--space-lg);
-  padding-right: calc(var(--space-lg) + 1.5rem);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .knife-card::before {
@@ -2286,24 +2334,20 @@ details[open] .rules-toggle::after {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  height: 4px;
+  width: 4px;
+  height: 100%;
   background: var(--blood-red);
-}
-
-.knife-card::after {
-  content: '→';
-  position: absolute;
-  top: var(--space-lg);
-  right: var(--space-md);
-  color: var(--ink-faded);
-  font-size: 1rem;
+  transition: width 0.2s ease;
 }
 
 .knife-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px var(--shadow);
-  border-color: var(--blood-red);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border-color: transparent;
+}
+
+.knife-card:hover::before {
+  width: 6px;
 }
 
 .knife-card.evidence::before { background: var(--sepia); }
@@ -2312,47 +2356,83 @@ details[open] .rules-toggle::after {
 .knife-card.complication::before { background: var(--copper-accent); }
 .knife-card.flaw::before { background: var(--herb-green); }
 
+.knife-card.evidence:hover { border-color: var(--sepia); }
+.knife-card.vulnerability:hover { border-color: var(--blood-red); }
+.knife-card.leverage:hover { border-color: var(--gold-accent); }
+.knife-card.complication:hover { border-color: var(--copper-accent); }
+.knife-card.flaw:hover { border-color: var(--herb-green); }
+
 .knife-card-header {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-sm);
 }
 
 .knife-card-icon {
-  font-size: 1.5rem;
+  color: var(--ink-faded);
+  transition: color 0.2s ease;
 }
+
+.knife-card-icon i {
+  width: 20px;
+  height: 20px;
+}
+
+.knife-card.evidence:hover .knife-card-icon { color: var(--sepia); }
+.knife-card.vulnerability:hover .knife-card-icon { color: var(--blood-red); }
+.knife-card.leverage:hover .knife-card-icon { color: var(--gold-accent); }
+.knife-card.complication:hover .knife-card-icon { color: var(--copper-accent); }
+.knife-card.flaw:hover .knife-card-icon { color: var(--herb-green); }
 
 .knife-card-name {
   font-family: var(--font-heading);
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   color: var(--sepia);
   margin: 0;
 }
 
 .knife-card-type {
   display: inline-block;
-  font-size: 0.7rem;
-  padding: 2px 8px;
-  border-radius: var(--radius-sm);
-  margin-top: var(--space-sm);
+  font-size: 0.65rem;
+  padding: 3px 10px;
+  border-radius: 12px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  background: rgba(139, 35, 35, 0.15);
+  letter-spacing: 0.08em;
+}
+
+.knife-card.evidence .knife-card-type {
+  background: rgba(101, 67, 33, 0.12);
+  color: var(--sepia);
+}
+.knife-card.vulnerability .knife-card-type {
+  background: rgba(139, 35, 35, 0.12);
   color: var(--blood-red);
+}
+.knife-card.leverage .knife-card-type {
+  background: rgba(196, 164, 105, 0.2);
+  color: #8a6914;
+}
+.knife-card.complication .knife-card-type {
+  background: rgba(184, 115, 51, 0.12);
+  color: var(--copper-accent);
+}
+.knife-card.flaw .knife-card-type {
+  background: rgba(74, 93, 74, 0.15);
+  color: var(--herb-green-dark);
 }
 
 .knife-card-summary {
   font-size: 0.9rem;
   color: var(--ink-brown);
-  margin: var(--space-md) 0 0 0;
-  line-height: 1.5;
+  margin: var(--space-sm) 0 0 0;
+  line-height: 1.55;
 }
 
 /* Knife Modal */
 .knife-modal {
-  max-width: 600px;
+  max-width: 580px;
 }
 
 .knife-modal .modal-content {
@@ -2366,35 +2446,79 @@ details[open] .rules-toggle::after {
   gap: var(--space-md);
   margin-bottom: var(--space-lg);
   padding-bottom: var(--space-md);
-  border-bottom: 1px solid var(--parchment-aged);
+  border-bottom: 2px solid var(--parchment-aged);
 }
 
 .knife-detail-icon {
-  font-size: 2.5rem;
+  color: var(--sepia);
+}
+
+.knife-detail-icon i {
+  width: 32px;
+  height: 32px;
 }
 
 .knife-detail-title {
-  font-family: var(--font-heading);
-  font-size: 1.8rem;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
   color: var(--sepia);
   margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.knife-modal-type {
+  display: inline-block;
+  font-size: 0.7rem;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--space-md);
+}
+
+.knife-modal-type.evidence {
+  background: rgba(101, 67, 33, 0.12);
+  color: var(--sepia);
+}
+.knife-modal-type.vulnerability {
+  background: rgba(139, 35, 35, 0.12);
+  color: var(--blood-red);
+}
+.knife-modal-type.leverage {
+  background: rgba(196, 164, 105, 0.2);
+  color: #8a6914;
+}
+.knife-modal-type.complication {
+  background: rgba(184, 115, 51, 0.12);
+  color: var(--copper-accent);
+}
+.knife-modal-type.flaw {
+  background: rgba(74, 93, 74, 0.15);
+  color: var(--herb-green-dark);
 }
 
 .knife-detail-section {
   margin-bottom: var(--space-lg);
+  padding: var(--space-md);
+  background: linear-gradient(135deg, rgba(101, 67, 33, 0.04), transparent);
+  border-radius: 6px;
+  border-left: 3px solid var(--parchment-aged);
 }
 
 .knife-detail-section h4 {
   font-family: var(--font-heading);
-  color: var(--bark-brown);
+  color: var(--sepia);
   margin: 0 0 var(--space-sm) 0;
-  font-size: 1rem;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
 .knife-detail-section p {
   margin: 0;
   color: var(--ink-brown);
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
 /* ============================================
@@ -2449,49 +2573,20 @@ details[open] .rules-toggle::after {
   margin: 0;
 }
 
-/* Connection Groups */
-.relationship-group {
-  margin-bottom: var(--space-xl);
-}
-
-.relationship-group-title {
-  font-family: var(--font-heading);
-  font-size: 1.2rem;
-  color: var(--ink-brown);
-  margin: 0 0 var(--space-md) 0;
-  padding-bottom: var(--space-sm);
-  border-bottom: 1px solid var(--parchment-aged);
-}
-
-.relationship-group.allies .relationship-group-title { color: var(--herb-green-dark); }
-.relationship-group.complicated .relationship-group-title { color: var(--gold-accent); }
-.relationship-group.antagonists .relationship-group-title { color: var(--blood-red); }
-
-/* Relationship Icons */
-.relationship-icon {
-  width: 1.2em;
-  height: 1.2em;
-  vertical-align: -0.15em;
-  margin-right: 0.3em;
-}
-.ally-icon { color: var(--herb-green-dark); }
-.complicated-icon { color: var(--gold-accent); }
-.antagonist-icon { color: var(--blood-red); }
-
 /* Connection Cards */
 .relationship-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: var(--space-md);
 }
 
 .relationship-card {
-  background: var(--parchment-light);
+  background: linear-gradient(145deg, var(--parchment-light), var(--parchment));
   border: 1px solid var(--parchment-aged);
   border-radius: var(--radius-md);
-  padding: var(--space-md);
-  padding-right: calc(var(--space-md) + 1.5rem);
+  padding: var(--space-lg);
   position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .relationship-card::before {
@@ -2499,9 +2594,10 @@ details[open] .rules-toggle::after {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  height: 3px;
-  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  width: 4px;
+  height: 100%;
+  border-radius: var(--radius-md) 0 0 var(--radius-md);
+  transition: width 0.2s ease;
 }
 
 .relationship-card.ally::before { background: var(--herb-green); }
@@ -2510,28 +2606,57 @@ details[open] .rules-toggle::after {
 
 .relationship-card.clickable {
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
 }
 
 .relationship-card.clickable:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px var(--shadow);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border-color: transparent;
 }
 
-.relationship-card.clickable::after {
-  content: '→';
-  position: absolute;
-  top: var(--space-md);
-  right: var(--space-md);
-  color: var(--ink-faded);
-  font-size: 1rem;
+.relationship-card.clickable:hover::before {
+  width: 6px;
 }
+
+.relationship-card.ally.clickable:hover { border-color: var(--herb-green); }
+.relationship-card.complicated.clickable:hover { border-color: var(--gold-accent); }
+.relationship-card.antagonist.clickable:hover { border-color: var(--blood-red); }
 
 .relationship-card-name {
   font-family: var(--font-heading);
   font-size: 1.1rem;
   color: var(--sepia);
   margin: 0 0 var(--space-xs) 0;
+  transition: color 0.2s ease;
+}
+
+.relationship-card.ally:hover .relationship-card-name { color: var(--herb-green-dark); }
+.relationship-card.complicated:hover .relationship-card-name { color: #8a6914; }
+.relationship-card.antagonist:hover .relationship-card-name { color: #8b2323; }
+
+.relationship-card-type {
+  display: inline-block;
+  font-size: 0.65rem;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--space-sm);
+}
+
+.relationship-card.ally .relationship-card-type {
+  background: rgba(74, 93, 74, 0.15);
+  color: var(--herb-green-dark);
+}
+.relationship-card.complicated .relationship-card-type {
+  background: rgba(196, 164, 105, 0.2);
+  color: #8a6914;
+}
+.relationship-card.antagonist .relationship-card-type {
+  background: rgba(139, 35, 35, 0.12);
+  color: var(--blood-red);
 }
 
 .relationship-card-role {
@@ -2539,56 +2664,77 @@ details[open] .rules-toggle::after {
   color: var(--ink-faded);
   margin: 0 0 var(--space-sm) 0;
   font-style: italic;
+  line-height: 1.4;
 }
 
 .relationship-card-tension {
   font-size: 0.9rem;
   color: var(--ink-brown);
   margin: 0 0 var(--space-sm) 0;
-  font-style: italic;
+  line-height: 1.5;
 }
 
 .relationship-card-location {
   font-size: 0.8rem;
   color: var(--ink-faded);
   margin: 0;
+  padding-top: var(--space-sm);
+  border-top: 1px dashed var(--parchment-aged);
 }
 
 /* Indirect Connections */
 .relationship-indirect {
   margin-top: var(--space-xl);
   padding: var(--space-lg);
-  background: rgba(101, 67, 33, 0.05);
+  background: linear-gradient(135deg, rgba(101, 67, 33, 0.06), rgba(101, 67, 33, 0.02));
   border-radius: var(--radius-md);
-  border: 1px dashed var(--parchment-aged);
+  border: 1px solid var(--parchment-aged);
+  position: relative;
+}
+
+.relationship-indirect::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--parchment-aged), var(--sepia), var(--parchment-aged));
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  opacity: 0.5;
 }
 
 .relationship-indirect-title {
   font-family: var(--font-heading);
-  font-size: 1rem;
-  color: var(--ink-faded);
+  font-size: 0.95rem;
+  color: var(--sepia);
   margin: 0 0 var(--space-md) 0;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .relationship-indirect-list {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
 }
 
 .relationship-indirect-item {
-  padding: var(--space-sm) 0;
-  border-bottom: 1px dotted var(--parchment-aged);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--parchment-light);
+  border-radius: 6px;
   font-size: 0.9rem;
   color: var(--ink-brown);
-}
-
-.relationship-indirect-item:last-child {
-  border-bottom: none;
+  border: 1px solid rgba(101, 67, 33, 0.1);
+  line-height: 1.5;
 }
 
 .relationship-indirect-item strong {
   color: var(--sepia);
+  font-weight: 600;
 }
 
 .vignettes-grid {

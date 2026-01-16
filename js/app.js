@@ -2212,6 +2212,7 @@ const App = {
                     <span class="knife-detail-icon"><i data-lucide="${knife.icon}"></i></span>
                     <h2 class="knife-detail-title">${knife.name}</h2>
                 </div>
+                <span class="knife-modal-type ${knife.type}">${knife.type}</span>
                 <div class="knife-detail-section">
                     <h4>What It Is</h4>
                     <p>${knife.details}</p>
@@ -2798,42 +2799,12 @@ const App = {
         if (!container || !this.relationships) return;
 
         const data = this.relationships;
-        
-        // Group connections by type
-        const allies = data.connections.filter(c => c.type === 'ally');
-        const complicated = data.connections.filter(c => c.type === 'complicated');
-        const antagonists = data.connections.filter(c => c.type === 'antagonist');
 
         container.innerHTML = `
-            <!-- Allies -->
-            ${allies.length > 0 ? `
-            <div class="relationship-group allies">
-                <h3 class="relationship-group-title"><i data-lucide="heart-handshake" class="relationship-icon ally-icon"></i> Allies</h3>
-                <div class="relationship-cards">
-                    ${allies.map(c => this.renderRelationshipCard(c)).join('')}
-                </div>
+            <!-- All Relationships -->
+            <div class="relationship-cards">
+                ${data.connections.map(c => this.renderRelationshipCard(c)).join('')}
             </div>
-            ` : ''}
-
-            <!-- Complicated -->
-            ${complicated.length > 0 ? `
-            <div class="relationship-group complicated">
-                <h3 class="relationship-group-title"><i data-lucide="puzzle" class="relationship-icon complicated-icon"></i> Complicated Ties</h3>
-                <div class="relationship-cards">
-                    ${complicated.map(c => this.renderRelationshipCard(c)).join('')}
-                </div>
-            </div>
-            ` : ''}
-
-            <!-- Antagonists -->
-            ${antagonists.length > 0 ? `
-            <div class="relationship-group antagonists">
-                <h3 class="relationship-group-title"><i data-lucide="swords" class="relationship-icon antagonist-icon"></i> Antagonists</h3>
-                <div class="relationship-cards">
-                    ${antagonists.map(c => this.renderRelationshipCard(c)).join('')}
-                </div>
-            </div>
-            ` : ''}
 
             <!-- Indirect Connections -->
             ${data.indirect && data.indirect.length > 0 ? `
@@ -2864,11 +2835,19 @@ const App = {
         // All connections with details are clickable
         const hasDetails = connection.details !== undefined;
         
+        // Type labels for display
+        const typeLabels = {
+            'ally': 'Ally',
+            'complicated': 'Complicated',
+            'antagonist': 'Antagonist'
+        };
+        
         return `
             <div class="relationship-card ${connection.type} ${hasDetails ? 'clickable' : ''}" 
                  data-connection-name="${connection.name}"
                  ${hasDetails ? 'title="Click for details"' : ''}>
                 <h4 class="relationship-card-name">${connection.name}</h4>
+                <span class="relationship-card-type">${typeLabels[connection.type] || connection.type}</span>
                 <p class="relationship-card-role">${connection.role}</p>
                 <p class="relationship-card-tension">${connection.tension}</p>
                 <p class="relationship-card-location">📍 ${connection.location}</p>
@@ -2909,40 +2888,73 @@ const App = {
         
         if (connection.type === 'ally') {
             detailsHTML = `
-                <p><strong>Met:</strong> ${d.met}</p>
-                <p><strong>Bond:</strong> ${d.bond}</p>
-                <p><strong>I ask for:</strong> ${d.iAskFor}</p>
-                <p><strong>They ask for:</strong> ${d.theyAskFor}</p>
+                <div class="relationship-detail-section">
+                    <h4>Met</h4>
+                    <p>${d.met}</p>
+                </div>
+                <div class="relationship-detail-section">
+                    <h4>Bond</h4>
+                    <p>${d.bond}</p>
+                </div>
+                <div class="relationship-detail-section">
+                    <h4>I ask for</h4>
+                    <p>${d.iAskFor}</p>
+                </div>
+                <div class="relationship-detail-section">
+                    <h4>They ask for</h4>
+                    <p>${d.theyAskFor}</p>
+                </div>
             `;
         } else if (connection.type === 'complicated') {
             // Handle different pronoun structures
             const wants = d.heWants || d.sheWants || '';
             const wantsLabel = d.heWants ? 'He wants' : 'She wants';
             detailsHTML = `
-                <p><strong>The knot:</strong> ${d.theKnot}</p>
-                <p><strong>${wantsLabel}:</strong> ${wants}</p>
-                <p><strong>I want:</strong> ${d.iWant}</p>
-                <p><strong>Danger:</strong> ${d.danger}</p>
+                <div class="relationship-detail-section">
+                    <h4>The knot</h4>
+                    <p>${d.theKnot}</p>
+                </div>
+                <div class="relationship-detail-section">
+                    <h4>${wantsLabel}</h4>
+                    <p>${wants}</p>
+                </div>
+                <div class="relationship-detail-section">
+                    <h4>I want</h4>
+                    <p>${d.iWant}</p>
+                </div>
+                <div class="relationship-detail-section">
+                    <h4>Danger</h4>
+                    <p>${d.danger}</p>
+                </div>
             `;
         } else if (connection.type === 'antagonist') {
             detailsHTML = `
-                <p><strong>She believes:</strong> ${d.sheBelieves}</p>
-                <p><strong>She wants:</strong> ${d.sheWants}</p>
-                <p><strong>How she operates:</strong> ${d.howSheOperates}</p>
+                <div class="relationship-detail-section">
+                    <h4>She believes</h4>
+                    <p>${d.sheBelieves}</p>
+                </div>
+                <div class="relationship-detail-section">
+                    <h4>She wants</h4>
+                    <p>${d.sheWants}</p>
+                </div>
+                <div class="relationship-detail-section">
+                    <h4>How she operates</h4>
+                    <p>${d.howSheOperates}</p>
+                </div>
             `;
         }
 
-        // Determine the type label and color
+        // Determine the type label
         const typeLabels = {
-            'ally': '🟢 Ally',
-            'complicated': '🟡 Complicated Tie',
-            'antagonist': '🔴 Antagonist'
+            'ally': 'Ally',
+            'complicated': 'Complicated',
+            'antagonist': 'Antagonist'
         };
 
         content.innerHTML = `
             <div class="narrative-container">
                 <h2>${connection.name}</h2>
-                <p class="relationship-type-label">${typeLabels[connection.type] || connection.type}</p>
+                <span class="relationship-modal-type ${connection.type}">${typeLabels[connection.type] || connection.type}</span>
                 <p class="relationship-modal-role"><em>${connection.role}</em></p>
                 <p class="relationship-modal-location">📍 ${connection.location}</p>
                 <hr>
