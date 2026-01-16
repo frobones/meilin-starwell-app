@@ -431,7 +431,7 @@
         html += `
             <div class="component-item">
                 <span class="component-label">Also needs:</span>
-                <span class="component-value">5 gp rare herbs (from herbalism kit)</span>
+                <span class="component-value">5 gp rare herbs</span>
             </div>
         `;
         

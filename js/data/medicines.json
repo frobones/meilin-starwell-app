@@ -473,7 +473,7 @@
       "dc": 10,
       "maxStars": 4,
       "indefiniteStar": false,
-      "primary": "Fleshwort",
+      "primary": ["Fleshwort", "Juniper berries"],
       "secondary": [],
       "brief": "Heal 2d6 HP",
       "effect": "Regain 2d6 hit points.",

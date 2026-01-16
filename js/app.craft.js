@@ -373,6 +373,24 @@
     };
 
     /**
+     * Check if a medicine has alternative primary ingredients (array of options)
+     */
+    App.hasAlternativePrimaries = function(medicine) {
+        return Array.isArray(medicine.primary) && medicine.primary.length > 1;
+    };
+
+    /**
+     * Get available primary alternatives for the medicine
+     */
+    App.getAvailablePrimaryAlternatives = function(medicine) {
+        if (!this.hasAlternativePrimaries(medicine)) return [];
+        
+        return medicine.primary
+            .filter(name => (this.ingredientInventory[name] || 0) >= 1)
+            .map(name => ({ name, type: 'flora' }));
+    };
+
+    /**
      * Check if a medicine has alternative secondary ingredients
      */
     App.hasAlternativeSecondaries = function(medicine) {
@@ -397,8 +415,20 @@
      * Check if a medicine can be crafted with current inventory
      */
     App.canCraftMedicine = function(medicine) {
-        if (medicine.primary && (this.ingredientInventory[medicine.primary] || 0) < 1) {
-            return false;
+        // Check primary ingredient(s)
+        if (medicine.primary) {
+            if (this.hasAlternativePrimaries(medicine)) {
+                // If array of primaries, need at least one
+                const hasAnyPrimary = medicine.primary.some(p => 
+                    (this.ingredientInventory[p] || 0) >= 1
+                );
+                if (!hasAnyPrimary) return false;
+            } else {
+                // Single primary
+                if ((this.ingredientInventory[medicine.primary] || 0) < 1) {
+                    return false;
+                }
+            }
         }
         
         const secondaries = medicine.secondary || [];
@@ -560,7 +590,7 @@
     /**
      * Open craft modal for a medicine
      */
-    App.openCraftModal = function(medicine, preselectedAlternative = null) {
+    App.openCraftModal = function(medicine, preselectedAlternative = null, preselectedPrimary = null) {
         const overlay = document.getElementById('craft-modal-overlay');
         const content = document.getElementById('craft-modal-content');
         if (!overlay || !content) return;
@@ -571,15 +601,19 @@
         const maxAlchemillaSlots = this.getMaxAlchemillaSlots(medicine);
         const maxEphedraSlots = this.getMaxEphedraSlots(medicine);
         const alternatives = this.getAvailableAlternatives(medicine);
+        const primaryAlternatives = this.getAvailablePrimaryAlternatives(medicine);
         
         const defaultAlt = alternatives.length > 0 ? alternatives[0].name : null;
+        const defaultPrimary = primaryAlternatives.length > 0 ? primaryAlternatives[0].name : null;
         
         this.craftModalState = {
             medicine: medicine,
             alchemillaCount: 0,
             ephedraCount: 0,
             chosenAlternative: preselectedAlternative || defaultAlt,
+            chosenPrimary: preselectedPrimary || defaultPrimary,
             alternatives: alternatives,
+            primaryAlternatives: primaryAlternatives,
             maxEnhancements: maxEnhancements,
             maxAlchemillaSlots: maxAlchemillaSlots,
             maxEphedraSlots: maxEphedraSlots,
@@ -595,16 +629,24 @@
     /**
      * Build the ingredients list HTML for the craft modal
      */
-    App.buildIngredientsListHtml = function(medicine, chosenAlternative, alchemillaCount, ephedraCount) {
+    App.buildIngredientsListHtml = function(medicine, chosenAlternative, alchemillaCount, ephedraCount, chosenPrimary = null) {
         const ingredients = [];
         
         // Primary ingredient
         if (medicine.primary) {
-            ingredients.push({
-                name: medicine.primary,
-                type: 'primary',
-                count: 1
-            });
+            if (this.hasAlternativePrimaries(medicine) && chosenPrimary) {
+                ingredients.push({
+                    name: chosenPrimary,
+                    type: 'primary',
+                    count: 1
+                });
+            } else if (!this.hasAlternativePrimaries(medicine)) {
+                ingredients.push({
+                    name: medicine.primary,
+                    type: 'primary',
+                    count: 1
+                });
+            }
         }
         
         // Secondary ingredients
@@ -675,6 +717,7 @@
         
         const { 
             medicine, alchemillaCount, ephedraCount, chosenAlternative, alternatives,
+            chosenPrimary, primaryAlternatives,
             maxEnhancements, maxAlchemillaSlots, maxEphedraSlots, canUseAlchemilla, canUseEphedra 
         } = this.craftModalState;
         
@@ -704,7 +747,29 @@
         );
         
         // Build ingredients required section
-        const ingredientsHtml = this.buildIngredientsListHtml(medicine, chosenAlternative, alchemillaCount, ephedraCount);
+        const ingredientsHtml = this.buildIngredientsListHtml(medicine, chosenAlternative, alchemillaCount, ephedraCount, chosenPrimary);
+        
+        // Primary ingredient alternatives (for medicines like Healing Tonic that can use either Fleshwort or Juniper berries)
+        let primaryAlternativeHtml = '';
+        if (primaryAlternatives && primaryAlternatives.length > 1) {
+            primaryAlternativeHtml = `
+                <div class="craft-modal-section craft-modal-alternatives">
+                    <div class="section-header">
+                        <i data-lucide="flower-2"></i>
+                        <h4>Choose Primary Ingredient</h4>
+                    </div>
+                    <div class="alternative-options">
+                        ${primaryAlternatives.map(alt => `
+                            <label class="alternative-option ingredient-flora ${chosenPrimary === alt.name ? 'selected' : ''}">
+                                <input type="radio" name="primary-alternative" value="${alt.name}" 
+                                    ${chosenPrimary === alt.name ? 'checked' : ''}>
+                                <span>${alt.name}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
         
         let alternativeHtml = '';
         if (alternatives && alternatives.length > 1) {
@@ -873,6 +938,7 @@
                 </div>
             </div>
             
+            ${primaryAlternativeHtml}
             ${alternativeHtml}
             ${enhancementHtml}
             ${effectSectionHtml}
@@ -968,6 +1034,15 @@
      * Bind events within the craft modal
      */
     App.bindCraftModalEvents = function() {
+        // Primary ingredient alternative selection
+        document.querySelectorAll('input[name="primary-alternative"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                this.craftModalState.chosenPrimary = e.target.value;
+                this.renderCraftModalContent();
+            });
+        });
+        
+        // Secondary ingredient alternative selection
         document.querySelectorAll('input[name="alternative"]').forEach(radio => {
             radio.addEventListener('change', (e) => {
                 this.craftModalState.chosenAlternative = e.target.value;
@@ -1050,11 +1125,19 @@
     App.executeCraft = function() {
         if (!this.craftModalState) return;
         
-        const { medicine, alchemillaCount, ephedraCount, chosenAlternative } = this.craftModalState;
+        const { medicine, alchemillaCount, ephedraCount, chosenAlternative, chosenPrimary } = this.craftModalState;
         
+        // Deduct primary ingredient
         if (medicine.primary) {
-            this.ingredientInventory[medicine.primary] = 
-                (this.ingredientInventory[medicine.primary] || 0) - 1;
+            if (this.hasAlternativePrimaries(medicine) && chosenPrimary) {
+                // Use the chosen primary from alternatives
+                this.ingredientInventory[chosenPrimary] = 
+                    (this.ingredientInventory[chosenPrimary] || 0) - 1;
+            } else if (!this.hasAlternativePrimaries(medicine)) {
+                // Single primary
+                this.ingredientInventory[medicine.primary] = 
+                    (this.ingredientInventory[medicine.primary] || 0) - 1;
+            }
         }
         
         const isOrAlternative = this.hasAlternativeSecondaries(medicine);

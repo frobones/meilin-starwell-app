@@ -6,47 +6,47 @@
     {
       "id": 1,
       "text": "She's hiding from her family. Some kind of falling out.",
-      "image": "headshot.png"
+      "image": "rumor_01.png"
     },
     {
       "id": 2,
       "text": "She poisoned someone back on Bral. That's why she ran. Ask around the docks if you don't believe me.",
-      "image": "scene.png"
+      "image": "rumor_02.png"
     },
     {
       "id": 3,
       "text": "She once traced a bad barrel of flour across three ports. Took her two weeks.",
-      "image": "key_art.png"
+      "image": "rumor_03.png"
     },
     {
       "id": 4,
       "text": "She's a forger. Documents, signatures, manifests. That's why the ink never washes out.",
-      "image": "scene.png"
+      "image": "rumor_04.png"
     },
     {
       "id": 5,
       "text": "She reads minds. How else would she know when you're lying?",
-      "image": "headshot.png"
+      "image": "rumor_05.png"
     },
     {
       "id": 6,
       "text": "Dock workers trust her. She's patched up more cargo haulers than any guild healer.",
-      "image": "key_art.png"
+      "image": "rumor_06.png"
     },
     {
       "id": 7,
       "text": "Someone with deep pockets wants her found. Alive, specifically. Make of that what you will.",
-      "image": "scene.png"
+      "image": "rumor_07.png"
     },
     {
       "id": 8,
       "text": "She doesn't drink anything she didn't pour herself. Not even water.",
-      "image": "headshot.png"
+      "image": "rumor_08.png"
     },
     {
       "id": 9,
       "text": "She works for one of the big Costers, running quality audits undercover. That's how she knows so much about supply chains.",
-      "image": "key_art.png"
+      "image": "rumor_09.png"
     }
   ]
 }

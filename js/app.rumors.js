@@ -9,7 +9,7 @@
      */
     App.loadRumors = async function() {
         try {
-            const response = await fetch('content/rumors.json');
+            const response = await fetch('content/rumors.json?v=' + Date.now());
             if (!response.ok) throw new Error('Failed to load rumors');
             
             this.rumorsData = await response.json();
