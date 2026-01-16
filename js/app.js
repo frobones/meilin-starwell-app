@@ -9,11 +9,11 @@ const App = {
     ingredients: null,
     rules: null,
     
-    // Calculator data
+    // Craft data
     ingredientInventory: {},
     ingredientsList: null,
     craftModalState: null,
-    calculatorEventsBound: false,
+    craftEventsBound: false,
     INVENTORY_STORAGE_KEY: 'meilin-inventory',
     
     // At a Glance data (top-level page)
@@ -73,12 +73,12 @@ const App = {
             this.renderHarvestingRules();
             this.renderPotionRules();
             
-            // Initialize calculator
+            // Initialize craft tab
             this.buildIngredientsList();
             this.loadInventory();
-            this.renderCalculatorInventory();
+            this.renderCraftInventory();
             this.renderCraftableMedicines();
-            this.bindCalculatorEvents();
+            this.bindCraftEvents();
             
             // Check if unlocked, show passkey modal if not
             if (!this.appUnlocked) {
@@ -669,13 +669,16 @@ const App = {
             if (this.currentFilters.search) {
                 const searchTerm = this.currentFilters.search;
                 const matchesName = medicine.name.toLowerCase().includes(searchTerm);
-                const matchesEffect = medicine.effect.toLowerCase().includes(searchTerm);
+                const matchesBrief = medicine.brief?.toLowerCase().includes(searchTerm);
+                const matchesEffect = medicine.effect?.toLowerCase().includes(searchTerm);
+                const matchesFullEffect = medicine.fullEffect?.toLowerCase().includes(searchTerm);
                 const matchesPrimary = medicine.primary?.toLowerCase().includes(searchTerm);
                 const matchesSecondary = medicine.secondary.some(s => 
                     this.getSecondaryName(s).toLowerCase().includes(searchTerm)
                 );
                 
-                if (!matchesName && !matchesEffect && !matchesPrimary && !matchesSecondary) {
+                if (!matchesName && !matchesBrief && !matchesEffect && !matchesFullEffect && 
+                    !matchesPrimary && !matchesSecondary) {
                     return false;
                 }
             }
@@ -3139,7 +3142,7 @@ const App = {
     },
 
     // ============================================
-    // Calculator Tab Methods
+    // Craft Tab Methods
     // ============================================
 
     /**
@@ -3202,11 +3205,11 @@ const App = {
     },
 
     /**
-     * Render the calculator inventory panel
+     * Render the craft inventory panel
      * Preserves the expanded/collapsed state of each section across re-renders.
      * Organizes ingredients into nested Flora and Creatures parent groups.
      */
-    renderCalculatorInventory() {
+    renderCraftInventory() {
         const container = document.getElementById('inventory-sections');
         if (!container || !this.ingredientsList) return;
         
@@ -3355,14 +3358,14 @@ const App = {
     },
 
     /**
-     * Bind calculator event listeners
+     * Bind craft event listeners
      * Uses event delegation on container elements, so only needs to be called once.
      * Subsequent calls are no-ops to prevent duplicate event listeners.
      */
-    bindCalculatorEvents() {
+    bindCraftEvents() {
         // Prevent duplicate event listener binding
-        if (this.calculatorEventsBound) return;
-        this.calculatorEventsBound = true;
+        if (this.craftEventsBound) return;
+        this.craftEventsBound = true;
         
         const inventoryContainer = document.getElementById('inventory-sections');
         if (inventoryContainer) {
@@ -3421,7 +3424,7 @@ const App = {
                 if (confirm('Clear all ingredients from your inventory?')) {
                     this.ingredientInventory = {};
                     this.saveInventory();
-                    this.renderCalculatorInventory();
+                    this.renderCraftInventory();
                     this.renderCraftableMedicines();
                 }
             });
@@ -3533,9 +3536,9 @@ const App = {
                 if (data.inventory && typeof data.inventory === 'object') {
                     this.ingredientInventory = data.inventory;
                     this.saveInventory();
-                    this.renderCalculatorInventory();
+                    this.renderCraftInventory();
                     this.renderCraftableMedicines();
-                    this.bindCalculatorEvents(); // Rebind after re-render
+                    this.bindCraftEvents(); // Rebind after re-render
                 } else {
                     throw new Error('Invalid inventory format');
                 }
@@ -3674,56 +3677,41 @@ const App = {
     },
 
     /**
-     * Create HTML for a craftable medicine card
+     * Create HTML for a compact craftable medicine card
+     * The entire card is clickable to open the craft modal
+     * Uses vertical stacking: Name, Stars, Tag & DC, Brief
      */
     createCraftableCard(medicine, isNew = false) {
         const stars = this.getMedicineStars(medicine);
-        const previewText = medicine.effect.length > 120 
-            ? medicine.effect.substring(0, 120) + '...'
-            : medicine.effect;
+        // Use brief field if available, otherwise truncate effect
+        const briefText = medicine.brief || (medicine.effect.length > 50 
+            ? medicine.effect.substring(0, 50) + '...'
+            : medicine.effect);
         
         return `
-            <article class="craftable-card ${isNew ? 'fade-in' : ''}" data-id="${medicine.id}">
-                <div class="card-header">
-                    <h3 class="medicine-name">${medicine.name}</h3>
-                    <span class="medicine-stars">${stars}</span>
-                </div>
+            <article class="craftable-card ${isNew ? 'fade-in' : ''}" data-id="${medicine.id}" data-medicine="${medicine.id}" data-category="${medicine.category}">
+                <h3 class="medicine-name">${medicine.name}</h3>
+                <span class="medicine-stars">${stars}</span>
                 <div class="medicine-meta">
                     <span class="medicine-category ${medicine.category}">${medicine.category}</span>
                     <span class="medicine-dc">DC ${medicine.dc}</span>
                 </div>
-                <p class="medicine-preview">${previewText}</p>
-                <div class="card-actions">
-                    <button class="craft-btn" data-medicine="${medicine.id}">Craft</button>
-                    <button class="details-btn" data-medicine="${medicine.id}">Details</button>
-                </div>
+                <p class="medicine-preview">${briefText}</p>
             </article>
         `;
     },
 
     /**
      * Bind events for craftable cards
+     * The entire card is clickable to open the craft modal
      */
     bindCraftableCardEvents(container) {
-        container.querySelectorAll('.craft-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const medicineId = btn.dataset.medicine;
-                const alternative = btn.dataset.alternative || null;
+        container.querySelectorAll('.craftable-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const medicineId = card.dataset.medicine;
                 const medicine = this.medicines.find(m => m.id === medicineId);
                 if (medicine) {
-                    this.openCraftModal(medicine, alternative);
-                }
-            });
-        });
-        
-        container.querySelectorAll('.details-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const medicineId = btn.dataset.medicine;
-                const medicine = this.medicines.find(m => m.id === medicineId);
-                if (medicine) {
-                    this.openModal(medicine);
+                    this.openCraftModal(medicine);
                 }
             });
         });
@@ -4018,6 +4006,7 @@ const App = {
             
             <div class="craft-modal-actions">
                 <button class="confirm-craft-btn" id="confirm-craft">Confirm Craft</button>
+                <button class="details-craft-btn" id="view-details">View Details</button>
                 <button class="cancel-craft-btn" id="cancel-craft">Cancel</button>
             </div>
         `;
@@ -4180,6 +4169,17 @@ const App = {
             confirmBtn.addEventListener('click', () => this.executeCraft());
         }
         
+        // View Details - opens medicine detail modal (keeps craft modal open underneath)
+        const detailsBtn = document.getElementById('view-details');
+        if (detailsBtn) {
+            detailsBtn.addEventListener('click', () => {
+                const medicine = this.craftModalState?.medicine;
+                if (medicine) {
+                    this.openModal(medicine);
+                }
+            });
+        }
+        
         // Cancel
         const cancelBtn = document.getElementById('cancel-craft');
         if (cancelBtn) {
@@ -4236,9 +4236,9 @@ const App = {
         // Save and update UI
         this.saveInventory();
         this.closeCraftModal();
-        this.renderCalculatorInventory();
+        this.renderCraftInventory();
         this.renderCraftableMedicines();
-        this.bindCalculatorEvents(); // Rebind after re-render
+        this.bindCraftEvents(); // Rebind after re-render
     },
 
     /**

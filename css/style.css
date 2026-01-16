@@ -1068,6 +1068,7 @@ details[open] .rules-toggle::after {
 }
 
 .terrain-tab {
+  flex: 1;
   font-family: var(--font-body);
   font-size: 0.85rem;
   padding: var(--space-xs) var(--space-sm);
@@ -1077,6 +1078,7 @@ details[open] .rules-toggle::after {
   color: var(--ink-faded);
   cursor: pointer;
   transition: all 0.2s ease;
+  text-align: center;
 }
 
 .terrain-tab:hover {
@@ -1114,6 +1116,15 @@ details[open] .rules-toggle::after {
 .modal-overlay.active {
   opacity: 1;
   visibility: visible;
+}
+
+/* Craft modal at base z-index, medicine detail modal higher so it can overlay */
+#craft-modal-overlay {
+  z-index: 1000;
+}
+
+#modal-overlay {
+  z-index: 1100;
 }
 
 .modal {
@@ -5748,14 +5759,14 @@ details[open] .rules-toggle::after {
 }
 
 /* ============================================
-   Calculator Tab Styles
+   Craft Tab Styles
    ============================================ */
 
-.calculator-section {
+.craft-section {
   padding: var(--space-lg);
 }
 
-.calculator-layout {
+.craft-layout {
   display: grid;
   grid-template-columns: 320px 1fr;
   gap: var(--space-xl);
@@ -5763,7 +5774,7 @@ details[open] .rules-toggle::after {
 }
 
 /* Inventory Panel */
-.calculator-inventory {
+.craft-inventory {
   position: sticky;
   top: var(--space-lg);
   background: var(--parchment);
@@ -6121,15 +6132,19 @@ details[open] .rules-toggle::after {
 }
 
 /* Craftable Medicines Panel */
-.calculator-results {
+.craft-results {
   min-height: 400px;
+  background: var(--parchment);
+  border: 1px solid var(--ink-faint);
+  border-radius: 8px;
+  padding: var(--space-lg);
 }
 
 .results-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-md);
   padding-bottom: var(--space-sm);
   border-bottom: 2px solid var(--herb-green);
 }
@@ -6149,8 +6164,8 @@ details[open] .rules-toggle::after {
 
 .craftable-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: var(--space-lg);
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: var(--space-sm);
 }
 
 .empty-state {
@@ -6161,62 +6176,90 @@ details[open] .rules-toggle::after {
   font-style: italic;
 }
 
-/* Craftable Medicine Card */
+/* Craftable Medicine Card - Compact vertical stacking design */
 .craftable-card {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
   background: var(--parchment);
-  border: 1px solid var(--ink-faint);
-  border-radius: 8px;
-  padding: var(--space-lg);
+  border: 2px solid var(--sepia);
+  border-radius: 6px;
+  padding: var(--space-sm) var(--space-md);
+  gap: 2px;
   transition: all 0.2s;
+  cursor: pointer;
+  position: relative;
 }
 
 .craftable-card:hover {
-  border-color: var(--herb-green);
-  box-shadow: 0 4px 12px rgba(45, 106, 79, 0.15);
+  transform: translateY(-2px);
 }
 
-.craftable-card .card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: var(--space-sm);
+/* Category-specific hover colors */
+.craftable-card[data-category="Augmenting"]:hover {
+  border-color: var(--augmenting);
+  box-shadow: 0 4px 12px rgba(107, 76, 138, 0.3);
+}
+.craftable-card[data-category="Curative"]:hover {
+  border-color: var(--curative);
+  box-shadow: 0 4px 12px rgba(45, 106, 79, 0.3);
+}
+.craftable-card[data-category="Fortifying"]:hover {
+  border-color: var(--fortifying);
+  box-shadow: 0 4px 12px rgba(124, 74, 58, 0.3);
+}
+.craftable-card[data-category="Restorative"]:hover {
+  border-color: var(--restorative);
+  box-shadow: 0 4px 12px rgba(42, 92, 138, 0.3);
+}
+.craftable-card[data-category="Special"]:hover {
+  border-color: var(--special);
+  box-shadow: 0 4px 12px rgba(139, 105, 20, 0.3);
+}
+
+.craftable-card:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(45, 106, 79, 0.15);
 }
 
 .craftable-card .medicine-name {
   font-family: var(--font-heading);
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   color: var(--sepia);
   margin: 0;
+  line-height: 1.2;
 }
 
 .craftable-card .medicine-stars {
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   color: var(--gold);
+  white-space: nowrap;
 }
 
 .craftable-card .medicine-meta {
   display: flex;
-  gap: var(--space-sm);
-  margin-bottom: var(--space-sm);
+  justify-content: center;
+  gap: var(--space-xs);
+}
+
+.craftable-card .medicine-category {
+  font-size: 0.65rem;
+  padding: 1px 5px;
+}
+
+.craftable-card .medicine-dc {
+  font-size: 0.7rem;
+  padding: 1px 5px;
+  background: var(--parchment-dark);
+  border-radius: 3px;
 }
 
 .craftable-card .medicine-preview {
-  font-size: 0.9rem;
-  color: var(--ink-brown);
-  line-height: 1.5;
-  flex: 1;
-  margin-bottom: var(--space-md);
-}
-
-.card-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-sm);
-  margin-top: auto;
-  padding-top: var(--space-md);
-  border-top: 1px solid var(--ink-faint);
+  font-size: 0.75rem;
+  color: var(--ink-light);
+  line-height: 1.3;
+  margin: 2px 0 0 0;
 }
 
 .craft-btn {
@@ -6547,6 +6590,22 @@ details[open] .rules-toggle::after {
   background: var(--herb-green-dark);
 }
 
+.details-craft-btn {
+  padding: var(--space-md) var(--space-lg);
+  background: transparent;
+  color: var(--sepia);
+  border: 1px solid var(--sepia);
+  border-radius: 4px;
+  font-family: var(--font-heading);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.details-craft-btn:hover {
+  background: rgba(139, 90, 43, 0.1);
+  border-color: var(--ink-brown);
+}
+
 .cancel-craft-btn {
   padding: var(--space-md) var(--space-lg);
   background: transparent;
@@ -6598,25 +6657,25 @@ details[open] .rules-toggle::after {
   animation: countUpdate 0.5s ease-out;
 }
 
-/* Responsive Calculator */
+/* Responsive Craft */
 @media (max-width: 900px) {
-  .calculator-layout {
+  .craft-layout {
     grid-template-columns: 1fr;
   }
   
-  .calculator-inventory {
+  .craft-inventory {
     position: static;
     max-height: none;
   }
 }
 
 @media (max-width: 600px) {
-  .calculator-section {
+  .craft-section {
     padding: var(--space-md);
   }
   
   .craftable-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
   
   .craft-modal {

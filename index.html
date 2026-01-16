@@ -237,16 +237,16 @@
 
                 <!-- Tab Navigation -->
                 <nav class="tab-nav">
-                    <button class="tab-btn active" data-tab="medicines">Medicines</button>
-                    <button class="tab-btn" data-tab="ingredients">Ingredients</button>
+                    <button class="tab-btn active" data-tab="ingredients">Ingredients</button>
+                    <button class="tab-btn" data-tab="medicines">Medicines</button>
+                    <button class="tab-btn" data-tab="craft">Craft</button>
                     <button class="tab-btn" data-tab="potionrules">Rules</button>
-                    <button class="tab-btn" data-tab="calculator">Calculator</button>
                 </nav>
 
                 <!-- Main Content -->
                 <main class="main-content">
                     <!-- Medicines Grid -->
-                    <div class="tab-content active" id="medicines-tab">
+                    <div class="tab-content" id="medicines-tab">
                         <!-- Search and Filters -->
                         <section class="search-section">
                             <div class="filter-controls">
@@ -293,7 +293,7 @@
                     </div>
 
                     <!-- Ingredients Reference -->
-                    <div class="tab-content" id="ingredients-tab">
+                    <div class="tab-content active" id="ingredients-tab">
                         <div class="ingredients-section" id="ingredients-section">
                             <!-- Ingredient tables will be populated by JS -->
                         </div>
@@ -306,12 +306,12 @@
                         </div>
                     </div>
 
-                    <!-- Calculator Tab -->
-                    <div class="tab-content" id="calculator-tab">
-                        <section class="calculator-section">
-                            <div class="calculator-layout">
+                    <!-- Craft Tab -->
+                    <div class="tab-content" id="craft-tab">
+                        <section class="craft-section">
+                            <div class="craft-layout">
                                 <!-- Ingredient Inventory Panel -->
-                                <aside class="calculator-inventory">
+                                <aside class="craft-inventory">
                                     <h3 class="inventory-title">Your Ingredients</h3>
                                     <div class="inventory-sections" id="inventory-sections">
                                         <!-- Populated by JS -->
@@ -331,7 +331,7 @@
                                 </aside>
                                 
                                 <!-- Craftable Medicines Panel -->
-                                <main class="calculator-results">
+                                <main class="craft-results">
                                     <div class="results-header">
                                         <h3 class="results-title">Craftable Medicines</h3>
                                         <span class="results-count" id="craftable-count">0 medicines</span>
