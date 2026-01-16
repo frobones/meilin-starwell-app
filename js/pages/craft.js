@@ -19,6 +19,75 @@ let craftModalState = null;
 const durationLadder = ['1 minute', '10 minutes', '1 hour', '8 hours', '24 hours'];
 
 /**
+ * Format fullEffect text for HTML display
+ * Converts newlines to proper HTML and handles bullet formatting
+ */
+function formatFullEffect(text) {
+    if (!text) return '';
+    
+    // Split by double newlines to separate paragraphs
+    const paragraphs = text.split(/\n\n+/);
+    
+    return paragraphs.map(para => {
+        // Check if this paragraph contains bullet points
+        if (para.includes('•')) {
+            // Split into lines and process
+            const lines = para.split('\n');
+            let html = '';
+            let inList = false;
+            
+            for (const line of lines) {
+                const trimmedLine = line.trim();
+                if (trimmedLine.startsWith('•')) {
+                    if (!inList) {
+                        html += '<ul class="effect-bullets">';
+                        inList = true;
+                    }
+                    html += `<li>${trimmedLine.substring(1).trim()}</li>`;
+                } else if (trimmedLine) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    html += `<p>${trimmedLine}</p>`;
+                }
+            }
+            
+            if (inList) {
+                html += '</ul>';
+            }
+            
+            return html;
+        } else {
+            // Regular paragraph, just convert single newlines to <br>
+            return `<p>${para.replace(/\n/g, '<br>')}</p>`;
+        }
+    }).join('');
+}
+
+/**
+ * Render a details table for medicines that have one
+ */
+function renderDetailsTable(detailsTable) {
+    if (!detailsTable) return '';
+    
+    const headerCells = detailsTable.headers.map(h => `<th>${h}</th>`).join('');
+    const bodyRows = detailsTable.rows.map(row => 
+        `<tr>${row.map(cell => `<td>${cell}</td>`).join('')}</tr>`
+    ).join('');
+    
+    return `
+        <div class="effect-details-table">
+            <h5 class="effect-table-title">${detailsTable.title}</h5>
+            <table>
+                <thead><tr>${headerCells}</tr></thead>
+                <tbody>${bodyRows}</tbody>
+            </table>
+        </div>
+    `;
+}
+
+/**
  * Initialize the craft module
  */
 export function initCraft() {
@@ -615,7 +684,8 @@ function renderCraftModalContent() {
                 <span class="craft-category-badge ${medicine.category}">${medicine.category}</span>
                 <h2>${medicine.name}</h2>
             </div>
-            <p class="effect-full">${medicine.fullEffect || medicine.effect}</p>
+            <div class="effect-full">${formatFullEffect(medicine.fullEffect || medicine.effect)}</div>
+            ${renderDetailsTable(medicine.detailsTable)}
         </div>
         
         ${recipeHtml}

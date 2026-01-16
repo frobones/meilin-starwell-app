@@ -6891,6 +6891,97 @@ details[open] .rules-toggle::after {
   font-style: italic;
 }
 
+/* Effect text paragraph and bullet formatting */
+.craft-modal-header .effect-full p {
+  margin: 0 0 var(--space-sm) 0;
+}
+
+.craft-modal-header .effect-full p:last-child {
+  margin-bottom: 0;
+}
+
+.craft-modal-header .effect-full .effect-bullets {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-sm) 0;
+}
+
+.craft-modal-header .effect-full .effect-bullets li {
+  position: relative;
+  padding-left: 1.25em;
+  margin-bottom: var(--space-xs);
+  line-height: 1.55;
+}
+
+.craft-modal-header .effect-full .effect-bullets li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--herb-green);
+  font-weight: bold;
+}
+
+.craft-modal-header .effect-full .effect-bullets li:last-child {
+  margin-bottom: 0;
+}
+
+/* Details table for special recipes */
+.effect-details-table {
+  margin-top: var(--space-md);
+  background: var(--parchment-light);
+  border-radius: 6px;
+  padding: var(--space-md);
+  border: 1px solid var(--parchment-aged);
+  font-style: normal;
+}
+
+.effect-details-table .effect-table-title {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--sepia);
+  margin: 0 0 var(--space-sm) 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.effect-details-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.effect-details-table th {
+  text-align: left;
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--parchment-dark);
+  color: var(--ink-brown);
+  font-weight: 600;
+  border-bottom: 2px solid var(--parchment-aged);
+}
+
+.effect-details-table th:first-child {
+  border-radius: 4px 0 0 0;
+}
+
+.effect-details-table th:last-child {
+  border-radius: 0 4px 0 0;
+}
+
+.effect-details-table td {
+  padding: var(--space-xs) var(--space-sm);
+  color: var(--ink-brown);
+  border-bottom: 1px solid var(--parchment-aged);
+}
+
+.effect-details-table tr:last-child td {
+  border-bottom: none;
+}
+
+.effect-details-table tr:nth-child(even) td {
+  background: rgba(0, 0, 0, 0.02);
+}
+
 /* Live DC Display - Redesigned */
 .craft-dc-display {
   display: flex;
