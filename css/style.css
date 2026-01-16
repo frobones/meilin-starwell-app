@@ -5746,6 +5746,659 @@ details[open] .rules-toggle::after {
 }
 
 /* ============================================
+   Calculator Tab Styles
+   ============================================ */
+
+.calculator-section {
+  padding: var(--space-lg);
+}
+
+.calculator-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+/* Inventory Panel */
+.calculator-inventory {
+  position: sticky;
+  top: var(--space-lg);
+  background: var(--parchment);
+  border: 1px solid var(--ink-faint);
+  border-radius: 8px;
+  padding: var(--space-lg);
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+}
+
+.inventory-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  color: var(--sepia);
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 2px solid var(--herb-green);
+}
+
+.inventory-sections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+/* Collapsible Ingredient Sections */
+.inventory-section {
+  border: 1px solid var(--ink-faint);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.inventory-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--parchment-dark);
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s;
+}
+
+.inventory-section-header:hover {
+  background: rgba(139, 90, 43, 0.15);
+}
+
+.inventory-section-title {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  color: var(--ink-brown);
+  margin: 0;
+}
+
+.inventory-section-toggle {
+  font-size: 0.8rem;
+  color: var(--ink-light);
+  transition: transform 0.2s;
+}
+
+.inventory-section.collapsed .inventory-section-toggle {
+  transform: rotate(-90deg);
+}
+
+.inventory-section-content {
+  padding: var(--space-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.inventory-section.collapsed .inventory-section-content {
+  display: none;
+}
+
+/* Ingredient Rows */
+.ingredient-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--parchment-light);
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.ingredient-row:hover {
+  background: rgba(45, 106, 79, 0.08);
+}
+
+.ingredient-row.has-count {
+  background: rgba(45, 106, 79, 0.12);
+}
+
+.ingredient-name {
+  font-size: 0.9rem;
+  color: var(--ink-brown);
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: var(--space-sm);
+}
+
+/* Number Spinner */
+.number-spinner {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.number-spinner button {
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--ink-light);
+  background: var(--parchment-light);
+  color: var(--ink-brown);
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.number-spinner button:first-child {
+  border-radius: 4px 0 0 4px;
+}
+
+.number-spinner button:last-child {
+  border-radius: 0 4px 4px 0;
+}
+
+.number-spinner button:hover {
+  background: var(--herb-green);
+  color: white;
+  border-color: var(--herb-green);
+}
+
+.number-spinner button:active {
+  transform: scale(0.95);
+}
+
+.number-spinner button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.number-spinner button:disabled:hover {
+  background: var(--parchment-light);
+  color: var(--ink-brown);
+  border-color: var(--ink-light);
+}
+
+.number-spinner input {
+  width: 36px;
+  height: 26px;
+  text-align: center;
+  border: 1px solid var(--ink-light);
+  border-left: none;
+  border-right: none;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--ink-brown);
+  background: white;
+}
+
+.number-spinner input:focus {
+  outline: none;
+  background: var(--parchment-light);
+}
+
+/* Inventory Actions */
+.inventory-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding-top: var(--space-md);
+  margin-top: var(--space-md);
+  border-top: 1px solid var(--ink-faint);
+}
+
+.clear-inventory-btn {
+  padding: var(--space-sm) var(--space-md);
+  background: transparent;
+  color: var(--ink-brown);
+  border: 1px solid var(--ink-light);
+  border-radius: 4px;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.clear-inventory-btn:hover {
+  background: rgba(180, 60, 60, 0.1);
+  border-color: #b43c3c;
+  color: #b43c3c;
+}
+
+.inventory-io {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.io-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm);
+  background: var(--parchment-light);
+  border: 1px solid var(--ink-light);
+  border-radius: 4px;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  color: var(--ink-brown);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.io-btn:hover {
+  background: var(--parchment-dark);
+  border-color: var(--ink-brown);
+}
+
+.io-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Craftable Medicines Panel */
+.calculator-results {
+  min-height: 400px;
+}
+
+.results-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-sm);
+  border-bottom: 2px solid var(--herb-green);
+}
+
+.results-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  color: var(--sepia);
+  margin: 0;
+}
+
+.results-count {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--ink-light);
+}
+
+.craftable-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-lg);
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: var(--space-xl);
+  color: var(--ink-light);
+  font-style: italic;
+}
+
+/* Craftable Medicine Card */
+.craftable-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--parchment);
+  border: 1px solid var(--ink-faint);
+  border-radius: 8px;
+  padding: var(--space-lg);
+  transition: all 0.2s;
+}
+
+.craftable-card:hover {
+  border-color: var(--herb-green);
+  box-shadow: 0 4px 12px rgba(45, 106, 79, 0.15);
+}
+
+.craftable-card .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-sm);
+}
+
+.craftable-card .medicine-name {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--sepia);
+  margin: 0;
+}
+
+.craftable-card .medicine-stars {
+  font-size: 0.9rem;
+  color: var(--gold);
+}
+
+.craftable-card .medicine-meta {
+  display: flex;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.craftable-card .medicine-preview {
+  font-size: 0.9rem;
+  color: var(--ink-brown);
+  line-height: 1.5;
+  flex: 1;
+  margin-bottom: var(--space-md);
+}
+
+.card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: auto;
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--ink-faint);
+}
+
+.craft-btn {
+  flex: 1;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--herb-green);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.craft-btn:hover {
+  background: var(--herb-green-dark);
+}
+
+.craft-alt {
+  flex: 1 1 100%;
+  font-size: 0.85rem;
+  background: var(--herb-green-dark);
+}
+
+.craft-alt:hover {
+  background: var(--sepia);
+}
+
+.details-btn {
+  padding: var(--space-sm) var(--space-md);
+  background: transparent;
+  color: var(--ink-brown);
+  border: 1px solid var(--ink-light);
+  border-radius: 4px;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.details-btn:hover {
+  background: var(--parchment-dark);
+  border-color: var(--ink-brown);
+}
+
+/* Craft Modal */
+.craft-modal {
+  max-width: 480px;
+}
+
+.craft-modal-header {
+  margin-bottom: var(--space-lg);
+}
+
+.craft-modal-header h2 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--sepia);
+  margin: 0 0 var(--space-sm) 0;
+}
+
+.craft-modal-header .effect-preview {
+  font-size: 0.95rem;
+  color: var(--ink-brown);
+  line-height: 1.5;
+}
+
+/* Live DC Display */
+.craft-dc-display {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  background: var(--parchment-dark);
+  border-radius: 4px;
+  margin-bottom: var(--space-md);
+}
+
+.dc-label {
+  font-family: var(--font-heading);
+  color: var(--ink-brown);
+}
+
+.dc-stars {
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  color: var(--gold);
+}
+
+.dc-stars .enhancement-stars {
+  color: var(--herb-green);
+}
+
+.dc-value {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--sepia);
+}
+
+.slots-remaining {
+  margin-left: auto;
+  font-size: 0.85rem;
+  color: var(--ink-light);
+}
+
+.slots-remaining.at-max {
+  color: #b43c3c;
+  font-weight: 600;
+}
+
+.craft-modal-section {
+  margin-bottom: var(--space-md);
+  padding: var(--space-md);
+  background: var(--parchment-light);
+  border-radius: 4px;
+}
+
+.craft-modal-section h4 {
+  margin: 0 0 var(--space-sm) 0;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  color: var(--ink-brown);
+}
+
+/* Alternative Selection */
+.alternative-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.alternative-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm);
+  background: white;
+  border: 1px solid var(--ink-faint);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.alternative-option:hover {
+  border-color: var(--herb-green);
+}
+
+.alternative-option.selected {
+  border-color: var(--herb-green);
+  background: rgba(45, 106, 79, 0.08);
+}
+
+.alternative-option input[type="radio"] {
+  accent-color: var(--herb-green);
+}
+
+/* Enhancement Options */
+.enhancement-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-sm) 0;
+  border-bottom: 1px solid var(--ink-faint);
+}
+
+.enhancement-row:last-child {
+  border-bottom: none;
+}
+
+.enhancement-row.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.enhancement-label {
+  display: flex;
+  flex-direction: column;
+}
+
+.enhancement-name {
+  font-weight: 500;
+  color: var(--ink-brown);
+}
+
+.enhancement-effect {
+  font-size: 0.85rem;
+  color: var(--ink-light);
+}
+
+.enhancement-control {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.enhancement-control input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--herb-green);
+}
+
+/* Craft Modal Actions */
+.craft-modal-actions {
+  display: flex;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--ink-faint);
+}
+
+.confirm-craft-btn {
+  flex: 1;
+  padding: var(--space-md);
+  background: var(--herb-green);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.confirm-craft-btn:hover {
+  background: var(--herb-green-dark);
+}
+
+.cancel-craft-btn {
+  padding: var(--space-md) var(--space-lg);
+  background: transparent;
+  color: var(--ink-brown);
+  border: 1px solid var(--ink-light);
+  border-radius: 4px;
+  font-family: var(--font-heading);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cancel-craft-btn:hover {
+  background: var(--parchment-dark);
+  border-color: var(--ink-brown);
+}
+
+/* Animations */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.craftable-card.fade-in {
+  animation: fadeSlideIn 0.3s ease-out;
+}
+
+@keyframes craftPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.95); background: var(--herb-green-dark); }
+  100% { transform: scale(1); }
+}
+
+.craft-btn.crafting {
+  animation: craftPulse 0.3s ease-out;
+}
+
+@keyframes countUpdate {
+  0% { background: rgba(45, 106, 79, 0.3); }
+  100% { background: transparent; }
+}
+
+.ingredient-row.updated .number-spinner input {
+  animation: countUpdate 0.5s ease-out;
+}
+
+/* Responsive Calculator */
+@media (max-width: 900px) {
+  .calculator-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .calculator-inventory {
+    position: static;
+    max-height: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .calculator-section {
+    padding: var(--space-md);
+  }
+  
+  .craftable-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .craft-modal {
+    max-width: 100%;
+    margin: var(--space-md);
+  }
+}
+
+/* ============================================
    Print Styles
    ============================================ */
 

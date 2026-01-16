@@ -9,6 +9,12 @@ const App = {
     ingredients: null,
     rules: null,
     
+    // Calculator data
+    ingredientInventory: {},
+    ingredientsList: null,
+    craftModalState: null,
+    INVENTORY_STORAGE_KEY: 'meilin-inventory',
+    
     // At a Glance data (top-level page)
     overviewData: null,
     
@@ -65,6 +71,13 @@ const App = {
             this.renderQuickRules();
             this.renderHarvestingRules();
             this.renderPotionRules();
+            
+            // Initialize calculator
+            this.buildIngredientsList();
+            this.loadInventory();
+            this.renderCalculatorInventory();
+            this.renderCraftableMedicines();
+            this.bindCalculatorEvents();
             
             // Check if unlocked, show passkey modal if not
             if (!this.appUnlocked) {
@@ -3096,6 +3109,862 @@ const App = {
             overlay.classList.remove('active');
             document.body.style.overflow = '';
         }
+    },
+
+    // ============================================
+    // Calculator Tab Methods
+    // ============================================
+
+    /**
+     * Build a structured list of all ingredients from the data
+     */
+    buildIngredientsList() {
+        if (!this.ingredients) return;
+        
+        this.ingredientsList = {
+            commonFlora: [],
+            rareFlora: {},
+            creatureParts: {}
+        };
+        
+        // Common flora
+        if (this.ingredients.flora && this.ingredients.flora.common) {
+            this.ingredientsList.commonFlora = this.ingredients.flora.common.map(f => f.name);
+        }
+        
+        // Rare flora by terrain
+        if (this.ingredients.flora && this.ingredients.flora.rare) {
+            for (const terrain in this.ingredients.flora.rare) {
+                this.ingredientsList.rareFlora[terrain] = this.ingredients.flora.rare[terrain].map(f => f.name);
+            }
+        }
+        
+        // Creature parts by type
+        if (this.ingredients.creatureParts) {
+            for (const creatureType in this.ingredients.creatureParts) {
+                this.ingredientsList.creatureParts[creatureType] = 
+                    this.ingredients.creatureParts[creatureType].map(c => c.name);
+            }
+        }
+    },
+
+    /**
+     * Load inventory from localStorage
+     */
+    loadInventory() {
+        try {
+            const stored = localStorage.getItem(this.INVENTORY_STORAGE_KEY);
+            if (stored) {
+                this.ingredientInventory = JSON.parse(stored);
+            }
+        } catch (e) {
+            console.warn('Failed to load inventory from localStorage:', e);
+            this.ingredientInventory = {};
+        }
+    },
+
+    /**
+     * Save inventory to localStorage
+     */
+    saveInventory() {
+        try {
+            localStorage.setItem(this.INVENTORY_STORAGE_KEY, JSON.stringify(this.ingredientInventory));
+        } catch (e) {
+            console.warn('Failed to save inventory to localStorage:', e);
+        }
+    },
+
+    /**
+     * Render the calculator inventory panel
+     */
+    renderCalculatorInventory() {
+        const container = document.getElementById('inventory-sections');
+        if (!container || !this.ingredientsList) return;
+        
+        let html = '';
+        
+        // Common Flora section (always expanded)
+        html += this.createInventorySection('Common Flora', this.ingredientsList.commonFlora, false);
+        
+        // Rare Flora sections by terrain
+        for (const terrain in this.ingredientsList.rareFlora) {
+            html += this.createInventorySection(
+                `${terrain} Flora`, 
+                this.ingredientsList.rareFlora[terrain], 
+                true
+            );
+        }
+        
+        // Creature Parts sections by type
+        for (const creatureType in this.ingredientsList.creatureParts) {
+            html += this.createInventorySection(
+                creatureType, 
+                this.ingredientsList.creatureParts[creatureType], 
+                true
+            );
+        }
+        
+        container.innerHTML = html;
+        this.refreshIcons();
+    },
+
+    /**
+     * Create HTML for an inventory section
+     */
+    createInventorySection(title, ingredients, collapsed = true) {
+        const uniqueIngredients = [...new Set(ingredients)]; // Remove duplicates
+        const rows = uniqueIngredients.map(name => this.createIngredientRow(name)).join('');
+        
+        return `
+            <div class="inventory-section ${collapsed ? 'collapsed' : ''}">
+                <div class="inventory-section-header">
+                    <h4 class="inventory-section-title">${title}</h4>
+                    <span class="inventory-section-toggle">▼</span>
+                </div>
+                <div class="inventory-section-content">
+                    ${rows}
+                </div>
+            </div>
+        `;
+    },
+
+    /**
+     * Create HTML for an ingredient row with number spinner
+     */
+    createIngredientRow(name) {
+        const count = this.ingredientInventory[name] || 0;
+        const hasCount = count > 0;
+        
+        return `
+            <div class="ingredient-row ${hasCount ? 'has-count' : ''}" data-ingredient="${name}">
+                <span class="ingredient-name" title="${name}">${name}</span>
+                <div class="number-spinner">
+                    <button class="spinner-dec" data-ingredient="${name}" ${count === 0 ? 'disabled' : ''}>−</button>
+                    <input type="number" class="spinner-value" data-ingredient="${name}" value="${count}" min="0" max="99">
+                    <button class="spinner-inc" data-ingredient="${name}">+</button>
+                </div>
+            </div>
+        `;
+    },
+
+    /**
+     * Bind calculator event listeners
+     */
+    bindCalculatorEvents() {
+        const inventoryContainer = document.getElementById('inventory-sections');
+        if (inventoryContainer) {
+            // Collapsible section headers
+            inventoryContainer.addEventListener('click', (e) => {
+                const header = e.target.closest('.inventory-section-header');
+                if (header) {
+                    const section = header.closest('.inventory-section');
+                    section.classList.toggle('collapsed');
+                }
+                
+                // Spinner buttons
+                if (e.target.classList.contains('spinner-dec')) {
+                    this.updateIngredientCount(e.target.dataset.ingredient, -1);
+                }
+                if (e.target.classList.contains('spinner-inc')) {
+                    this.updateIngredientCount(e.target.dataset.ingredient, 1);
+                }
+            });
+            
+            // Direct input changes
+            inventoryContainer.addEventListener('change', (e) => {
+                if (e.target.classList.contains('spinner-value')) {
+                    const name = e.target.dataset.ingredient;
+                    const value = Math.max(0, Math.min(99, parseInt(e.target.value) || 0));
+                    this.ingredientInventory[name] = value;
+                    e.target.value = value;
+                    this.updateIngredientRowState(name);
+                    this.saveInventory();
+                    this.renderCraftableMedicines();
+                }
+            });
+        }
+        
+        // Clear inventory button
+        const clearBtn = document.getElementById('clear-inventory');
+        if (clearBtn) {
+            clearBtn.addEventListener('click', () => {
+                if (confirm('Clear all ingredients from your inventory?')) {
+                    this.ingredientInventory = {};
+                    this.saveInventory();
+                    this.renderCalculatorInventory();
+                    this.renderCraftableMedicines();
+                }
+            });
+        }
+        
+        // Export button
+        const exportBtn = document.getElementById('export-inventory');
+        if (exportBtn) {
+            exportBtn.addEventListener('click', () => this.exportInventory());
+        }
+        
+        // Import input
+        const importInput = document.getElementById('import-inventory');
+        if (importInput) {
+            importInput.addEventListener('change', (e) => {
+                if (e.target.files && e.target.files[0]) {
+                    this.importInventory(e.target.files[0]);
+                    e.target.value = ''; // Reset so same file can be imported again
+                }
+            });
+        }
+        
+        // Craft modal events
+        const craftModalOverlay = document.getElementById('craft-modal-overlay');
+        if (craftModalOverlay) {
+            craftModalOverlay.addEventListener('click', (e) => {
+                if (e.target.id === 'craft-modal-overlay') {
+                    this.closeCraftModal();
+                }
+            });
+        }
+        
+        const craftModalClose = document.getElementById('craft-modal-close');
+        if (craftModalClose) {
+            craftModalClose.addEventListener('click', () => this.closeCraftModal());
+        }
+    },
+
+    /**
+     * Update ingredient count by delta
+     */
+    updateIngredientCount(name, delta) {
+        const current = this.ingredientInventory[name] || 0;
+        const newValue = Math.max(0, Math.min(99, current + delta));
+        this.ingredientInventory[name] = newValue;
+        
+        // Update UI
+        const row = document.querySelector(`.ingredient-row[data-ingredient="${name}"]`);
+        if (row) {
+            const input = row.querySelector('.spinner-value');
+            const decBtn = row.querySelector('.spinner-dec');
+            if (input) input.value = newValue;
+            if (decBtn) decBtn.disabled = newValue === 0;
+            
+            row.classList.toggle('has-count', newValue > 0);
+            row.classList.add('updated');
+            setTimeout(() => row.classList.remove('updated'), 500);
+        }
+        
+        this.saveInventory();
+        this.renderCraftableMedicines();
+    },
+
+    /**
+     * Update ingredient row visual state
+     */
+    updateIngredientRowState(name) {
+        const row = document.querySelector(`.ingredient-row[data-ingredient="${name}"]`);
+        if (row) {
+            const count = this.ingredientInventory[name] || 0;
+            const decBtn = row.querySelector('.spinner-dec');
+            if (decBtn) decBtn.disabled = count === 0;
+            row.classList.toggle('has-count', count > 0);
+        }
+    },
+
+    /**
+     * Export inventory to JSON file
+     */
+    exportInventory() {
+        const data = {
+            version: 1,
+            exportedAt: new Date().toISOString(),
+            inventory: this.ingredientInventory
+        };
+        
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `meilin-inventory-${new Date().toISOString().split('T')[0]}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    },
+
+    /**
+     * Import inventory from JSON file
+     */
+    importInventory(file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                const data = JSON.parse(e.target.result);
+                if (data.inventory && typeof data.inventory === 'object') {
+                    this.ingredientInventory = data.inventory;
+                    this.saveInventory();
+                    this.renderCalculatorInventory();
+                    this.renderCraftableMedicines();
+                    this.bindCalculatorEvents(); // Rebind after re-render
+                } else {
+                    throw new Error('Invalid inventory format');
+                }
+            } catch (err) {
+                alert('Failed to import inventory: Invalid file format');
+                console.error('Import error:', err);
+            }
+        };
+        reader.readAsText(file);
+    },
+
+    /**
+     * Check if a medicine can be crafted with current inventory
+     */
+    canCraftMedicine(medicine) {
+        // Check primary component
+        if (medicine.primary && (this.ingredientInventory[medicine.primary] || 0) < 1) {
+            return false;
+        }
+        
+        // Check secondary components
+        const secondaries = medicine.secondary || [];
+        if (secondaries.length === 0) return true;
+        
+        // Check if this is an OR alternative (noted in medicine.notes)
+        const isOrAlternative = medicine.notes?.toLowerCase().includes(' or ');
+        
+        if (isOrAlternative) {
+            // Need at least one of the alternatives
+            return secondaries.some(s => {
+                const name = this.getSecondaryName(s);
+                return (this.ingredientInventory[name] || 0) >= 1;
+            });
+        } else {
+            // Need all secondary components
+            return secondaries.every(s => {
+                const name = this.getSecondaryName(s);
+                return (this.ingredientInventory[name] || 0) >= 1;
+            });
+        }
+    },
+
+    /**
+     * Get available alternatives for OR-type medicines
+     */
+    getAvailableAlternatives(medicine) {
+        const isOrAlternative = medicine.notes?.toLowerCase().includes(' or ');
+        if (!isOrAlternative) return [];
+        
+        const secondaries = medicine.secondary || [];
+        return secondaries
+            .map(s => this.getSecondaryName(s))
+            .filter(name => (this.ingredientInventory[name] || 0) >= 1);
+    },
+
+    /**
+     * Get all craftable medicines based on current inventory
+     */
+    getCraftableMedicines() {
+        return this.medicines.filter(medicine => this.canCraftMedicine(medicine));
+    },
+
+    /**
+     * Render craftable medicine cards
+     */
+    renderCraftableMedicines() {
+        const grid = document.getElementById('craftable-grid');
+        const countEl = document.getElementById('craftable-count');
+        if (!grid) return;
+        
+        const craftable = this.getCraftableMedicines();
+        
+        // Update count
+        if (countEl) {
+            countEl.textContent = `${craftable.length} medicine${craftable.length !== 1 ? 's' : ''}`;
+        }
+        
+        if (craftable.length === 0) {
+            grid.innerHTML = '<p class="empty-state">Add ingredients to see what you can craft...</p>';
+            return;
+        }
+        
+        // Track which cards are new for animation
+        const previousIds = Array.from(grid.querySelectorAll('.craftable-card'))
+            .map(card => card.dataset.id);
+        
+        grid.innerHTML = craftable.map(medicine => {
+            const isNew = !previousIds.includes(medicine.id);
+            return this.createCraftableCard(medicine, isNew);
+        }).join('');
+        
+        // Bind card events
+        this.bindCraftableCardEvents(grid);
+        this.refreshIcons();
+    },
+
+    /**
+     * Create HTML for a craftable medicine card
+     */
+    createCraftableCard(medicine, isNew = false) {
+        const stars = this.getMedicineStars(medicine);
+        const previewText = medicine.effect.length > 120 
+            ? medicine.effect.substring(0, 120) + '...'
+            : medicine.effect;
+        
+        const alternatives = this.getAvailableAlternatives(medicine);
+        const isOrMedicine = alternatives.length > 0;
+        
+        let craftButtons = '';
+        if (isOrMedicine && alternatives.length > 1) {
+            // Multiple craft buttons for different alternatives
+            craftButtons = alternatives.map(alt => 
+                `<button class="craft-btn craft-alt" data-medicine="${medicine.id}" data-alternative="${alt}">
+                    Craft with ${alt}
+                </button>`
+            ).join('');
+        } else {
+            // Single craft button
+            craftButtons = `<button class="craft-btn" data-medicine="${medicine.id}">Craft</button>`;
+        }
+        
+        return `
+            <article class="craftable-card ${isNew ? 'fade-in' : ''}" data-id="${medicine.id}">
+                <div class="card-header">
+                    <h3 class="medicine-name">${medicine.name}</h3>
+                    <span class="medicine-stars">${stars}</span>
+                </div>
+                <div class="medicine-meta">
+                    <span class="medicine-category ${medicine.category}">${medicine.category}</span>
+                    <span class="medicine-dc">DC ${medicine.dc}</span>
+                </div>
+                <p class="medicine-preview">${previewText}</p>
+                <div class="card-actions">
+                    ${craftButtons}
+                    <button class="details-btn" data-medicine="${medicine.id}">Details</button>
+                </div>
+            </article>
+        `;
+    },
+
+    /**
+     * Bind events for craftable cards
+     */
+    bindCraftableCardEvents(container) {
+        container.querySelectorAll('.craft-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const medicineId = btn.dataset.medicine;
+                const alternative = btn.dataset.alternative || null;
+                const medicine = this.medicines.find(m => m.id === medicineId);
+                if (medicine) {
+                    this.openCraftModal(medicine, alternative);
+                }
+            });
+        });
+        
+        container.querySelectorAll('.details-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const medicineId = btn.dataset.medicine;
+                const medicine = this.medicines.find(m => m.id === medicineId);
+                if (medicine) {
+                    this.openModal(medicine);
+                }
+            });
+        });
+    },
+
+    /**
+     * Check if a medicine can use Alchemilla (has extendable duration)
+     */
+    canMedicineUseAlchemilla(medicine) {
+        const nonExtendableDurations = [
+            'instant', 'permanent', 'until used', 'until triggered', 
+            'until depleted', 'until long rest'
+        ];
+        const duration = (medicine.duration || '').toLowerCase();
+        return !nonExtendableDurations.some(d => duration === d);
+    },
+
+    /**
+     * Check if a medicine can use Ephedra (has dice in effect)
+     */
+    canMedicineUseEphedra(medicine) {
+        const dicePattern = /\d+d\d+/i;
+        return dicePattern.test(medicine.fullEffect || medicine.effect || '');
+    },
+
+    /**
+     * Get max Alchemilla slots for a medicine (can use all slots including ✧)
+     */
+    getMaxAlchemillaSlots(medicine) {
+        return medicine.maxStars - medicine.difficulty;
+    },
+
+    /**
+     * Get max Ephedra slots for a medicine (cannot use the ✧ slot)
+     */
+    getMaxEphedraSlots(medicine) {
+        let slots = medicine.maxStars - medicine.difficulty;
+        // Ephedra cannot fill the indefinite star slot
+        if (medicine.indefiniteStar) {
+            slots -= 1;
+        }
+        return Math.max(0, slots);
+    },
+
+    /**
+     * Open craft modal for a medicine
+     */
+    openCraftModal(medicine, preselectedAlternative = null) {
+        const overlay = document.getElementById('craft-modal-overlay');
+        const content = document.getElementById('craft-modal-content');
+        if (!overlay || !content) return;
+        
+        const maxEnhancements = medicine.maxStars - medicine.difficulty;
+        const canUseAlchemilla = this.canMedicineUseAlchemilla(medicine);
+        const canUseEphedra = this.canMedicineUseEphedra(medicine);
+        const maxAlchemillaSlots = this.getMaxAlchemillaSlots(medicine);
+        const maxEphedraSlots = this.getMaxEphedraSlots(medicine);
+        const alternatives = this.getAvailableAlternatives(medicine);
+        
+        // Initialize modal state
+        this.craftModalState = {
+            medicine: medicine,
+            alchemillaCount: 0,
+            ephedraCount: 0,
+            chosenAlternative: preselectedAlternative || (alternatives.length > 0 ? alternatives[0] : null),
+            maxEnhancements: maxEnhancements,
+            maxAlchemillaSlots: maxAlchemillaSlots,
+            maxEphedraSlots: maxEphedraSlots,
+            canUseAlchemilla: canUseAlchemilla,
+            canUseEphedra: canUseEphedra
+        };
+        
+        this.renderCraftModalContent();
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    },
+
+    /**
+     * Render craft modal content based on current state
+     */
+    renderCraftModalContent() {
+        const content = document.getElementById('craft-modal-content');
+        if (!content || !this.craftModalState) return;
+        
+        const { 
+            medicine, alchemillaCount, ephedraCount, chosenAlternative, 
+            maxEnhancements, maxAlchemillaSlots, maxEphedraSlots, canUseAlchemilla, canUseEphedra 
+        } = this.craftModalState;
+        
+        // Calculate used slots - both share the same pool
+        const totalEnhancementsUsed = alchemillaCount + ephedraCount;
+        const remainingSlots = maxEnhancements - totalEnhancementsUsed;
+        const effectiveDifficulty = medicine.difficulty + totalEnhancementsUsed;
+        const effectiveDC = this.getDCForDifficulty(effectiveDifficulty);
+        
+        const alternatives = this.getAvailableAlternatives(medicine);
+        const hasAlchemillaInventory = (this.ingredientInventory['Alchemilla'] || 0) > 0;
+        const hasEphedraInventory = (this.ingredientInventory['Ephedra'] || 0) > 0;
+        
+        // Max Alchemilla: can use any remaining slot (including ✧)
+        const maxAlchemillaForSpinner = Math.min(
+            this.ingredientInventory['Alchemilla'] || 0,
+            maxEnhancements - ephedraCount
+        );
+        
+        // Max Ephedra: can only use ☆ slots (not ✧), minus what Alchemilla has taken
+        const maxEphedraForSpinner = Math.min(
+            this.ingredientInventory['Ephedra'] || 0,
+            Math.max(0, maxEphedraSlots - alchemillaCount)
+        );
+        
+        // Generate star display - show ✧ only if indefiniteStar and not all slots filled by Alchemilla
+        const starDisplay = this.generateEnhancedStarDisplay(
+            medicine.difficulty, 
+            totalEnhancementsUsed, 
+            Math.max(0, remainingSlots),
+            medicine.indefiniteStar
+        );
+        
+        // Alternative selection HTML
+        let alternativeHtml = '';
+        if (alternatives.length > 1) {
+            alternativeHtml = `
+                <div class="craft-modal-section">
+                    <h4>Choose Ingredient</h4>
+                    <div class="alternative-options">
+                        ${alternatives.map(alt => `
+                            <label class="alternative-option ${chosenAlternative === alt ? 'selected' : ''}">
+                                <input type="radio" name="alternative" value="${alt}" 
+                                    ${chosenAlternative === alt ? 'checked' : ''}>
+                                <span>${alt}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Build enhancement rows based on what's applicable
+        let enhancementRows = '';
+        
+        // Alchemilla row (only if medicine has extendable duration)
+        if (canUseAlchemilla && hasAlchemillaInventory) {
+            const alchemillaDisabled = maxAlchemillaForSpinner === 0 && alchemillaCount === 0;
+            enhancementRows += `
+                <div class="enhancement-row ${alchemillaDisabled ? 'disabled' : ''}">
+                    <div class="enhancement-label">
+                        <span class="enhancement-name">Alchemilla</span>
+                        <span class="enhancement-effect">Extends duration${medicine.indefiniteStar ? ' (can reach indefinite ✧)' : ''}</span>
+                    </div>
+                    <div class="enhancement-control">
+                        <div class="number-spinner">
+                            <button class="spinner-dec" id="alchemilla-dec" ${alchemillaCount === 0 ? 'disabled' : ''}>−</button>
+                            <input type="number" class="spinner-value" id="alchemilla-value" value="${alchemillaCount}" min="0" max="${maxAlchemillaForSpinner}" readonly>
+                            <button class="spinner-inc" id="alchemilla-inc" ${alchemillaCount >= maxAlchemillaForSpinner ? 'disabled' : ''}>+</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Ephedra row (only if medicine has dice to double)
+        if (canUseEphedra && hasEphedraInventory) {
+            const ephedraDisabled = maxEphedraForSpinner === 0 && ephedraCount === 0;
+            enhancementRows += `
+                <div class="enhancement-row ${ephedraDisabled ? 'disabled' : ''}">
+                    <div class="enhancement-label">
+                        <span class="enhancement-name">Ephedra</span>
+                        <span class="enhancement-effect">Doubles dice (×${Math.pow(2, ephedraCount)})</span>
+                    </div>
+                    <div class="enhancement-control">
+                        <div class="number-spinner">
+                            <button class="spinner-dec" id="ephedra-dec" ${ephedraCount === 0 ? 'disabled' : ''}>−</button>
+                            <input type="number" class="spinner-value" id="ephedra-value" value="${ephedraCount}" min="0" max="${maxEphedraForSpinner}" readonly>
+                            <button class="spinner-inc" id="ephedra-inc" ${ephedraCount >= maxEphedraForSpinner ? 'disabled' : ''}>+</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Enhancement section HTML
+        let enhancementHtml = '';
+        if (enhancementRows) {
+            const slotsDisplay = `${remainingSlots} slot${remainingSlots !== 1 ? 's' : ''} remaining`;
+            enhancementHtml = `
+                <div class="craft-modal-section">
+                    <h4>Enhancements <span class="slots-remaining ${remainingSlots === 0 ? 'at-max' : ''}">(${slotsDisplay})</span></h4>
+                    ${enhancementRows}
+                </div>
+            `;
+        }
+        
+        content.innerHTML = `
+            <div class="craft-modal-header">
+                <h2>${medicine.name}</h2>
+                <p class="effect-preview">${medicine.effect}</p>
+            </div>
+            
+            <div class="craft-dc-display">
+                <span class="dc-label">Crafting DC:</span>
+                <span class="dc-stars">${starDisplay}</span>
+                <span class="dc-value">DC ${effectiveDC}</span>
+            </div>
+            
+            ${alternativeHtml}
+            ${enhancementHtml}
+            
+            <div class="craft-modal-actions">
+                <button class="confirm-craft-btn" id="confirm-craft">Confirm Craft</button>
+                <button class="cancel-craft-btn" id="cancel-craft">Cancel</button>
+            </div>
+        `;
+        
+        // Bind modal events
+        this.bindCraftModalEvents();
+    },
+
+    /**
+     * Generate star display with enhancement highlighting
+     */
+    generateEnhancedStarDisplay(baseDifficulty, enhancementsUsed, slotsRemaining, hasIndefinite) {
+        let display = '';
+        // Filled stars (base difficulty)
+        display += '★'.repeat(baseDifficulty);
+        
+        // Enhancement stars (being added) - shown in different style
+        if (enhancementsUsed > 0) {
+            if (hasIndefinite && slotsRemaining === 0) {
+                // All slots filled - last enhancement fills the ✧, show as ✦
+                if (enhancementsUsed > 1) {
+                    display += `<span class="enhancement-stars">${'★'.repeat(enhancementsUsed - 1)}✦</span>`;
+                } else {
+                    display += `<span class="enhancement-stars">✦</span>`;
+                }
+            } else {
+                display += `<span class="enhancement-stars">${'★'.repeat(enhancementsUsed)}</span>`;
+            }
+        }
+        
+        // Empty stars (still available) - if indefinite, the last empty slot is ✧
+        if (hasIndefinite && slotsRemaining > 0) {
+            display += '☆'.repeat(slotsRemaining - 1);
+            display += '✧';
+        } else {
+            display += '☆'.repeat(slotsRemaining);
+        }
+        return display;
+    },
+
+    /**
+     * Get DC for a difficulty level
+     */
+    getDCForDifficulty(difficulty) {
+        const dcMap = { 1: 10, 2: 15, 3: 20, 4: 25, 5: 28 };
+        return dcMap[Math.min(5, difficulty)] || 28;
+    },
+
+    /**
+     * Bind events within the craft modal
+     */
+    bindCraftModalEvents() {
+        // Alternative selection
+        document.querySelectorAll('input[name="alternative"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                this.craftModalState.chosenAlternative = e.target.value;
+                this.renderCraftModalContent();
+            });
+        });
+        
+        // Alchemilla spinner
+        const alchemillaDec = document.getElementById('alchemilla-dec');
+        const alchemillaInc = document.getElementById('alchemilla-inc');
+        
+        if (alchemillaDec) {
+            alchemillaDec.addEventListener('click', () => {
+                if (this.craftModalState.alchemillaCount > 0) {
+                    this.craftModalState.alchemillaCount--;
+                    this.renderCraftModalContent();
+                }
+            });
+        }
+        
+        if (alchemillaInc) {
+            alchemillaInc.addEventListener('click', () => {
+                const { maxEnhancements, ephedraCount } = this.craftModalState;
+                // Alchemilla can use any remaining slot
+                const max = maxEnhancements - ephedraCount;
+                const inventoryMax = this.ingredientInventory['Alchemilla'] || 0;
+                if (this.craftModalState.alchemillaCount < Math.min(max, inventoryMax)) {
+                    this.craftModalState.alchemillaCount++;
+                    this.renderCraftModalContent();
+                }
+            });
+        }
+        
+        // Ephedra spinner
+        const ephedraDec = document.getElementById('ephedra-dec');
+        const ephedraInc = document.getElementById('ephedra-inc');
+        
+        if (ephedraDec) {
+            ephedraDec.addEventListener('click', () => {
+                if (this.craftModalState.ephedraCount > 0) {
+                    this.craftModalState.ephedraCount--;
+                    this.renderCraftModalContent();
+                }
+            });
+        }
+        
+        if (ephedraInc) {
+            ephedraInc.addEventListener('click', () => {
+                const { maxEphedraSlots, alchemillaCount } = this.craftModalState;
+                // Ephedra can only use ☆ slots (not ✧)
+                const max = Math.max(0, maxEphedraSlots - alchemillaCount);
+                const inventoryMax = this.ingredientInventory['Ephedra'] || 0;
+                if (this.craftModalState.ephedraCount < Math.min(max, inventoryMax)) {
+                    this.craftModalState.ephedraCount++;
+                    this.renderCraftModalContent();
+                }
+            });
+        }
+        
+        // Confirm craft
+        const confirmBtn = document.getElementById('confirm-craft');
+        if (confirmBtn) {
+            confirmBtn.addEventListener('click', () => this.executeCraft());
+        }
+        
+        // Cancel
+        const cancelBtn = document.getElementById('cancel-craft');
+        if (cancelBtn) {
+            cancelBtn.addEventListener('click', () => this.closeCraftModal());
+        }
+    },
+
+    /**
+     * Execute the craft action
+     */
+    executeCraft() {
+        if (!this.craftModalState) return;
+        
+        const { medicine, alchemillaCount, ephedraCount, chosenAlternative } = this.craftModalState;
+        
+        // Deduct primary component
+        if (medicine.primary) {
+            this.ingredientInventory[medicine.primary] = 
+                (this.ingredientInventory[medicine.primary] || 0) - 1;
+        }
+        
+        // Deduct secondary components
+        const isOrAlternative = medicine.notes?.toLowerCase().includes(' or ');
+        
+        if (isOrAlternative && chosenAlternative) {
+            // Deduct only the chosen alternative
+            this.ingredientInventory[chosenAlternative] = 
+                (this.ingredientInventory[chosenAlternative] || 0) - 1;
+        } else {
+            // Deduct all secondary components
+            (medicine.secondary || []).forEach(s => {
+                const name = this.getSecondaryName(s);
+                this.ingredientInventory[name] = (this.ingredientInventory[name] || 0) - 1;
+            });
+        }
+        
+        // Deduct enhancing agents
+        if (alchemillaCount > 0) {
+            this.ingredientInventory['Alchemilla'] = 
+                (this.ingredientInventory['Alchemilla'] || 0) - alchemillaCount;
+        }
+        if (ephedraCount > 0) {
+            this.ingredientInventory['Ephedra'] = 
+                (this.ingredientInventory['Ephedra'] || 0) - ephedraCount;
+        }
+        
+        // Clean up zero values
+        for (const key in this.ingredientInventory) {
+            if (this.ingredientInventory[key] <= 0) {
+                delete this.ingredientInventory[key];
+            }
+        }
+        
+        // Save and update UI
+        this.saveInventory();
+        this.closeCraftModal();
+        this.renderCalculatorInventory();
+        this.renderCraftableMedicines();
+        this.bindCalculatorEvents(); // Rebind after re-render
+    },
+
+    /**
+     * Close the craft modal
+     */
+    closeCraftModal() {
+        const overlay = document.getElementById('craft-modal-overlay');
+        if (overlay) {
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        this.craftModalState = null;
     }
 };
 
