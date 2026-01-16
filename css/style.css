@@ -3413,6 +3413,587 @@ details[open] .rules-toggle::after {
 }
 
 /* ============================================
+   Medica Reference Section
+   ============================================ */
+
+.medica-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+/* Header Card */
+.medica-header {
+  background: linear-gradient(135deg, var(--herb-green-dark) 0%, #2d4a2d 100%);
+  border-radius: 12px;
+  padding: var(--space-xl);
+  color: var(--parchment-light);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.medica-title-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.medica-icon {
+  font-size: 2.5rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.medica-name {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--parchment-light);
+  margin: 0;
+  letter-spacing: 0.05em;
+}
+
+.medica-tagline {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--parchment-aged);
+  font-style: italic;
+  display: block;
+}
+
+.medica-overview {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--parchment-aged);
+  margin: 0;
+}
+
+/* Standard Cards */
+.medica-card {
+  background: var(--parchment-light);
+  border: 1px solid var(--parchment-aged);
+  border-radius: 8px;
+  padding: var(--space-lg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.medica-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  color: var(--herb-green-dark);
+  margin: 0 0 var(--space-md) 0;
+  padding-bottom: var(--space-sm);
+  border-bottom: 2px solid var(--herb-green);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.medica-card-intro {
+  font-size: 0.9rem;
+  color: var(--ink-faded);
+  font-style: italic;
+  margin-bottom: var(--space-md);
+}
+
+.medica-note {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--ink-faded);
+  margin-top: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  background: rgba(74, 93, 74, 0.08);
+  border-left: 3px solid var(--herb-green);
+  border-radius: 0 6px 6px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+}
+
+/* Joining Section */
+.medica-joining {
+  border-left: 4px solid var(--herb-green);
+}
+
+.medica-requirements-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--space-md) 0;
+}
+
+.medica-requirements-list li {
+  padding: var(--space-sm) 0;
+  padding-left: var(--space-lg);
+  position: relative;
+  border-bottom: 1px dashed var(--parchment-aged);
+  font-size: 0.95rem;
+  color: var(--ink-brown);
+}
+
+.medica-requirements-list li:last-child {
+  border-bottom: none;
+}
+
+.medica-requirements-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--herb-green);
+  font-weight: bold;
+}
+
+/* Rank Progression */
+.medica-ranks-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.medica-rank-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-md);
+  background: var(--parchment);
+  border: 2px solid var(--parchment-aged);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 100px;
+  flex: 1;
+}
+
+.medica-rank-card:hover {
+  border-color: var(--herb-green);
+  background: rgba(74, 93, 74, 0.08);
+}
+
+.medica-rank-card.active {
+  border-color: var(--herb-green);
+  background: var(--herb-green);
+  color: var(--parchment-light);
+}
+
+.medica-rank-card.active .medica-rank-name {
+  color: var(--parchment-light);
+}
+
+.medica-rank-icon {
+  font-size: 1.5rem;
+  margin-bottom: var(--space-xs);
+}
+
+.medica-rank-name {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--ink-brown);
+}
+
+/* Rank Details */
+.medica-rank-details {
+  background: rgba(74, 93, 74, 0.05);
+  border: 1px solid var(--parchment-aged);
+  border-radius: 8px;
+  padding: var(--space-lg);
+}
+
+.medica-rank-detail-content h5 {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  color: var(--herb-green-dark);
+  margin: 0 0 var(--space-md) 0;
+}
+
+.medica-rank-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+}
+
+.medica-rank-benefits h6,
+.medica-rank-requirements h6 {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  color: var(--sepia);
+  margin: 0 0 var(--space-sm) 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.medica-rank-benefits ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.medica-rank-benefits li {
+  padding: var(--space-xs) 0;
+  padding-left: var(--space-md);
+  position: relative;
+  font-size: 0.9rem;
+  color: var(--ink-brown);
+}
+
+.medica-rank-benefits li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--herb-green);
+}
+
+.medica-rank-requirements p {
+  margin: var(--space-xs) 0;
+  font-size: 0.9rem;
+  color: var(--ink-brown);
+}
+
+.medica-rank-note {
+  font-style: italic;
+  color: var(--ink-faded) !important;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-sm) !important;
+}
+
+/* Exam Section */
+.medica-exam-description {
+  margin-bottom: var(--space-md);
+  color: var(--ink-brown);
+}
+
+.medica-exam-process {
+  margin: 0 0 var(--space-md) var(--space-lg);
+  padding: 0;
+}
+
+.medica-exam-process li {
+  padding: var(--space-xs) 0;
+  font-size: 0.95rem;
+  color: var(--ink-brown);
+}
+
+/* Guild Merchant */
+.medica-merchant-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.medica-merchant-section {
+  padding: var(--space-md);
+  background: var(--parchment);
+  border-radius: 6px;
+  border: 1px solid var(--parchment-aged);
+}
+
+.medica-merchant-section h5 {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--herb-green-dark);
+  margin: 0 0 var(--space-sm) 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.medica-merchant-section p {
+  font-size: 0.9rem;
+  color: var(--ink-brown);
+  margin: var(--space-xs) 0;
+}
+
+.medica-stock-title,
+.medica-dc-title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--sepia);
+  margin: var(--space-lg) 0 var(--space-md) 0;
+}
+
+.medica-stock-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.medica-stock-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--parchment);
+  border: 1px solid var(--parchment-aged);
+  border-radius: 6px;
+  min-width: 80px;
+}
+
+.medica-stock-rank {
+  font-size: 0.75rem;
+  color: var(--ink-faded);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.medica-stock-die {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--herb-green-dark);
+}
+
+/* Downtime Activities */
+.medica-downtime-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.medica-activity-card {
+  padding: var(--space-md);
+  background: var(--parchment);
+  border-radius: 8px;
+  border: 1px solid var(--parchment-aged);
+  border-top: 3px solid var(--herb-green);
+}
+
+.medica-activity-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.medica-activity-icon {
+  font-size: 1.3rem;
+  color: var(--herb-green);
+}
+
+.medica-activity-header h5 {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--ink-brown);
+  margin: 0;
+}
+
+.medica-activity-req {
+  font-size: 0.8rem;
+  color: var(--gold-accent);
+  margin: 0 0 var(--space-sm) 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.medica-activity-desc {
+  font-size: 0.9rem;
+  color: var(--ink-brown);
+  margin: 0 0 var(--space-sm) 0;
+}
+
+.medica-activity-benefit {
+  font-size: 0.85rem;
+  color: var(--herb-green-dark);
+  margin: 0;
+}
+
+.medica-activity-warn {
+  font-size: 0.8rem;
+  color: var(--gold-accent);
+  margin: var(--space-sm) 0 0 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.medica-activity-duration {
+  font-size: 0.8rem;
+  color: var(--ink-faded);
+  margin: var(--space-xs) 0 0 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+/* Complications */
+.medica-complications {
+  border: 1px solid var(--parchment-aged);
+  border-radius: 6px;
+  background: var(--parchment);
+}
+
+.medica-complications summary {
+  padding: var(--space-md);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--sepia);
+  cursor: pointer;
+  list-style: none;
+}
+
+.medica-complications summary::-webkit-details-marker {
+  display: none;
+}
+
+.medica-complications summary::before {
+  content: '▸ ';
+  transition: transform 0.2s ease;
+  display: inline-block;
+}
+
+.medica-complications[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.medica-complications-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.medica-complications-table th,
+.medica-complications-table td {
+  padding: var(--space-sm) var(--space-md);
+  text-align: left;
+  border-top: 1px solid var(--parchment-aged);
+}
+
+.medica-complications-table th {
+  background: var(--parchment-dark);
+  font-weight: 600;
+  color: var(--ink-brown);
+}
+
+.medica-complications-table td:first-child {
+  font-family: var(--font-mono);
+  width: 40px;
+  text-align: center;
+}
+
+/* Medicine Categories */
+.medica-categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.medica-category-card {
+  padding: var(--space-md);
+  background: var(--parchment);
+  border-radius: 6px;
+  border: 1px solid var(--parchment-aged);
+  border-left: 4px solid var(--herb-green);
+}
+
+.medica-category-card h5 {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--ink-brown);
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.medica-category-primary {
+  font-size: 0.85rem;
+  color: var(--ink-faded);
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.medica-category-desc {
+  font-size: 0.85rem;
+  color: var(--ink-brown);
+  margin: 0;
+}
+
+/* Crafting DCs */
+.medica-dc-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.medica-dc-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--parchment);
+  border: 1px solid var(--parchment-aged);
+  border-radius: 6px;
+  min-width: 100px;
+}
+
+.medica-dc-strength {
+  font-size: 0.85rem;
+  color: var(--gold-accent);
+}
+
+.medica-dc-value {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--ink-brown);
+}
+
+/* DM Tips */
+.medica-tips-card {
+  background: linear-gradient(135deg, var(--parchment-light) 0%, #f5f0e6 100%);
+  border: 2px solid var(--gold-accent);
+}
+
+.medica-tips-card .medica-card-title {
+  color: var(--gold-accent);
+  border-bottom-color: var(--gold-accent);
+}
+
+.medica-tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-md);
+}
+
+.medica-tip {
+  padding: var(--space-md);
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 6px;
+  border-left: 3px solid var(--gold-accent);
+}
+
+.medica-tip h5 {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  color: var(--sepia);
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.medica-tip p {
+  font-size: 0.9rem;
+  color: var(--ink-brown);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Responsive - Medica */
+@media (max-width: 768px) {
+  .medica-rank-info-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .medica-ranks-grid {
+    justify-content: center;
+  }
+  
+  .medica-rank-card {
+    min-width: 80px;
+  }
+}
+
+/* ============================================
    Responsive - Sidebar
    ============================================ */
 

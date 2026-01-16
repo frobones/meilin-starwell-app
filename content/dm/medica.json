@@ -1,0 +1,232 @@
+{
+  "name": "The Medica",
+  "icon": "heart-pulse",
+  "tagline": "The healing arts, older than memory",
+  "overview": "The Medica is synonymous with the healing arts and is among the oldest organizations in the Realms. It operates as part of the Guild of Apothecaries and Physicians, which itself belongs to a larger collective of academic and artisanal institutions called the Arcanum. At the Medica, acolytes study herbal medicine while also learning to tend to the sick.",
+
+  "joining": {
+    "title": "Joining the Medica",
+    "icon": "user-plus",
+    "requirements": [
+      "Be proficient with a herbalism kit",
+      "Register at an enrollment office",
+      "Make a contribution of any amount"
+    ],
+    "note": "Scholarships are often available to those from disadvantaged backgrounds."
+  },
+
+  "ranks": [
+    {
+      "name": "Novice",
+      "title": "Novice",
+      "icon": "sprout",
+      "benefits": [
+        "Recognized as a novice of the Arcanum",
+        "+1 bonus to checks to create curative medicines",
+        "Can use the guild merchant"
+      ],
+      "tuition": { "weeks": 2, "cost": 10 },
+      "exam": "An antitoxin",
+      "stockDie": "d4"
+    },
+    {
+      "name": "Seeker",
+      "title": "Seeker",
+      "icon": "search",
+      "benefits": [
+        "+1 bonus to checks for an additional medicine category of your choice",
+        "Can use workshops unsupervised",
+        "Can undertake guild work as a downtime activity"
+      ],
+      "tuition": { "weeks": 4, "cost": 50 },
+      "exam": "Any 2-star medicine from a category of your choice",
+      "stockDie": "d6",
+      "earnings": "Modest lifestyle + 5 gp/day"
+    },
+    {
+      "name": "Emerald Seer",
+      "title": "Emerald Seer",
+      "icon": "eye",
+      "benefits": [
+        "+1 bonus to checks for an additional medicine category of your choice"
+      ],
+      "tuition": { "weeks": 6, "cost": 200 },
+      "exam": "Any 3-star medicine from a category of your choice",
+      "stockDie": "d8",
+      "earnings": "Comfortable lifestyle + 10 gp/day",
+      "note": "Advancement may require sponsorship by a senior member"
+    },
+    {
+      "name": "Emerald Speaker",
+      "title": "Emerald Speaker",
+      "icon": "message-circle",
+      "benefits": [
+        "+1 bonus to checks for an additional medicine category of your choice",
+        "Can undertake research projects as a downtime activity"
+      ],
+      "tuition": { "weeks": 8, "cost": 400 },
+      "exam": "Any 4-star medicine from a category of your choice",
+      "stockDie": "d10",
+      "earnings": "Wealthy lifestyle + 25 gp/day"
+    },
+    {
+      "name": "Master Physic",
+      "title": "Master Physic",
+      "icon": "award",
+      "benefits": [
+        "Recognized as an Arcanist of the Arcanum",
+        "+1 bonus to checks for your final medicine category",
+        "Awarded an arcanist's medallion",
+        "Can create medicines with indefinite duration (✧)"
+      ],
+      "tuition": { "weeks": 12, "cost": 800 },
+      "exam": "Any 5-star medicine from the remaining category",
+      "stockDie": "d12",
+      "earnings": "Aristocratic lifestyle + 50 gp/day"
+    }
+  ],
+
+  "guildMerchant": {
+    "title": "Guild Merchant",
+    "icon": "store",
+    "overview": "Members of novice rank and above can purchase medicines and components directly from the Guild.",
+    "components": {
+      "description": "Each component has a cost and a stock score. The higher an item's stock score, the less likely it will be available.",
+      "mechanic": "Roll your stock die (based on rank). You can purchase components with a combined stock score equal to or lower than the number rolled.",
+      "replenish": "Component stocks are replenished daily at dawn. Reroll your stock die each day you visit."
+    },
+    "finishedItems": {
+      "description": "Any character in good standing can purchase finished items.",
+      "limit": "Each day, purchase medicines with combined strength equal to or lower than your proficiency bonus."
+    },
+    "selling": {
+      "rate": "20%",
+      "description": "Merchants purchase items at 20% of normal sale price. Better offers may be found through downtime activities."
+    }
+  },
+
+  "downtime": {
+    "title": "Downtime Activities",
+    "icon": "calendar",
+    "activities": [
+      {
+        "name": "Communal Work",
+        "icon": "heart-handshake",
+        "description": "Spend time tending to the sick and the poor.",
+        "benefit": "Gain favor with senior members, make local connections, and other benefits."
+      },
+      {
+        "name": "Studying",
+        "icon": "book-open",
+        "description": "Attend classes in preparation for sitting an exam.",
+        "benefit": "If you complete a full term's tuition, make your exam check with advantage."
+      },
+      {
+        "name": "Guild Work",
+        "icon": "briefcase",
+        "requirement": "Seeker rank or above",
+        "description": "Fill orders in the Crucible (a great workshop).",
+        "benefit": "Earn money based on your rank. All equipment and materials supplied.",
+        "complication": "10% chance per workweek of a complication arising."
+      },
+      {
+        "name": "Research",
+        "icon": "flask-conical",
+        "requirement": "Speaker rank or above",
+        "description": "Pursue research projects to improve existing medicines or develop new ones.",
+        "benefit": "Same earnings as guild work, but no risk of complications.",
+        "duration": "Takes workweeks equal to the new item's strength."
+      }
+    ],
+    "complications": [
+      { "roll": 1, "result": "Customer cancels order, reducing earnings by one rank" },
+      { "roll": 2, "result": "Secure a lucrative contract, increasing earnings by one rank" },
+      { "roll": 3, "result": "Tools damaged or stolen, must buy new ones" },
+      { "roll": 4, "result": "Blamed for an incident, barred from crucible for 1d6 weeks" },
+      { "roll": 5, "result": "Compound explodes, blinded for 24 hours" },
+      { "roll": 6, "result": "Accused of theft, barred from guild merchant until cleared" }
+    ]
+  },
+
+  "exams": {
+    "title": "Guild Exams",
+    "icon": "clipboard-check",
+    "description": "Exams take place at the end of every month. They are invigilated by a master and take 2 hours, during which all magic is suppressed as if in an antimagic field.",
+    "process": [
+      "Enroll for the term and pay tuition cost",
+      "Supply your own craft components (can buy from guild stocks)",
+      "Make a craft check using your herbalism kit",
+      "If you attended full tuition, make the check with advantage",
+      "On success, your new rank is immediately recognized"
+    ],
+    "note": "Items created during exams are withheld by the Guild to supplement stocks."
+  },
+
+  "medicineCategories": {
+    "title": "Medicine Categories",
+    "icon": "beaker",
+    "categories": [
+      {
+        "name": "Augmenting",
+        "primary": "Deadly nightshade",
+        "description": "Boosts physical and mental capabilities",
+        "color": "#6b4c8a"
+      },
+      {
+        "name": "Curative",
+        "primary": "Juniper berries",
+        "description": "Cleanses ailments and promotes wellness",
+        "color": "#2d6a4f"
+      },
+      {
+        "name": "Fortifying",
+        "primary": "Willow bark",
+        "description": "Protects against damage and harmful effects",
+        "color": "#7c4a3a"
+      },
+      {
+        "name": "Restorative",
+        "primary": "Fleshwort",
+        "description": "Restores hit points and expended resources",
+        "color": "#2a5c8a"
+      },
+      {
+        "name": "Special",
+        "primary": "Varies",
+        "description": "Other miscellaneous effects",
+        "color": "#8b6914"
+      }
+    ],
+    "craftingDCs": [
+      { "strength": "Low (★)", "dc": 10 },
+      { "strength": "Moderate (★★)", "dc": 15 },
+      { "strength": "High (★★★)", "dc": 20 },
+      { "strength": "Very High (★★★★)", "dc": 25 },
+      { "strength": "Maximum (★★★★★)", "dc": 28 }
+    ],
+    "craftingNote": "Creating a medicine requires 1 hour of uninterrupted work, which can be performed during a short or long rest. Use your proficiency bonus + Intelligence or Wisdom modifier (your choice)."
+  },
+
+  "dmTips": {
+    "title": "Running the Medica",
+    "icon": "lightbulb",
+    "tips": [
+      {
+        "title": "Guild Politics",
+        "text": "The Medica is part of the larger Arcanum. Senior members may have conflicting agendas, and advancement often depends on more than just skill."
+      },
+      {
+        "title": "Story Hooks",
+        "text": "Use communal work to introduce NPCs, guild work complications for drama, and the exam system for milestone moments."
+      },
+      {
+        "title": "Medicine as Leverage",
+        "text": "In dock communities, access to healing is power. The Medica's services can be withheld, traded, or used as political tools."
+      },
+      {
+        "title": "Meilin's Position",
+        "text": "As a Seeker, Meilin can use workshops unsupervised and take guild work. She's building toward Emerald Seer, which requires sponsorship."
+      }
+    ]
+  }
+}

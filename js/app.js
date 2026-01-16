@@ -27,6 +27,7 @@ const App = {
     knives: [],
     relationships: null,
     mindersandData: null,
+    medicaData: null,
     rumorsData: null,
     
     // Passkey configuration
@@ -1438,13 +1439,14 @@ const App = {
     },
 
     /**
-     * Load all DM Tools content (relationships, knives)
+     * Load all DM Tools content (relationships, knives, mindersand, medica)
      */
     async loadDMToolsContent() {
         await Promise.all([
             this.loadRelationships(),
             this.loadKnives(),
-            this.loadMindersand()
+            this.loadMindersand(),
+            this.loadMedica()
         ]);
     },
 
@@ -2004,6 +2006,250 @@ const App = {
         `;
         
         this.refreshIcons();
+    },
+
+    // ============================================
+    // Medica Reference
+    // ============================================
+
+    /**
+     * Load medica data
+     */
+    async loadMedica() {
+        const container = document.getElementById('medica-content');
+        if (!container) return;
+
+        container.innerHTML = '<div class="loading-spinner">Loading Medica data...</div>';
+
+        try {
+            const response = await fetch('content/dm/medica.json');
+            this.medicaData = await response.json();
+            this.renderMedica();
+        } catch (error) {
+            console.error('Failed to load Medica data:', error);
+            container.innerHTML = '<p>Failed to load Medica reference.</p>';
+        }
+    },
+
+    /**
+     * Render medica reference content
+     */
+    renderMedica() {
+        const container = document.getElementById('medica-content');
+        if (!container || !this.medicaData) return;
+
+        const data = this.medicaData;
+
+        container.innerHTML = `
+            <!-- Header Card -->
+            <div class="medica-header">
+                <div class="medica-title-row">
+                    <span class="medica-icon"><i data-lucide="${data.icon}"></i></span>
+                    <div>
+                        <h3 class="medica-name">${data.name}</h3>
+                        <span class="medica-tagline">${data.tagline}</span>
+                    </div>
+                </div>
+                <p class="medica-overview">${data.overview}</p>
+            </div>
+
+            <!-- Joining Section -->
+            <div class="medica-card medica-joining">
+                <h4 class="medica-card-title"><i data-lucide="${data.joining.icon}"></i> ${data.joining.title}</h4>
+                <ul class="medica-requirements-list">
+                    ${data.joining.requirements.map(req => `<li>${req}</li>`).join('')}
+                </ul>
+                <p class="medica-note">${data.joining.note}</p>
+            </div>
+
+            <!-- Rank Progression -->
+            <div class="medica-card">
+                <h4 class="medica-card-title"><i data-lucide="trending-up"></i> Rank Progression</h4>
+                <p class="medica-card-intro">Click a rank to see benefits, tuition, and exam requirements.</p>
+                <div class="medica-ranks-grid">
+                    ${data.ranks.map((rank, i) => `
+                        <div class="medica-rank-card ${i === 0 ? 'active' : ''}" data-rank-index="${i}">
+                            <span class="medica-rank-icon"><i data-lucide="${rank.icon}"></i></span>
+                            <span class="medica-rank-name">${rank.name}</span>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="medica-rank-details" id="medica-rank-details">
+                    ${this.renderMedicaRankDetails(data.ranks[0])}
+                </div>
+            </div>
+
+            <!-- Guild Exams -->
+            <div class="medica-card">
+                <h4 class="medica-card-title"><i data-lucide="${data.exams.icon}"></i> ${data.exams.title}</h4>
+                <p class="medica-exam-description">${data.exams.description}</p>
+                <ol class="medica-exam-process">
+                    ${data.exams.process.map(step => `<li>${step}</li>`).join('')}
+                </ol>
+                <p class="medica-note"><i data-lucide="info"></i> ${data.exams.note}</p>
+            </div>
+
+            <!-- Guild Merchant -->
+            <div class="medica-card">
+                <h4 class="medica-card-title"><i data-lucide="${data.guildMerchant.icon}"></i> ${data.guildMerchant.title}</h4>
+                <p>${data.guildMerchant.overview}</p>
+                
+                <div class="medica-merchant-grid">
+                    <div class="medica-merchant-section">
+                        <h5><i data-lucide="package"></i> Buying Components</h5>
+                        <p>${data.guildMerchant.components.description}</p>
+                        <p><strong>Mechanic:</strong> ${data.guildMerchant.components.mechanic}</p>
+                        <p class="medica-note">${data.guildMerchant.components.replenish}</p>
+                    </div>
+                    <div class="medica-merchant-section">
+                        <h5><i data-lucide="shopping-bag"></i> Buying Finished Items</h5>
+                        <p>${data.guildMerchant.finishedItems.description}</p>
+                        <p><strong>Limit:</strong> ${data.guildMerchant.finishedItems.limit}</p>
+                    </div>
+                    <div class="medica-merchant-section">
+                        <h5><i data-lucide="coins"></i> Selling</h5>
+                        <p>Merchants purchase at <strong>${data.guildMerchant.selling.rate}</strong> of sale price.</p>
+                        <p class="medica-note">${data.guildMerchant.selling.description}</p>
+                    </div>
+                </div>
+
+                <h5 class="medica-stock-title">Stock Dice by Rank</h5>
+                <div class="medica-stock-grid">
+                    ${data.ranks.map(rank => `
+                        <div class="medica-stock-item">
+                            <span class="medica-stock-rank">${rank.name}</span>
+                            <span class="medica-stock-die">${rank.stockDie}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+
+            <!-- Downtime Activities -->
+            <div class="medica-card">
+                <h4 class="medica-card-title"><i data-lucide="${data.downtime.icon}"></i> ${data.downtime.title}</h4>
+                <div class="medica-downtime-grid">
+                    ${data.downtime.activities.map(activity => `
+                        <div class="medica-activity-card">
+                            <div class="medica-activity-header">
+                                <span class="medica-activity-icon"><i data-lucide="${activity.icon}"></i></span>
+                                <h5>${activity.name}</h5>
+                            </div>
+                            ${activity.requirement ? `<p class="medica-activity-req"><i data-lucide="lock"></i> ${activity.requirement}</p>` : ''}
+                            <p class="medica-activity-desc">${activity.description}</p>
+                            <p class="medica-activity-benefit"><strong>Benefit:</strong> ${activity.benefit}</p>
+                            ${activity.complication ? `<p class="medica-activity-warn"><i data-lucide="alert-triangle"></i> ${activity.complication}</p>` : ''}
+                            ${activity.duration ? `<p class="medica-activity-duration"><i data-lucide="clock"></i> ${activity.duration}</p>` : ''}
+                        </div>
+                    `).join('')}
+                </div>
+
+                <details class="medica-complications">
+                    <summary>Guild Work Complications (d6)</summary>
+                    <table class="medica-complications-table">
+                        <thead><tr><th>d6</th><th>Complication</th></tr></thead>
+                        <tbody>
+                            ${data.downtime.complications.map(c => `
+                                <tr><td>${c.roll}</td><td>${c.result}</td></tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </details>
+            </div>
+
+            <!-- Medicine Categories -->
+            <div class="medica-card">
+                <h4 class="medica-card-title"><i data-lucide="${data.medicineCategories.icon}"></i> ${data.medicineCategories.title}</h4>
+                <div class="medica-categories-grid">
+                    ${data.medicineCategories.categories.map(cat => `
+                        <div class="medica-category-card" style="border-left-color: ${cat.color}">
+                            <h5>${cat.name}</h5>
+                            <p class="medica-category-primary"><strong>Primary:</strong> ${cat.primary}</p>
+                            <p class="medica-category-desc">${cat.description}</p>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <h5 class="medica-dc-title">Crafting DCs</h5>
+                <div class="medica-dc-grid">
+                    ${data.medicineCategories.craftingDCs.map(dc => `
+                        <div class="medica-dc-item">
+                            <span class="medica-dc-strength">${dc.strength}</span>
+                            <span class="medica-dc-value">DC ${dc.dc}</span>
+                        </div>
+                    `).join('')}
+                </div>
+                <p class="medica-note">${data.medicineCategories.craftingNote}</p>
+            </div>
+
+            <!-- DM Tips -->
+            <div class="medica-card medica-tips-card">
+                <h4 class="medica-card-title"><i data-lucide="${data.dmTips.icon}"></i> ${data.dmTips.title}</h4>
+                <div class="medica-tips-grid">
+                    ${data.dmTips.tips.map(tip => `
+                        <div class="medica-tip">
+                            <h5>${tip.title}</h5>
+                            <p>${tip.text}</p>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+        
+        // Bind rank card click events
+        this.bindMedicaRankEvents();
+        this.refreshIcons();
+    },
+
+    /**
+     * Render details for a specific Medica rank
+     */
+    renderMedicaRankDetails(rank) {
+        return `
+            <div class="medica-rank-detail-content">
+                <h5>${rank.title}</h5>
+                <div class="medica-rank-info-grid">
+                    <div class="medica-rank-benefits">
+                        <h6>Benefits</h6>
+                        <ul>
+                            ${rank.benefits.map(b => `<li>${b}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="medica-rank-requirements">
+                        <h6>Advancement</h6>
+                        <p><strong>Tuition:</strong> ${rank.tuition.weeks} workweeks, ${rank.tuition.cost} gp</p>
+                        <p><strong>Exam:</strong> ${rank.exam}</p>
+                        ${rank.earnings ? `<p><strong>Guild Work:</strong> ${rank.earnings}</p>` : ''}
+                        ${rank.note ? `<p class="medica-rank-note"><i data-lucide="info"></i> ${rank.note}</p>` : ''}
+                    </div>
+                </div>
+            </div>
+        `;
+    },
+
+    /**
+     * Bind click events for Medica rank cards
+     */
+    bindMedicaRankEvents() {
+        const container = document.getElementById('medica-content');
+        if (!container) return;
+
+        container.querySelectorAll('.medica-rank-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const index = parseInt(card.dataset.rankIndex);
+                const rank = this.medicaData.ranks[index];
+                
+                // Update active state
+                container.querySelectorAll('.medica-rank-card').forEach(c => c.classList.remove('active'));
+                card.classList.add('active');
+                
+                // Update details
+                const detailsContainer = document.getElementById('medica-rank-details');
+                if (detailsContainer) {
+                    detailsContainer.innerHTML = this.renderMedicaRankDetails(rank);
+                    this.refreshIcons();
+                }
+            });
+        });
     },
 
     // ============================================
