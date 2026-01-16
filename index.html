@@ -235,46 +235,6 @@
                     </details>
                 </section>
 
-                <!-- Search and Filters -->
-                <section class="search-section">
-                    <div class="search-bar">
-                        <input type="text" id="search-input" placeholder="Search medicines or ingredients..." autocomplete="off">
-                        <button class="clear-search" id="clear-search" title="Clear search">×</button>
-                    </div>
-                    <div class="filter-controls">
-                        <div class="filter-group">
-                            <label for="category-filter">Category:</label>
-                            <select id="category-filter">
-                                <option value="all">All Categories</option>
-                                <option value="Augmenting">Augmenting</option>
-                                <option value="Curative">Curative</option>
-                                <option value="Fortifying">Fortifying</option>
-                                <option value="Restorative">Restorative</option>
-                                <option value="Special">Special</option>
-                            </select>
-                        </div>
-                        <div class="filter-group">
-                            <label for="difficulty-filter">Difficulty:</label>
-                            <select id="difficulty-filter">
-                                <option value="all">All Difficulties</option>
-                                <option value="1">★ (DC 10)</option>
-                                <option value="2">★★ (DC 15)</option>
-                                <option value="3">★★★ (DC 20)</option>
-                                <option value="4">★★★★ (DC 25)</option>
-                                <option value="5">★★★★★ (DC 28)</option>
-                            </select>
-                        </div>
-                        <div class="filter-group">
-                            <label for="ingredient-type-filter">Ingredients:</label>
-                            <select id="ingredient-type-filter">
-                                <option value="all">All Types</option>
-                                <option value="flora">Flora</option>
-                                <option value="creature">Creature</option>
-                            </select>
-                        </div>
-                    </div>
-                </section>
-
                 <!-- Tab Navigation -->
                 <nav class="tab-nav">
                     <button class="tab-btn active" data-tab="medicines">Medicines</button>
@@ -285,6 +245,45 @@
                 <main class="main-content">
                     <!-- Medicines Grid -->
                     <div class="tab-content active" id="medicines-tab">
+                        <!-- Search and Filters -->
+                        <section class="search-section">
+                            <div class="filter-controls">
+                                <div class="filter-group">
+                                    <label for="category-filter">Category:</label>
+                                    <select id="category-filter">
+                                        <option value="all">All Categories</option>
+                                        <option value="Augmenting">Augmenting</option>
+                                        <option value="Curative">Curative</option>
+                                        <option value="Fortifying">Fortifying</option>
+                                        <option value="Restorative">Restorative</option>
+                                        <option value="Special">Special</option>
+                                    </select>
+                                </div>
+                                <div class="filter-group">
+                                    <label for="difficulty-filter">Difficulty:</label>
+                                    <select id="difficulty-filter">
+                                        <option value="all">All Difficulties</option>
+                                        <option value="1">★ (DC 10)</option>
+                                        <option value="2">★★ (DC 15)</option>
+                                        <option value="3">★★★ (DC 20)</option>
+                                        <option value="4">★★★★ (DC 25)</option>
+                                        <option value="5">★★★★★ (DC 28)</option>
+                                    </select>
+                                </div>
+                                <div class="filter-group">
+                                    <label for="ingredient-type-filter">Ingredients:</label>
+                                    <select id="ingredient-type-filter">
+                                        <option value="all">All Types</option>
+                                        <option value="flora">Flora Only</option>
+                                        <option value="creature">Creature Only</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="search-bar">
+                                <input type="text" id="search-input" placeholder="Search medicines..." autocomplete="off">
+                                <button class="clear-search" id="clear-search" title="Clear search">×</button>
+                            </div>
+                        </section>
                         <div class="medicine-count" id="medicine-count"></div>
                         <div class="medicine-grid" id="medicine-grid">
                             <!-- Medicine cards will be populated by JS -->
