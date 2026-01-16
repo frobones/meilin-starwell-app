@@ -137,6 +137,10 @@ function setupPageLoading() {
                 if (!backstoryPage.getBackstoryContent()) {
                     await backstoryPage.loadBackstoryContent();
                 }
+                // Vignettes are on the backstory page
+                if (!vignettesPage.getVignettes()?.length) {
+                    await vignettesPage.loadVignettes();
+                }
                 break;
             case 'dmtools':
                 await dmtoolsPage.loadDMToolsContent();

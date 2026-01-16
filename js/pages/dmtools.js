@@ -695,24 +695,20 @@ function renderMedicaRankDetails(rank) {
     return `
         <div class="medica-rank-detail-content">
             <h5>${rank.title}</h5>
-            <div class="medica-rank-benefits">
-                <strong>Benefits:</strong>
-                <ul>
-                    ${rank.benefits.map(b => `<li>${b}</li>`).join('')}
-                </ul>
-            </div>
-            <div class="medica-rank-meta">
-                ${rank.tuition ? `
-                    <div class="medica-rank-tuition">
-                        <strong>Tuition:</strong> ${rank.tuition.weeks} weeks, ${rank.tuition.cost} gp
-                    </div>
-                ` : ''}
-                ${rank.exam ? `
-                    <div class="medica-rank-exam">
-                        <strong>Exam:</strong> Craft ${rank.exam}
-                    </div>
-                ` : ''}
-                ${rank.note ? `<p class="medica-rank-note"><i data-lucide="info"></i> ${rank.note}</p>` : ''}
+            <div class="medica-rank-info-grid">
+                <div class="medica-rank-benefits">
+                    <h6>Benefits</h6>
+                    <ul>
+                        ${rank.benefits.map(b => `<li>${b}</li>`).join('')}
+                    </ul>
+                </div>
+                <div class="medica-rank-requirements">
+                    <h6>Advancement</h6>
+                    <p><strong>Tuition:</strong> ${rank.tuition.weeks} workweeks, ${rank.tuition.cost} gp</p>
+                    <p><strong>Exam:</strong> ${rank.exam}</p>
+                    ${rank.earnings ? `<p><strong>Guild Work:</strong> ${rank.earnings}</p>` : ''}
+                    ${rank.note ? `<p class="medica-rank-note"><i data-lucide="info"></i> ${rank.note}</p>` : ''}
+                </div>
             </div>
         </div>
     `;

@@ -23,7 +23,7 @@ export function renderQuickRules() {
     if (!rulesContent || !rules) return;
     
     const difficultyRows = rules.difficultyScale?.map(d => `
-        <tr><td>${getStars(d.stars)}</td><td>${d.label}</td><td>DC ${d.dc}</td></tr>
+        <tr><td>${getStars(d.stars)}</td><td>${d.label}</td><td>${d.dc}</td></tr>
     `).join('') || '';
     
     const gatheringOptionsRows = rules.gatheringOptions?.options?.map(opt => `
@@ -82,7 +82,7 @@ export function renderQuickRules() {
         </div>
         
         ${rules.gatheringOptions ? `
-        <h3>Gathering Results (Choose One)</h3>
+        <h3 style="margin-top: 1.5rem;">Gathering Results (Choose One)</h3>
         <p style="margin-bottom: 0.5rem; font-style: italic;">${rules.gatheringOptions.intro}</p>
         <table class="ingredient-table" style="font-size: 0.85rem; margin-bottom: 1.5rem;">
             <thead>
@@ -198,14 +198,16 @@ export function renderHarvestingRules() {
         </table>
         
         ${harvesting.groupHarvesting ? `
-        <div class="rules-callout">
-            <strong>Group Harvesting:</strong> ${harvesting.groupHarvesting.description}. ${harvesting.groupHarvesting.benefit}.
+        <div class="rules-callout" style="display: flex; gap: 0.5rem;">
+            <strong style="min-width: 130px; flex-shrink: 0; text-align: right;">Group Harvesting:</strong>
+            <span>${harvesting.groupHarvesting.description}. ${harvesting.groupHarvesting.benefit}.</span>
         </div>
         ` : ''}
         
         ${harvesting.modifiers?.temporaryEffects ? `
-        <div class="rules-callout" style="border-left-color: var(--herb-green-dark, #2d6a4f);">
-            <strong>Important:</strong> ${harvesting.modifiers.temporaryEffects}
+        <div class="rules-callout" style="display: flex; gap: 0.5rem; border-left-color: var(--herb-green-dark, #2d6a4f);">
+            <strong style="min-width: 130px; flex-shrink: 0; text-align: right;">Important:</strong>
+            <span>${harvesting.modifiers.temporaryEffects}</span>
         </div>
         ` : ''}
         

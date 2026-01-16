@@ -290,10 +290,9 @@ export function showFloraDetails(floraName) {
     const details = ingredients?.floraDetails?.[floraName];
     if (!details) return;
     
-    // Get DC and use info from flora arrays
+    // Get DC info from flora arrays
     const floraInfo = getFloraDetails(floraName);
     const dcDisplay = floraInfo?.dc ? `DC ${floraInfo.dc}` : '';
-    const useDisplay = floraInfo?.use || '';
     
     const overlay = document.createElement('div');
     overlay.className = 'flora-modal-overlay';
@@ -306,10 +305,9 @@ export function showFloraDetails(floraName) {
             </div>
             <div class="flora-modal-meta">
                 <span class="flora-rarity">${details.rarity}</span>
-                ${dcDisplay ? `<span class="flora-dc"><i data-lucide="target"></i> ${dcDisplay}</span>` : ''}
                 <span class="flora-terrain"><i data-lucide="map-pin"></i> ${details.terrain}</span>
+                ${dcDisplay ? `<span class="flora-dc"><i data-lucide="target"></i> ${dcDisplay}</span>` : ''}
             </div>
-            ${useDisplay ? `<div class="flora-use"><strong>Used for:</strong> ${useDisplay}</div>` : ''}
             <p class="flora-modal-description">${details.description}</p>
         </div>
     `;
