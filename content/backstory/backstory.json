@@ -1,18 +1,18 @@
 {
   "title": "The Story So Far",
   "sections": [
-    { "stageFile": "stage-01.json", "paragraphs": [0, 1, 2] },
-    { "stageFile": "stage-02.json", "paragraphs": [3] },
-    { "stageFile": "stage-03.json", "paragraphs": [4, 5, 6] },
-    { "stageFile": "stage-04.json", "paragraphs": [7, 8, 9, 10, 11, 12] },
-    { "stageFile": "stage-05.json", "paragraphs": [13, 14, 15] },
-    { "stageFile": "stage-06.json", "paragraphs": [16, 17, 18] },
-    { "stageFile": "stage-07.json", "paragraphs": [19, 20, 21, 22, 23, 24, 25] },
-    { "stageFile": "stage-08.json", "paragraphs": [26, 27, 28] },
-    { "stageFile": "stage-09.json", "paragraphs": [29, 30, 31, 32, 33] },
-    { "stageFile": "stage-10.json", "paragraphs": [34, 35, 36, 37, 38, 39, 40] },
-    { "stageFile": "stage-11.json", "paragraphs": [41, 42, 43, 44, 45, 46, 47, 48, 49, 50] },
-    { "stageFile": "stage-12.json", "paragraphs": [51] }
+    { "chapterFile": "chapter-01.json", "paragraphs": [0, 1, 2] },
+    { "chapterFile": "chapter-02.json", "paragraphs": [3] },
+    { "chapterFile": "chapter-03.json", "paragraphs": [4, 5, 6] },
+    { "chapterFile": "chapter-04.json", "paragraphs": [7, 8, 9, 10, 11, 12] },
+    { "chapterFile": "chapter-05.json", "paragraphs": [13, 14, 15] },
+    { "chapterFile": "chapter-06.json", "paragraphs": [16, 17, 18] },
+    { "chapterFile": "chapter-07.json", "paragraphs": [19, 20, 21, 22, 23, 24, 25] },
+    { "chapterFile": "chapter-08.json", "paragraphs": [26, 27, 28] },
+    { "chapterFile": "chapter-09.json", "paragraphs": [29, 30, 31, 32, 33] },
+    { "chapterFile": "chapter-10.json", "paragraphs": [34, 35, 36, 37, 38, 39, 40] },
+    { "chapterFile": "chapter-11.json", "paragraphs": [41, 42, 43, 44, 45, 46, 47, 48, 49, 50] },
+    { "chapterFile": "chapter-12.json", "paragraphs": [51] }
   ],
   "paragraphs": [
     "On the Rock of Bral, the docks don't sleep. They trade ownership by the hour. Meilin Starwell was raised in that rhythm: winches thudding, lanternlight thinning in cold air, jokes that arrived too loud because pain needed a mask. Her father kept a cramped apothecary corner wedged between honest trades and dishonest money, and he taught her to treat the docks the way a diagnostician treats a body: listen first, then act.",
@@ -68,18 +68,18 @@
     "And now that warning had a heartbeat.",
     "In the Astral Bazaar, Meilin learned what the void's ports all taught in different dialects: where anything can be bought, everything is leverage. She kept the ledger page flat and protected, took quiet work at the edges, and learned the mechanics of survival: watching patterns in crowds, securing doors, reading tampered seals, and practicing with lock tools the way she practiced medicine: patiently, precisely, and without drama."
   ],
-  "stages": [
-    "stage-01.json",
-    "stage-02.json",
-    "stage-03.json",
-    "stage-04.json",
-    "stage-05.json",
-    "stage-06.json",
-    "stage-07.json",
-    "stage-08.json",
-    "stage-09.json",
-    "stage-10.json",
-    "stage-11.json",
-    "stage-12.json"
+  "chapters": [
+    "chapter-01.json",
+    "chapter-02.json",
+    "chapter-03.json",
+    "chapter-04.json",
+    "chapter-05.json",
+    "chapter-06.json",
+    "chapter-07.json",
+    "chapter-08.json",
+    "chapter-09.json",
+    "chapter-10.json",
+    "chapter-11.json",
+    "chapter-12.json"
   ]
 }

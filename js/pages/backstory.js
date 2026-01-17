@@ -4,7 +4,7 @@
  * 
  * Data is loaded from JSON files:
  * - content/backstory/backstory.json - Main backstory with paragraphs and section config
- * - content/backstory/stages/stage-XX.json - Full chapter content and metadata
+ * - content/backstory/chapters/chapter-XX.json - Full chapter content and metadata
  */
 
 import { dataLoader } from '../core/data-loader.js';
@@ -36,29 +36,29 @@ export async function loadEnhancedBackstory() {
         // Load main backstory JSON
         backstoryData = await dataLoader.loadJSON('content/backstory/backstory.json');
         
-        // Load all stage metadata in parallel for section configuration
-        const stagePromises = backstoryData.sections.map(async (section, index) => {
+        // Load all chapter metadata in parallel for section configuration
+        const chapterPromises = backstoryData.sections.map(async (section, index) => {
             try {
-                const stageData = await dataLoader.loadJSON(
-                    `content/backstory/stages/${section.stageFile}`
+                const chapterData = await dataLoader.loadJSON(
+                    `content/backstory/chapters/${section.chapterFile}`
                 );
                 return {
-                    title: stageData.sectionTitle,
-                    icon: stageData.icon,
+                    title: chapterData.sectionTitle,
+                    icon: chapterData.icon,
                     chapterIndex: index,
-                    chapterNumber: stageData.number,
-                    chapterTitle: stageData.title,
+                    chapterNumber: chapterData.number,
+                    chapterTitle: chapterData.title,
                     paragraphs: section.paragraphs,
-                    pullQuote: stageData.pullQuote,
-                    stageFile: section.stageFile
+                    pullQuote: chapterData.pullQuote,
+                    chapterFile: section.chapterFile
                 };
             } catch (error) {
-                console.error(`Failed to load stage: ${section.stageFile}`, error);
+                console.error(`Failed to load chapter: ${section.chapterFile}`, error);
                 return null;
             }
         });
         
-        sectionsConfig = (await Promise.all(stagePromises)).filter(s => s !== null);
+        sectionsConfig = (await Promise.all(chapterPromises)).filter(s => s !== null);
         
         const enhancedHtml = renderEnhancedBackstory(backstoryData.paragraphs);
         container.innerHTML = enhancedHtml;
@@ -116,7 +116,7 @@ export function renderEnhancedBackstory(paragraphs) {
                     <span class="expand-text">Read full chapter</span>
                     <span class="expand-icon"><i data-lucide="chevron-down"></i></span>
                 </div>
-                <div class="chapter-content-expanded" data-chapter="${section.chapterIndex}" data-stage-file="${section.stageFile}">
+                <div class="chapter-content-expanded" data-chapter="${section.chapterIndex}" data-chapter-file="${section.chapterFile}">
                     <div class="chapter-loading">Loading chapter...</div>
                 </div>
             </section>
@@ -195,7 +195,7 @@ export async function toggleChapterExpansion(section) {
 
 /**
  * Parse chapter markdown content to HTML
- * @param {string} markdown - Markdown content from stage JSON
+ * @param {string} markdown - Markdown content from chapter JSON
  * @returns {string} HTML content
  */
 function parseChapterContent(markdown) {
@@ -256,23 +256,23 @@ function renderKeyTakeaways(takeaways) {
  * @param {HTMLElement} container - Container element for the content
  */
 export async function loadChapterContent(chapterIndex, container) {
-    const stageFile = container.dataset.stageFile;
-    if (!stageFile) {
+    const chapterFile = container.dataset.chapterFile;
+    if (!chapterFile) {
         container.innerHTML = '<p class="error">Chapter not found.</p>';
         return;
     }
 
     try {
-        const stageData = await dataLoader.loadJSON(`content/backstory/stages/${stageFile}`);
-        const narrativeHtml = parseChapterContent(stageData.content || '');
-        const takeawaysHtml = renderKeyTakeaways(stageData.keyTakeaways);
+        const chapterData = await dataLoader.loadJSON(`content/backstory/chapters/${chapterFile}`);
+        const narrativeHtml = parseChapterContent(chapterData.content || '');
+        const takeawaysHtml = renderKeyTakeaways(chapterData.keyTakeaways);
         
         container.innerHTML = `
             <div class="chapter-full-content">
                 <div class="chapter-divider">
                     <span class="chapter-divider-text">Full Chapter</span>
                 </div>
-                <h2 class="chapter-title">${stageData.title || ''}</h2>
+                <h2 class="chapter-title">${chapterData.title || ''}</h2>
                 ${takeawaysHtml}
                 <hr class="takeaways-separator">
                 <div class="chapter-narrative">
@@ -282,7 +282,7 @@ export async function loadChapterContent(chapterIndex, container) {
         `;
         container.dataset.loaded = 'true';
     } catch (error) {
-        console.error(`Failed to load chapter: ${stageFile}`, error);
+        console.error(`Failed to load chapter: ${chapterFile}`, error);
         container.innerHTML = '<p class="error">Failed to load chapter content.</p>';
     }
 }

@@ -9,7 +9,7 @@
  *   const medicines = await dataLoader.loadJSON('js/data/medicines.json');
  *   
  *   // Load Markdown content
- *   const backstory = await dataLoader.loadMarkdown('content/backstory/stage01.md');
+ *   const backstory = await dataLoader.loadMarkdown('content/backstory/chapter01.md');
  *   
  *   // Preload multiple files
  *   await dataLoader.preload([

@@ -19,7 +19,7 @@ A static web app serving as a complete character reference for the Meilin Starwe
 ### Backstory
 
 - Full narrative backstory with chapter navigation
-- 12 life stages from childhood to present day
+- 12 life chapters from childhood to present day
 - 10 character vignettes showcasing personality and skills
 
 ### DM Tools
@@ -154,7 +154,7 @@ meilin-starwell-app/
 ├── content/
 │   ├── backstory/
 │   │   ├── backstory.md
-│   │   └── stages/         # 12 life stage chapters
+│   │   └── chapters/        # 12 life chapter files
 │   ├── character/
 │   │   └── overview.json   # Core character data
 │   ├── dm/
