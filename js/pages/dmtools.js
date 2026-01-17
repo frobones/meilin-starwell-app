@@ -79,6 +79,7 @@ export function renderKnives() {
             <div class="knife-card-header">
                 <span class="knife-card-icon"><i data-lucide="${knife.icon}"></i></span>
                 <h3 class="knife-card-name">${knife.name}</h3>
+                <span class="click-hint"><i data-lucide="info"></i></span>
             </div>
             <span class="knife-card-type">${knife.type}</span>
             <p class="knife-card-summary">${knife.summary}</p>
@@ -160,35 +161,121 @@ export async function loadRelationships() {
 }
 
 /**
- * Render relationships map
+ * Render relationships map with tiered layout
  */
 export function renderRelationships() {
     const container = document.getElementById('relationships-map');
     if (!container || !relationshipsData) return;
 
     const data = relationshipsData;
+    
+    // Group connections by type
+    const antagonists = data.connections.filter(c => c.type === 'antagonist');
+    const complicated = data.connections.filter(c => c.type === 'complicated');
+    const allies = data.connections.filter(c => c.type === 'ally');
 
     container.innerHTML = `
-        <div class="relationship-cards">
-            ${data.connections.map(c => renderRelationshipCard(c)).join('')}
+        <!-- Antagonists Section - Top Priority -->
+        ${antagonists.length > 0 ? `
+        <div class="relationship-tier relationship-tier-antagonist">
+            <div class="tier-label">
+                <span class="tier-label-icon"><i data-lucide="alert-octagon"></i></span>
+                <span class="tier-label-text">Active Threats</span>
+            </div>
+            <div class="relationship-cards relationship-cards-antagonist">
+                ${antagonists.map(c => renderAntagonistCard(c)).join('')}
+            </div>
         </div>
+        ` : ''}
 
+        <!-- Complicated Section - Pressure Points -->
+        ${complicated.length > 0 ? `
+        <div class="relationship-tier relationship-tier-complicated">
+            <div class="tier-label">
+                <span class="tier-label-icon"><i data-lucide="alert-triangle"></i></span>
+                <span class="tier-label-text">Pressure Points</span>
+            </div>
+            <div class="relationship-cards relationship-cards-complicated">
+                ${complicated.map(c => renderRelationshipCard(c)).join('')}
+            </div>
+        </div>
+        ` : ''}
+
+        <!-- Allies Section - Safe Harbors -->
+        ${allies.length > 0 ? `
+        <div class="relationship-tier relationship-tier-ally">
+            <div class="tier-label">
+                <span class="tier-label-icon"><i data-lucide="shield"></i></span>
+                <span class="tier-label-text">Safe Harbors</span>
+            </div>
+            <div class="relationship-cards relationship-cards-ally">
+                ${allies.map(c => renderRelationshipCard(c)).join('')}
+            </div>
+        </div>
+        ` : ''}
+
+        <!-- Hidden Connections Web -->
         ${data.indirect && data.indirect.length > 0 ? `
-        <div class="relationship-indirect">
-            <h4 class="relationship-indirect-title">Hidden Connections</h4>
-            <ul class="relationship-indirect-list">
-                ${data.indirect.map(i => `
-                    <li class="relationship-indirect-item">
-                        <strong>${i.from}</strong> → <strong>${i.to}</strong>: ${i.description}
-                    </li>
-                `).join('')}
-            </ul>
+        <div class="relationship-connections-web">
+            <div class="tier-label">
+                <span class="tier-label-icon"><i data-lucide="git-branch"></i></span>
+                <span class="tier-label-text">Hidden Connections</span>
+            </div>
+            <div class="connections-grid">
+                ${data.indirect.map(i => renderConnectionLine(i)).join('')}
+            </div>
         </div>
         ` : ''}
     `;
     
     bindRelationshipCardEvents();
     icons.refresh();
+}
+
+/**
+ * Render a connection line for the hidden connections web
+ */
+function renderConnectionLine(indirect) {
+    // Determine threat level based on who's involved
+    const isThreat = indirect.from.includes('Pryce') || indirect.description.toLowerCase().includes('pressure');
+    const threatClass = isThreat ? 'connection-threat' : 'connection-neutral';
+    
+    return `
+        <div class="connection-line ${threatClass}">
+            <span class="connection-from">${indirect.from}</span>
+            <span class="connection-arrow"><i data-lucide="arrow-right"></i></span>
+            <span class="connection-to">${indirect.to}</span>
+            <span class="connection-desc">${indirect.description}</span>
+        </div>
+    `;
+}
+
+/**
+ * Render antagonist card with special treatment
+ */
+function renderAntagonistCard(connection) {
+    const hasDetails = connection.details !== undefined;
+    
+    return `
+        <div class="relationship-card antagonist antagonist-featured ${hasDetails ? 'clickable' : ''}" 
+             data-connection-name="${connection.name}"
+             ${hasDetails ? 'title="Click for details"' : ''}>
+            <div class="relationship-card-header">
+                <span class="relationship-card-icon"><i data-lucide="sword"></i></span>
+                <div class="relationship-card-title-group">
+                    <h4 class="relationship-card-name">${connection.name}</h4>
+                    <span class="relationship-card-subtitle">Active Threat</span>
+                </div>
+                ${hasDetails ? `<span class="click-hint"><i data-lucide="info"></i></span>` : ''}
+            </div>
+            <p class="relationship-card-role">${connection.role}</p>
+            <p class="relationship-card-tension">${connection.tension}</p>
+            <p class="relationship-card-location">
+                <span class="location-icon"><i data-lucide="map-pin"></i></span>
+                ${connection.location}
+            </p>
+        </div>
+    `;
 }
 
 /**
@@ -203,19 +290,21 @@ function renderRelationshipCard(connection) {
              data-connection-name="${connection.name}"
              ${hasDetails ? 'title="Click for details"' : ''}>
             <div class="relationship-card-header">
-                <span class="relationship-card-icon"><i data-lucide="${icon}"></i></span>
                 <h4 class="relationship-card-name">${connection.name}</h4>
+                ${hasDetails ? `<span class="click-hint"><i data-lucide="info"></i></span>` : ''}
             </div>
-            <span class="relationship-card-type">${TYPE_LABELS[connection.type] || connection.type}</span>
             <p class="relationship-card-role">${connection.role}</p>
             <p class="relationship-card-tension">${connection.tension}</p>
-            <p class="relationship-card-location">📍 ${connection.location}</p>
+            <p class="relationship-card-location">
+                <span class="location-icon"><i data-lucide="map-pin"></i></span>
+                ${connection.location}
+            </p>
         </div>
     `;
 }
 
 /**
- * Bind click events to relationship cards
+ * Bind click events to relationship cards to open modal
  */
 function bindRelationshipCardEvents() {
     const container = document.getElementById('relationships-map');
@@ -273,11 +362,12 @@ export function openRelationshipModal(connection) {
             <h2>${connection.name}</h2>
             <span class="relationship-modal-type ${connection.type}">${TYPE_LABELS[connection.type] || connection.type}</span>
             <p class="relationship-modal-role"><em>${connection.role}</em></p>
-            <p class="relationship-modal-location">📍 ${connection.location}</p>
+            <p class="relationship-modal-location"><span class="location-icon"><i data-lucide="map-pin"></i></span><span>${connection.location}</span></p>
             <hr>
             ${detailsHTML}
         </div>
     `;
+    icons.refresh();
     overlay.classList.add('active');
 }
 

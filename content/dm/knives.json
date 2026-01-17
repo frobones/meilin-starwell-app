@@ -42,7 +42,7 @@
   {
     "id": "constellation-mark",
     "name": "The Mark I Can't Explain",
-    "type": "mystery",
+    "type": "origin",
     "icon": "sparkles",
     "summary": "The constellation scar on her forearm predates any accident she remembers.",
     "details": "The small cluster of micro-scars on Meilin's left forearm looks like a starfield. Her father says she had it before she could walk, but he won't say more. It's not a chemical burn from the shop. It's something older.",
@@ -52,7 +52,7 @@
   {
     "id": "absent-mother",
     "name": "The Mother Who Wasn't There",
-    "type": "mystery",
+    "type": "secret",
     "icon": "user-x",
     "summary": "Her father never speaks of her mother. The silence is too complete to be grief.",
     "details": "No portrait, no name in the ledgers, no grave to visit. Kaito raised Meilin and Cassian alone, and he treats questions about their mother like closed wounds. Something happened, and he's protecting her from knowing what.",

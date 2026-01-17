@@ -19,24 +19,7 @@
   display: block;
   object-fit: cover;
   object-position: center 5%;
-  transition: object-position 2s ease-in-out;
-}
-
-.rumors-hero-image.panning {
-  animation: panBanner 12s ease-in-out infinite;
-  transition: none;
-}
-
-@keyframes panBanner {
-  0% {
-    object-position: center 5%;
-  }
-  50% {
-    object-position: center 100%;
-  }
-  100% {
-    object-position: center 5%;
-  }
+  /* Transition handled by JavaScript for seamless hover/unhover */
 }
 
 .rumors-hero-subtitle {
@@ -212,7 +195,8 @@
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-heavy);
-  background: var(--parchment-dark);
+  /* Black background for fade-through-black effect - !important to override style.css */
+  background: #0a0a0a !important;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -222,11 +206,35 @@
   box-shadow: 0 8px 24px var(--shadow-heavy);
 }
 
-.rumors-gallery-single img {
+/* Crossfade image setup - both images stacked */
+.rumors-gallery-single .rumors-gallery-image {
   width: 100%;
   height: auto;
   display: block;
   object-fit: cover;
+  opacity: 1;
+  /* Fade duration for the "fade through black" effect */
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity;
+  backface-visibility: hidden;
+}
+
+/* Second image positioned absolutely on top */
+.rumors-gallery-single .rumors-gallery-image:nth-child(2) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+}
+
+/* Hidden state - fully transparent */
+.rumors-gallery-single .rumors-gallery-image.rumors-gallery-image--hidden {
+  opacity: 0;
+}
+
+/* Incoming image fades in with delay (after outgoing has faded to black) */
+.rumors-gallery-single .rumors-gallery-image.rumors-gallery-image--entering {
+  transition-delay: 0.5s;
 }
 
 /* Character Views Grid */

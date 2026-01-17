@@ -56,6 +56,8 @@
 .knife-card.complication::before { background: var(--copper-accent); }
 .knife-card.flaw::before { background: var(--herb-green); }
 .knife-card.mystery::before { background: var(--augmenting); }
+.knife-card.origin::before { background: var(--restorative); }
+.knife-card.secret::before { background: #5a4a6a; }
 
 .knife-card.evidence:hover { border-color: var(--sepia); }
 .knife-card.vulnerability:hover { border-color: var(--blood-red); }
@@ -63,6 +65,8 @@
 .knife-card.complication:hover { border-color: var(--copper-accent); }
 .knife-card.flaw:hover { border-color: var(--herb-green); }
 .knife-card.mystery:hover { border-color: var(--augmenting); }
+.knife-card.origin:hover { border-color: var(--restorative); }
+.knife-card.secret:hover { border-color: #5a4a6a; }
 
 .knife-card-header {
   display: flex;
@@ -87,6 +91,8 @@
 .knife-card.complication:hover .knife-card-icon { color: var(--copper-accent); }
 .knife-card.flaw:hover .knife-card-icon { color: var(--herb-green); }
 .knife-card.mystery:hover .knife-card-icon { color: var(--augmenting); }
+.knife-card.origin:hover .knife-card-icon { color: var(--restorative); }
+.knife-card.secret:hover .knife-card-icon { color: #5a4a6a; }
 
 .knife-card-name {
   font-family: var(--font-heading);
@@ -128,6 +134,14 @@
 .knife-card.mystery .knife-card-type {
   background: rgba(107, 76, 138, 0.15);
   color: var(--augmenting);
+}
+.knife-card.origin .knife-card-type {
+  background: rgba(42, 92, 138, 0.15);
+  color: var(--restorative);
+}
+.knife-card.secret .knife-card-type {
+  background: rgba(90, 74, 106, 0.15);
+  color: #5a4a6a;
 }
 
 .knife-card-summary {
@@ -253,6 +267,76 @@
   margin: 0;
 }
 
+/* ============================================
+   Tiered Layout Structure
+   ============================================ */
+
+.relationship-tier {
+  margin-bottom: var(--space-xl);
+}
+
+.tier-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--parchment-aged);
+}
+
+.tier-label-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(101, 67, 33, 0.08);
+  color: var(--sepia);
+}
+
+.tier-label-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.tier-label-text {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--sepia);
+}
+
+/* Tier-specific label colors */
+.relationship-tier-antagonist .tier-label-icon {
+  background: rgba(139, 35, 35, 0.12);
+  color: var(--blood-red);
+}
+
+.relationship-tier-antagonist .tier-label-text {
+  color: var(--blood-red);
+}
+
+.relationship-tier-complicated .tier-label-icon {
+  background: rgba(184, 134, 11, 0.12);
+  color: var(--gold-accent);
+}
+
+.relationship-tier-complicated .tier-label-text {
+  color: #8a6914;
+}
+
+.relationship-tier-ally .tier-label-icon {
+  background: rgba(74, 93, 74, 0.12);
+  color: var(--herb-green-dark);
+}
+
+.relationship-tier-ally .tier-label-text {
+  color: var(--herb-green-dark);
+}
+
+/* Card grids within tiers */
 .relationship-cards {
   display: flex;
   flex-wrap: wrap;
@@ -261,9 +345,78 @@
 }
 
 .relationship-cards .relationship-card {
-  flex: 0 0 calc(33.333% - var(--space-md));
+  flex: 0 0 calc(50% - var(--space-md));
   min-width: 280px;
-  max-width: calc(33.333% - var(--space-md));
+  max-width: calc(50% - var(--space-md));
+}
+
+/* Antagonist cards - full width */
+.relationship-cards-antagonist .relationship-card {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+/* ============================================
+   Featured Antagonist Card
+   ============================================ */
+
+.relationship-card.antagonist-featured {
+  background: linear-gradient(145deg, 
+    rgba(139, 35, 35, 0.04) 0%, 
+    var(--parchment) 30%, 
+    var(--parchment-light) 100%);
+  border: 1px solid rgba(139, 35, 35, 0.25);
+  box-shadow: 
+    0 4px 20px rgba(139, 35, 35, 0.08),
+    inset 0 0 60px rgba(139, 35, 35, 0.02);
+}
+
+.relationship-card.antagonist-featured::before {
+  width: 6px;
+  background: linear-gradient(180deg, var(--blood-red), #5a1515);
+}
+
+.relationship-card.antagonist-featured .relationship-card-icon {
+  width: 48px;
+  height: 48px;
+  box-shadow: 
+    0 0 16px rgba(139, 35, 35, 0.4),
+    0 0 32px rgba(139, 35, 35, 0.2);
+}
+
+.relationship-card.antagonist-featured .relationship-card-icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.relationship-card-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.relationship-card-subtitle {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--blood-red);
+  font-weight: 600;
+}
+
+.relationship-card.antagonist-featured .relationship-card-name {
+  font-size: 1.25rem;
+  margin-bottom: 0;
+}
+
+.relationship-card.antagonist-featured:hover {
+  box-shadow: 
+    0 12px 40px rgba(139, 35, 35, 0.15),
+    inset 0 0 60px rgba(139, 35, 35, 0.03);
+  border-color: var(--blood-red);
+}
+
+.relationship-card.antagonist-featured:hover::before {
+  width: 8px;
 }
 
 .relationship-card {
@@ -290,9 +443,10 @@
 .relationship-card.complicated::before { background: var(--gold-accent); }
 .relationship-card.antagonist::before { background: var(--blood-red); }
 
+/* Clickable card styles */
 .relationship-card.clickable {
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: all 0.3s ease;
 }
 
 .relationship-card.clickable:hover {
@@ -313,38 +467,64 @@
   display: flex;
   align-items: center;
   gap: var(--space-sm);
-  margin-bottom: var(--space-xs);
+  margin-bottom: var(--space-sm);
+  flex-wrap: wrap;
 }
+
+/* Click hint for clickable cards */
+.click-hint {
+  margin-left: auto;
+  color: var(--ink-faded);
+  opacity: 0.5;
+  transition: opacity 0.2s ease, color 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.click-hint svg {
+  width: 16px;
+  height: 16px;
+}
+
+.relationship-card.clickable:hover .click-hint {
+  opacity: 1;
+}
+
+.relationship-card.ally:hover .click-hint { color: var(--herb-green-dark); }
+.relationship-card.complicated:hover .click-hint { color: var(--gold-accent); }
+.relationship-card.antagonist:hover .click-hint { color: var(--blood-red); }
 
 .relationship-card-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   flex-shrink: 0;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .relationship-card-icon svg {
-  width: 16px;
-  height: 16px;
+  width: 22px;
+  height: 22px;
 }
 
 /* Type-specific icon colors */
 .relationship-card.ally .relationship-card-icon {
-  background: rgba(74, 93, 74, 0.15);
+  background: rgba(74, 93, 74, 0.18);
   color: var(--herb-green-dark);
 }
 
 .relationship-card.complicated .relationship-card-icon {
-  background: rgba(184, 134, 11, 0.15);
+  background: rgba(184, 134, 11, 0.18);
   color: var(--gold-accent);
 }
 
 .relationship-card.antagonist .relationship-card-icon {
-  background: rgba(139, 35, 35, 0.15);
+  background: rgba(139, 35, 35, 0.2);
   color: var(--blood-red);
+  box-shadow: 0 0 12px rgba(139, 35, 35, 0.35);
 }
 
 .relationship-card-name {
@@ -361,13 +541,13 @@
 
 .relationship-card-type {
   display: inline-block;
-  font-size: 0.65rem;
-  padding: 3px 10px;
-  border-radius: 12px;
+  font-size: 0.6rem;
+  padding: 2px 8px;
+  border-radius: 10px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  margin-bottom: var(--space-sm);
+  white-space: nowrap;
 }
 
 .relationship-card.ally .relationship-card-type {
@@ -404,6 +584,126 @@
   margin: 0;
   padding-top: var(--space-sm);
   border-top: 1px dashed var(--parchment-aged);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.location-icon {
+  display: flex;
+  align-items: center;
+  color: var(--herb-green-dark);
+  opacity: 0.7;
+}
+
+.location-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ============================================
+   Hidden Connections Web
+   ============================================ */
+
+.relationship-connections-web {
+  margin-top: var(--space-xl);
+  padding: var(--space-lg);
+  background: linear-gradient(135deg, rgba(101, 67, 33, 0.06), rgba(101, 67, 33, 0.02));
+  border-radius: var(--radius-md);
+  border: 1px solid var(--parchment-aged);
+  position: relative;
+}
+
+.relationship-connections-web::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    var(--parchment-aged), 
+    var(--blood-red) 30%, 
+    var(--gold-accent) 70%, 
+    var(--parchment-aged));
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  opacity: 0.6;
+}
+
+.relationship-connections-web .tier-label {
+  border-bottom: none;
+  margin-bottom: var(--space-md);
+}
+
+.relationship-connections-web .tier-label-icon {
+  background: rgba(139, 35, 35, 0.1);
+  color: var(--blood-red);
+}
+
+.relationship-connections-web .tier-label-text {
+  color: var(--sepia);
+}
+
+.connections-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.connections-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.connection-line {
+  display: flex;
+  align-items: center;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--parchment-light);
+  border-radius: 4px;
+  border-left: 3px solid var(--gold-accent);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.connection-line.connection-threat {
+  border-left-color: var(--blood-red);
+}
+
+.connection-from {
+  font-weight: 600;
+  color: var(--sepia);
+  min-width: 130px;
+}
+
+.connection-arrow {
+  display: flex;
+  align-items: center;
+  color: var(--ink-faded);
+  margin: 0 var(--space-sm);
+}
+
+.connection-arrow svg {
+  width: 14px;
+  height: 14px;
+}
+
+.connection-line.connection-threat .connection-arrow {
+  color: var(--blood-red);
+}
+
+.connection-to {
+  font-weight: 600;
+  color: var(--sepia);
+  min-width: 130px;
+}
+
+.connection-desc {
+  color: var(--ink-faded);
+  font-style: italic;
+  margin-left: auto;
+  text-align: right;
 }
 
 /* Relationship Modal */
@@ -471,6 +771,19 @@
   color: var(--herb-green-dark);
   font-size: 0.9rem;
   margin-bottom: var(--space-md);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.relationship-modal-location .location-icon {
+  display: flex;
+  align-items: center;
+}
+
+.relationship-modal-location .location-icon svg {
+  width: 14px;
+  height: 14px;
 }
 
 /* Indirect Connections */
@@ -534,5 +847,36 @@
   .relationship-cards .relationship-card {
     flex: 0 0 100%;
     max-width: 100%;
+  }
+
+  .tier-label {
+    padding-left: var(--space-sm);
+  }
+
+  .connection-line {
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .connection-from,
+  .connection-to {
+    min-width: auto;
+  }
+
+  .connection-desc {
+    width: 100%;
+    margin-left: 0;
+    padding-top: var(--space-xs);
+    border-top: 1px dashed var(--parchment-aged);
+  }
+
+  .relationship-card.antagonist-featured .relationship-card-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .relationship-card.antagonist-featured .relationship-card-icon svg {
+    width: 22px;
+    height: 22px;
   }
 }

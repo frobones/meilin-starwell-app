@@ -93,6 +93,19 @@
         "sheWants": "The ledger page recovered or destroyed. My silence, my compliance, or my containment.",
         "howSheOperates": "Patient surveillance, public warnings delivered softly in crowds, and pressure on people adjacent to me. She makes pursuit feel like weather."
       }
+    },
+    {
+      "name": "[Unknown] — My Mother",
+      "role": "Erased from all records and never discussed. A void in the shape of a person.",
+      "type": "complicated",
+      "tension": "The silence is too complete to be grief. Something happened.",
+      "location": "Unknown",
+      "details": {
+        "theKnot": "My father never speaks of her. No portrait, no name in the ledgers, no grave to visit. The records don't just omit her; they're clean in a way that takes effort. I don't even know if she and my father were married, or if 'Starwell' was ever her name.",
+        "sheWants": "Unknown. She might be dead, gone, or something worse.",
+        "iWant": "To understand why the silence is so absolute. To know what happened and why my father is protecting me from knowing.",
+        "danger": "Every question pushes against the only wall my father has ever built between us. If Pryce digs into my background, this gap in the records is a thread to pull. The answer might cost more than the mystery."
+      }
     }
   ],
   "indirect": [
@@ -107,6 +120,11 @@
       "description": "Pryce is mapping Sera's movements. Leverage."
     },
     {
+      "from": "Elowen Pryce",
+      "to": "[Unknown] — My Mother",
+      "description": "If Pryce digs into Meilin's background, the missing mother is a thread to pull. Pressure point."
+    },
+    {
       "from": "Cassian Starwell",
       "to": "Unknown Patron",
       "description": "Cassian's opportunities come from someone. Strings attached."
@@ -115,6 +133,5 @@
       "from": "Meredin Sandyfoot",
       "to": "Kaito Starwell",
       "description": "Meredin's network routes patients to Kaito. Shared exposure."
-    }
-  ]
+    }  ]
 }

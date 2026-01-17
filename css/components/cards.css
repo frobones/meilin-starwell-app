@@ -340,6 +340,33 @@
   line-height: 1.5;
 }
 
+/* Click Hint Icon (shared across card types) */
+.click-hint {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  color: var(--ink-faded);
+  opacity: 0.4;
+  transition: opacity 0.2s ease, background 0.2s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+.click-hint svg {
+  width: 16px;
+  height: 16px;
+}
+
+*:hover > .click-hint,
+*:hover .click-hint {
+  opacity: 0.8;
+}
+
 /* Responsive cards */
 @media (max-width: 768px) {
   .medicine-grid {
