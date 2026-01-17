@@ -62,7 +62,7 @@ a:focus-visible,
 /* Skip link for keyboard users */
 .skip-link {
   position: absolute;
-  top: -40px;
+  top: -50px;
   left: 0;
   background: var(--parchment-dark, #2a2a2a);
   color: var(--ink-black, #fff);
