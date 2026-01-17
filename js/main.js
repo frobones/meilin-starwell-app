@@ -5,7 +5,6 @@
 
 // Core modules
 import { store } from './core/state.js';
-import { router } from './core/router.js';
 import { events } from './core/events.js';
 import { dataLoader } from './core/data-loader.js';
 import { icons } from './core/icons.js';
@@ -210,7 +209,7 @@ if (document.readyState === 'loading') {
 
 // Export for debugging and external access
 export {
-    store, router, events, dataLoader, icons, CONFIG,
+    store, events, dataLoader, icons, CONFIG,
     auth, navigation, ui,
     rumorsPage, overviewPage, backstoryPage, dmtoolsPage, medicinePage,
     ingredientsPage, vignettesPage, rulesPage, craftPage,

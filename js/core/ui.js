@@ -4,6 +4,10 @@
  */
 
 import { events } from './events.js';
+import { activateFocusTrap, deactivateFocusTrap } from './focus-trap.js';
+
+// Track previously focused elements for each modal
+const previouslyFocusedElements = new Map();
 
 /**
  * Close a modal by overlay ID
@@ -13,6 +17,16 @@ export function closeModal(overlayId = 'modal-overlay') {
     if (modal) {
         modal.classList.remove('active');
         document.body.style.overflow = '';
+        
+        // Deactivate focus trap
+        deactivateFocusTrap(modal);
+        
+        // Restore previously focused element
+        const previouslyFocused = previouslyFocusedElements.get(overlayId);
+        if (previouslyFocused && typeof previouslyFocused.focus === 'function') {
+            previouslyFocused.focus();
+        }
+        previouslyFocusedElements.delete(overlayId);
     }
 }
 
@@ -22,8 +36,14 @@ export function closeModal(overlayId = 'modal-overlay') {
 export function openModal(overlayId) {
     const modal = document.getElementById(overlayId);
     if (modal) {
+        // Store previously focused element
+        previouslyFocusedElements.set(overlayId, document.activeElement);
+        
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
+        
+        // Activate focus trap
+        activateFocusTrap(modal);
     }
 }
 
@@ -37,31 +57,46 @@ export function bindGlobalLightbox() {
     
     if (!lightbox || !lightboxImage) return;
     
+    let lightboxPreviousFocus = null;
+    
+    function openLightbox(imageSrc) {
+        lightboxPreviousFocus = document.activeElement;
+        lightboxImage.src = imageSrc;
+        lightbox.classList.add('active');
+        activateFocusTrap(lightbox);
+    }
+    
+    function closeLightbox() {
+        lightbox.classList.remove('active');
+        deactivateFocusTrap(lightbox);
+        if (lightboxPreviousFocus && typeof lightboxPreviousFocus.focus === 'function') {
+            lightboxPreviousFocus.focus();
+        }
+        lightboxPreviousFocus = null;
+    }
+    
     // Use event delegation for data-lightbox clicks
     document.addEventListener('click', (e) => {
         const lightboxTrigger = e.target.closest('[data-lightbox]');
         if (lightboxTrigger) {
             const imageSrc = lightboxTrigger.dataset.lightbox;
-            lightboxImage.src = imageSrc;
-            lightbox.classList.add('active');
+            openLightbox(imageSrc);
         }
     });
     
     if (lightboxClose) {
-        lightboxClose.addEventListener('click', () => {
-            lightbox.classList.remove('active');
-        });
+        lightboxClose.addEventListener('click', closeLightbox);
     }
     
     lightbox.addEventListener('click', (e) => {
         if (e.target === lightbox) {
-            lightbox.classList.remove('active');
+            closeLightbox();
         }
     });
     
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && lightbox.classList.contains('active')) {
-            lightbox.classList.remove('active');
+            closeLightbox();
         }
     });
 }

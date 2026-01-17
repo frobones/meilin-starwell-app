@@ -32,13 +32,5 @@
 @import url('./pages/dmtools.css');
 @import url('./pages/medicine.css');
 
-/* ============================================
-   Legacy styles that haven't been migrated yet
-   (keeping original style.css for backwards compatibility)
-   
-   TODO: Continue migrating remaining styles from style.css
-   - Mindersand reference section
-   - Medica reference section  
-   - Flora/Creature modals
-   - Craft modal details
-   ============================================ */
+/* Legacy styles - unique sections not yet fully migrated to modular files */
+@import url('./legacy.css');

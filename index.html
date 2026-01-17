@@ -10,15 +10,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Uncial+Antiqua&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Redacted+Script:wght@400&display=swap" rel="stylesheet">
     
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Lucide Icons (pinned version) -->
+    <script src="https://unpkg.com/lucide@0.562.0/dist/umd/lucide.min.js"></script>
     
     <!-- Styles (Modular CSS) -->
     <link rel="stylesheet" href="css/main.css">
-    <!-- Legacy styles for sections not yet migrated -->
-    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <!-- Skip Link for Keyboard Navigation -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
     <!-- Mobile Header (visible on small screens) -->
     <header class="mobile-header" id="mobile-header">
         <button class="hamburger-btn" id="hamburger-btn" aria-label="Open menu">
@@ -322,7 +323,7 @@
                 </nav>
 
                 <!-- Main Content -->
-                <main class="main-content">
+                <main class="main-content" id="main-content" tabindex="-1">
                     <!-- Medicines Grid -->
                     <div class="tab-content" id="medicines-tab">
                         <!-- Search and Filters -->
@@ -432,9 +433,9 @@
                 </main>
 
                 <!-- Medicine Detail Modal -->
-                <div class="modal-overlay" id="modal-overlay">
+                <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="medicine-modal-title">
                     <div class="modal" id="medicine-modal">
-                        <button class="modal-close" id="modal-close">×</button>
+                        <button class="modal-close" id="modal-close" aria-label="Close modal">×</button>
                         <div class="modal-content" id="modal-content">
                             <!-- Modal content populated by JS -->
                         </div>
@@ -442,9 +443,9 @@
                 </div>
 
                 <!-- Craft Options Modal -->
-                <div class="modal-overlay" id="craft-modal-overlay">
+                <div class="modal-overlay" id="craft-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="craft-modal-title">
                     <div class="modal craft-modal">
-                        <button class="modal-close" id="craft-modal-close">×</button>
+                        <button class="modal-close" id="craft-modal-close" aria-label="Close modal">×</button>
                         <div class="craft-modal-content" id="craft-modal-content">
                             <!-- Populated by JS: medicine info, alternative selection, 
                                  enhancement options, confirm/cancel buttons -->
@@ -490,9 +491,9 @@
                 </main>
 
                 <!-- Vignette Detail Modal -->
-                <div class="modal-overlay" id="vignette-modal-overlay">
+                <div class="modal-overlay" id="vignette-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="vignette-modal-title">
                     <div class="modal vignette-modal">
-                        <button class="modal-close" id="vignette-modal-close">×</button>
+                        <button class="modal-close" id="vignette-modal-close" aria-label="Close modal">×</button>
                         <div class="modal-content" id="vignette-modal-content">
                             <!-- Vignette content populated by JS -->
                         </div>
@@ -574,9 +575,9 @@
                 </main>
 
                 <!-- NPC Detail Modal -->
-                <div class="modal-overlay" id="npc-modal-overlay">
+                <div class="modal-overlay" id="npc-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="npc-modal-title">
                     <div class="modal npc-modal">
-                        <button class="modal-close" id="npc-modal-close">×</button>
+                        <button class="modal-close" id="npc-modal-close" aria-label="Close modal">×</button>
                         <div class="modal-content" id="npc-modal-content">
                             <!-- NPC content populated by JS -->
                         </div>
@@ -584,9 +585,9 @@
                 </div>
 
                 <!-- Knife Detail Modal -->
-                <div class="modal-overlay" id="knife-modal-overlay">
+                <div class="modal-overlay" id="knife-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="knife-modal-title">
                     <div class="modal knife-modal">
-                        <button class="modal-close" id="knife-modal-close">×</button>
+                        <button class="modal-close" id="knife-modal-close" aria-label="Close modal">×</button>
                         <div class="modal-content" id="knife-modal-content">
                             <!-- Knife content populated by JS -->
                         </div>
@@ -597,10 +598,10 @@
     </div>
 
     <!-- Passkey Modal -->
-    <div class="modal-overlay" id="passkey-modal-overlay">
+    <div class="modal-overlay" id="passkey-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="passkey-title">
         <div class="modal passkey-modal">
             <div class="passkey-content">
-                <h2 class="passkey-title">🔒 Meilin's Companion</h2>
+                <h2 class="passkey-title" id="passkey-title">🔒 Meilin's Companion</h2>
                 <p class="passkey-subtitle">Enter the passkey to access this reference.</p>
                 <form id="passkey-form">
                     <input type="password" id="passkey-input" class="passkey-input" placeholder="Enter passkey..." autocomplete="off">
@@ -700,8 +701,8 @@
         </section>
     </template>
 
-    <!-- Markdown Parser -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Markdown Parser (pinned version) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script>
     
     <!-- ES Module Application -->
     <script type="module" src="js/main.js"></script>

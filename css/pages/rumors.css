@@ -36,8 +36,8 @@
   border: none;
   border-top: 2px solid var(--parchment-aged);
   margin: var(--space-lg) auto;
-  max-width: 200px;
-  opacity: 0.5;
+  max-width: 1400px;
+  width: calc(100% - var(--space-lg) * 2);
 }
 
 /* Main Layout */
@@ -45,9 +45,10 @@
   display: grid;
   grid-template-columns: 380px 1fr;
   gap: var(--space-xl);
-  padding: var(--space-xl) var(--space-xxl);
+  padding: var(--space-xl) var(--space-lg);
   max-width: 1400px;
   margin: 0 auto;
+  align-items: start;
 }
 
 /* Rumors Sidebar */
@@ -85,31 +86,74 @@
   padding: var(--space-md);
   background: var(--parchment-light);
   border-radius: var(--radius-md);
-  cursor: pointer;
+  border-left: 3px solid var(--gold-accent);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--ink-dark);
   position: relative;
-  padding-left: var(--space-xl);
-  border-left: 3px solid transparent;
-  opacity: 0.9;
-  transition: opacity 0.2s ease, border-color 0.2s ease, transform 0.2s ease,
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s ease, transform 0.2s ease,
               background 0.2s ease, box-shadow 0.2s ease;
 }
 
 .rumor-item:hover {
   opacity: 1;
   transform: translateX(4px);
+  background: var(--parchment-cream);
+  box-shadow: var(--shadow-md);
+}
+
+/* Keyboard focus state */
+.rumor-item:focus {
+  outline: 2px solid var(--gold-bright);
+  outline-offset: 2px;
+  opacity: 1;
   background: var(--parchment);
-  box-shadow: 0 2px 8px var(--shadow);
+}
+
+.rumor-item:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.rumor-item:focus-visible {
+  outline: 2px solid var(--gold-bright);
+  outline-offset: 2px;
+}
+
+/* Revealed state for keyboard/tap activation */
+.rumor-item--revealed {
+  opacity: 1;
+  background: var(--parchment);
+  box-shadow: 0 2px 12px var(--shadow);
+  border-left-color: var(--gold-dim);
+}
+
+.rumor-item--revealed .rumor-cipher {
+  opacity: 0;
+  filter: blur(2px);
+}
+
+.rumor-item--revealed .rumor-readable {
+  -webkit-mask-image: none;
+  mask-image: none;
+  animation: decipherText 0.4s ease-out forwards;
+}
+
+.rumor-item--revealed .rumor-cipher {
+  -webkit-mask-image: none;
+  mask-image: none;
 }
 
 .rumor-item::before {
   content: '"';
   font-family: var(--font-display);
   font-size: 1.5rem;
-  color: var(--gold-dim);
+  color: var(--gold-accent);
   position: absolute;
-  left: var(--space-sm);
   top: var(--space-xs);
-  opacity: 0.6;
+  left: var(--space-sm);
+  opacity: 0.5;
 }
 
 /* Cipher text effect - dual layer approach for consistent sizing */
@@ -423,6 +467,61 @@
   
   .rumors-views {
     padding: var(--space-lg);
+  }
+  
+  /* ============================================
+     Tap-to-Reveal Rumors (Mobile)
+     ============================================ */
+  
+  /* Update hint for mobile interaction */
+  .rumors-hint em::after {
+    content: ' (tap to reveal)';
+  }
+  
+  /* Disable hover effects on mobile, use tap instead */
+  .rumor-item:hover .rumor-cipher {
+    opacity: 1;
+    filter: none;
+  }
+  
+  .rumor-item:hover .rumor-readable {
+    -webkit-mask-image: linear-gradient(to right, black 0%, black 25%, transparent 40%);
+    mask-image: linear-gradient(to right, black 0%, black 25%, transparent 40%);
+  }
+  
+  .rumor-item:hover .rumor-cipher {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 20%, black 35%, black 100%);
+    mask-image: linear-gradient(to right, transparent 0%, transparent 20%, black 35%, black 100%);
+  }
+  
+  .rumor-item:hover {
+    transform: none;
+    background: var(--parchment-light);
+    box-shadow: none;
+  }
+  
+  /* Revealed state via JavaScript tap */
+  .rumor-item--revealed {
+    opacity: 1;
+    background: var(--parchment);
+    box-shadow: 0 2px 12px var(--shadow);
+    border-left-color: var(--gold-dim);
+  }
+  
+  .rumor-item--revealed .rumor-cipher {
+    opacity: 0;
+    filter: blur(2px);
+  }
+  
+  .rumor-item--revealed .rumor-readable {
+    -webkit-mask-image: none;
+    mask-image: none;
+    animation: decipherText 0.4s ease-out forwards;
+  }
+  
+  .rumor-item--revealed .rumor-cipher {
+    -webkit-mask-image: none;
+    mask-image: none;
   }
 }
 

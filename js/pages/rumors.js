@@ -36,8 +36,12 @@ export function renderRumors() {
     const container = document.getElementById('rumors-list');
     if (!container || !rumorsData) return;
     
-    container.innerHTML = rumorsData.rumors.map(rumor => `
-        <div class="rumor-item" data-image="img/${rumor.image}">
+    container.innerHTML = rumorsData.rumors.map((rumor, index) => `
+        <div class="rumor-item" 
+             data-image="img/${rumor.image}" 
+             tabindex="0" 
+             role="button"
+             aria-label="Rumor ${index + 1}: ${rumor.text.substring(0, 50)}...">
             <span class="rumor-text">
                 <span class="rumor-readable">${rumor.text}</span>
                 <span class="rumor-cipher" aria-hidden="true">${rumor.text}</span>
@@ -46,6 +50,7 @@ export function renderRumors() {
     `).join('');
     
     setupRumorHoverEffects();
+    setupRumorKeyboardNavigation();
     icons.refresh();
 }
 
@@ -80,6 +85,9 @@ export function setupRumorHoverEffects() {
     
     // Setup hotspot tap interactions for mobile
     setupHotspotTapInteractions();
+    
+    // Setup tap-to-reveal for rumors on mobile
+    setupRumorTapToReveal(rumorItems, galleryContainer);
 }
 
 /**
@@ -263,6 +271,86 @@ function setupBannerPanEffect() {
 }
 
 /**
+ * Setup tap-to-reveal interaction for rumors on mobile devices
+ * Tapping a rumor reveals it (like hover) and updates the gallery image
+ */
+let rumorTapInitialized = false;
+
+function setupRumorTapToReveal(rumorItems, galleryContainer) {
+    // Prevent double initialization
+    if (rumorTapInitialized) return;
+    rumorTapInitialized = true;
+    
+    let activeRumor = null;
+    
+    /**
+     * Check if we're on a mobile device
+     */
+    function isMobileView() {
+        return window.matchMedia('(max-width: 768px)').matches;
+    }
+    
+    /**
+     * Deactivate the currently active rumor
+     */
+    function deactivateRumor() {
+        if (activeRumor) {
+            activeRumor.classList.remove('rumor-item--revealed');
+            activeRumor = null;
+        }
+    }
+    
+    /**
+     * Activate a rumor (reveal text and update gallery)
+     */
+    function activateRumor(item) {
+        // If tapping the same rumor, toggle it off
+        if (item === activeRumor) {
+            deactivateRumor();
+            return;
+        }
+        
+        // Deactivate previous
+        deactivateRumor();
+        
+        // Activate new
+        item.classList.add('rumor-item--revealed');
+        activeRumor = item;
+        
+        // Update gallery image
+        const newImageSrc = item.dataset.image;
+        crossfadeToImage(newImageSrc, galleryContainer);
+    }
+    
+    // Handle tap events on rumor items
+    rumorItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            // Only use tap behavior on mobile
+            if (!isMobileView()) return;
+            
+            e.preventDefault();
+            activateRumor(item);
+        });
+    });
+    
+    // Close when tapping outside on mobile
+    document.addEventListener('click', (e) => {
+        if (!isMobileView() || !activeRumor) return;
+        
+        // Check if click was outside any rumor item
+        if (!e.target.closest('.rumor-item')) {
+            deactivateRumor();
+        }
+    });
+    
+    // Handle orientation/resize changes
+    window.matchMedia('(max-width: 768px)').addEventListener('change', () => {
+        // Clear active state when switching between mobile/desktop
+        deactivateRumor();
+    });
+}
+
+/**
  * Setup tap-to-toggle interactions for hotspots on mobile devices
  * Creates a backdrop element and handles tap events to show/hide tooltip modals
  * 
@@ -425,6 +513,44 @@ function setupHotspotTapInteractions() {
         }
         // Close any open modal when switching between mobile/desktop
         closeActiveHotspot();
+    });
+}
+
+/**
+ * Setup keyboard navigation for rumors
+ * Allows Enter/Space to activate a rumor (reveal text and change image)
+ */
+function setupRumorKeyboardNavigation() {
+    const rumorItems = document.querySelectorAll('.rumor-item');
+    const galleryContainer = document.getElementById('rumors-gallery-container');
+    
+    rumorItems.forEach(item => {
+        item.addEventListener('keydown', (e) => {
+            // Activate on Enter or Space
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                
+                // Toggle revealed state for keyboard users
+                const wasRevealed = item.classList.contains('rumor-item--revealed');
+                
+                // Remove revealed state from all other items
+                rumorItems.forEach(other => other.classList.remove('rumor-item--revealed'));
+                
+                if (!wasRevealed) {
+                    item.classList.add('rumor-item--revealed');
+                    
+                    // Update gallery image
+                    const newImageSrc = item.dataset.image;
+                    crossfadeToImage(newImageSrc, galleryContainer);
+                }
+            }
+        });
+        
+        // Also reveal on focus for keyboard navigation
+        item.addEventListener('focus', () => {
+            const newImageSrc = item.dataset.image;
+            crossfadeToImage(newImageSrc, galleryContainer);
+        });
     });
 }
 

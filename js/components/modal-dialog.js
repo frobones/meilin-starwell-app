@@ -13,6 +13,8 @@
  *   document.getElementById('my-modal').close();
  */
 
+import { createFocusTrap } from '../core/focus-trap.js';
+
 const template = document.createElement('template');
 template.innerHTML = `
     <style>
@@ -123,6 +125,8 @@ export class ModalDialog extends HTMLElement {
         
         this._handleKeyDown = this._handleKeyDown.bind(this);
         this._handleOverlayClick = this._handleOverlayClick.bind(this);
+        this._focusTrap = null;
+        this._previouslyFocused = null;
     }
     
     connectedCallback() {
@@ -200,14 +204,30 @@ export class ModalDialog extends HTMLElement {
         document.body.style.overflow = 'hidden';
         this.dispatchEvent(new CustomEvent('modal-open', { bubbles: true }));
         
-        // Focus the dialog for accessibility
+        // Store previously focused element
+        this._previouslyFocused = document.activeElement;
+        
+        // Create focus trap for the dialog
         const dialog = this.shadowRoot.querySelector('.dialog');
-        dialog.focus();
+        this._focusTrap = createFocusTrap(dialog);
+        this._focusTrap.activate();
     }
     
     _onClose() {
         document.body.style.overflow = '';
         this.dispatchEvent(new CustomEvent('modal-close', { bubbles: true }));
+        
+        // Deactivate focus trap
+        if (this._focusTrap) {
+            this._focusTrap.deactivate();
+            this._focusTrap = null;
+        }
+        
+        // Restore focus to previously focused element
+        if (this._previouslyFocused && typeof this._previouslyFocused.focus === 'function') {
+            this._previouslyFocused.focus();
+        }
+        this._previouslyFocused = null;
     }
     
     _handleKeyDown(e) {
