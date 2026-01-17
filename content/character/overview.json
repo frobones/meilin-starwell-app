@@ -35,9 +35,9 @@
     "secretFear": "The ledger page exists. If they know I'm carrying proof, they become targets too."
   },
   "secrets": {
-    "keeping": "The ledger page exists and I'm carrying it.",
-    "mystery": "Why does mindersand hit me so much harder than everyone else?",
-    "lastVoyage": "The night I left Bral, someone helped me disappear, and I don't know what they traded to make it happen."
+    "theSecret": "The ledger page exists and I'm carrying it. If the wrong people find out, everyone near me becomes leverage.",
+    "whyHidden": "Sharing the full truth makes my crewmates targets. Smith's Coster doesn't need to hurt me; they just need to hurt someone I care about.",
+    "ifRevealed": "Smith's Coster escalates. The crew has to decide if I'm worth the heat. My father and Sera become active targets instead of passive pressure."
   },
   "quickStats": {
     "knivesCount": 5,

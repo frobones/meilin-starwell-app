@@ -64,7 +64,8 @@
     <!-- Pages -->
     <link rel="stylesheet" href="css/pages/overview.css">
     <link rel="stylesheet" href="css/pages/rumors.css">
-    <link rel="stylesheet" href="css/pages/backstory.css">
+    <link rel="stylesheet" href="css/pages/novelette.css">
+    <link rel="stylesheet" href="css/pages/dmsummary.css">
     <link rel="stylesheet" href="css/pages/dmtools.css">
     <link rel="stylesheet" href="css/pages/medicine.css">
     <!-- Print Styles -->
@@ -103,21 +104,25 @@
                     <span class="nav-icon"><i data-lucide="user"></i></span>
                     <span class="nav-text">Character Overview</span>
                 </a>
-                <a href="#rumors" class="nav-link active" data-page="rumors">
-                    <span class="nav-icon"><i data-lucide="speech"></i></span>
-                    <span class="nav-text">Rumors</span>
-                </a>
-                <a href="#backstory" class="nav-link" data-page="backstory">
-                    <span class="nav-icon"><i data-lucide="book-open"></i></span>
-                    <span class="nav-text">Backstory</span>
+                <a href="#dmsummary" class="nav-link" data-page="dmsummary">
+                    <span class="nav-icon"><i data-lucide="clipboard-list"></i></span>
+                    <span class="nav-text">DM Summary</span>
                 </a>
                 <a href="#dmtools" class="nav-link" data-page="dmtools">
                     <span class="nav-icon"><i data-lucide="dices"></i></span>
                     <span class="nav-text">DM Tools</span>
                 </a>
+                <a href="#rumors" class="nav-link active" data-page="rumors">
+                    <span class="nav-icon"><i data-lucide="speech"></i></span>
+                    <span class="nav-text">Rumors</span>
+                </a>
                 <a href="#medicine" class="nav-link" data-page="medicine">
                     <span class="nav-icon"><i data-lucide="leaf"></i></span>
                     <span class="nav-text">Herbal Medicine</span>
+                </a>
+                <a href="#novelette" class="nav-link" data-page="novelette">
+                    <span class="nav-icon"><i data-lucide="book-open"></i></span>
+                    <span class="nav-text">Novelette</span>
                 </a>
             </nav>
             <div class="sidebar-footer">
@@ -185,9 +190,9 @@
                 <section class="aag-section aag-quicklinks">
                     <h2 class="aag-section-title">Explore More</h2>
                     <div class="aag-links-row">
-                        <a href="#backstory" class="aag-link-card" data-navigate="backstory">
+                        <a href="#novelette" class="aag-link-card" data-navigate="novelette">
                             <span class="aag-link-icon"><i data-lucide="book-open"></i></span>
-                            <span class="aag-link-title">Backstory</span>
+                            <span class="aag-link-title">Novelette</span>
                             <span class="aag-link-count" id="aag-chapters-count">12 chapters</span>
                             <span class="click-hint"><i data-lucide="info"></i></span>
                         </a>
@@ -516,30 +521,42 @@
                 </footer>
             </div>
 
-            <!-- Backstory Page -->
-            <div class="page" id="backstory-page">
+            <!-- DM Summary Page -->
+            <div class="page" id="dmsummary-page">
+                <header class="page-header">
+                    <h1 class="page-title">DM Quick Reference</h1>
+                    <p class="page-subtitle">Everything you need to run Meilin in 60 seconds</p>
+                </header>
+
+                <main class="dmsummary-content" id="dmsummary-content">
+                    <div class="loading-spinner">Loading summary...</div>
+                </main>
+            </div>
+
+            <!-- Novelette Page -->
+            <div class="page" id="novelette-page">
                 <header class="page-header page-header-hero" style="background-image: url('img/key_art.png');">
                     <div class="page-header-overlay">
-                        <h1 class="page-title">The Story of Meilin Starwell</h1>
+                        <h1 class="page-title">The Novelette of Meilin Starwell</h1>
                         <p class="page-subtitle">A dock-born apothecary who learned that cures are politics</p>
                     </div>
                 </header>
 
-                <!-- Backstory Content (Single Scrollable Page) -->
+                <!-- Novelette Content (Single Scrollable Page) -->
                 <main class="backstory-content">
-                    <!-- Backstory Chapters -->
+                    <!-- Novelette Chapters -->
                     <div class="backstory-enhanced" id="backstory-enhanced">
-                        <div class="loading-spinner">Loading backstory...</div>
+                        <div class="loading-spinner">Loading novelette...</div>
                     </div>
 
-                    <!-- Vignettes Section (After Backstory) -->
+                    <!-- Vignettes Section (After Novelette) -->
                     <section class="vignettes-section" id="vignettes-section">
                         <div class="section-divider">
-                            <span class="divider-text">After the Backstory</span>
+                            <span class="divider-text">After the Novelette</span>
                         </div>
                         <div class="vignettes-intro">
                             <h2 class="vignettes-title">Vignettes</h2>
-                            <p class="vignettes-note">These vignettes take place <strong>after</strong> Meilin's backstory, during her time at the Astral Bazaar. Each captures a small moment that reveals her skills, habits, and way of seeing the world.</p>
+                            <p class="vignettes-note">These vignettes take place <strong>after</strong> Meilin's novelette, during her time at the Astral Bazaar. Each captures a small moment that reveals her skills, habits, and way of seeing the world.</p>
                         </div>
                         <div class="vignettes-grid" id="vignettes-grid">
                             <div class="loading-spinner">Loading vignettes...</div>

@@ -1,0 +1,55 @@
+{
+  "title": "The Story in Brief",
+  "subtitle": "For DMs who need the context without the novel",
+  "readTime": "2 minutes",
+  "basics": {
+    "gender": "Female",
+    "age": 26,
+    "height": "5'0\"",
+    "weight": "94 lb",
+    "species": "Human",
+    "class": "Rogue",
+    "background": "Apothecary",
+    "alignment": "Neutral Good"
+  },
+  "sections": [
+    {
+      "heading": "Origins",
+      "icon": "anchor",
+      "text": "Meilin Starwell grew up on the docks of the Rock of Bral, raised by her father Kaito in a cramped apothecary wedged between honest trades and dishonest money. He taught her to read bodies the way other people read faces: a cough had patterns, a tremor had causes, and pain always told the truth even when people lied about it. She learned triage as a kind of mercy, compassion made efficient because the person in front of you needed your hands more than your feelings. Her older brother Cassian left early to 'see the stars,' chasing helm-adjacent work in the void. She kept every letter he sent, even when the details stopped making sense."
+    },
+    {
+      "heading": "The Poisoning",
+      "icon": "flask-conical",
+      "text": "One ordinary day at a tea stall, Meilin nearly died. Her throat closed, her lungs seized, and she hit the planks while the crowd watched. Her father saved her. The culprit wasn't malice; it was a pale powder called mindersand that had contaminated the tea through careless handling. Most people exposed to mindersand just fog quietly. Meilin's body tried to kill her. That violent reaction became both her vulnerability and her gift: she can taste what others miss."
+    },
+    {
+      "heading": "The Investigation",
+      "icon": "search",
+      "text": "Meilin traced the contamination backward. A tea stall led to a distributor. The distributor led to warehouse stamps. The stamps led to a pattern she'd already seen on a ship contract, where she'd found the same powder threaded through the crew's pepper supply. Every trail pointed to Smith's Coster, a respectable trading company quietly dosing half the docks with a substance designed to make people foggy, compliant, and easier to steer."
+    },
+    {
+      "heading": "The Theft",
+      "icon": "file-text",
+      "text": "Meilin tried to file a complaint. Smith's Coster responded with a job offer disguised as a leash. When she refused, they made her shop difficult to supply and her patients afraid to visit. So she stopped thinking like a complainant and started thinking like a surgeon. With help from a terrified warehouse clerk, she slipped into a Smith's Coster office and stole a single ledger page: lot marks, destinations, coded additives, and a marginal note as casual as cruelty: 'increase compliance.' Proof of intent."
+    },
+    {
+      "heading": "The Departure",
+      "icon": "ship",
+      "text": "Smith's Coster didn't explode. They went quiet, which was worse. Suppliers closed. Prices tripled. Patients came like shadows. Meilin understood the real danger: if she stayed, the pressure would land on her father, her patients, everyone nearby. So she took the one move that changed the battlefield. With help from Meredin Sandyfoot and Large Luigi, she boarded a ship and left Bral, carrying her father's notebook, her satchel, and a ledger page hidden flat where it wouldn't betray her."
+    },
+    {
+      "heading": "Now",
+      "icon": "compass",
+      "text": "Meilin is in the Astral Bazaar, taking quiet work at the edges and learning the mechanics of survival. Somewhere back on Bral, in a Smith's Coster ledger, there's a missing page. A gap. A warning. And now that warning has a heartbeat."
+    }
+  ],
+  "atAGlance": {
+    "origin": "Rock of Bral (docks)",
+    "currentLocation": "Astral Bazaar",
+    "occupation": "Ship's apothecary, contamination checker",
+    "carryingProof": "A stolen ledger page proving Smith's Coster's intent",
+    "weakness": "Violent reaction to mindersand exposure",
+    "anchor": "Her father Kaito, still running the shop on Bral"
+  }
+}

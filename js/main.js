@@ -19,7 +19,8 @@ import * as easterEggs from './core/easter-eggs.js';
 // Page controllers
 import * as rumorsPage from './pages/rumors.js';
 import * as overviewPage from './pages/overview.js';
-import * as backstoryPage from './pages/backstory.js';
+import * as novelettePage from './pages/novelette.js';
+import * as dmsummaryPage from './pages/dmsummary.js';
 import * as dmtoolsPage from './pages/dmtools.js';
 import * as medicinePage from './pages/medicine.js';
 import * as ingredientsPage from './pages/ingredients.js';
@@ -36,7 +37,7 @@ import { ModalDialog, MedicineCard, RumorCard, LightBox } from './components/ind
 const CONFIG = {
     STORAGE_KEY: 'meilin-backstory-unlocked',
     INVENTORY_STORAGE_KEY: 'meilin-inventory',
-    PROTECTED_PAGES: ['overview', 'backstory', 'dmtools'],
+    PROTECTED_PAGES: ['overview', 'dmsummary', 'novelette', 'dmtools'],
     DEFAULT_PAGE: 'rumors'
 };
 
@@ -133,11 +134,16 @@ function setupPageLoading() {
                     await overviewPage.loadOverview();
                 }
                 break;
-            case 'backstory':
-                if (!backstoryPage.getBackstoryData()) {
-                    await backstoryPage.loadBackstoryContent();
+            case 'dmsummary':
+                if (!dmsummaryPage.getDMSummaryData()) {
+                    await dmsummaryPage.loadDMSummary();
                 }
-                // Vignettes are on the backstory page
+                break;
+            case 'novelette':
+                if (!novelettePage.getNovelette()) {
+                    await novelettePage.loadNovelette();
+                }
+                // Vignettes are on the novelette page
                 if (!vignettesPage.getVignettes()?.length) {
                     await vignettesPage.loadVignettes();
                 }
@@ -215,7 +221,7 @@ if (document.readyState === 'loading') {
 export {
     store, events, dataLoader, icons, CONFIG,
     auth, navigation, ui, easterEggs,
-    rumorsPage, overviewPage, backstoryPage, dmtoolsPage, medicinePage,
+    rumorsPage, overviewPage, novelettePage, dmsummaryPage, dmtoolsPage, medicinePage,
     ingredientsPage, vignettesPage, rulesPage, craftPage,
     ModalDialog, MedicineCard, RumorCard, LightBox
 };

@@ -85,16 +85,16 @@ export function renderOverview() {
     if (secretsContainer) {
         secretsContainer.innerHTML = `
             <div class="aag-secret-card">
-                <div class="aag-secret-label">Keeping Hidden</div>
-                <div class="aag-secret-text">${data.secrets.keeping}</div>
+                <div class="aag-secret-label">The Secret</div>
+                <div class="aag-secret-text">${data.secrets.theSecret}</div>
             </div>
             <div class="aag-secret-card">
-                <div class="aag-secret-label">Mystery</div>
-                <div class="aag-secret-text">${data.secrets.mystery}</div>
+                <div class="aag-secret-label">Why I Hide It</div>
+                <div class="aag-secret-text">${data.secrets.whyHidden}</div>
             </div>
             <div class="aag-secret-card">
-                <div class="aag-secret-label">Last Voyage</div>
-                <div class="aag-secret-text">${data.secrets.lastVoyage}</div>
+                <div class="aag-secret-label">If Revealed</div>
+                <div class="aag-secret-text">${data.secrets.ifRevealed}</div>
             </div>
         `;
     }

@@ -1,0 +1,205 @@
+/* ============================================
+   DM Summary Page
+   A condensed backstory for quick DM reading
+   ============================================ */
+
+/* Main Content Container */
+.dmsummary-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--space-lg);
+}
+
+/* Basic Stats Bar */
+.dmsummary-basics {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+  padding: var(--space-md);
+  background: linear-gradient(135deg, var(--parchment-light) 0%, var(--parchment) 100%);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--parchment-dark);
+}
+
+.dmsummary-basic {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--ink-brown);
+  background: rgba(255, 255, 255, 0.5);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--parchment-aged);
+}
+
+/* Read Time Meta */
+.dmsummary-meta {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.dmsummary-readtime {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--gold-dim);
+  background: rgba(184, 134, 11, 0.1);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-sm);
+}
+
+.dmsummary-readtime svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Narrative Container */
+.dmsummary-narrative {
+  margin-bottom: var(--space-xl);
+}
+
+/* Individual Sections */
+.dmsummary-section {
+  margin-bottom: var(--space-lg);
+  padding: var(--space-lg);
+  background: linear-gradient(135deg, var(--parchment-light) 0%, var(--parchment) 100%);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--gold-accent);
+  box-shadow: 0 2px 8px var(--shadow);
+}
+
+.dmsummary-section:nth-child(odd) {
+  border-left-color: var(--herb-green);
+}
+
+.dmsummary-section:nth-child(even) {
+  border-left-color: var(--copper-accent);
+}
+
+.dmsummary-section-heading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--ink-brown);
+  margin: 0 0 var(--space-md) 0;
+}
+
+.dmsummary-section-icon {
+  color: var(--gold-accent);
+  display: flex;
+  align-items: center;
+}
+
+.dmsummary-section-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.dmsummary-section-text {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--ink-black);
+  margin: 0;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/* At a Glance Sidebar */
+.dmsummary-glance {
+  background: linear-gradient(135deg, rgba(139, 105, 20, 0.1), rgba(139, 105, 20, 0.05));
+  border: 1px solid var(--parchment-aged);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+}
+
+.dmsummary-glance-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--sepia);
+  margin: 0 0 var(--space-md) 0;
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--parchment-dark);
+}
+
+.dmsummary-glance-title svg {
+  width: 18px;
+  height: 18px;
+  color: var(--gold-accent);
+}
+
+.dmsummary-glance-list {
+  margin: 0;
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.dmsummary-glance-item {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: var(--space-sm);
+  align-items: baseline;
+  padding: var(--space-xs) 0;
+  border-bottom: 1px dashed var(--parchment-dark);
+}
+
+.dmsummary-glance-item:last-child {
+  border-bottom: none;
+}
+
+.dmsummary-glance-item dt {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--gold-dim);
+}
+
+.dmsummary-glance-item dd {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--ink-brown);
+  margin: 0;
+}
+
+/* Print Styles */
+@media print {
+  .dmsummary-content {
+    max-width: 100%;
+    padding: 0;
+  }
+  
+  .dmsummary-section,
+  .dmsummary-glance {
+    box-shadow: none;
+    border: 1px solid #ccc;
+    page-break-inside: avoid;
+  }
+  
+  .dmsummary-meta {
+    display: none;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .dmsummary-glance-item {
+    grid-template-columns: 1fr;
+    gap: var(--space-xs);
+  }
+  
+  .dmsummary-section-text {
+    text-align: left;
+  }
+}

@@ -15,8 +15,9 @@ import { canNavigateTo } from './auth.js';
 // Friendly page names for screen reader announcements
 const PAGE_NAMES = {
     'overview': 'Character Overview',
+    'dmsummary': 'DM Summary',
     'rumors': 'Rumors',
-    'backstory': 'Backstory',
+    'novelette': 'Novelette',
     'dmtools': 'DM Tools',
     'medicine': 'Herbal Medicine'
 };
@@ -112,7 +113,7 @@ export function bindDrawerEvents() {
  */
 export function handleHashChange() {
     const hash = window.location.hash.slice(1) || 'rumors';
-    const validPages = ['overview', 'medicine', 'backstory', 'dmtools', 'rumors'];
+    const validPages = ['overview', 'dmsummary', 'medicine', 'novelette', 'dmtools', 'rumors'];
     if (validPages.includes(hash)) {
         switchPage(hash, false);
     }
