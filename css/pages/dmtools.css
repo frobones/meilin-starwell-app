@@ -880,3 +880,1327 @@
     height: 22px;
   }
 }
+
+/* ============================================
+   Mindersand Reference Section
+   ============================================ */
+
+.mindersand-intro {
+  margin-bottom: var(--space-lg);
+}
+
+.mindersand-note {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.mindersand-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+/* Header Card */
+.mindersand-header {
+  background: linear-gradient(135deg, #2d1f14 0%, #1a1209 100%);
+  border-radius: 12px;
+  padding: var(--space-xl);
+  color: var(--parchment-light);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.mindersand-title-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.mindersand-icon {
+  font-size: 2.5rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.mindersand-name {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--gold-accent);
+  margin: 0;
+  letter-spacing: 0.05em;
+}
+
+.mindersand-pronunciation {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--gold-dim);
+  opacity: 0.8;
+}
+
+.mindersand-tagline {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--parchment-light);
+  margin-bottom: var(--space-md);
+  opacity: 0.9;
+}
+
+.mindersand-overview {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--parchment-aged);
+  margin: 0;
+}
+
+/* Standard Cards */
+.mindersand-card {
+  background: var(--parchment-light);
+  border: 1px solid var(--parchment-aged);
+  border-radius: 8px;
+  padding: var(--space-lg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.mindersand-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  color: var(--sepia);
+  margin: 0 0 var(--space-md) 0;
+  padding-bottom: var(--space-sm);
+  border-bottom: 2px solid var(--parchment-aged);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+/* Appearance Details */
+.mindersand-appearance {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.mindersand-detail {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--text-dark);
+}
+
+.mindersand-label {
+  font-weight: 600;
+  color: var(--ink-brown);
+  margin-right: var(--space-xs);
+}
+
+.mindersand-tell {
+  margin-top: var(--space-md);
+  padding: var(--space-md);
+  background: rgba(139, 90, 43, 0.1);
+  border-left: 3px solid var(--gold-accent);
+  border-radius: 0 6px 6px 0;
+}
+
+.mindersand-tell-text {
+  font-style: italic;
+  color: var(--sepia);
+}
+
+/* Disguises Grid */
+.mindersand-disguises-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-md);
+}
+
+.mindersand-disguise {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  background: var(--bg-cream);
+  border-radius: 6px;
+  border: 1px solid var(--parchment-dark);
+}
+
+.mindersand-disguise-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.mindersand-disguise strong {
+  display: block;
+  color: var(--sepia);
+  margin-bottom: 2px;
+}
+
+.mindersand-disguise p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* Effects Timeline */
+.mindersand-effects-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+/* Base stage card - mild severity */
+.mindersand-effect-stage {
+  padding: var(--space-md);
+  padding-left: var(--space-lg);
+  background: linear-gradient(135deg, rgba(122, 154, 90, 0.08) 0%, var(--bg-cream) 100%);
+  border-radius: 8px;
+  border: 1px solid rgba(122, 154, 90, 0.3);
+  border-left: 3px solid #7a9a5a;
+}
+
+/* Moderate severity - second stage */
+.mindersand-effect-stage:nth-child(2) {
+  background: linear-gradient(135deg, rgba(212, 160, 64, 0.12) 0%, var(--bg-cream) 100%);
+  border-color: rgba(212, 160, 64, 0.4);
+  border-left: 4px solid #d4a040;
+}
+
+/* Severe - last stage (most prominent) */
+.mindersand-effect-stage:last-child {
+  background: linear-gradient(135deg, rgba(204, 51, 51, 0.1) 0%, var(--bg-cream) 100%);
+  border-color: rgba(204, 51, 51, 0.4);
+  border-left: 5px solid #cc3333;
+  box-shadow: 0 2px 12px rgba(204, 51, 51, 0.15);
+}
+
+.mindersand-effect-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xs);
+}
+
+/* Icon colors match severity */
+.mindersand-effect-icon {
+  font-size: 1.1rem;
+  color: #7a9a5a;
+}
+
+.mindersand-effect-stage:nth-child(2) .mindersand-effect-icon {
+  color: #d4a040;
+  font-size: 1.15rem;
+}
+
+.mindersand-effect-stage:last-child .mindersand-effect-icon {
+  color: #cc3333;
+  font-size: 1.2rem;
+}
+
+/* Stage name styling with severity colors */
+.mindersand-effect-stage-name {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: #5a7a4a;
+}
+
+.mindersand-effect-stage:nth-child(2) .mindersand-effect-stage-name {
+  color: #a07820;
+}
+
+.mindersand-effect-stage:last-child .mindersand-effect-stage-name {
+  color: #b02828;
+  font-weight: 700;
+}
+
+.mindersand-effect-symptoms {
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Why It Works List */
+.mindersand-why-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mindersand-why-list li {
+  padding: var(--space-sm) 0;
+  padding-left: var(--space-lg);
+  position: relative;
+  border-bottom: 1px dashed var(--parchment-aged);
+  font-size: 0.95rem;
+  color: var(--text-dark);
+}
+
+.mindersand-why-list li:last-child {
+  border-bottom: none;
+}
+
+.mindersand-why-list li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  font-size: 0.9rem;
+  color: var(--gold-accent);
+}
+
+/* Motives Grid */
+.mindersand-coster-card {
+  background: linear-gradient(135deg, var(--parchment-light) 0%, #f5efe6 100%);
+  border: 2px solid var(--sepia);
+}
+
+.mindersand-targeting-note {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--sepia);
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+  background: rgba(139, 90, 43, 0.08);
+  border-left: 3px solid var(--gold-accent);
+  border-radius: 0 6px 6px 0;
+}
+
+.mindersand-motives-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-md);
+}
+
+.mindersand-motive {
+  padding: var(--space-md);
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 6px;
+  border-left: 3px solid var(--sepia);
+}
+
+.mindersand-motive strong {
+  display: block;
+  color: var(--sepia);
+  margin-bottom: var(--space-xs);
+  font-size: 0.95rem;
+}
+
+.mindersand-motive p {
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Distribution List */
+.mindersand-distribution-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mindersand-distribution-list li {
+  padding: var(--space-sm) 0;
+  padding-left: var(--space-lg);
+  position: relative;
+  border-bottom: 1px dashed var(--parchment-aged);
+  font-size: 0.95rem;
+  color: var(--text-dark);
+}
+
+.mindersand-distribution-list li:last-child {
+  border-bottom: none;
+}
+
+.mindersand-distribution-list li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  font-size: 0.9rem;
+  color: var(--primary-green, #5a7a5a);
+}
+
+/* Detection Grid */
+.mindersand-detection-card {
+  background: #f8faf8;
+  border: 1px solid #c5d5c5;
+}
+
+.mindersand-detection-grid {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.mindersand-detection-item {
+  padding: var(--space-md);
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 6px;
+  border: 1px solid #d5e5d5;
+}
+
+.mindersand-detection-label {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: #2d5a2d;
+  margin-bottom: var(--space-xs);
+}
+
+.mindersand-detection-item p {
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.mindersand-detection-warning {
+  background: rgba(204, 51, 51, 0.08);
+  border: 1px solid rgba(204, 51, 51, 0.2);
+}
+
+.mindersand-detection-warning .mindersand-detection-label {
+  color: #993333;
+}
+
+/* Adventure Hooks */
+.mindersand-hooks-card {
+  background: linear-gradient(135deg, #f9f6f0 0%, #f0ebe0 100%);
+}
+
+.mindersand-hooks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-md);
+}
+
+.mindersand-hook {
+  padding: var(--space-md);
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  border: 1px solid var(--parchment-aged);
+}
+
+.mindersand-hook-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.mindersand-hook-icon {
+  font-size: 1.3rem;
+}
+
+.mindersand-hook strong {
+  color: var(--sepia);
+  font-size: 0.95rem;
+}
+
+.mindersand-hook p {
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  margin: 0;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* ============================================
+   Medica Reference Section
+   ============================================ */
+
+.medica-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+/* Header Card */
+.medica-header {
+  background: linear-gradient(135deg, var(--herb-green-dark) 0%, #2d4a2d 100%);
+  border-radius: 12px;
+  padding: var(--space-xl);
+  color: var(--parchment-light);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.medica-title-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.medica-icon {
+  font-size: 2.5rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.medica-name {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--parchment-light);
+  margin: 0;
+  letter-spacing: 0.05em;
+}
+
+.medica-tagline {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--parchment-aged);
+  font-style: italic;
+  display: block;
+}
+
+.medica-overview {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--parchment-aged);
+  margin: 0;
+}
+
+/* Standard Cards */
+.medica-card {
+  background: var(--parchment-light);
+  border: 1px solid var(--parchment-aged);
+  border-radius: 8px;
+  padding: var(--space-lg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.medica-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  color: var(--herb-green-dark);
+  margin: 0 0 var(--space-md) 0;
+  padding-bottom: var(--space-sm);
+  border-bottom: 2px solid var(--herb-green);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.medica-card-intro {
+  font-size: 0.9rem;
+  color: var(--ink-faded);
+  font-style: italic;
+  margin-bottom: var(--space-md);
+}
+
+.medica-note {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--ink-faded);
+  margin-top: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  background: rgba(74, 93, 74, 0.08);
+  border-left: 3px solid var(--herb-green);
+  border-radius: 0 6px 6px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+}
+
+/* Joining Section */
+.medica-joining {
+  border-left: 4px solid var(--herb-green);
+}
+
+.medica-requirements-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--space-md) 0;
+}
+
+.medica-requirements-list li {
+  padding: var(--space-sm) 0;
+  padding-left: var(--space-lg);
+  position: relative;
+  border-bottom: 1px dashed var(--parchment-aged);
+  font-size: 0.95rem;
+  color: var(--ink-brown);
+}
+
+.medica-requirements-list li:last-child {
+  border-bottom: none;
+}
+
+.medica-requirements-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--herb-green);
+  font-weight: bold;
+}
+
+/* Rank Progression */
+.medica-ranks-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.medica-rank-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-md);
+  background: var(--parchment);
+  border: 2px solid var(--parchment-aged);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 100px;
+  flex: 1;
+}
+
+.medica-rank-card:hover {
+  border-color: var(--herb-green);
+  background: rgba(74, 93, 74, 0.08);
+}
+
+.medica-rank-card.active {
+  border-color: var(--herb-green);
+  background: var(--herb-green);
+  color: var(--parchment-light);
+}
+
+.medica-rank-card.active .medica-rank-name {
+  color: var(--parchment-light);
+}
+
+.medica-rank-icon {
+  font-size: 1.5rem;
+  margin-bottom: var(--space-xs);
+}
+
+.medica-rank-name {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--ink-brown);
+}
+
+/* Rank Details */
+.medica-rank-details {
+  background: rgba(74, 93, 74, 0.05);
+  border: 1px solid var(--parchment-aged);
+  border-radius: 8px;
+  padding: var(--space-lg);
+}
+
+.medica-rank-detail-content h5 {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  color: var(--herb-green-dark);
+  margin: 0 0 var(--space-md) 0;
+}
+
+.medica-rank-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+}
+
+.medica-rank-benefits h6,
+.medica-rank-requirements h6 {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  color: var(--sepia);
+  margin: 0 0 var(--space-sm) 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.medica-rank-benefits ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.medica-rank-benefits li {
+  padding: var(--space-xs) 0;
+  padding-left: var(--space-md);
+  position: relative;
+  font-size: 0.9rem;
+  color: var(--ink-brown);
+}
+
+.medica-rank-benefits li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--herb-green);
+}
+
+.medica-rank-requirements p {
+  margin: var(--space-xs) 0;
+  font-size: 0.9rem;
+  color: var(--ink-brown);
+}
+
+.medica-rank-note {
+  font-style: italic;
+  color: var(--ink-faded) !important;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-sm) !important;
+}
+
+/* Exam Section */
+.medica-exam-description {
+  margin-bottom: var(--space-md);
+  color: var(--ink-brown);
+}
+
+.medica-exam-process {
+  margin: 0 0 var(--space-md) var(--space-lg);
+  padding: 0;
+}
+
+.medica-exam-process li {
+  padding: var(--space-xs) 0;
+  font-size: 0.95rem;
+  color: var(--ink-brown);
+}
+
+/* Guild Merchant */
+.medica-merchant-banner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-lg);
+  margin-bottom: var(--space-lg);
+  background: linear-gradient(135deg, rgba(74, 93, 74, 0.12) 0%, rgba(74, 93, 74, 0.06) 100%);
+  border: 1px solid rgba(74, 93, 74, 0.2);
+  border-left: 4px solid var(--herb-green);
+  border-radius: 0 8px 8px 0;
+  font-size: 1rem;
+  color: var(--ink-brown);
+  line-height: 1.5;
+}
+
+.medica-merchant-banner svg {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: var(--herb-green);
+}
+
+.medica-divider {
+  border: none;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    var(--parchment-aged) 15%, 
+    var(--herb-green) 50%, 
+    var(--parchment-aged) 85%, 
+    transparent 100%
+  );
+  margin: var(--space-xl) 0;
+}
+
+.medica-section-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  color: var(--herb-green-dark);
+  margin: 0 0 var(--space-md) 0;
+  text-align: center;
+  justify-content: center;
+}
+
+.medica-section-title svg {
+  width: 22px;
+  height: 22px;
+  color: var(--herb-green);
+}
+
+.medica-merchant-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.medica-merchant-section {
+  padding: var(--space-md);
+  background: var(--parchment);
+  border-radius: 6px;
+  border: 1px solid var(--parchment-aged);
+}
+
+.medica-merchant-section h5 {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--herb-green-dark);
+  margin: 0 0 var(--space-sm) 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.medica-merchant-section p {
+  font-size: 0.9rem;
+  color: var(--ink-brown);
+  margin: var(--space-xs) 0;
+}
+
+.medica-stock-title,
+.medica-dc-title {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  color: var(--ink-faded);
+  margin: var(--space-md) 0 var(--space-sm) 0;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.medica-stock-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  justify-content: center;
+}
+
+.medica-stock-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--parchment);
+  border: 1px solid var(--parchment-aged);
+  border-radius: 6px;
+  width: 175px;
+}
+
+.medica-stock-rank {
+  font-size: 0.75rem;
+  color: var(--ink-faded);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.medica-stock-die {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--herb-green-dark);
+}
+
+/* Downtime Activities */
+.medica-downtime-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.medica-activity-card {
+  padding: var(--space-md);
+  background: var(--parchment);
+  border-radius: 8px;
+  border: 1px solid var(--parchment-aged);
+  border-top: 3px solid var(--herb-green);
+}
+
+.medica-activity-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.medica-activity-icon {
+  font-size: 1.3rem;
+  color: var(--herb-green);
+}
+
+.medica-activity-header h5 {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--ink-brown);
+  margin: 0;
+}
+
+.medica-activity-req {
+  font-size: 0.8rem;
+  color: var(--gold-accent);
+  margin: 0 0 var(--space-sm) 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.medica-activity-desc {
+  font-size: 0.9rem;
+  color: var(--ink-brown);
+  margin: 0 0 var(--space-sm) 0;
+}
+
+.medica-activity-benefit {
+  font-size: 0.85rem;
+  color: var(--herb-green-dark);
+  margin: 0;
+}
+
+.medica-activity-warn {
+  font-size: 0.8rem;
+  color: var(--gold-accent);
+  margin: var(--space-sm) 0 0 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.medica-activity-duration {
+  font-size: 0.8rem;
+  color: var(--ink-faded);
+  margin: var(--space-xs) 0 0 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+/* Complications */
+.medica-complications {
+  border: 1px solid var(--parchment-aged);
+  border-radius: 6px;
+  background: var(--parchment);
+}
+
+.medica-complications summary {
+  padding: var(--space-md);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--sepia);
+  cursor: pointer;
+  list-style: none;
+}
+
+.medica-complications summary::-webkit-details-marker {
+  display: none;
+}
+
+.medica-complications summary::before {
+  content: '▸ ';
+  transition: transform 0.2s ease;
+  display: inline-block;
+}
+
+.medica-complications[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.medica-complications-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.medica-complications-table th,
+.medica-complications-table td {
+  padding: var(--space-sm) var(--space-md);
+  text-align: left;
+  border-top: 1px solid var(--parchment-aged);
+}
+
+.medica-complications-table th {
+  background: var(--parchment-dark);
+  font-weight: 600;
+  color: var(--ink-brown);
+}
+
+.medica-complications-table td:first-child {
+  font-family: var(--font-mono);
+  width: 40px;
+  text-align: center;
+}
+
+/* Guild Work Section */
+.medica-guild-work-section {
+  margin-top: var(--space-lg);
+  padding-top: var(--space-lg);
+  border-top: 2px solid var(--parchment-aged);
+}
+
+.medica-guild-work-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  color: var(--ink-brown);
+  margin: 0 0 var(--space-sm) 0;
+}
+
+.medica-guild-work-title i {
+  font-size: 1.2rem;
+  color: var(--gold-accent);
+}
+
+.medica-guild-work-intro {
+  font-size: 0.95rem;
+  color: var(--ink-brown);
+  margin: var(--space-sm) 0 var(--space-md) 0;
+  line-height: 1.6;
+}
+
+.medica-guild-work-details {
+  padding: var(--space-md);
+  background: var(--parchment);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--parchment-aged);
+}
+
+.medica-guild-work-details p {
+  font-size: 0.9rem;
+  color: var(--ink-brown);
+  margin: 0 0 var(--space-md) 0;
+  line-height: 1.6;
+}
+
+.medica-guild-work-details p:last-of-type {
+  margin-bottom: 0;
+}
+
+.medica-guild-work-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  margin: var(--space-md) 0;
+  background: var(--parchment-light);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.medica-guild-work-table th,
+.medica-guild-work-table td {
+  padding: var(--space-sm) var(--space-md);
+  text-align: left;
+  border-bottom: 1px solid var(--parchment-aged);
+}
+
+.medica-guild-work-table th {
+  background: var(--parchment-dark);
+  font-weight: 600;
+  color: var(--ink-brown);
+}
+
+.medica-guild-work-table td:first-child {
+  font-weight: 600;
+  color: var(--herb-green-dark);
+  width: 100px;
+}
+
+.medica-guild-work-table tr:last-child td {
+  border-bottom: none;
+}
+
+.medica-guild-work-details .medica-complications-table {
+  margin: var(--space-md) 0;
+}
+
+.medica-complications-note {
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--ink-faded);
+  margin-top: var(--space-sm);
+}
+
+/* Craft Component Stocks */
+.medica-stocks-details {
+  margin-top: var(--space-md);
+  border: 1px solid var(--parchment-aged);
+  border-radius: var(--radius-md);
+  background: var(--parchment);
+  overflow: hidden;
+}
+
+.medica-stocks-details + .medica-stocks-details {
+  margin-top: var(--space-sm);
+}
+
+.medica-stocks-details summary {
+  padding: var(--space-md);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--ink-brown);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background: var(--parchment-light);
+  transition: background 0.2s ease;
+}
+
+.medica-stocks-details summary:hover {
+  background: var(--parchment-dark);
+}
+
+.medica-stocks-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.medica-stocks-details summary::before {
+  content: '▸';
+  transition: transform 0.2s ease;
+  display: inline-block;
+  font-size: 0.8em;
+  margin-right: var(--space-xs);
+}
+
+.medica-stocks-details[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.medica-stocks-details summary svg {
+  width: 18px;
+  height: 18px;
+  color: var(--herb-green);
+}
+
+.medica-stocks-content {
+  padding: var(--space-md);
+  background: var(--parchment);
+}
+
+.medica-stocks-category {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  color: var(--herb-green);
+  margin: 0 0 var(--space-sm) 0;
+  padding-bottom: var(--space-xs);
+  border-bottom: 1px solid var(--parchment-aged);
+}
+
+.medica-stocks-category:not(:first-child) {
+  margin-top: var(--space-lg);
+}
+
+.medica-stocks-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.medica-stocks-table thead {
+  background: var(--parchment-dark);
+}
+
+.medica-stocks-table th,
+.medica-stocks-table td {
+  padding: var(--space-xs) var(--space-sm);
+  text-align: left;
+  border-bottom: 1px solid var(--parchment-aged);
+}
+
+.medica-stocks-table th {
+  font-weight: 600;
+  color: var(--ink-brown);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.medica-stocks-table td:first-child {
+  color: var(--ink-brown);
+}
+
+.medica-stocks-table .medica-stock-score {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--herb-green);
+  width: 60px;
+}
+
+.medica-stocks-table .medica-stock-cost {
+  text-align: right;
+  font-family: var(--font-mono);
+  color: var(--gold-dark);
+  width: 100px;
+  white-space: nowrap;
+}
+
+.medica-stocks-table tbody tr:hover {
+  background: var(--parchment-light);
+}
+
+/* Finished Items */
+.medica-stocks-table .medica-strength {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--gold-dark);
+  width: 80px;
+  letter-spacing: 1px;
+}
+
+.medica-finished-table tbody tr:not(.variant-row) td:first-child {
+  font-weight: 500;
+  color: var(--ink-brown);
+}
+
+.medica-finished-table tbody tr.variant-row {
+  background: rgba(74, 93, 74, 0.03);
+}
+
+.medica-finished-table tbody tr.variant-row td {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border-bottom: none;
+}
+
+.medica-finished-table tbody tr.variant-row + tr:not(.variant-row) td {
+  border-top: 1px solid var(--parchment-aged);
+}
+
+.variant-note {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--ink-faded);
+}
+
+/* Medicine Categories */
+.medica-categories-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.medica-category-card {
+  flex: 0 0 calc(33.333% - var(--space-md));
+  min-width: 180px;
+  max-width: calc(33.333% - var(--space-md));
+  padding: var(--space-md);
+  background: var(--parchment);
+  border-radius: 6px;
+  border: 1px solid var(--parchment-aged);
+  border-left: 4px solid var(--herb-green);
+}
+
+.medica-category-card h5 {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--ink-brown);
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.medica-category-primary {
+  font-size: 0.85rem;
+  color: var(--ink-faded);
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.medica-category-desc {
+  font-size: 0.85rem;
+  color: var(--ink-brown);
+  margin: 0;
+}
+
+/* Crafting DCs */
+.medica-dc-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.medica-dc-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--parchment);
+  border: 1px solid var(--parchment-aged);
+  border-radius: 6px;
+  width: 175px;
+}
+
+.medica-dc-strength {
+  font-size: 0.85rem;
+  color: var(--gold-accent);
+}
+
+.medica-dc-value {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--ink-brown);
+}
+
+/* DM Tips */
+.medica-tips-card {
+  background: linear-gradient(135deg, var(--parchment-light) 0%, #f5f0e6 100%);
+  border: 2px solid var(--gold-accent);
+}
+
+.medica-tips-card .medica-card-title {
+  color: var(--gold-accent);
+  border-bottom-color: var(--gold-accent);
+}
+
+.medica-tips-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md);
+}
+
+@media (max-width: 1024px) {
+  .medica-tips-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .medica-tips-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.medica-tip {
+  padding: var(--space-md);
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 6px;
+  border-left: 3px solid var(--gold-accent);
+}
+
+.medica-tip h5 {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  color: var(--sepia);
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.medica-tip p {
+  font-size: 0.9rem;
+  color: var(--ink-brown);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Responsive - Medica */
+@media (max-width: 768px) {
+  .medica-rank-info-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .medica-ranks-grid {
+    justify-content: center;
+  }
+  
+  .medica-rank-card {
+    min-width: 80px;
+  }
+}

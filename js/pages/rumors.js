@@ -92,8 +92,9 @@ export function setupRumorHoverEffects() {
 
 /**
  * Crossfade to a new image with smooth transition
+ * Exported for use by easter eggs and other modules
  */
-function crossfadeToImage(newSrc, container) {
+export function crossfadeToImage(newSrc, container) {
     const state = galleryCrossfadeState;
     if (!state || !newSrc) return;
     
@@ -142,7 +143,7 @@ function crossfadeToImage(newSrc, container) {
                 // Clean up the entering class after transition completes
                 setTimeout(() => {
                     state.activeImage.classList.remove('rumors-gallery-image--entering');
-                }, 1400); // 0.5s delay + 0.8s transition + buffer
+                }, 1100); // 0.5s delay + 0.5s transition + buffer
             });
         });
     };
@@ -560,6 +561,12 @@ function setupRumorKeyboardNavigation() {
 export function getRumorsData() {
     return rumorsData;
 }
+
+// Listen for crossfade requests from other modules (e.g., easter eggs)
+events.on('rumor:crossfade', ({ src }) => {
+    const galleryContainer = document.getElementById('rumors-gallery-container');
+    crossfadeToImage(src, galleryContainer);
+});
 
 // Listen for page change events
 events.on('page:change', ({ page }) => {

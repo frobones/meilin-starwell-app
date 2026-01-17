@@ -257,8 +257,8 @@
   display: block;
   object-fit: cover;
   opacity: 1;
-  /* Fade duration for the "fade through black" effect */
-  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Fade duration for the "fade through black" effect (0.5s fade + 0.5s delay = 1s total) */
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: opacity;
   backface-visibility: hidden;
 }

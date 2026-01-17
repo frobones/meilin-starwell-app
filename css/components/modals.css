@@ -305,6 +305,424 @@
   font-style: italic;
 }
 
+/* Passkey Modal Extended */
+.passkey-input.error {
+  border-color: var(--blood-red);
+  animation: shake 0.3s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.passkey-cancel {
+  background: var(--parchment-dark);
+  border: 1px solid var(--parchment-aged);
+  color: var(--ink-faded);
+  padding: var(--space-sm) var(--space-lg);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.passkey-cancel:hover {
+  background: var(--parchment-aged);
+}
+
+.nav-link.locked::after {
+  content: '🔒';
+  font-size: 0.7em;
+  margin-left: var(--space-xs);
+  opacity: 0.7;
+}
+
+.nav-link.unlocked::after {
+  content: '🔓';
+  font-size: 0.7em;
+  margin-left: var(--space-xs);
+  opacity: 0.5;
+}
+
+/* ============================================
+   Flora Modal
+   ============================================ */
+
+.flora-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  padding: var(--space-lg);
+}
+
+.flora-modal-overlay.active {
+  opacity: 1;
+}
+
+.flora-modal-overlay.closing {
+  opacity: 0;
+}
+
+.flora-modal {
+  background: var(--parchment-light);
+  border-radius: 12px;
+  max-width: 500px;
+  width: 100%;
+  padding: var(--space-xl);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  position: relative;
+  transform: scale(0.9) translateY(20px);
+  transition: transform 0.2s ease;
+  border: 2px solid var(--herb-green);
+}
+
+.flora-modal-overlay.active .flora-modal {
+  transform: scale(1) translateY(0);
+}
+
+.flora-modal-overlay.closing .flora-modal {
+  transform: scale(0.9) translateY(20px);
+}
+
+.flora-modal-close {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: var(--ink-faded);
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.flora-modal-close:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: var(--ink-brown);
+}
+
+.flora-modal-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.flora-modal-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--herb-green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--parchment-light);
+  flex-shrink: 0;
+}
+
+.flora-modal-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.flora-modal-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--ink-brown);
+  margin: 0;
+}
+
+.flora-modal-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.flora-rarity {
+  display: inline-block;
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--herb-green);
+  color: var(--parchment-light);
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.flora-terrain {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--parchment);
+  color: var(--ink-faded);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  border: 1px solid var(--parchment-aged);
+}
+
+.flora-terrain svg {
+  width: 14px;
+  height: 14px;
+}
+
+.flora-dc {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--parchment);
+  color: var(--ink-faded);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  border: 1px solid var(--parchment-aged);
+}
+
+.flora-dc svg {
+  width: 14px;
+  height: 14px;
+}
+
+.flora-use {
+  margin-top: var(--space-sm);
+  padding: var(--space-sm);
+  background: var(--parchment);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: var(--ink-faded);
+  border-left: 3px solid var(--herb-green);
+}
+
+.flora-use strong {
+  color: var(--ink-brown);
+}
+
+.flora-modal-description {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--ink-brown);
+  margin: 0;
+  padding: var(--space-md);
+  background: var(--parchment);
+  border-radius: 8px;
+  border-left: 4px solid var(--herb-green);
+}
+
+/* ============================================
+   Creature Modal
+   ============================================ */
+
+.creature-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  padding: var(--space-lg);
+}
+
+.creature-modal-overlay.active {
+  opacity: 1;
+}
+
+.creature-modal-overlay.closing {
+  opacity: 0;
+}
+
+.creature-modal {
+  background: var(--parchment-light);
+  border-radius: 12px;
+  max-width: 500px;
+  width: 100%;
+  padding: var(--space-xl);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  position: relative;
+  transform: scale(0.9) translateY(20px);
+  transition: transform 0.2s ease;
+  border: 2px solid var(--creature-red);
+}
+
+.creature-modal-overlay.active .creature-modal {
+  transform: scale(1) translateY(0);
+}
+
+.creature-modal-overlay.closing .creature-modal {
+  transform: scale(0.9) translateY(20px);
+}
+
+.creature-modal-close {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: var(--ink-faded);
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.creature-modal-close:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: var(--ink-brown);
+}
+
+.creature-modal-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.creature-modal-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--creature-red);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--parchment-light);
+  flex-shrink: 0;
+}
+
+.creature-modal-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.creature-modal-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--ink-brown);
+  margin: 0;
+}
+
+.creature-modal-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.creature-type-badge {
+  display: inline-block;
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--creature-red);
+  color: var(--parchment-light);
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.creature-dc {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--parchment);
+  color: var(--ink-faded);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  border: 1px solid var(--parchment-aged);
+}
+
+.creature-dc svg {
+  width: 14px;
+  height: 14px;
+}
+
+.creature-modal-details {
+  background: var(--parchment);
+  border-radius: 8px;
+  border-left: 4px solid var(--creature-red);
+  padding: var(--space-md);
+}
+
+.creature-detail-row {
+  display: flex;
+  gap: var(--space-sm);
+  padding: var(--space-sm) 0;
+  border-bottom: 1px solid var(--parchment-aged);
+}
+
+.creature-detail-row:last-child {
+  border-bottom: none;
+}
+
+.creature-detail-label {
+  font-weight: 600;
+  color: var(--ink-faded);
+  min-width: 80px;
+  flex-shrink: 0;
+}
+
+.creature-detail-value {
+  color: var(--ink-brown);
+  font-family: var(--font-body);
+  line-height: 1.5;
+}
+
+.creature-detail-value abbr {
+  text-decoration: none;
+  border-bottom: none;
+  cursor: help;
+}
+
+.creature-clickable {
+  cursor: pointer;
+  color: var(--creature-red);
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 2px;
+  transition: all 0.2s ease;
+}
+
+.creature-clickable:hover {
+  color: #6a3535;
+  text-decoration-style: solid;
+}
+
 /* Responsive modal */
 @media (max-width: 768px) {
   .modal-content {

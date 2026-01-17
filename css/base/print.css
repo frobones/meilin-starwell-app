@@ -1,0 +1,32 @@
+/* ============================================
+   Print Styles
+   ============================================ */
+
+@media print {
+  .sidebar,
+  .search-section,
+  .tab-nav,
+  .sub-tab-nav,
+  .modal-overlay {
+    display: none !important;
+  }
+  
+  .app-layout {
+    display: block;
+  }
+  
+  .main-area {
+    margin-left: 0;
+  }
+  
+  .page-container {
+    background: white;
+    max-width: none;
+  }
+  
+  .medicine-card,
+  .vignette-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}

@@ -9,6 +9,8 @@
 @import url('./base/variables.css');
 @import url('./base/reset.css');
 @import url('./base/typography.css');
+@import url('./base/utilities.css');
+@import url('./base/print.css');
 
 /* Layout */
 @import url('./layout/app-layout.css');
@@ -31,6 +33,3 @@
 @import url('./pages/backstory.css');
 @import url('./pages/dmtools.css');
 @import url('./pages/medicine.css');
-
-/* Legacy styles - unique sections not yet fully migrated to modular files */
-@import url('./legacy.css');

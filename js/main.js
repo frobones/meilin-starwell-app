@@ -13,6 +13,7 @@ import { icons } from './core/icons.js';
 import * as auth from './core/auth.js';
 import * as navigation from './core/navigation.js';
 import * as ui from './core/ui.js';
+import * as easterEggs from './core/easter-eggs.js';
 
 // Page controllers
 import * as rumorsPage from './pages/rumors.js';
@@ -189,6 +190,9 @@ async function init() {
         // Initialize icons
         icons.init();
         
+        // Initialize easter eggs
+        easterEggs.initEasterEggs();
+        
         // Handle initial page from URL hash
         navigation.handleHashChange();
         
@@ -210,7 +214,7 @@ if (document.readyState === 'loading') {
 // Export for debugging and external access
 export {
     store, events, dataLoader, icons, CONFIG,
-    auth, navigation, ui,
+    auth, navigation, ui, easterEggs,
     rumorsPage, overviewPage, backstoryPage, dmtoolsPage, medicinePage,
     ingredientsPage, vignettesPage, rulesPage, craftPage,
     ModalDialog, MedicineCard, RumorCard, LightBox
