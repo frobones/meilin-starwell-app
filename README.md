@@ -92,7 +92,6 @@ meilin-starwell-app/
 ├── 404.html                # Custom 404 page for GitHub Pages
 ├── README.md
 ├── css/
-│   ├── main.css            # CSS entry point (reference only)
 │   ├── base/
 │   │   ├── variables.css   # CSS custom properties
 │   │   ├── reset.css       # Base reset and root styles
@@ -111,7 +110,8 @@ meilin-starwell-app/
 │   │   ├── forms.css       # Form elements
 │   │   ├── tables.css      # Data tables
 │   │   ├── rules.css       # Rules reference styling
-│   │   └── footer.css      # Footer styling
+│   │   ├── footer.css      # Footer styling
+│   │   └── notifications.css # Toast notifications
 │   └── pages/
 │       ├── overview.css    # Character overview page
 │       ├── rumors.css      # Rumors page with gallery
@@ -123,6 +123,7 @@ meilin-starwell-app/
 │   ├── core/
 │   │   ├── auth.js         # Simple authentication
 │   │   ├── data-loader.js  # JSON/Markdown loading utilities
+│   │   ├── debug.js        # Debug logging utility
 │   │   ├── easter-eggs.js  # Hidden features
 │   │   ├── events.js       # Event bus system
 │   │   ├── focus-trap.js   # Modal focus management
