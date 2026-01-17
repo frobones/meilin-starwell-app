@@ -9,6 +9,35 @@ import { icons } from './icons.js';
 import { canNavigateTo } from './auth.js';
 
 // ============================================
+// Screen Reader Announcements
+// ============================================
+
+// Friendly page names for screen reader announcements
+const PAGE_NAMES = {
+    'overview': 'Character Overview',
+    'rumors': 'Rumors',
+    'backstory': 'Backstory',
+    'dmtools': 'DM Tools',
+    'medicine': 'Herbal Medicine'
+};
+
+/**
+ * Announce a message to screen readers via aria-live region
+ * @param {string} message - The message to announce
+ */
+function announce(message) {
+    const el = document.getElementById('sr-announcements');
+    if (el) {
+        // Clear first to ensure repeated announcements are read
+        el.textContent = '';
+        // Use setTimeout to ensure the clear registers before new content
+        setTimeout(() => {
+            el.textContent = message;
+        }, 50);
+    }
+}
+
+// ============================================
 // Mobile Drawer
 // ============================================
 
@@ -120,6 +149,10 @@ export function switchPage(pageName, updateHash = true) {
     
     // Emit page change event for lazy loading
     events.emit('page:change', { page: pageName });
+    
+    // Announce page change to screen readers
+    const friendlyName = PAGE_NAMES[pageName] || pageName;
+    announce(`Navigated to ${friendlyName}`);
     
     // Refresh icons
     icons.refresh();

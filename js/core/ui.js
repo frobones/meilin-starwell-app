@@ -165,8 +165,130 @@ function bindModalCloseEvents(overlayId, closeButtonId) {
     }
 }
 
+// ============================================
+// Notification System
+// ============================================
+
+// Icon mapping for notification types
+const NOTIFICATION_ICONS = {
+    error: 'triangle-alert',
+    warning: 'alert-circle',
+    success: 'check-circle',
+    info: 'info'
+};
+
+// Track active toast timeouts
+const toastTimeouts = new Map();
+
 /**
- * Show an error message in the medicine grid
+ * Show a notification message
+ * @param {string} message - The message to display
+ * @param {Object} options - Configuration options
+ * @param {string} options.type - Notification type: 'error' | 'warning' | 'success' | 'info'
+ * @param {string} options.containerId - Optional container ID for inline notifications
+ * @param {number} options.duration - Auto-dismiss duration in ms (0 = no auto-dismiss)
+ */
+export function showNotification(message, options = {}) {
+    const {
+        type = 'info',
+        containerId = null,
+        duration = 5000
+    } = options;
+    
+    const icon = NOTIFICATION_ICONS[type] || NOTIFICATION_ICONS.info;
+    
+    // If container specified, show inline notification
+    if (containerId) {
+        const container = document.getElementById(containerId);
+        if (container) {
+            container.innerHTML = `
+                <div class="notification notification--${type}">
+                    <span class="notification__icon"><i data-lucide="${icon}"></i></span>
+                    <span class="notification__message">${message}</span>
+                </div>
+            `;
+            // Refresh icons
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+        return;
+    }
+    
+    // Otherwise, show toast notification
+    showToast(message, type, icon, duration);
+}
+
+/**
+ * Show a toast notification (floating, auto-dismissing)
+ */
+function showToast(message, type, icon, duration) {
+    // Get or create toast container
+    let container = document.getElementById('toast-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'toast-container';
+        container.className = 'toast-container';
+        container.setAttribute('aria-live', 'polite');
+        container.setAttribute('aria-atomic', 'true');
+        document.body.appendChild(container);
+    }
+    
+    // Create toast element
+    const toast = document.createElement('div');
+    toast.className = `toast toast--${type}`;
+    toast.innerHTML = `
+        <span class="toast__icon"><i data-lucide="${icon}"></i></span>
+        <span class="toast__message">${message}</span>
+        <button class="toast__close" aria-label="Dismiss">&times;</button>
+    `;
+    
+    // Add to container
+    container.appendChild(toast);
+    
+    // Refresh icons
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+    
+    // Trigger entrance animation
+    requestAnimationFrame(() => {
+        toast.classList.add('toast--visible');
+    });
+    
+    // Close button handler
+    const closeBtn = toast.querySelector('.toast__close');
+    closeBtn.addEventListener('click', () => dismissToast(toast));
+    
+    // Auto-dismiss if duration > 0
+    if (duration > 0) {
+        const timeoutId = setTimeout(() => dismissToast(toast), duration);
+        toastTimeouts.set(toast, timeoutId);
+    }
+}
+
+/**
+ * Dismiss a toast notification
+ */
+function dismissToast(toast) {
+    // Clear any pending timeout
+    if (toastTimeouts.has(toast)) {
+        clearTimeout(toastTimeouts.get(toast));
+        toastTimeouts.delete(toast);
+    }
+    
+    // Animate out
+    toast.classList.remove('toast--visible');
+    toast.classList.add('toast--exiting');
+    
+    // Remove from DOM after animation
+    setTimeout(() => {
+        toast.remove();
+    }, 300);
+}
+
+/**
+ * Show an error message in the medicine grid (legacy, for backwards compatibility)
  */
 export function showError(message) {
     const grid = document.getElementById('medicine-grid');

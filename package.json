@@ -1,0 +1,11 @@
+{
+  "name": "meilin-starwell-app",
+  "version": "1.0.0",
+  "description": "Character companion app for Meilin Starwell",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build.js",
+    "dev": "npx serve -p 3000"
+  },
+  "devDependencies": {}
+}
