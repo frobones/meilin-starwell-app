@@ -11,12 +11,6 @@
 
 ---
 
-**Skill Spotlight:** Persuasion
-
-Meilin talks a sailor down by naming consequences and next steps, not by moralizing. She treats de-escalation like triage: identify the real hazard, give simple instructions, and make procedure more attractive than violence.
-
----
-
 The first time Meilin talks a sailor out of making things worse, she doesn't feel proud.
 
 She feels tired.

@@ -48,7 +48,7 @@
   padding: var(--space-xl) var(--space-lg);
   max-width: 1400px;
   margin: 0 auto;
-  align-items: start;
+  align-items: stretch;
 }
 
 /* Rumors Sidebar */
@@ -229,8 +229,8 @@
 
 /* Character Gallery */
 .rumors-gallery {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: 1fr;
   gap: var(--space-lg);
 }
 
@@ -253,9 +253,10 @@
 /* Crossfade image setup - both images stacked */
 .rumors-gallery-single .rumors-gallery-image {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
   object-fit: cover;
+  object-position: center top;
   opacity: 1;
   /* Fade duration for the "fade through black" effect (0.5s fade + 0.5s delay = 1s total) */
   transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -268,6 +269,8 @@
   position: absolute;
   top: 0;
   left: 0;
+  right: 0;
+  bottom: 0;
   height: 100%;
 }
 
@@ -440,6 +443,7 @@
   .rumors-layout {
     grid-template-columns: 1fr;
     padding: var(--space-lg);
+    align-items: start; /* Reset to natural sizing for stacked layout */
   }
   
   .rumors-sidebar {
@@ -448,6 +452,16 @@
   
   .rumors-gallery {
     order: 1;
+    display: block; /* Reset from grid to allow natural sizing */
+  }
+  
+  .rumors-gallery-single {
+    max-height: 500px;
+  }
+  
+  .rumors-gallery-single .rumors-gallery-image {
+    height: auto;
+    max-height: 500px;
   }
   
   .rumors-details-grid {

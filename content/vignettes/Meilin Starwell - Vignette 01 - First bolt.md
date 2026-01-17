@@ -11,12 +11,6 @@
 
 ---
 
-**Skill Spotlight:** Hand Crossbow
-
-Meilin reads Oona's trembling hands, catalogs the threat's body language like a triage assessment, and fires with control when violence becomes unavoidable. This is where she learns to treat a weapon like a tool: precise, reluctant, and never for spectacle.
-
----
-
 The Bazaar had a way of teaching you the difference between *danger* and *inconvenience*.
 
 Danger moved quietly.

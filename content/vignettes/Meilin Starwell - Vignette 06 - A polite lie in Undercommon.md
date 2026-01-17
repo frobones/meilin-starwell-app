@@ -11,12 +11,6 @@
 
 ---
 
-**Skill Spotlight:** Deception, Undercommon
-
-Meilin uses a plausible, controlled lie as leverage: not big, not dramatic, just enough to steer a decision. Speaking Undercommon signals she isn't a soft mark; she treats the language as a tool, not a trophy.
-
----
-
 There is a kind of shop in the Astral Bazaar that never puts its name on a sign.
 
 It sells "hinges." It sells "chalk." It sells "repair kits" in sealed tins that weigh too much for what they claim to be.

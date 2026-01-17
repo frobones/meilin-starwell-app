@@ -65,7 +65,7 @@ export function unlock() {
     store.set('appUnlocked', true);
     localStorage.setItem(CONFIG.STORAGE_KEY, 'true');
     events.emit('auth:unlocked');
-    showNotification('Access granted. Welcome to the full companion.', { type: 'success' });
+    showNotification('Right passkey. You get the unredacted version. Don\'t skim.', { type: 'success' });
 }
 
 /**

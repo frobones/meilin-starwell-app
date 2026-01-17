@@ -9,7 +9,6 @@ import { icons } from '../core/icons.js';
 
 // Private state
 let backstoryContent = null;
-let vignettesData = null;
 
 // Chapter configuration
 const SECTIONS = [
@@ -46,10 +45,7 @@ const CHAPTER_FILES = [
  * Load all backstory content
  */
 export async function loadBackstoryContent() {
-    await Promise.all([
-        loadEnhancedBackstory(),
-        loadVignettes()
-    ]);
+    await loadEnhancedBackstory();
     events.emit('backstory:loaded');
 }
 
@@ -219,69 +215,10 @@ export async function loadChapterContent(chapterIndex, container) {
 }
 
 /**
- * Load vignettes data
- */
-export async function loadVignettes() {
-    try {
-        vignettesData = await dataLoader.loadJSON('content/vignettes/vignettes.json');
-        renderVignettes();
-    } catch (error) {
-        console.error('Failed to load vignettes:', error);
-    }
-}
-
-/**
- * Render vignettes grid
- */
-export function renderVignettes() {
-    const container = document.getElementById('vignettes-grid');
-    if (!container || !vignettesData) return;
-    
-    container.innerHTML = vignettesData.vignettes.map((vignette, index) => `
-        <div class="vignette-card" data-vignette-index="${index}">
-            <div class="vignette-number">Vignette ${String(index + 1).padStart(2, '0')}</div>
-            <h3 class="vignette-title">${vignette.title}</h3>
-            ${vignette.skills ? `
-                <div class="vignette-skills">
-                    ${vignette.skills.map(skill => `<span class="vignette-skill-tag">${skill}</span>`).join('')}
-                </div>
-            ` : ''}
-            <p class="vignette-preview">${vignette.preview || vignette.opening}</p>
-            <span class="vignette-read-more">Read more →</span>
-        </div>
-    `).join('');
-    
-    bindVignetteEvents();
-    icons.refresh();
-}
-
-/**
- * Bind vignette card click events
- */
-export function bindVignetteEvents() {
-    document.querySelectorAll('.vignette-card').forEach(card => {
-        card.addEventListener('click', () => {
-            const index = parseInt(card.dataset.vignetteIndex);
-            const vignette = vignettesData.vignettes[index];
-            if (vignette) {
-                events.emit('vignette:open', vignette);
-            }
-        });
-    });
-}
-
-/**
  * Get backstory data
  */
 export function getBackstoryContent() {
     return backstoryContent;
-}
-
-/**
- * Get vignettes data
- */
-export function getVignettesData() {
-    return vignettesData;
 }
 
 // Listen for page change events

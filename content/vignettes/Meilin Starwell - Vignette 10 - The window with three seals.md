@@ -9,12 +9,6 @@
 
 ---
 
-**Skill Spotlight:** History
-
-Meilin demonstrates that "history" is practical institutional memory. She applies her knowledge of Bral's dock scandals and procedural changes to recognize a con being run in the Astral Bazaar, proving that understanding how power uses paperwork is a transferable skill.
-
----
-
 The Astral Bazaar doesn't smell like Bral.
 
 That's the first thing Meilin noticed when she arrived, and it's still the thing she notices most. No salt-rot in the planks. No tar under everything. The air here tastes like incense and ozone and the faint copper of a dozen species breathing in the same enclosed space.

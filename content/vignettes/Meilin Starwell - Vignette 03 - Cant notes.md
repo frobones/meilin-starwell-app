@@ -11,12 +11,6 @@
 
 ---
 
-**Skill Spotlight:** Thieves' Cant
-
-Meilin learns the Bazaar's under-language by treating it like symptoms: repeated phrases, chalk marks, pauses that don't match the words. She keeps one ethics note attached: don't use the language to spend innocents.
-
----
-
 The Bazaar was loud in the way oceans were loud.
 
 Not a single noise. An ecosystem of them.

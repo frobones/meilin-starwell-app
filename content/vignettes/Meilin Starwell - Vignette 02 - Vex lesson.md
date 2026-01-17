@@ -11,12 +11,6 @@
 
 ---
 
-**Skill Spotlight:** Weapon Mastery (Vex), Sneak Attack
-
-Theo drills Meilin until the crossbow becomes procedure, not performance. She learns to strike when attention is split: exploit the flinch, hit when the target is already compromised. This is where Sneak Attack stops being a mechanic and becomes a philosophy.
-
----
-
 Theo Lockwell didn’t call it training.
 
 They called it **repetition**.

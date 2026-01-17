@@ -9,12 +9,6 @@
 
 ---
 
-**Skill Spotlight:** Sleight of Hand
-
-Meilin treats sleight of hand like a tourniquet: not for show, for control. She pickpockets a pickpocket to restore stolen goods without making a scene. Calm, boring, and timed to someone else's impatience.
-
----
-
 Meilin doesn't like stealing.
 
 She likes sleight of hand the way she likes a tourniquet. Not for show. For control. For the moment when a situation starts bleeding attention.
