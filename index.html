@@ -18,6 +18,16 @@
     <meta name="twitter:description" content="Character companion app for Meilin Starwell, a dockside apothecary in Spelljammer.">
     <meta name="twitter:image" content="img/key_art.png">
     
+    <!-- Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self';">
+    
+    <!-- Favicon (prevents 404 on GitHub Pages) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧪</text></svg>">
+    
+    <!-- Preload Critical Images -->
+    <link rel="preload" href="img/key_art.png" as="image">
+    <link rel="preload" href="img/portrait.png" as="image">
+    
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,7 +39,7 @@
     
     <!-- Lucide Icons (pinned version) -->
     <!-- TODO: Add SRI integrity hash via build script: https://www.srihash.org/ -->
-    <script src="https://unpkg.com/lucide@0.562.0/dist/umd/lucide.min.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/lucide@0.562.0/dist/umd/lucide.min.js" crossorigin="anonymous" defer></script>
     
     <!-- Styles (Modular CSS - loaded in parallel for performance) -->
     <!-- Base Styles -->
@@ -62,6 +72,9 @@
 <body>
     <!-- Skip Link for Keyboard Navigation -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Screen Reader Announcements -->
+    <div id="sr-announcements" class="sr-only" aria-live="polite" aria-atomic="true"></div>
     
     <!-- Mobile Header (visible on small screens) -->
     <header class="mobile-header" id="mobile-header">
@@ -746,41 +759,9 @@
 
     <!-- Markdown Parser (pinned version) -->
     <!-- TODO: Add SRI integrity hash via build script: https://www.srihash.org/ -->
-    <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js" crossorigin="anonymous" defer></script>
     
     <!-- ES Module Application -->
     <script type="module" src="js/main.js"></script>
-    
-    <!-- Mobile Drawer Fallback (inline for immediate availability) -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const hamburgerBtn = document.getElementById('hamburger-btn');
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('drawer-overlay');
-            
-            if (hamburgerBtn && sidebar) {
-                hamburgerBtn.addEventListener('click', function() {
-                    const isOpen = sidebar.classList.contains('open');
-                    if (isOpen) {
-                        sidebar.classList.remove('open');
-                        if (overlay) overlay.classList.remove('active');
-                        document.body.style.overflow = '';
-                    } else {
-                        sidebar.classList.add('open');
-                        if (overlay) overlay.classList.add('active');
-                        document.body.style.overflow = 'hidden';
-                    }
-                });
-                
-                if (overlay) {
-                    overlay.addEventListener('click', function() {
-                        sidebar.classList.remove('open');
-                        overlay.classList.remove('active');
-                        document.body.style.overflow = '';
-                    });
-                }
-            }
-        });
-    </script>
 </body>
 </html>

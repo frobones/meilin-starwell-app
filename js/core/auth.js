@@ -178,4 +178,3 @@ events.on('passkey:required', () => {
     showPasskeyModal();
 });
 
-export { CONFIG };

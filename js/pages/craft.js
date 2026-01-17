@@ -6,6 +6,7 @@
 import { store } from '../core/state.js';
 import { events } from '../core/events.js';
 import { icons } from '../core/icons.js';
+import { debug } from '../core/debug.js';
 
 // Private state
 const INVENTORY_STORAGE_KEY = 'meilin-inventory';
@@ -155,7 +156,7 @@ function loadInventory() {
             ingredientInventory = JSON.parse(stored);
         }
     } catch (e) {
-        console.warn('Failed to load inventory from localStorage:', e);
+        debug.warn('Failed to load inventory from localStorage:', e);
         ingredientInventory = {};
     }
 }
@@ -167,7 +168,7 @@ function saveInventory() {
     try {
         localStorage.setItem(INVENTORY_STORAGE_KEY, JSON.stringify(ingredientInventory));
     } catch (e) {
-        console.warn('Failed to save inventory to localStorage:', e);
+        debug.warn('Failed to save inventory to localStorage:', e);
     }
 }
 
@@ -1200,7 +1201,7 @@ function importInventory(file) {
             }
         } catch (err) {
             alert('Failed to import inventory: Invalid file format');
-            console.error('Import error:', err);
+            debug.error('Import error:', err);
         }
     };
     reader.readAsText(file);
