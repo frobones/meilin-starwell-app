@@ -4,6 +4,7 @@
  */
 
 import { events } from './events.js';
+import { debug } from './debug.js';
 
 // Konami Code sequence
 const KONAMI_CODE = [
@@ -88,7 +89,7 @@ function playSparkleSound() {
         
     } catch (e) {
         // Silently fail if Web Audio API is not available
-        console.log('Audio not available:', e.message);
+        debug.log('Audio not available:', e.message);
     }
 }
 
@@ -182,7 +183,7 @@ function addSecretRumor() {
  * Trigger the Konami Code easter egg
  */
 function triggerKonamiEasterEgg() {
-    console.log('🎮 Konami Code activated!');
+    debug.log('🎮 Konami Code activated!');
     
     // Sound effect
     playSparkleSound();

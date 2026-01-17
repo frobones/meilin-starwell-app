@@ -10,6 +10,12 @@ A static web app serving as a complete character reference for the Meilin Starwe
 - Character drives, boundaries, and party dynamics
 - Tiered secrets (player-known, DM-only, deep lore)
 
+### Rumors (Player-Facing)
+
+- Interactive rumor mill with hover-to-reveal effects
+- Character gallery with crossfading images
+- Character turnaround with interactive hotspots
+
 ### Backstory
 
 - Full narrative backstory with chapter navigation
@@ -20,13 +26,14 @@ A static web app serving as a complete character reference for the Meilin Starwe
 
 - **Knives**: Plot hooks and pressure points for dramatic tension
 - **Relationships**: NPCs, factions, and connection details
-- **Locations**: Key setting information (Mindersand, etc.)
+- **Locations**: Key setting information (Mindersand, Medica)
 
 ### Herbal Medicine
 
 - Medicine lookup with search and category filters
 - Recipe cards with effects, duration, DC, and components
 - Ingredient reference organized by terrain type
+- Interactive crafting system with inventory management
 - Collapsible crafting and gathering rules
 
 ## Usage
@@ -56,27 +63,101 @@ npx serve
 
 ```text
 meilin-starwell-app/
-├── index.html
+├── index.html              # Single-page application entry point
+├── 404.html                # Custom 404 page for GitHub Pages
+├── README.md
 ├── css/
-│   └── style.css
+│   ├── main.css            # CSS entry point (reference only)
+│   ├── base/
+│   │   ├── variables.css   # CSS custom properties
+│   │   ├── reset.css       # Base reset and root styles
+│   │   ├── typography.css  # Text styling
+│   │   ├── utilities.css   # Utility classes
+│   │   └── print.css       # Print-specific styles
+│   ├── layout/
+│   │   ├── app-layout.css  # Main app grid/flexbox layout
+│   │   ├── sidebar.css     # Navigation sidebar
+│   │   └── header.css      # Page headers
+│   ├── components/
+│   │   ├── modals.css      # Modal dialogs
+│   │   ├── lightbox.css    # Image lightbox
+│   │   ├── cards.css       # Card components
+│   │   ├── tabs.css        # Tab navigation
+│   │   ├── forms.css       # Form elements
+│   │   ├── tables.css      # Data tables
+│   │   ├── rules.css       # Rules reference styling
+│   │   └── footer.css      # Footer styling
+│   └── pages/
+│       ├── overview.css    # Character overview page
+│       ├── rumors.css      # Rumors page with gallery
+│       ├── backstory.css   # Backstory reader
+│       ├── dmtools.css     # DM tools page
+│       └── medicine.css    # Herbal medicine system
 ├── js/
-│   ├── app.js
+│   ├── main.js             # Application entry point
+│   ├── core/
+│   │   ├── auth.js         # Simple authentication
+│   │   ├── data-loader.js  # JSON/Markdown loading utilities
+│   │   ├── easter-eggs.js  # Hidden features
+│   │   ├── events.js       # Event bus system
+│   │   ├── focus-trap.js   # Modal focus management
+│   │   ├── icons.js        # Lucide icon initialization
+│   │   ├── navigation.js   # Page routing
+│   │   ├── state.js        # Reactive state management
+│   │   ├── templates.js    # HTML template utilities
+│   │   └── ui.js           # UI utilities
+│   ├── components/
+│   │   ├── index.js        # Web component registration
+│   │   ├── lightbox.js     # Lightbox component
+│   │   ├── medicine-card.js
+│   │   ├── modal-dialog.js
+│   │   └── rumor-card.js
+│   ├── pages/
+│   │   ├── backstory.js
+│   │   ├── craft.js        # Crafting system
+│   │   ├── dmtools.js
+│   │   ├── ingredients.js
+│   │   ├── medicine.js
+│   │   ├── overview.js
+│   │   ├── potionrules.js
+│   │   ├── rumors.js
+│   │   └── vignettes.js
 │   └── data/
 │       ├── medicines.json
 │       └── ingredients.json
 ├── content/
 │   ├── backstory/
 │   │   ├── backstory.md
-│   │   └── stages/          # 12 life stage chapters
+│   │   └── stages/         # 12 life stage chapters
 │   ├── character/
-│   │   └── overview.json    # Core character data
+│   │   └── overview.json   # Core character data
 │   ├── dm/
-│   │   ├── knives.json      # Plot hooks
+│   │   ├── knives.json     # Plot hooks
 │   │   ├── relationships.json
-│   │   └── mindersand.json  # Location data
-│   └── vignettes/           # 10 character vignettes
-└── README.md
+│   │   ├── mindersand.json # Location data
+│   │   └── medica.json     # Location data
+│   ├── rumors.json
+│   └── vignettes/          # 10 character vignettes
+└── img/
+    ├── banner.png
+    ├── headshot.png
+    ├── key_art.png
+    ├── portrait.png
+    ├── scene.png
+    ├── turnaround.png
+    └── rumor_*.png         # 9 rumor scene images
 ```
+
+## Architecture
+
+The app uses a modular ES6 architecture with:
+
+- **Event Bus**: Pub/sub system for loose coupling between modules
+- **Reactive State**: Simple state management with change listeners
+- **Data Loader**: Centralized JSON/Markdown loading with caching
+- **Web Components**: Custom elements for reusable UI patterns
+
+CSS follows a component-based organization with CSS custom properties for theming. Stylesheets are loaded in parallel via `<link>` tags for optimal performance.
 
 ## Data Sources
 

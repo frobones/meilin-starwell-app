@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found | Meilin Starwell</title>
+    <style>
+        :root {
+            --color-primary: #6b4423;
+            --color-gold: #c4a35a;
+            --color-cream: #f5f1e8;
+            --color-ink: #2c1810;
+            --font-display: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'Crimson Text', Georgia, serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background: linear-gradient(135deg, var(--color-cream) 0%, #e8e0d0 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            color: var(--color-ink);
+        }
+        
+        .container {
+            text-align: center;
+            max-width: 500px;
+        }
+        
+        .error-code {
+            font-family: var(--font-display);
+            font-size: 8rem;
+            font-weight: 700;
+            color: var(--color-gold);
+            line-height: 1;
+            text-shadow: 2px 2px 0 var(--color-primary);
+        }
+        
+        h1 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--color-primary);
+            margin: 1rem 0;
+        }
+        
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            color: var(--color-ink);
+            opacity: 0.8;
+        }
+        
+        .home-link {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            background: var(--color-primary);
+            color: var(--color-cream);
+            text-decoration: none;
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            border-radius: 4px;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+        
+        .home-link:hover {
+            background: var(--color-ink);
+            transform: translateY(-2px);
+        }
+        
+        .quote {
+            margin-top: 3rem;
+            font-style: italic;
+            color: var(--color-primary);
+            opacity: 0.7;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Crimson+Text:ital@0;1&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="error-code">404</div>
+        <h1>Lost in the Astral Sea</h1>
+        <p>The page you're looking for has drifted beyond the known charts. Perhaps it never existed, or maybe it's hidden in Meilin's notebook.</p>
+        <a href="./" class="home-link">Return to the Apothecary</a>
+        <p class="quote">"If it matters, write it down."</p>
+    </div>
+</body>
+</html>

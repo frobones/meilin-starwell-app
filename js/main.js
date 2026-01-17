@@ -8,6 +8,7 @@ import { store } from './core/state.js';
 import { events } from './core/events.js';
 import { dataLoader } from './core/data-loader.js';
 import { icons } from './core/icons.js';
+import { debug } from './core/debug.js';
 
 // Core functionality
 import * as auth from './core/auth.js';
@@ -33,7 +34,6 @@ import { ModalDialog, MedicineCard, RumorCard, LightBox } from './components/ind
  * Application configuration
  */
 const CONFIG = {
-    PASSKEY: 'ms-13',
     STORAGE_KEY: 'meilin-backstory-unlocked',
     INVENTORY_STORAGE_KEY: 'meilin-inventory',
     PROTECTED_PAGES: ['overview', 'backstory', 'dmtools'],
@@ -161,7 +161,7 @@ function setupPageLoading() {
  * Main initialization
  */
 async function init() {
-    console.log('Initializing Meilin Starwell Companion...');
+    debug.log('Initializing Meilin Starwell Companion...');
     
     try {
         // Set up markdown parser
@@ -196,7 +196,7 @@ async function init() {
         // Handle initial page from URL hash
         navigation.handleHashChange();
         
-        console.log('Meilin Starwell Companion initialized successfully');
+        debug.log('Meilin Starwell Companion initialized successfully');
         events.emit('app:ready');
         
     } catch (error) {

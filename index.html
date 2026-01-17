@@ -4,17 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meilin Starwell | Character Companion</title>
+    <meta name="description" content="Character companion app for Meilin Starwell, a dockside apothecary in Spelljammer. Explore her backstory, rumors, herbal medicine system, and DM tools.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Meilin Starwell | Character Companion">
+    <meta property="og:description" content="Character companion app for Meilin Starwell, a dockside apothecary in Spelljammer. Explore her backstory, rumors, herbal medicine system, and DM tools.">
+    <meta property="og:image" content="img/key_art.png">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Meilin Starwell | Character Companion">
+    <meta name="twitter:description" content="Character companion app for Meilin Starwell, a dockside apothecary in Spelljammer.">
+    <meta name="twitter:image" content="img/key_art.png">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Uncial+Antiqua&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Redacted+Script:wght@400&display=swap" rel="stylesheet">
     
-    <!-- Lucide Icons (pinned version) -->
-    <script src="https://unpkg.com/lucide@0.562.0/dist/umd/lucide.min.js"></script>
+    <!-- CDN Preconnects -->
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
     
-    <!-- Styles (Modular CSS) -->
-    <link rel="stylesheet" href="css/main.css">
+    <!-- Lucide Icons (pinned version) -->
+    <!-- TODO: Add SRI integrity hash via build script: https://www.srihash.org/ -->
+    <script src="https://unpkg.com/lucide@0.562.0/dist/umd/lucide.min.js" crossorigin="anonymous"></script>
+    
+    <!-- Styles (Modular CSS - loaded in parallel for performance) -->
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="css/base/variables.css">
+    <link rel="stylesheet" href="css/base/reset.css">
+    <link rel="stylesheet" href="css/base/typography.css">
+    <link rel="stylesheet" href="css/base/utilities.css">
+    <!-- Layout -->
+    <link rel="stylesheet" href="css/layout/app-layout.css">
+    <link rel="stylesheet" href="css/layout/sidebar.css">
+    <link rel="stylesheet" href="css/layout/header.css">
+    <!-- Components -->
+    <link rel="stylesheet" href="css/components/modals.css">
+    <link rel="stylesheet" href="css/components/lightbox.css">
+    <link rel="stylesheet" href="css/components/cards.css">
+    <link rel="stylesheet" href="css/components/tabs.css">
+    <link rel="stylesheet" href="css/components/forms.css">
+    <link rel="stylesheet" href="css/components/tables.css">
+    <link rel="stylesheet" href="css/components/rules.css">
+    <link rel="stylesheet" href="css/components/footer.css">
+    <!-- Pages -->
+    <link rel="stylesheet" href="css/pages/overview.css">
+    <link rel="stylesheet" href="css/pages/rumors.css">
+    <link rel="stylesheet" href="css/pages/backstory.css">
+    <link rel="stylesheet" href="css/pages/dmtools.css">
+    <link rel="stylesheet" href="css/pages/medicine.css">
+    <!-- Print Styles -->
+    <link rel="stylesheet" href="css/base/print.css" media="print">
 </head>
 <body>
     <!-- Skip Link for Keyboard Navigation -->
@@ -176,8 +219,8 @@
                     <!-- Character Gallery -->
                     <main class="rumors-gallery">
                         <div class="rumors-gallery-single" id="rumors-gallery-container" data-lightbox="img/scene.png">
-                            <img class="rumors-gallery-image" id="rumors-gallery-image-a" src="img/scene.png" alt="Meilin at work" />
-                            <img class="rumors-gallery-image rumors-gallery-image--hidden" id="rumors-gallery-image-b" src="img/scene.png" alt="Meilin at work" />
+                            <img class="rumors-gallery-image" id="rumors-gallery-image-a" src="img/scene.png" alt="Meilin at work" loading="lazy" />
+                            <img class="rumors-gallery-image rumors-gallery-image--hidden" id="rumors-gallery-image-b" src="img/scene.png" alt="Meilin at work" loading="lazy" />
                         </div>
                     </main>
                 </div>
@@ -216,7 +259,7 @@
                     <h2 class="turnaround-title">Character Design</h2>
                     <p class="turnaround-hint"><em>Hover over the glowing points to explore details...</em></p>
                     <div class="rumors-turnaround" id="turnaround-container">
-                        <img src="img/turnaround.png" alt="Meilin Starwell - Character Turnaround" data-lightbox="img/turnaround.png" />
+                        <img src="img/turnaround.png" alt="Meilin Starwell - Character Turnaround" data-lightbox="img/turnaround.png" loading="lazy" />
                         
                         <!-- Interactive Hotspots -->
                         <div class="hotspot" data-hotspot="potion-vials" style="left: 40%; top: 44%;">
@@ -702,7 +745,8 @@
     </template>
 
     <!-- Markdown Parser (pinned version) -->
-    <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script>
+    <!-- TODO: Add SRI integrity hash via build script: https://www.srihash.org/ -->
+    <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js" crossorigin="anonymous"></script>
     
     <!-- ES Module Application -->
     <script type="module" src="js/main.js"></script>

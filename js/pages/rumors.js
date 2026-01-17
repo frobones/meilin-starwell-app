@@ -21,7 +21,7 @@ let galleryCrossfadeState = null;
  */
 export async function loadRumors() {
     try {
-        rumorsData = await dataLoader.loadJSON('content/rumors.json?v=' + Date.now(), false);
+        rumorsData = await dataLoader.loadJSON('content/rumors.json', false);
         renderRumors();
         events.emit('rumors:loaded', rumorsData);
     } catch (error) {

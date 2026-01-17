@@ -1,35 +1,13 @@
 /* ============================================
    Meilin's Apothecary - Main CSS Entry Point
    
-   This file imports all modular CSS files.
-   Organized by: Base → Layout → Components → Pages
+   NOTE: CSS files are now loaded via parallel <link> tags in index.html
+   for better performance (eliminates @import waterfall loading).
+   
+   This file is kept for backwards compatibility but is no longer needed.
+   All styles are in:
+   - css/base/       (variables, reset, typography, utilities, print)
+   - css/layout/     (app-layout, sidebar, header)
+   - css/components/ (modals, lightbox, cards, tabs, forms, tables, rules, footer)
+   - css/pages/      (overview, rumors, backstory, dmtools, medicine)
    ============================================ */
-
-/* Base Styles */
-@import url('./base/variables.css');
-@import url('./base/reset.css');
-@import url('./base/typography.css');
-@import url('./base/utilities.css');
-@import url('./base/print.css');
-
-/* Layout */
-@import url('./layout/app-layout.css');
-@import url('./layout/sidebar.css');
-@import url('./layout/header.css');
-
-/* Components */
-@import url('./components/modals.css');
-@import url('./components/lightbox.css');
-@import url('./components/cards.css');
-@import url('./components/tabs.css');
-@import url('./components/forms.css');
-@import url('./components/tables.css');
-@import url('./components/rules.css');
-@import url('./components/footer.css');
-
-/* Pages */
-@import url('./pages/overview.css');
-@import url('./pages/rumors.css');
-@import url('./pages/backstory.css');
-@import url('./pages/dmtools.css');
-@import url('./pages/medicine.css');
