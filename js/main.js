@@ -134,7 +134,7 @@ function setupPageLoading() {
                 }
                 break;
             case 'backstory':
-                if (!backstoryPage.getBackstoryContent()) {
+                if (!backstoryPage.getBackstoryData()) {
                     await backstoryPage.loadBackstoryContent();
                 }
                 // Vignettes are on the backstory page

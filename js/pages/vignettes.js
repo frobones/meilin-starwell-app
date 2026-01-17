@@ -1,6 +1,9 @@
 /**
  * Vignettes Page Controller
  * Handles vignette loading and modal display.
+ * 
+ * Vignette files are discovered via content/vignettes/index.json
+ * Each vignette JSON file contains metadata and embedded Markdown content.
  */
 
 import { dataLoader } from '../core/data-loader.js';
@@ -10,81 +13,70 @@ import { icons } from '../core/icons.js';
 // Private state
 let vignettes = [];
 
-const VIGNETTE_FILES = [
-    {
-        file: 'Meilin Starwell - Vignette 01 - First bolt.md',
-        number: '01',
-        title: 'First Bolt',
-        skills: ['Hand Crossbow'],
-        cardBrief: 'Meilin reads Oona\'s trembling hands, catalogs the threat\'s body language like a triage assessment, and fires with control when violence becomes unavoidable.'
-    },
-    {
-        file: 'Meilin Starwell - Vignette 02 - Vex lesson.md',
-        number: '02',
-        title: 'Vex Lesson',
-        skills: ['Weapon Mastery (Vex)', 'Sneak Attack'],
-        cardBrief: 'Theo drills Meilin until the crossbow becomes procedure, not performance. She learns to strike when attention is split: exploit the flinch, hit when the target is already compromised.'
-    },
-    {
-        file: 'Meilin Starwell - Vignette 03 - Cant notes.md',
-        number: '03',
-        title: 'Cant Notes',
-        skills: ['Thieves\' Cant'],
-        cardBrief: 'Meilin learns the Bazaar\'s under-language by treating it like symptoms: repeated phrases, chalk marks, pauses that don\'t match the words.'
-    },
-    {
-        file: 'Meilin Starwell - Vignette 04 - Theo Lockwell, quiet preparation.md',
-        number: '04',
-        title: 'Theo Lockwell',
-        skills: ['Thieves\' Tools'],
-        cardBrief: 'Theo teaches Meilin that speed is a symptom, not a virtue. She practices locks like medicine: documenting errors, slowing down under stress, calm hands as the first survival skill.'
-    },
-    {
-        file: 'Meilin Starwell - Vignette 05 - The tell, the pause.md',
-        number: '05',
-        title: 'The Tell, the Pause',
-        skills: ['Investigation', 'Insight'],
-        cardBrief: 'Meilin reads micro-tells: the pause before a lie, the hand that betrays, and where a person\'s eyes go first. She learns that people look first where their work lives.'
-    },
-    {
-        file: 'Meilin Starwell - Vignette 06 - A polite lie in Undercommon.md',
-        number: '06',
-        title: 'A Polite Lie in Undercommon',
-        skills: ['Deception', 'Undercommon'],
-        cardBrief: 'Meilin uses a plausible, controlled lie as leverage: not big, not dramatic, just enough to steer a decision. Speaking Undercommon signals she isn\'t a soft mark.'
-    },
-    {
-        file: 'Meilin Starwell - Vignette 07 - Persuasion is triage.md',
-        number: '07',
-        title: 'Persuasion is Triage',
-        skills: ['Persuasion'],
-        cardBrief: 'Meilin talks a sailor down by naming consequences and next steps, not by moralizing. She treats de-escalation like triage: identify the real hazard, give simple instructions.'
-    },
-    {
-        file: 'Meilin Starwell - Vignette 08 - Quiet feet, open eyes.md',
-        number: '08',
-        title: 'Quiet Feet, Open Eyes',
-        skills: ['Perception', 'Stealth'],
-        cardBrief: 'Meilin walks a route unarmed to see the truth. She reads shifted stalls and sight lines, lets a pick commit before catching them. Stealth is choosing what people notice.'
-    },
-    {
-        file: 'Meilin Starwell - Vignette 09 - Fingers, coin, and shame.md',
-        number: '09',
-        title: 'Fingers, Coin, and Shame',
-        skills: ['Sleight of Hand'],
-        cardBrief: 'Meilin treats sleight of hand like a tourniquet: not for show, for control. She pickpockets a pickpocket to restore stolen goods. Calm, boring, and timed to someone else\'s impatience.'
-    },
-    {
-        file: 'Meilin Starwell - Vignette 10 - The window with three seals.md',
-        number: '10',
-        title: 'The Window with Three Seals',
-        skills: ['History'],
-        cardBrief: 'Meilin demonstrates that "history" is practical institutional memory. She applies her knowledge of Bral\'s dock scandals to recognize a con being run in the Astral Bazaar.'
-    }
-];
+/**
+ * Parse inline markdown formatting (bold, italic) to HTML
+ * @param {string} text - Text with markdown formatting
+ * @returns {string} HTML string
+ */
+function parseInlineMarkdown(text) {
+    let parsed = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    parsed = parsed.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+    return parsed;
+}
 
 /**
- * Load all vignettes
+ * Render key takeaways as HTML
+ * @param {string[]} takeaways - Array of takeaway strings (may contain markdown)
+ * @returns {string} HTML for the takeaways section
+ */
+function renderKeyTakeaways(takeaways) {
+    if (!takeaways || takeaways.length === 0) return '';
+    
+    const items = takeaways
+        .map(t => {
+            // Split on **: to separate label from description
+            // Format: "**Label**: Description text"
+            const match = t.match(/^\*\*([^*]+)\*\*:\s*(.*)$/);
+            if (match) {
+                const label = match[1];
+                const description = parseInlineMarkdown(match[2]);
+                return `<li><span class="takeaway-label">${label}</span><span class="takeaway-desc">${description}</span></li>`;
+            }
+            // Fallback if format doesn't match
+            return `<li><span class="takeaway-desc">${parseInlineMarkdown(t)}</span></li>`;
+        })
+        .join('\n');
+    
+    return `
+        <div class="chapter-takeaways">
+            <h3 class="takeaways-heading">Key Takeaways</h3>
+            <ul class="takeaways-list">
+                ${items}
+            </ul>
+        </div>
+    `;
+}
+
+/**
+ * Parse Markdown content from JSON and convert to HTML
+ * @param {string} markdown - Raw Markdown content
+ * @returns {string} HTML content with H1 removed
+ */
+function parseVignetteContent(markdown) {
+    // Use marked if available (set via dataLoader), otherwise return raw
+    const html = window.marked ? window.marked.parse(markdown) : markdown;
+    
+    // Remove H1 from content (title is displayed separately)
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = html;
+    const firstH1 = tempDiv.querySelector('h1');
+    if (firstH1) firstH1.remove();
+    
+    return tempDiv.innerHTML;
+}
+
+/**
+ * Load all vignettes from JSON files
  */
 export async function loadVignettes() {
     const container = document.getElementById('vignettes-grid');
@@ -92,25 +84,31 @@ export async function loadVignettes() {
     
     container.innerHTML = '<div class="loading-spinner">Loading vignettes...</div>';
     
-    const vignettePromises = VIGNETTE_FILES.map(async (vignette) => {
-        try {
-            const html = await dataLoader.loadMarkdown(`content/vignettes/${vignette.file}`);
-            const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = html;
-            
-            // Remove H1
-            const firstH1 = tempDiv.querySelector('h1');
-            if (firstH1) firstH1.remove();
-            
-            return { ...vignette, content: tempDiv.innerHTML };
-        } catch (error) {
-            console.error(`Failed to load vignette: ${vignette.file}`, error);
-            return { ...vignette, content: '<p>Failed to load.</p>' };
-        }
-    });
-    
-    vignettes = await Promise.all(vignettePromises);
-    renderVignettes();
+    try {
+        // Load the vignette index to discover available files
+        const index = await dataLoader.loadJSON('content/vignettes/index.json');
+        const vignetteFiles = index.vignettes || [];
+        
+        // Load all vignette files in parallel
+        const vignettePromises = vignetteFiles.map(async (filename) => {
+            const jsonPath = `content/vignettes/${filename}`;
+            try {
+                const data = await dataLoader.loadJSON(jsonPath);
+                // Parse embedded Markdown content to HTML
+                const htmlContent = parseVignetteContent(data.content || '');
+                return { ...data, content: htmlContent };
+            } catch (error) {
+                console.error(`Failed to load vignette: ${jsonPath}`, error);
+                return null;
+            }
+        });
+        
+        vignettes = (await Promise.all(vignettePromises)).filter(v => v !== null);
+        renderVignettes();
+    } catch (error) {
+        console.error('Failed to load vignette index:', error);
+        container.innerHTML = '<p class="error-message">Failed to load vignettes.</p>';
+    }
 }
 
 /**
@@ -154,10 +152,14 @@ export function openVignetteModal(vignette) {
     
     if (!overlay || !content) return;
     
+    const takeawaysHtml = renderKeyTakeaways(vignette.keyTakeaways);
+    
     content.innerHTML = `
         <div class="narrative-container">
             <div class="vignette-number">Vignette ${vignette.number}</div>
             <h2 class="vignette-modal-title">${vignette.title}</h2>
+            ${takeawaysHtml}
+            ${takeawaysHtml ? '<hr class="takeaways-separator">' : ''}
             ${vignette.content}
         </div>
     `;

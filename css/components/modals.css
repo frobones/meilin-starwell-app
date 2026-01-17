@@ -212,6 +212,112 @@
   margin-bottom: var(--space-xs);
 }
 
+/* Vignette Key Takeaways */
+.vignette-modal .chapter-takeaways {
+  background: linear-gradient(145deg, 
+    rgba(255, 253, 245, 0.95) 0%,
+    rgba(248, 241, 225, 0.9) 50%,
+    rgba(255, 253, 245, 0.95) 100%);
+  border: 1px solid rgba(184, 134, 11, 0.25);
+  border-radius: var(--radius-md);
+  padding: var(--space-md) var(--space-lg);
+  margin-bottom: var(--space-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.vignette-modal .chapter-takeaways::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg,
+    var(--gold-accent) 0%,
+    var(--gold-dim) 50%,
+    var(--gold-accent) 100%);
+}
+
+.vignette-modal .takeaways-heading {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--gold-accent);
+  margin-bottom: var(--space-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid rgba(184, 134, 11, 0.2);
+}
+
+.vignette-modal .takeaways-heading::before {
+  content: '◆';
+  font-size: 0.6rem;
+}
+
+.vignette-modal .takeaways-heading::after {
+  content: '◆';
+  font-size: 0.6rem;
+}
+
+.vignette-modal .takeaways-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.vignette-modal .takeaways-list li {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--ink-black);
+  padding: var(--space-xs) var(--space-sm);
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--gold-dim);
+  transition: all 0.2s ease;
+  position: relative;
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: var(--space-md);
+  align-items: center;
+}
+
+.vignette-modal .takeaways-list li:hover {
+  border-left-color: var(--gold-accent);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.vignette-modal .takeaway-label {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--sepia);
+  background: linear-gradient(135deg, rgba(184, 134, 11, 0.15) 0%, rgba(139, 90, 43, 0.1) 100%);
+  padding: 3px 8px;
+  border-radius: 3px;
+  white-space: normal;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.vignette-modal .takeaway-desc {
+  color: var(--ink-black);
+}
+
+.vignette-modal .takeaway-desc em {
+  color: var(--sepia);
+  font-style: italic;
+}
+
 /* NPC Modal */
 .npc-modal {
   max-width: 700px;

@@ -23,7 +23,7 @@ let konamiActivated = false;
 const SECRET_RUMOR = {
     id: 10,
     text: "She knows you're watching. She doesn't mind.",
-    image: "headshot.png",
+    image: "easter_egg.png",
     isSecret: true
 };
 
