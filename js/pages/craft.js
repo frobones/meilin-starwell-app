@@ -825,7 +825,17 @@ function buildRecipeSection(medicine, alchemillaCount, ephedraCount, maxEnhancem
     // Primary ingredient
     if (medicine.primary) {
         const hasPrimaryAlts = primaryAlternatives && primaryAlternatives.length > 1;
-        const primaryName = hasPrimaryAlts ? chosenPrimary : medicine.primary;
+        // Handle both string and array primaries, and when only one alternative is available
+        let primaryName;
+        if (hasPrimaryAlts) {
+            primaryName = chosenPrimary;
+        } else if (primaryAlternatives && primaryAlternatives.length === 1) {
+            primaryName = primaryAlternatives[0].name;
+        } else if (Array.isArray(medicine.primary)) {
+            primaryName = medicine.primary[0];
+        } else {
+            primaryName = medicine.primary;
+        }
         
         ingredientRows += `
             <div class="recipe-ingredient-row primary">
