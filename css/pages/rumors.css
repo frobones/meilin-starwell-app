@@ -670,13 +670,193 @@
   transition: filter 0.3s ease;
 }
 
-/* Responsive: hide hotspots on small screens, show tap hint */
+/* Mobile hotspot modal overlay backdrop */
+.hotspot-backdrop {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(2px);
+  z-index: 500;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.hotspot-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Modal container for tooltips moved to body (to escape transform containing blocks) */
+.hotspot-modal-container {
+  position: relative;
+  z-index: 550;
+}
+
+/* Active modal tooltip - centered on viewport */
+.hotspot-modal-active {
+  position: fixed !important;
+  left: 50% !important;
+  top: 50% !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: translate(-50%, -50%) !important;
+  width: calc(100vw - 48px) !important;
+  max-width: 320px !important;
+  margin: 0 !important;
+  background: linear-gradient(
+    135deg,
+    var(--parchment-light) 0%,
+    var(--parchment) 100%
+  ) !important;
+  border: 1px solid var(--parchment-aged) !important;
+  border-radius: var(--radius-xl) !important;
+  padding: var(--space-lg) var(--space-xl) !important;
+  box-shadow: 
+    0 8px 40px rgba(0, 0, 0, 0.4),
+    0 0 60px rgba(218, 165, 32, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+  z-index: 600 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  /* Animation */
+  animation: modalFadeIn 0.2s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.hotspot-modal-active::before,
+.hotspot-modal-active::after {
+  display: none;
+}
+
+.hotspot-modal-active h4 {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--ink-brown);
+  margin: 0 0 var(--space-sm) 0;
+  border-bottom: 1px solid var(--parchment-aged);
+  padding-bottom: var(--space-sm);
+}
+
+.hotspot-modal-active p {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--ink-faded);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Mobile: tap-to-open centered modal tooltips */
 @media (max-width: 768px) {
+  /* Show hotspots on mobile */
   .hotspot {
+    display: block;
+    width: 32px;
+    height: 32px;
+  }
+  
+  /* Larger pulse for easier tapping */
+  .hotspot-pulse,
+  .hotspot-pulse-mystery {
+    width: 28px;
+    height: 28px;
+  }
+  
+  /* Update hint text for mobile */
+  .turnaround-hint {
+    font-size: 0.85rem;
+  }
+  
+  /* Show backdrop on mobile when needed */
+  .hotspot-backdrop {
+    display: block;
+  }
+  
+  /* Disable hover tooltip on mobile */
+  .hotspot:hover .hotspot-tooltip {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-50%);
+  }
+  
+  /* Center modal tooltip styling */
+  .hotspot-tooltip {
+    position: fixed;
+    left: 50% !important;
+    right: auto !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) scale(0.9);
+    margin: 0;
+    width: calc(100vw - 48px);
+    max-width: 320px;
+    padding: var(--space-lg) var(--space-xl);
+    z-index: 600;
+    pointer-events: auto;
+    border-radius: var(--radius-xl);
+    box-shadow: 
+      0 8px 40px rgba(0, 0, 0, 0.4),
+      0 0 60px rgba(218, 165, 32, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+  
+  /* Hide tooltip arrows on mobile modal */
+  .hotspot-tooltip::before,
+  .hotspot-tooltip::after,
+  .hotspot-tooltip.tooltip-left::before,
+  .hotspot-tooltip.tooltip-left::after {
     display: none;
   }
   
-  .turnaround-hint {
-    display: none;
+  /* Hide original tooltip on mobile when using modal approach
+     The tooltip is cloned to a modal container, so hide the original */
+  .hotspot.active .hotspot-tooltip {
+    display: none !important;
+  }
+  
+  /* Active hotspot glow */
+  .hotspot.active .hotspot-pulse,
+  .hotspot.active .hotspot-pulse-mystery {
+    animation: none;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.5);
+  }
+  
+  .hotspot.active .hotspot-pulse {
+    box-shadow: 
+      0 0 16px rgba(255, 255, 255, 1),
+      0 0 32px rgba(255, 255, 255, 0.8);
+  }
+  
+  .hotspot.active .hotspot-pulse-mystery {
+    box-shadow: 
+      0 0 16px rgba(126, 184, 218, 1),
+      0 0 32px rgba(90, 159, 199, 0.8);
+  }
+  
+  /* Larger tooltip text on mobile */
+  .hotspot-tooltip h4 {
+    font-size: 1.25rem;
+    margin-bottom: var(--space-sm);
+    padding-bottom: var(--space-sm);
+  }
+  
+  .hotspot-tooltip p {
+    font-size: 1rem;
+    line-height: 1.6;
   }
 }

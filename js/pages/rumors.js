@@ -77,6 +77,9 @@ export function setupRumorHoverEffects() {
     
     // Setup banner pan effect
     setupBannerPanEffect();
+    
+    // Setup hotspot tap interactions for mobile
+    setupHotspotTapInteractions();
 }
 
 /**
@@ -257,6 +260,172 @@ function setupBannerPanEffect() {
     bannerPanState.handlers = handlers;
     hero.addEventListener('mouseenter', handlers.mouseenter);
     hero.addEventListener('mouseleave', handlers.mouseleave);
+}
+
+/**
+ * Setup tap-to-toggle interactions for hotspots on mobile devices
+ * Creates a backdrop element and handles tap events to show/hide tooltip modals
+ * 
+ * Note: Because ancestor elements have transforms, position:fixed on the tooltip
+ * doesn't work relative to viewport. We solve this by moving the tooltip to body
+ * when active, then restoring it when closed.
+ */
+let hotspotInteractionsInitialized = false;
+
+function setupHotspotTapInteractions() {
+    // Prevent double registration of event handlers
+    if (hotspotInteractionsInitialized) return;
+    
+    const turnaroundContainer = document.getElementById('turnaround-container');
+    const hotspots = document.querySelectorAll('.hotspot');
+    
+    if (!turnaroundContainer || hotspots.length === 0) return;
+    
+    hotspotInteractionsInitialized = true;
+    
+    // Create backdrop if it doesn't exist
+    let backdrop = document.querySelector('.hotspot-backdrop');
+    if (!backdrop) {
+        backdrop = document.createElement('div');
+        backdrop.className = 'hotspot-backdrop';
+        document.body.appendChild(backdrop);
+    }
+    
+    // Create a container for the active tooltip modal (appended to body to escape transforms)
+    let modalContainer = document.querySelector('.hotspot-modal-container');
+    if (!modalContainer) {
+        modalContainer = document.createElement('div');
+        modalContainer.className = 'hotspot-modal-container';
+        document.body.appendChild(modalContainer);
+    }
+    
+    // Track current active hotspot and its original tooltip
+    let activeHotspot = null;
+    let activeTooltipClone = null;
+    let isProcessingClick = false;
+    
+    // Update hint text for mobile
+    const hint = document.querySelector('.turnaround-hint em');
+    if (hint && window.matchMedia('(max-width: 768px)').matches) {
+        hint.textContent = 'Tap the glowing points to explore details...';
+    }
+    
+    /**
+     * Close any active hotspot modal
+     */
+    function closeActiveHotspot() {
+        if (activeHotspot) {
+            activeHotspot.classList.remove('active');
+        }
+        if (activeTooltipClone) {
+            activeTooltipClone.remove();
+            activeTooltipClone = null;
+        }
+        // Re-query backdrop to ensure we have the current element
+        const currentBackdrop = document.querySelector('.hotspot-backdrop');
+        if (currentBackdrop) {
+            currentBackdrop.classList.remove('active');
+        }
+        activeHotspot = null;
+    }
+    
+    /**
+     * Open a hotspot modal
+     */
+    function openHotspot(hotspot) {
+        closeActiveHotspot();
+        
+        // Get the tooltip content
+        const tooltip = hotspot.querySelector('.hotspot-tooltip');
+        if (!tooltip) return;
+        
+        // Re-query modal container to ensure we have the current element
+        const currentModalContainer = document.querySelector('.hotspot-modal-container');
+        if (!currentModalContainer) return;
+        
+        // Clear any existing modals first (safety cleanup)
+        currentModalContainer.innerHTML = '';
+        
+        // Clone the tooltip and add it to the modal container
+        activeTooltipClone = tooltip.cloneNode(true);
+        activeTooltipClone.classList.add('hotspot-modal-active');
+        // Apply inline styles to ensure proper centering (CSS !important may not override inherited styles)
+        activeTooltipClone.style.cssText = `
+            position: fixed !important;
+            left: 50% !important;
+            top: 50% !important;
+            transform: translate(-50%, -50%) !important;
+            margin: 0 !important;
+            z-index: 600 !important;
+        `;
+        currentModalContainer.appendChild(activeTooltipClone);
+        
+        // Mark the hotspot as active
+        hotspot.classList.add('active');
+        
+        // Re-query backdrop to ensure we have the current element and add active class
+        const currentBackdrop = document.querySelector('.hotspot-backdrop');
+        if (currentBackdrop) {
+            currentBackdrop.classList.add('active');
+        }
+        activeHotspot = hotspot;
+    }
+    
+    // Handle hotspot taps
+    hotspots.forEach(hotspot => {
+        hotspot.addEventListener('click', (e) => {
+            // Only use tap behavior on mobile
+            if (!window.matchMedia('(max-width: 768px)').matches) return;
+            
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Prevent re-entry during click processing
+            if (isProcessingClick) return;
+            isProcessingClick = true;
+            
+            try {
+                if (hotspot === activeHotspot) {
+                    // Clicking the active hotspot closes it
+                    closeActiveHotspot();
+                } else {
+                    openHotspot(hotspot);
+                }
+            } finally {
+                // Use setTimeout to prevent immediate re-trigger
+                setTimeout(() => { isProcessingClick = false; }, 50);
+            }
+        });
+    });
+    
+    // Close on backdrop tap - use setTimeout to avoid immediate trigger
+    backdrop.addEventListener('click', (e) => {
+        // Only close if the backdrop is actually active (prevents race conditions)
+        if (backdrop.classList.contains('active')) {
+            e.preventDefault();
+            e.stopPropagation();
+            closeActiveHotspot();
+        }
+    });
+    
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeActiveHotspot();
+        }
+    });
+    
+    // Handle orientation/resize changes
+    window.matchMedia('(max-width: 768px)').addEventListener('change', (e) => {
+        const hint = document.querySelector('.turnaround-hint em');
+        if (hint) {
+            hint.textContent = e.matches 
+                ? 'Tap the glowing points to explore details...'
+                : 'Hover over the glowing points to explore details...';
+        }
+        // Close any open modal when switching between mobile/desktop
+        closeActiveHotspot();
+    });
 }
 
 /**
