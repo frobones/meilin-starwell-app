@@ -341,42 +341,7 @@ function getVariableStars(medicine) {
 }
 
 /**
- * Create HTML for variable star table
- */
-function createVariableStarsHtml(medicine) {
-    const variants = getVariableStars(medicine);
-    if (!variants) return '';
-    
-    const hasDamage = variants.some(v => v.damage);
-    const hasRange = variants.some(v => v.range);
-    const hasStrength = variants.some(v => v.strengthScore);
-    
-    let headerCols = '<th>Amount</th><th>Strength</th>';
-    if (hasDamage) headerCols += '<th>Damage</th>';
-    if (hasRange) headerCols += '<th>Range</th>';
-    if (hasStrength) headerCols += '<th>Str Score</th>';
-    
-    const rows = variants.map(v => {
-        let cols = `<td>×${v.multiplier}</td><td class="variant-stars">${v.starDisplay}</td>`;
-        if (hasDamage) cols += `<td>${v.damage || '-'}</td>`;
-        if (hasRange) cols += `<td>${v.range || '-'}</td>`;
-        if (hasStrength) cols += `<td>${v.strengthScore || '-'}</td>`;
-        return `<tr>${cols}</tr>`;
-    }).join('');
-    
-    return `
-        <div class="modal-section">
-            <h3 class="modal-section-title">Variable Strength</h3>
-            <table class="variable-stars-table">
-                <thead><tr>${headerCols}</tr></thead>
-                <tbody>${rows}</tbody>
-            </table>
-        </div>
-    `;
-}
-
-/**
- * Create HTML for details table
+ * Create HTML for details table (recipe-specific)
  */
 function createDetailsTableHtml(medicine) {
     const table = medicine.detailsTable;
@@ -495,7 +460,6 @@ export function openMedicineModal(medicine) {
     
     const stars = getMedicineStars(medicine);
     const componentsHtml = createComponentsHtml(medicine);
-    const variableStarsHtml = createVariableStarsHtml(medicine);
     const detailsTableHtml = createDetailsTableHtml(medicine);
     
     content.innerHTML = `
@@ -514,7 +478,6 @@ export function openMedicineModal(medicine) {
             <p class="modal-effect">${(medicine.fullEffect || medicine.effect).replace(/\n/g, '<br>')}</p>
         </div>
         
-        ${variableStarsHtml}
         ${detailsTableHtml}
         
         <div class="modal-section">

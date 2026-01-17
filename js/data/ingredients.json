@@ -173,7 +173,7 @@
       {"name": "Willow bark", "dc": "10/+5", "terrain": "All", "use": "Fortifying primary component"},
       {"name": "Fleshwort", "dc": "10/+5", "terrain": "All", "use": "Restorative primary component"},
       {"name": "Alchemilla", "dc": "10/+5", "terrain": "All", "use": "Enhancing agent (extends duration)"},
-      {"name": "Ephedra", "dc": "10/+5", "terrain": "All", "use": "Enhancing agent (doubles dice)"}
+      {"name": "Ephedra", "dc": "10/+5", "terrain": "All", "use": "Enhancing agent (increases potency)"}
     ],
     "rare": {
       "Arctic": [
