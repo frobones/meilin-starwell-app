@@ -132,29 +132,80 @@
   border-right: 4px solid var(--gold-accent);
 }
 
+/* Core Details Banner (Key Takeaways style) */
 .aag-core-details {
+  background: linear-gradient(145deg, 
+    rgba(255, 253, 245, 0.95) 0%,
+    rgba(248, 241, 225, 0.9) 50%,
+    rgba(240, 230, 210, 0.85) 100%);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  margin-top: var(--space-lg);
+  box-shadow:
+    0 2px 8px rgba(139, 90, 43, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  position: relative;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
+  gap: 2px;
+}
+
+.aag-core-details::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg,
+    var(--gold-accent) 0%,
+    var(--gold-dim) 50%,
+    var(--gold-accent) 100%);
 }
 
 .aag-detail {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-sm);
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--ink-black);
+  padding: var(--space-xs) var(--space-sm);
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--gold-dim);
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: var(--space-md);
+  align-items: center;
+}
+
+/* Trouble gets a red accent */
+#aag-trouble {
+  border-left-color: rgba(139, 35, 35, 0.5);
 }
 
 .aag-detail-label {
   font-family: var(--font-heading);
+  font-size: 0.7rem;
   font-weight: 700;
-  color: var(--herb-green-dark);
-  min-width: 140px;
-  text-align: right;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--sepia);
+  background: linear-gradient(135deg, rgba(184, 134, 11, 0.15) 0%, rgba(139, 90, 43, 0.1) 100%);
+  padding: 3px 8px;
+  border-radius: 3px;
+  white-space: nowrap;
+  text-align: center;
+}
+
+/* Trouble label styling */
+#aag-trouble .aag-detail-label {
+  color: var(--blood-red);
+  background: linear-gradient(135deg, rgba(139, 35, 35, 0.12) 0%, rgba(139, 35, 35, 0.08) 100%);
 }
 
 .aag-detail-text {
-  flex: 1;
-  min-width: 200px;
+  color: var(--ink-black);
 }
 
 /* Summary Section */
