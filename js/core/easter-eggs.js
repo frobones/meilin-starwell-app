@@ -54,6 +54,45 @@ function checkKonamiCode(key) {
 }
 
 /**
+ * Play quick sparkle sound effect using Web Audio API
+ * Fast, energetic ascending chime
+ */
+function playSparkleSound() {
+    try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const baseTime = audioCtx.currentTime;
+        
+        // Quick sparkle: C5, E5, G5, C6, E6
+        const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51];
+        
+        notes.forEach((freq, index) => {
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(freq, baseTime);
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            // Fast timing for quick sparkle
+            const noteStart = baseTime + index * 0.06;
+            
+            gainNode.gain.setValueAtTime(0, noteStart);
+            gainNode.gain.linearRampToValueAtTime(0.12, noteStart + 0.01);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, noteStart + 0.4);
+            
+            oscillator.start(noteStart);
+            oscillator.stop(noteStart + 0.4);
+        });
+        
+    } catch (e) {
+        // Silently fail if Web Audio API is not available
+        console.log('Audio not available:', e.message);
+    }
+}
+
+/**
  * Create constellation sparkle effect
  */
 function createConstellationEffect() {
@@ -144,6 +183,9 @@ function addSecretRumor() {
  */
 function triggerKonamiEasterEgg() {
     console.log('🎮 Konami Code activated!');
+    
+    // Sound effect
+    playSparkleSound();
     
     // Visual effects
     createConstellationEffect();
