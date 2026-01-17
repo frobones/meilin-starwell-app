@@ -5,6 +5,7 @@
 
 import { store } from './state.js';
 import { events } from './events.js';
+import { showNotification } from './ui.js';
 
 const CONFIG = {
     // SHA-256 hash of the passkey (obfuscated for security)
@@ -64,6 +65,7 @@ export function unlock() {
     store.set('appUnlocked', true);
     localStorage.setItem(CONFIG.STORAGE_KEY, 'true');
     events.emit('auth:unlocked');
+    showNotification('Access granted. Welcome to the full companion.', { type: 'success' });
 }
 
 /**

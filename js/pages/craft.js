@@ -7,6 +7,7 @@ import { store } from '../core/state.js';
 import { events } from '../core/events.js';
 import { icons } from '../core/icons.js';
 import { debug } from '../core/debug.js';
+import { showNotification } from '../core/ui.js';
 
 // Private state
 const INVENTORY_STORAGE_KEY = 'meilin-inventory';
@@ -1196,11 +1197,12 @@ function importInventory(file) {
                 saveInventory();
                 renderCraftInventory();
                 renderCraftableMedicines();
+                showNotification('Inventory imported successfully', { type: 'success' });
             } else {
                 throw new Error('Invalid inventory format');
             }
         } catch (err) {
-            alert('Failed to import inventory: Invalid file format');
+            showNotification('Failed to import inventory: Invalid file format', { type: 'error' });
             debug.error('Import error:', err);
         }
     };

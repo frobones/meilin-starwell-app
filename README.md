@@ -54,10 +54,35 @@ npx serve
 
 ### GitHub Pages Deployment
 
-1. Push this folder to a GitHub repository
-2. Go to Settings > Pages
-3. Select "Deploy from a branch" and choose your branch
-4. Access at `https://yourusername.github.io/repository-name/`
+The app includes a GitHub Actions workflow for automated deployment:
+
+1. Push to the `main` branch
+2. GitHub Actions will automatically:
+   - Install dependencies
+   - Run the build script (generates SRI hashes for CDN scripts)
+   - Deploy the `dist/` folder to GitHub Pages
+3. Access at `https://yourusername.github.io/repository-name/`
+
+**First-time setup:**
+
+1. Go to Settings > Pages
+2. Under "Build and deployment", select "GitHub Actions"
+
+**Manual deployment (alternative):**
+
+If you prefer manual deployment without the build step:
+
+1. Go to Settings > Pages
+2. Select "Deploy from a branch" and choose your branch
+3. The app will work but without SRI hash verification for CDN scripts
+
+### Build Script
+
+The build script (`scripts/build.js`) performs:
+
+- Copies all source files to `dist/`
+- Fetches CDN scripts and computes SHA-384 SRI hashes
+- Injects `integrity` attributes into script tags for security
 
 ## File Structure
 
