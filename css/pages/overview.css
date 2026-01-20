@@ -563,12 +563,12 @@
   }
   
   .aag-psyche {
-    padding-left: 0;
-    padding-right: 0;
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
   }
   
-  .psyche-container {
-    border-radius: 0;
+  .aag-psyche .aag-section-title {
+    margin-bottom: var(--space-md);
   }
   
   .psyche-tab {
