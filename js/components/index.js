@@ -1,17 +1,12 @@
 /**
  * Web Components Index
- * Imports and registers all custom elements.
+ * 
+ * Note: Web components were removed as they were registered but never
+ * instantiated. The app uses regular HTML elements with CSS classes instead.
+ * 
+ * This file is kept for potential future web component additions.
  */
 
-// Import components (they self-register via customElements.define)
-import { ModalDialog } from './modal-dialog.js';
-import { MedicineCard } from './medicine-card.js';
-import { RumorCard } from './rumor-card.js';
-import { LightBox } from './lightbox.js';
 import { debug } from '../core/debug.js';
 
-// Export for use in other modules
-export { ModalDialog, MedicineCard, RumorCard, LightBox };
-
-// Log registration for debugging
-debug.log('[Components] Web Components registered: modal-dialog, medicine-card, rumor-card, light-box');
+debug.log('[Components] Components module loaded (no web components currently registered)');

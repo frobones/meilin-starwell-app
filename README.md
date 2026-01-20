@@ -166,7 +166,6 @@ meilin-starwell-app/
 │   └── vignettes/          # 10 character vignettes
 └── img/
     ├── banner.png
-    ├── headshot.png
     ├── key_art.png
     ├── portrait.png
     ├── scene.png

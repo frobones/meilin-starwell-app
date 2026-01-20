@@ -28,8 +28,8 @@ import * as vignettesPage from './pages/vignettes.js';
 import * as rulesPage from './pages/rules.js';
 import * as craftPage from './pages/craft.js';
 
-// Web Components
-import { ModalDialog, MedicineCard, RumorCard, LightBox } from './components/index.js';
+// Components module (no web components currently registered)
+import './components/index.js';
 
 /**
  * Application configuration
@@ -222,6 +222,5 @@ export {
     store, events, dataLoader, icons, CONFIG,
     auth, navigation, ui, easterEggs,
     rumorsPage, overviewPage, novelettePage, dmsummaryPage, dmtoolsPage, medicinePage,
-    ingredientsPage, vignettesPage, rulesPage, craftPage,
-    ModalDialog, MedicineCard, RumorCard, LightBox
+    ingredientsPage, vignettesPage, rulesPage, craftPage
 };
