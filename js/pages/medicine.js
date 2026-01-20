@@ -492,11 +492,6 @@ export function openMedicineModal(medicine) {
             </div>
         </div>
         
-        ${medicine.notes ? `
-            <div class="modal-section">
-                <p class="modal-notes">${medicine.notes}</p>
-            </div>
-        ` : ''}
     `;
     
     modal.classList.add('active');

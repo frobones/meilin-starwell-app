@@ -14,7 +14,6 @@
       "effect": "You don't need to breathe air for 1 hour.",
       "fullEffect": "This smooth white lozenge magically oxygenates the lungs. When you consume it, you don't need to breathe air. This effect lasts for 1 hour.",
       "duration": "1 hour",
-      "notes": null,
       "floraOnly": true
     },
     {
@@ -31,7 +30,6 @@
       "effect": "For 1 hour, you can cast animal friendship at will (DC equals 10 + proficiency bonus).",
       "fullEffect": "This lotion has an aroma that is attractive to Beasts. When applied to your skin, for 1 hour you can cast animal friendship at will (DC equals 10 + your proficiency bonus), without providing components.",
       "duration": "1 hour",
-      "notes": null,
       "floraOnly": true,
       "alchemilla": {
         "baseDurationMinutes": 60,
@@ -52,7 +50,6 @@
       "effect": "For 1 hour, gain the benefits of the Sharpshooter feat.",
       "fullEffect": "A sweet-tasting preparation of elvish origin, made using the sap of a silverleaf tree. A creature that consumes it gains the benefits of the Sharpshooter feat for 1 hour.",
       "duration": "1 hour",
-      "notes": null,
       "floraOnly": true,
       "alchemilla": {
         "baseDurationMinutes": 60,
@@ -73,7 +70,6 @@
       "effect": "Cast the dream spell with you as the messenger.",
       "fullEffect": "This tobacco is made from cured stalks of the bittergrass plant. Smoking the tobacco takes 1 minute, which takes an action or bonus action on each of your turns for the duration. At the end of the period, you cast the dream spell, with you as the messenger for the spell's effect.",
       "duration": "Spell duration",
-      "notes": null,
       "floraOnly": true
     },
     {
@@ -90,7 +86,6 @@
       "effect": "Add up to PB spells from your class list until long rest.",
       "fullEffect": "When you drink this tonic, choose a number of spells from your class's spell list up to your proficiency bonus and add them to the list of spells you know or have prepared. This effect lasts until you finish a long rest. A creature can only benefit from this effect once between long rests.",
       "duration": "Until long rest",
-      "notes": null,
       "floraOnly": true
     },
     {
@@ -119,7 +114,6 @@
         ]
       },
       "duration": "1 hour",
-      "notes": null,
       "floraOnly": false,
       "alchemilla": {
         "baseDurationMinutes": 60,
@@ -140,7 +134,6 @@
       "effect": "Strength score +2 for 1 hour.",
       "fullEffect": "A traditional orcish paint made with dried blōdgrass and natural pigments with a fish egg binder. When applied to the skin of a creature, the target's Strength score increases by 2 for 1 hour or until the paint is removed.",
       "duration": "1 hour",
-      "notes": null,
       "floraOnly": true,
       "alchemilla": {
         "baseDurationMinutes": 60,
@@ -164,7 +157,6 @@
       "effect": "Truesight 120 feet for 10 minutes.",
       "fullEffect": "When you drink this tonic, you gain truesight out to a range of 120 feet. This effect lasts for 10 minutes.",
       "duration": "10 minutes",
-      "notes": null,
       "floraOnly": false,
       "alchemilla": {
         "baseDurationMinutes": 10,
@@ -185,7 +177,6 @@
       "effect": "Darkvision 60 feet for 1 hour.",
       "fullEffect": "This tincture of nightshade berries temporarily alters the structure of the eyes, granting enhanced vision. When poured directly onto the eyes of a creature, the target gains darkvision out to a range of 60 feet for 1 hour. The appearance of dark fluid running from the eyes of a creature using this preparation has earned it its common name.",
       "duration": "1 hour",
-      "notes": null,
       "floraOnly": true,
       "alchemilla": {
         "baseDurationMinutes": 60,
@@ -206,7 +197,6 @@
       "effect": "Advantage on saving throws against poison for 1 hour.",
       "fullEffect": "A creature that drinks this simple purgatory gains advantage on saving throws against poison for 1 hour.",
       "duration": "1 hour",
-      "notes": null,
       "floraOnly": true,
       "alchemilla": {
         "baseDurationMinutes": 60,
@@ -227,7 +217,6 @@
       "effect": "Neutralizes any poisons.",
       "fullEffect": "This strong antiviral neutralizes any poisons affecting a creature that drinks it.",
       "duration": "Instant",
-      "notes": null,
       "floraOnly": true
     },
     {
@@ -244,7 +233,6 @@
       "effect": "Advantage on disease recovery saves for 24 hours.",
       "fullEffect": "This simple poultice is named after its creator who also founded the Medica. When applied to the skin of a creature, it grants the target advantage on saving throws it makes to recover from diseases in the next 24 hours. The poultice can be reapplied up to five times, but loses its potency after 1 week.",
       "duration": "24 hours",
-      "notes": null,
       "floraOnly": true
     },
     {
@@ -261,7 +249,6 @@
       "effect": "Reduce exhaustion by 1 at end of short rest (1/long rest).",
       "fullEffect": "Applying this balm to the brow of a creature during a short rest causes its exhaustion level to decrease by 1 at the end of that rest. A creature that benefits from this effect can't do so again until it finishes a long rest.",
       "duration": "Short rest",
-      "notes": null,
       "floraOnly": true
     },
     {
@@ -281,7 +268,6 @@
       "effect": "Regain 2d8 + 2 HP, end poisoned, and cure disease.",
       "fullEffect": "This thick balm smells of honey and vanilla. When applied to the skin of a creature, it regains 2d8 + 2 hit points, ceases to be poisoned, and is cured of any disease.",
       "duration": "Instant",
-      "notes": null,
       "floraOnly": false
     },
     {
@@ -298,7 +284,6 @@
       "effect": "Ends curses on you (can break attunement to cursed items; might fail on powerful curses).",
       "fullEffect": "When applied to your skin, this ointment ends all curses on you. If a curse removed in this way is caused by a cursed magic item, its curse remains, but the ointment breaks the creature's attunement to the object so it can be removed or discarded. This ointment might fail to end more powerful curses.",
       "duration": "Instant",
-      "notes": null,
       "floraOnly": true
     },
     {
@@ -315,7 +300,6 @@
       "effect": "Immunity to exhaustion due to extreme cold for 8 hours.",
       "fullEffect": "When you drink this tonic, you gain immunity to exhaustion due to extreme cold. This effect lasts for 8 hours.",
       "duration": "8 hours",
-      "notes": null,
       "floraOnly": true,
       "alchemilla": {
         "baseDurationMinutes": 480,
@@ -336,7 +320,6 @@
       "effect": "Gain inspiration.",
       "fullEffect": "A creature that drinks this tonic gains inspiration (as described in the Basic Rules).",
       "duration": "Until used",
-      "notes": null,
       "floraOnly": true
     },
     {
@@ -353,7 +336,6 @@
       "effect": "Immunity to exhaustion due to extreme heat for 8 hours.",
       "fullEffect": "Applying this ointment to the skin of a creature causes it to gain immunity to exhaustion due to extreme heat for 8 hours.",
       "duration": "8 hours",
-      "notes": null,
       "floraOnly": true,
       "alchemilla": {
         "baseDurationMinutes": 480,
@@ -374,7 +356,6 @@
       "effect": "For 1 hour, gain temp HP each turn equal to Con modifier (min 1).",
       "fullEffect": "When applied to your skin, this ointment causes your skin to become as hard as stone. For 1 hour, you gain a number of temporary hit points equal to your Constitution modifier at the start of each of your turns (minimum of 1).",
       "duration": "1 hour",
-      "notes": null,
       "floraOnly": true,
       "alchemilla": {
         "baseDurationMinutes": 60,
@@ -395,7 +376,6 @@
       "effect": "For 1 hour, you can't be charmed or frightened.",
       "fullEffect": "A traditional herbal tea brewed with kava root. When you drink it, you can't be charmed or frightened for 1 hour.",
       "duration": "1 hour",
-      "notes": null,
       "floraOnly": true,
       "alchemilla": {
         "baseDurationMinutes": 60,
@@ -419,7 +399,6 @@
       "effect": "For 8 hours, regain 1 HP whenever you become stable or succeed on a death saving throw.",
       "fullEffect": "This white tablet effervesces in liquid, turning it a deep crimson color. When you consume it, for 8 hours you regain 1 hit point whenever you become stable or succeed on a death saving throw.",
       "duration": "8 hours",
-      "notes": "White tablet that effervesces in liquid, turning it deep crimson",
       "floraOnly": false,
       "alchemilla": {
         "baseDurationMinutes": 480,
@@ -440,7 +419,6 @@
       "effect": "Gain 1d8 temporary HP.",
       "fullEffect": "This mash of willow bark is typically taken under the tongue or chewed. A creature that consumes it gains 1d8 temporary hit points.",
       "duration": "Until depleted",
-      "notes": null,
       "floraOnly": true,
       "ephedra": {
         "diceCount": 1,
@@ -462,7 +440,6 @@
       "effect": "During short rest, regain maximum HP for any Hit Dice spent.",
       "fullEffect": "An astringent prepared using leaf and bark from a witch hazel plant. When applied to a creature during a short rest, at the end of the period the target regains the maximum number of hit points for any Hit Die it spends.",
       "duration": "Short rest",
-      "notes": null,
       "floraOnly": true
     },
     {
@@ -479,7 +456,6 @@
       "effect": "Regain 2d6 hit points.",
       "fullEffect": "A simple tisane using a decoction of fleshwort. When you drink it, you regain 2d6 hit points.\n\nVariant: Substituting fleshwort with juniper berries can create an equally effective healing tonic.",
       "duration": "Instant",
-      "notes": null,
       "floraOnly": true,
       "ephedra": {
         "diceCount": 2,
@@ -501,7 +477,6 @@
       "effect": "Before long rest, regain all spent Hit Dice instead of half.",
       "fullEffect": "An ointment created from the ground leaves and flowers of a knitbone plant. When applied to cuts, scrapes, and other injuries of a creature before taking a long rest, that creature regains all spent Hit Dice instead of up to half its total number of them.",
       "duration": "Long rest",
-      "notes": null,
       "floraOnly": true
     },
     {
@@ -521,7 +496,6 @@
       "effect": "Recover spell slots up to 1d4 + 1 levels (no 6th+ slots, 1/long rest).",
       "fullEffect": "When you drink this tonic, you can choose expended spell slots to recover. The spell slots can have a combined level of up to 1d4 + 1, and none of the slots can be 6th level or higher. A creature that recovers spell slots using a mana tonic can't do so again until it finishes a long rest.",
       "duration": "Instant",
-      "notes": null,
       "floraOnly": false,
       "ephedra": {
         "diceCount": 1,
@@ -543,7 +517,6 @@
       "effect": "During short rest, gain the benefits of a long rest (1/extended rest).",
       "fullEffect": "When you drink this tea during a short rest, at the end of the period you gain the benefits of finishing a long rest. This doesn't count toward the normal limit of long rests you can benefit from in a 24-hour period. A creature that benefits from this effect can't do so again until it finishes an extended rest.",
       "duration": "Instant",
-      "notes": null,
       "floraOnly": true
     },
     {
@@ -560,7 +533,6 @@
       "effect": "Weapon or ammo hits cause burning (1d6) for 1 hour.",
       "fullEffect": "This volatile grease is lauded for its effectiveness against trolls. It can coat one weapon or up to 10 pieces of ammunition. Applying the oil takes 1 minute. For 1 hour, creatures and flammable objects hit by the coated item start burning (1d6).",
       "duration": "1 hour",
-      "notes": null,
       "floraOnly": true,
       "alchemilla": {
         "baseDurationMinutes": 60,
@@ -581,7 +553,6 @@
       "effect": "Bright light 20 feet, dim light 20 feet, for 10 minutes.",
       "fullEffect": "This tube contains a special compound that emits light when exposed to air. The light is typically green, but can vary depending on the preparation method. As an action, you can expose the contents of a glow stick to the surrounding air. Doing so causes it to radiate bright light in a 20-foot radius and dim light for an additional 20 feet. This effect lasts for 10 minutes. Covering the glow stick with something opaque blocks the light.",
       "duration": "10 minutes",
-      "notes": null,
       "floraOnly": true
     },
     {
@@ -598,7 +569,6 @@
       "effect": "Repels Undead in 20-foot radius for 1 hour (DC 12 Wis; on fail must leave, can't re-enter).",
       "fullEffect": "This special incense repels Undead. You can use an action to light the incense, which then burns for 1 hour, affecting an area in a 20-foot radius around it. The first time an Undead enters the affected area or starts its turn there, the creature must make a DC 12 Wisdom saving throw. On a failed save, the creature must use all available means to leave the affected area, and can't willingly enter it again. An affected creature can repeat the saving throw whenever it takes damage, ending the effect on itself on a success.",
       "duration": "1 hour",
-      "notes": null,
       "floraOnly": true,
       "alchemilla": {
         "baseDurationMinutes": 60,
@@ -619,7 +589,6 @@
       "effect": "Revive a creature dead ≤1 day with 1 HP.",
       "fullEffect": "Pouring a vial of this liquid on a creature that has died within the last day causes the target to return to life with 1 hit point, provided its soul is free and willing. Second chance has no effect on Constructs or Undead, and it can't return to life a creature that has died of old age or restore any missing body parts. A creature can be returned to life in this way only once.",
       "duration": "Instant",
-      "notes": null,
       "floraOnly": true
     },
     {
@@ -636,7 +605,6 @@
       "effect": "Phase through creatures and objects for 10 minutes.",
       "fullEffect": "When you drink this decoction, for 10 minutes you can move through other creatures and objects as if they were difficult terrain. You take 1d10 force damage if you end your turn inside an object.",
       "duration": "10 minutes",
-      "notes": null,
       "floraOnly": false,
       "alchemilla": {
         "baseDurationMinutes": 10,
@@ -657,7 +625,6 @@
       "effect": "Change appearance/voice to any Small or Medium Humanoid you've seen for 1 hour.",
       "fullEffect": "For 1 hour after you drink this tonic, you can use your action to change your appearance and your voice to mimic those of a Small or Medium Humanoid that you have seen, or back into your normal form. Your game statistics, other than your size, are the same in each form. Any equipment you are wearing changes to fit your new form. When this effect ends, you revert to your normal form.",
       "duration": "1 hour",
-      "notes": "Requires greater slaad eye or doppelganger eye",
       "floraOnly": false,
       "alchemilla": {
         "baseDurationMinutes": 60,
@@ -678,7 +645,6 @@
       "effect": "For 1 hour, you can see in magical and nonmagical darkness out to 120 feet.",
       "fullEffect": "A crimson tisane of infernal blood. When you drink it, for 1 hour you can see in darkness, both magical and nonmagical, to a distance of 120 feet.",
       "duration": "1 hour",
-      "notes": null,
       "floraOnly": false,
       "alchemilla": {
         "baseDurationMinutes": 60,
@@ -716,7 +682,6 @@
         ]
       },
       "duration": "1 hour or 3 uses",
-      "notes": "Strength scales with dragon dust amount (×1 to ×4). Not enhanceable.",
       "floraOnly": false
     },
     {
@@ -750,7 +715,6 @@
         ]
       },
       "duration": "1 hour",
-      "notes": "Strength scales with giant heartsblood amount (×1 to ×4). Each tier has 1 enhancement slot.",
       "floraOnly": false,
       "alchemilla": {
         "baseDurationMinutes": 60,
@@ -771,7 +735,6 @@
       "effect": "Flying (hover) speed of 60 feet for 1 minute.",
       "fullEffect": "You can use an action to sprinkle faerie dust on yourself or a creature within 5 feet of you. The target gains a flying (hover) speed of 60 feet for 1 minute. The dust is consumed when its magic takes effect. If the target is in the air when the dust wears off, it descends at a rate of 60 feet per round until it lands on its feet and taking no falling damage. A small packet holds enough dust for one use.",
       "duration": "1 minute",
-      "notes": null,
       "floraOnly": false,
       "alchemilla": {
         "baseDurationMinutes": 1,
@@ -792,7 +755,6 @@
       "effect": "Shapechange (no concentration) into Beast or Humanoid forms for 1 hour.",
       "fullEffect": "This amber tincture has powerful transmutative properties. When you drink it, you gain the effect of a shapechange spell for 1 hour (no concentration required), but you can only assume Beast and Humanoid forms.",
       "duration": "1 hour",
-      "notes": "Requires couatl eye or metallic dragon eye",
       "floraOnly": false,
       "alchemilla": {
         "baseDurationMinutes": 60,
@@ -813,7 +775,6 @@
       "effect": "Read surface thoughts within 60 ft for 1 hour.",
       "fullEffect": "When you drink this tonic, you can use an action to read the surface thoughts of a creature within 60 feet of you. This effect can penetrate barriers, but 3 feet of wood or dirt, 2 feet of stone, 2 inches of metal, or a thin sheet of lead blocks it. While a target is in range, you can continue reading its thoughts, as long as your concentration isn't broken (as if concentrating on a spell). While reading a creature's mind, you have advantage on Wisdom (Insight) and Charisma (Deception, Intimidation, and Persuasion) checks you make against it. This effect lasts for 1 hour.",
       "duration": "1 hour",
-      "notes": "Requires aboleth brain or doppelganger brain",
       "floraOnly": false,
       "alchemilla": {
         "baseDurationMinutes": 60,
@@ -834,7 +795,6 @@
       "effect": "Step between living trees within 60 feet for 1 hour (10 ft movement cost).",
       "fullEffect": "This sweet-smelling balm has a deep green coloring. When applied to your skin, you can use 10 feet of your movement to step magically into a living tree within your reach and emerge from a second living tree within 60 feet, appearing in an unoccupied space within 5 feet of it. Both trees must be Large or bigger. This effect lasts for 1 hour.",
       "duration": "1 hour",
-      "notes": null,
       "floraOnly": false
     },
     {
@@ -851,7 +811,6 @@
       "effect": "Reduce physical age by 1d6 + 6 years (min 18); cumulative 10% failure chance on repeated use.",
       "fullEffect": "When applied to your skin, this lotion reduces your physical age by 1d6 + 6 years, to a minimum of 18 years. For each subsequent use, there is a 10% cumulative chance the balm has no effect.",
       "duration": "Permanent",
-      "notes": null,
       "floraOnly": false
     },
     {
@@ -868,7 +827,6 @@
       "effect": "Ends petrification, or grants stoneskin for 1 hour (no concentration).",
       "fullEffect": "An emollient balm made using oils from the throat of a basilisk. Applying it to the skin of a petrified creature causes that condition to end on it. Alternatively, applying to the skin a creature that isn't petrified causes the target to gain the effect of the stoneskin spell for 1 hour (no concentration required).",
       "duration": "1 hour or instant",
-      "notes": null,
       "floraOnly": false
     },
     {
@@ -885,7 +843,6 @@
       "effect": "Fire immunity, truesight 60 ft, burning 5-ft aura for 10 min.",
       "fullEffect": "When you drink this astringent decoction, you become wreathed in roiling smoke and gain the following benefits for 10 minutes:\n\n• You are immune to fire damage.\n• You have truesight out to a range of 60 feet.\n• The area within 5 feet of you is heavily obscured. Other creatures within this area can't breathe.\n• A creature that enters a space within 5 feet of you or starts its turn there starts burning (3d6).",
       "duration": "10 minutes",
-      "notes": null,
       "floraOnly": false
     },
     {
@@ -902,7 +859,6 @@
       "effect": "For 1 hour, your AC can't be less than 16.",
       "fullEffect": "A dull gritty paste made from dryad root. When used by a creature, for 1 hour its skin takes on a rough, bark-like appearance, and the creature's AC can't be less than 16, regardless of what kind of armor it is wearing.",
       "duration": "1 hour",
-      "notes": null,
       "floraOnly": false,
       "alchemilla": {
         "baseDurationMinutes": 60,
@@ -923,7 +879,6 @@
       "effect": "Immune to spells 6th level or lower for 1 minute.",
       "fullEffect": "When you drink this tonic, for 1 minute you can't be affected or detected by spells of 6th level or lower unless you choose to be. The liquid within shimmers red and gold.",
       "duration": "1 minute",
-      "notes": null,
       "floraOnly": false,
       "alchemilla": {
         "baseDurationMinutes": 1,
@@ -944,7 +899,6 @@
       "effect": "Turn a failed saving throw into a success (3 uses or until long rest).",
       "fullEffect": "This potion is often sought-after by knights going into battle. After drinking it, when you fail a saving throw, you can choose to succeed instead. This effect ends after you use it three times or you finish a long rest.",
       "duration": "3 uses or long rest",
-      "notes": null,
       "floraOnly": false
     },
     {
@@ -972,7 +926,6 @@
         ]
       },
       "duration": "1 hour",
-      "notes": null,
       "floraOnly": false,
       "alchemilla": {
         "baseDurationMinutes": 60,
@@ -993,7 +946,6 @@
       "effect": "Immunity to mind-reading and divination for 8 hours (unless you allow it).",
       "fullEffect": "This potion is the color of liquid gold. When you drink it, you gain immunity to effects that would sense your emotions or read your thoughts, and you can't be detected or targeted by divination magic, including scrying sensors, unless you allow it. This benefit lasts for 8 hours.",
       "duration": "8 hours",
-      "notes": "Requires couatl eye or sphinx eye",
       "floraOnly": false,
       "alchemilla": {
         "baseDurationMinutes": 480,
@@ -1014,7 +966,6 @@
       "effect": "Advantage on saves vs magic for 1 hour (can't cast or concentrate on spells).",
       "fullEffect": "A decoction of blood from creatures resistant to magic. When you drink it, for 1 hour you have advantage on saving throws against spells and other magical effects. If you are able to cast spells, you can't cast them or concentrate on them while under the effect of this tonic.",
       "duration": "1 hour",
-      "notes": "Requires wyrm blood, demon ichor, or devil blood",
       "floraOnly": false,
       "alchemilla": {
         "baseDurationMinutes": 60,
@@ -1035,7 +986,6 @@
       "effect": "Next time you'd drop to 0 HP, drop to 1 HP instead (1/long rest).",
       "fullEffect": "This chalky white powder is rubbed into the gums. When you use it, the next time you are reduced to 0 hit points but not killed outright, you can drop to 1 hit point instead. Once you do so, this effect ends. This effect ends early if you finish a long rest. A creature that benefits from this effect can't do so again until it finishes a long rest.",
       "duration": "Until triggered",
-      "notes": null,
       "floraOnly": false
     },
     {
@@ -1052,7 +1002,6 @@
       "effect": "Regenerate spell effect for 1 hour (can't be dispelled).",
       "fullEffect": "This powerful tonic harnesses the remarkable regenerative properties of the mythical hydra. When you drink it, you gain the effect of the regenerate spell for 1 hour. This effect can't be dispelled.",
       "duration": "1 hour",
-      "notes": null,
       "floraOnly": false
     },
     {
@@ -1069,7 +1018,6 @@
       "effect": "For 10 minutes, regain 10 HP at the start of each turn (if at least 1 HP).",
       "fullEffect": "A topical unguent that uses the remarkable regenerative properties of trolls and slaadi. When applied to the skin of a creature, for 10 minutes that creature regains 10 hit points at the start of each of its turns, provided it has at least 1 hit point.",
       "duration": "10 minutes",
-      "notes": "Requires slaad tongue or troll tongue",
       "floraOnly": false,
       "alchemilla": {
         "baseDurationMinutes": 10,
@@ -1090,7 +1038,6 @@
       "effect": "Non-evil creatures gain a wish; evil creatures are destroyed.",
       "fullEffect": "A non-evil creature that drinks ambrosia is granted a wish, as if they had cast the wish spell. An evil creature that drinks it is destroyed.",
       "duration": "Instant",
-      "notes": null,
       "floraOnly": false
     },
     {
@@ -1107,7 +1054,6 @@
       "effect": "Undead type with immunities for 1 hour (ends in sunlight).",
       "fullEffect": "This ghastly preparation grants some benefits of undeath, and the strongest manifestation is often coveted by fools seeking immortality. When a creature that isn't Undead drinks it, the creature's skin takes on a deathly pallor and it gains the following benefits:\n\n• Your creature type becomes Undead, instead of the type granted by your race.\n• You are immune to poison, disease, and exhaustion. Any such effects you are already suffering are suspended for the duration.\n• You don't require air, food, drink, or sleep.\n• Any physical effects of aging you would normally undergo are suppressed.\n• While you remain motionless, you are indistinguishable from a corpse.\n\nThese effects last for 1 hour. They end early if the creature starts its turn in sunlight.",
       "duration": "1 hour",
-      "notes": null,
       "floraOnly": false,
       "alchemilla": {
         "baseDurationMinutes": 60,
@@ -1128,7 +1074,6 @@
       "effect": "10-ft radius invisibility for 10 minutes.",
       "fullEffect": "This powder resembles very fine sand. When you use an action to throw it into the air, you and each creature and object within 10 feet of you become invisible for 10 minutes. The dust is consumed when its magic takes effect. If a creature affected by the dust attacks or casts a spell, the invisibility ends for that creature.",
       "duration": "10 minutes",
-      "notes": null,
       "floraOnly": false
     },
     {
@@ -1145,7 +1090,6 @@
       "effect": "Permanently bonds objects (broken only by universal solvent, oil of etherealness, or wish).",
       "fullEffect": "This viscous white substance can form a permanent adhesive bond between any two objects. It must be stored in a jar or flask that has been coated inside with oil of slipperiness. The glue can cover up to a 1-foot square surface and takes 1 minute to set. Once it has done so, the bond it creates can be broken only by the application of universal solvent or oil of etherealness, or with a wish spell.",
       "duration": "Permanent",
-      "notes": null,
       "floraOnly": false
     },
     {
@@ -1162,7 +1106,6 @@
       "effect": "Dissolves up to 1 square foot of adhesive, including sovereign glue.",
       "fullEffect": "This viscous liquid in this tube smells strongly of alcohol. You can use an action to pour the contents of the vial onto a surface within reach. The liquid instantly dissolves up to 1 square foot of adhesive it touches, including sovereign glue.",
       "duration": "Instant",
-      "notes": null,
       "floraOnly": false
     }
   ],
