@@ -32,10 +32,17 @@ class IconManager {
     /**
      * Refresh icons after dynamic content is added
      * Call this after rendering dynamic HTML that contains data-lucide attributes
+     * @param {HTMLElement} [container] - Optional container to scope icon refresh (performance optimization)
      */
-    refresh() {
+    refresh(container = null) {
         if (typeof lucide !== 'undefined') {
-            lucide.createIcons();
+            if (container) {
+                // Scoped refresh: only process icons within the container
+                lucide.createIcons({ nodes: container.querySelectorAll('[data-lucide]') });
+            } else {
+                // Full page refresh
+                lucide.createIcons();
+            }
         }
     }
 

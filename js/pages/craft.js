@@ -17,6 +17,10 @@ let creaturePartsLookup = {};
 let craftEventsBound = false;
 let craftModalState = null;
 
+// Debounce timer for expensive operations
+let craftableRenderTimer = null;
+const DEBOUNCE_DELAY = 150; // ms
+
 // Duration ladder for Alchemilla enhancement
 const durationLadder = ['1 minute', '10 minutes', '1 hour', '8 hours', '24 hours'];
 
@@ -292,7 +296,8 @@ export function renderCraftInventory() {
     `;
     
     container.innerHTML = html;
-    icons.refresh();
+    // Only refresh icons within the container, not the entire page
+    icons.refresh(container);
 }
 
 /**
@@ -303,6 +308,7 @@ function updateIngredientCount(name, delta) {
     const newValue = Math.max(0, Math.min(99, current + delta));
     ingredientInventory[name] = newValue;
     
+    // Update UI immediately for responsiveness (no querySelectorAll in loop)
     const rows = document.querySelectorAll(`.ingredient-row[data-ingredient="${name}"]`);
     rows.forEach(row => {
         const input = row.querySelector('.spinner-value');
@@ -316,7 +322,15 @@ function updateIngredientCount(name, delta) {
     });
     
     saveInventory();
-    renderCraftableMedicines();
+    
+    // Debounce the expensive craftable medicines render
+    if (craftableRenderTimer) {
+        clearTimeout(craftableRenderTimer);
+    }
+    craftableRenderTimer = setTimeout(() => {
+        renderCraftableMedicines();
+        craftableRenderTimer = null;
+    }, DEBOUNCE_DELAY);
 }
 
 /**
@@ -612,7 +626,8 @@ export function renderCraftableMedicines() {
     }).join('');
     
     bindCraftableCardEvents(grid);
-    icons.refresh();
+    // Only refresh icons within the grid, not the entire page
+    icons.refresh(grid);
 }
 
 /**
@@ -757,7 +772,8 @@ function renderCraftModalContent() {
     `;
     
     bindCraftModalEvents();
-    icons.refresh();
+    // Only refresh icons within the modal content
+    icons.refresh(content);
 }
 
 /**
@@ -1260,7 +1276,15 @@ export function bindCraftEvents() {
                 });
                 
                 saveInventory();
-                renderCraftableMedicines();
+                
+                // Debounce the expensive craftable medicines render
+                if (craftableRenderTimer) {
+                    clearTimeout(craftableRenderTimer);
+                }
+                craftableRenderTimer = setTimeout(() => {
+                    renderCraftableMedicines();
+                    craftableRenderTimer = null;
+                }, DEBOUNCE_DELAY);
             }
         });
     }
