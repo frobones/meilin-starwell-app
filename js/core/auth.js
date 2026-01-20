@@ -11,7 +11,7 @@ const CONFIG = {
     // SHA-256 hash of the passkey (obfuscated for security)
     PASSKEY_HASH: 'e339999870b56a14ec00a640677a673c68e0cb0d88e8115235671f370ef80915',
     STORAGE_KEY: 'meilin-backstory-unlocked',
-    PROTECTED_PAGES: ['overview', 'backstory', 'dmtools']
+    PROTECTED_PAGES: ['overview', 'dmsummary', 'novelette', 'vignettes', 'dmtools']
 };
 
 /**

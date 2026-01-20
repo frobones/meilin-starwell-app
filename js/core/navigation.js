@@ -18,6 +18,7 @@ const PAGE_NAMES = {
     'dmsummary': 'DM Summary',
     'rumors': 'Rumors',
     'novelette': 'Novelette',
+    'vignettes': 'Vignettes',
     'dmtools': 'DM Tools',
     'medicine': 'Herbal Medicine'
 };
@@ -113,7 +114,7 @@ export function bindDrawerEvents() {
  */
 export function handleHashChange() {
     const hash = window.location.hash.slice(1) || 'rumors';
-    const validPages = ['overview', 'dmsummary', 'medicine', 'novelette', 'dmtools', 'rumors'];
+    const validPages = ['overview', 'dmsummary', 'medicine', 'novelette', 'vignettes', 'dmtools', 'rumors'];
     if (validPages.includes(hash)) {
         switchPage(hash, false);
     }

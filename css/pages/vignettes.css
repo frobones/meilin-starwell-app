@@ -1,0 +1,65 @@
+/* ============================================
+   Vignettes Page Styles
+   ============================================ */
+
+#vignettes-page {
+  max-width: 1200px;
+}
+
+/* Page Header */
+.vignettes-header {
+  background: linear-gradient(135deg, 
+    rgba(139, 105, 20, 0.08) 0%,
+    rgba(139, 105, 20, 0.03) 100%);
+  border-bottom: 1px solid var(--parchment-aged);
+  margin-bottom: var(--space-xl);
+}
+
+.vignettes-header .page-title {
+  color: var(--sepia);
+}
+
+/* Content Area */
+.vignettes-content {
+  padding: 0 var(--space-md);
+}
+
+/* Intro Section */
+.vignettes-intro {
+  margin-bottom: var(--space-xl);
+  padding: var(--space-lg);
+  background: linear-gradient(135deg, rgba(139, 105, 20, 0.1), rgba(139, 105, 20, 0.05));
+  border-radius: var(--radius-md);
+  border: 1px solid var(--parchment-aged);
+  text-align: center;
+}
+
+.vignettes-note {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--ink-faded);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.vignettes-note strong {
+  color: var(--sepia);
+}
+
+/* ============================================
+   Responsive Adjustments
+   ============================================ */
+
+@media (max-width: 768px) {
+  .vignettes-content {
+    padding: 0 var(--space-sm);
+  }
+  
+  .vignettes-intro {
+    padding: var(--space-md);
+  }
+  
+  .vignettes-note {
+    font-size: 1rem;
+  }
+}

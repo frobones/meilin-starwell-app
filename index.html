@@ -68,6 +68,7 @@
     <link rel="stylesheet" href="css/pages/dmsummary.css">
     <link rel="stylesheet" href="css/pages/dmtools.css">
     <link rel="stylesheet" href="css/pages/medicine.css">
+    <link rel="stylesheet" href="css/pages/vignettes.css">
     <!-- Print Styles -->
     <link rel="stylesheet" href="css/base/print.css" media="print">
 </head>
@@ -123,6 +124,10 @@
                 <a href="#novelette" class="nav-link" data-page="novelette">
                     <span class="nav-icon"><i data-lucide="book-open"></i></span>
                     <span class="nav-text">Novelette</span>
+                </a>
+                <a href="#vignettes" class="nav-link" data-page="vignettes">
+                    <span class="nav-icon"><i data-lucide="sparkles"></i></span>
+                    <span class="nav-text">Vignettes</span>
                 </a>
             </nav>
             <div class="sidebar-footer">
@@ -548,20 +553,25 @@
                     <div class="backstory-enhanced" id="backstory-enhanced">
                         <div class="loading-spinner">Loading novelette...</div>
                     </div>
+                </main>
+            </div>
 
-                    <!-- Vignettes Section (After Novelette) -->
-                    <section class="vignettes-section" id="vignettes-section">
-                        <div class="section-divider">
-                            <span class="divider-text">After the Novelette</span>
-                        </div>
-                        <div class="vignettes-intro">
-                            <h2 class="vignettes-title">Vignettes</h2>
-                            <p class="vignettes-note">These vignettes take place <strong>after</strong> Meilin's novelette, during her time at the Astral Bazaar. Each captures a small moment that reveals her skills, habits, and way of seeing the world.</p>
-                        </div>
-                        <div class="vignettes-grid" id="vignettes-grid">
-                            <div class="loading-spinner">Loading vignettes...</div>
-                        </div>
-                    </section>
+            <!-- Vignettes Page -->
+            <div class="page" id="vignettes-page">
+                <header class="page-header vignettes-header">
+                    <div class="page-header-content">
+                        <h1 class="page-title">Vignettes</h1>
+                        <p class="page-subtitle">Short moments that reveal skills, habits, and ways of seeing</p>
+                    </div>
+                </header>
+
+                <main class="vignettes-content">
+                    <div class="vignettes-intro">
+                        <p class="vignettes-note">These vignettes take place <strong>after</strong> Meilin's novelette, during her time at the Astral Bazaar. Each captures a small moment that reveals her skills, habits, and way of seeing the world.</p>
+                    </div>
+                    <div class="vignettes-grid" id="vignettes-grid">
+                        <div class="loading-spinner">Loading vignettes...</div>
+                    </div>
                 </main>
 
                 <!-- Vignette Detail Modal -->

@@ -37,7 +37,6 @@ import { ModalDialog, MedicineCard, RumorCard, LightBox } from './components/ind
 const CONFIG = {
     STORAGE_KEY: 'meilin-backstory-unlocked',
     INVENTORY_STORAGE_KEY: 'meilin-inventory',
-    PROTECTED_PAGES: ['overview', 'dmsummary', 'novelette', 'dmtools'],
     DEFAULT_PAGE: 'rumors'
 };
 
@@ -143,7 +142,8 @@ function setupPageLoading() {
                 if (!novelettePage.getNovelette()) {
                     await novelettePage.loadNovelette();
                 }
-                // Vignettes are on the novelette page
+                break;
+            case 'vignettes':
                 if (!vignettesPage.getVignettes()?.length) {
                     await vignettesPage.loadVignettes();
                 }
