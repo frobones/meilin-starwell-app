@@ -80,7 +80,7 @@ export function renderOverview() {
         `;
     }
 
-    // Bind psyche tab events
+    // Bind compass tab events
     bindPsycheTabEvents();
 
     // Secrets section
@@ -150,26 +150,26 @@ function setNestedText(selector, text) {
 }
 
 /**
- * Create a psyche card element
+ * Create a compass card element
  */
 function createPsycheCard(icon, label, text) {
     return `
-        <div class="psyche-card">
-            <div class="psyche-card-icon"><i data-lucide="${icon}"></i></div>
-            <div class="psyche-card-content">
-                <h4 class="psyche-card-label">${label}</h4>
-                <p class="psyche-card-text">${text}</p>
+        <div class="compass-card">
+            <div class="compass-card-icon"><i data-lucide="${icon}"></i></div>
+            <div class="compass-card-content">
+                <h4 class="compass-card-label">${label}</h4>
+                <p class="compass-card-text">${text}</p>
             </div>
         </div>
     `;
 }
 
 /**
- * Bind psyche tab switching events
+ * Bind compass tab switching events
  */
 function bindPsycheTabEvents() {
-    const tabs = document.querySelectorAll('.psyche-tab');
-    const panels = document.querySelectorAll('.psyche-panel');
+    const tabs = document.querySelectorAll('.compass-tab');
+    const panels = document.querySelectorAll('.compass-panel');
     
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {

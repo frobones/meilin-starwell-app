@@ -233,11 +233,11 @@
 }
 
 /* Character Psyche Section */
-.aag-psyche {
+.aag-compass {
   background: var(--parchment-light);
 }
 
-.psyche-container {
+.compass-container {
   background: var(--parchment);
   border-radius: var(--radius-lg);
   box-shadow: 0 4px 20px var(--shadow);
@@ -245,14 +245,14 @@
 }
 
 /* Psyche Tabs */
-.psyche-tabs {
+.compass-tabs {
   display: flex;
   background: linear-gradient(180deg, var(--ink-brown) 0%, #2a1f16 100%);
   padding: 0;
   gap: 0;
 }
 
-.psyche-tab {
+.compass-tab {
   flex: 1;
   display: flex;
   align-items: center;
@@ -270,31 +270,31 @@
   position: relative;
 }
 
-.psyche-tab svg {
+.compass-tab svg {
   width: 18px;
   height: 18px;
   opacity: 0.7;
   transition: opacity 0.3s ease;
 }
 
-.psyche-tab:hover {
+.compass-tab:hover {
   color: var(--parchment-light);
   background: rgba(255, 255, 255, 0.05);
 }
 
-.psyche-tab:hover svg {
+.compass-tab:hover svg {
   opacity: 1;
 }
 
-.psyche-tab.active {
+.compass-tab.active {
   background: var(--parchment);
 }
 
-.psyche-tab.active svg {
+.compass-tab.active svg {
   opacity: 1;
 }
 
-.psyche-tab.active::after {
+.compass-tab.active::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -304,47 +304,47 @@
 }
 
 /* Tab colors matching panel icons */
-.psyche-tab[data-tab="drives"].active {
+.compass-tab[data-tab="drives"].active {
   color: var(--gold-accent);
 }
-.psyche-tab[data-tab="drives"].active svg {
+.compass-tab[data-tab="drives"].active svg {
   color: var(--gold-accent);
 }
-.psyche-tab[data-tab="drives"].active::after {
+.compass-tab[data-tab="drives"].active::after {
   background: var(--gold-accent);
 }
 
-.psyche-tab[data-tab="boundaries"].active {
+.compass-tab[data-tab="boundaries"].active {
   color: #8b4545;
 }
-.psyche-tab[data-tab="boundaries"].active svg {
+.compass-tab[data-tab="boundaries"].active svg {
   color: #8b4545;
 }
-.psyche-tab[data-tab="boundaries"].active::after {
+.compass-tab[data-tab="boundaries"].active::after {
   background: #8b4545;
 }
 
-.psyche-tab[data-tab="anchor"].active {
+.compass-tab[data-tab="anchor"].active {
   color: var(--herb-green);
 }
-.psyche-tab[data-tab="anchor"].active svg {
+.compass-tab[data-tab="anchor"].active svg {
   color: var(--herb-green);
 }
-.psyche-tab[data-tab="anchor"].active::after {
+.compass-tab[data-tab="anchor"].active::after {
   background: var(--herb-green);
 }
 
 /* Psyche Panels */
-.psyche-panels {
+.compass-panels {
   padding: var(--space-xl);
 }
 
-.psyche-panel {
+.compass-panel {
   display: none;
   animation: fadeIn 0.3s ease;
 }
 
-.psyche-panel.active {
+.compass-panel.active {
   display: block;
 }
 
@@ -354,20 +354,20 @@
 }
 
 /* Psyche Grid */
-.psyche-grid {
+.compass-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: var(--space-md);
 }
 
-.psyche-grid .psyche-card {
+.compass-grid .compass-card {
   flex: 1 1 280px;
   max-width: 400px;
 }
 
 /* Psyche Cards */
-.psyche-card {
+.compass-card {
   display: flex;
   gap: var(--space-md);
   padding: var(--space-md);
@@ -376,7 +376,7 @@
   border: 1px solid var(--parchment-aged);
 }
 
-.psyche-card-icon {
+.compass-card-icon {
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -388,18 +388,18 @@
   box-shadow: 0 2px 8px rgba(184, 134, 11, 0.3);
 }
 
-.psyche-card-icon svg {
+.compass-card-icon svg {
   width: 22px;
   height: 22px;
   color: white;
 }
 
-.psyche-card-content {
+.compass-card-content {
   flex: 1;
   min-width: 0;
 }
 
-.psyche-card-label {
+.compass-card-label {
   font-family: var(--font-heading);
   font-size: 0.85rem;
   font-weight: 700;
@@ -409,7 +409,7 @@
   margin: 0 0 var(--space-xs) 0;
 }
 
-.psyche-card-text {
+.compass-card-text {
   font-size: 0.9rem;
   color: var(--ink-brown);
   line-height: 1.5;
@@ -417,17 +417,17 @@
 }
 
 /* Panel-specific icon colors */
-#panel-drives .psyche-card-icon {
+#panel-drives .compass-card-icon {
   background: linear-gradient(135deg, var(--gold-accent) 0%, #c9a227 100%);
   box-shadow: 0 2px 8px rgba(184, 134, 11, 0.3);
 }
 
-#panel-boundaries .psyche-card-icon {
+#panel-boundaries .compass-card-icon {
   background: linear-gradient(135deg, #8b4545 0%, #a05555 100%);
   box-shadow: 0 2px 8px rgba(139, 69, 69, 0.3);
 }
 
-#panel-anchor .psyche-card-icon {
+#panel-anchor .compass-card-icon {
   background: linear-gradient(135deg, var(--herb-green) 0%, #5a7a5a 100%);
   box-shadow: 0 2px 8px rgba(74, 93, 74, 0.3);
 }
@@ -540,11 +540,11 @@
     margin: 0;
   }
   
-  .psyche-grid {
+  .compass-grid {
     grid-template-columns: 1fr;
   }
   
-  .psyche-panels {
+  .compass-panels {
     padding: var(--space-lg);
   }
 }
@@ -562,40 +562,40 @@
     padding-right: var(--space-md);
   }
   
-  .aag-psyche {
+  .aag-compass {
     padding-left: var(--space-md);
     padding-right: var(--space-md);
   }
   
-  .aag-psyche .aag-section-title {
+  .aag-compass .aag-section-title {
     margin-bottom: var(--space-md);
   }
   
-  .psyche-tab {
+  .compass-tab {
     padding: var(--space-sm) var(--space-md);
     font-size: 0.8rem;
     gap: var(--space-xs);
   }
   
-  .psyche-tab svg {
+  .compass-tab svg {
     width: 16px;
     height: 16px;
   }
   
-  .psyche-panels {
+  .compass-panels {
     padding: var(--space-md);
   }
   
-  .psyche-card {
+  .compass-card {
     padding: var(--space-sm) var(--space-md);
   }
   
-  .psyche-card-icon {
+  .compass-card-icon {
     width: 36px;
     height: 36px;
   }
   
-  .psyche-card-icon svg {
+  .compass-card-icon svg {
     width: 18px;
     height: 18px;
   }
