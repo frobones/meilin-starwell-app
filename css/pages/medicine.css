@@ -2328,4 +2328,33 @@
     max-width: 100%;
     margin: var(--space-md);
   }
+  
+  /* Recipe ingredient rows: stack alternatives below on mobile */
+  .recipe-ingredient-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-xs);
+  }
+  
+  .recipe-ingredient-info {
+    width: 100%;
+  }
+  
+  .recipe-ingredient-alternatives {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-left: 0;
+    padding-left: calc(18px + var(--space-sm));
+    width: 100%;
+  }
+  
+  .recipe-alt-option {
+    font-size: 0.75rem;
+    padding: 4px 8px;
+  }
+  
+  .recipe-ingredient-spinner {
+    align-self: flex-end;
+  }
 }
