@@ -513,28 +513,28 @@
     box-shadow: none;
   }
   
-  /* Revealed state via JavaScript tap */
+  /* Revealed state via JavaScript tap - !important to override any hover state */
   .rumor-item--revealed {
-    opacity: 1;
-    background: var(--parchment);
-    box-shadow: 0 2px 12px var(--shadow);
-    border-left-color: var(--gold-dim);
+    opacity: 1 !important;
+    background: var(--parchment) !important;
+    box-shadow: 0 2px 12px var(--shadow) !important;
+    border-left-color: var(--gold-dim) !important;
   }
   
   .rumor-item--revealed .rumor-cipher {
-    opacity: 0;
-    filter: blur(2px);
+    opacity: 0 !important;
+    filter: blur(2px) !important;
   }
   
   .rumor-item--revealed .rumor-readable {
-    -webkit-mask-image: none;
-    mask-image: none;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
     animation: decipherText 0.4s ease-out forwards;
   }
   
   .rumor-item--revealed .rumor-cipher {
-    -webkit-mask-image: none;
-    mask-image: none;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
   }
 }
 

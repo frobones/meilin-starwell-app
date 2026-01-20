@@ -275,14 +275,15 @@ function setupBannerPanEffect() {
  * Setup tap-to-reveal interaction for rumors on mobile devices
  * Tapping a rumor reveals it (like hover) and updates the gallery image
  */
-let rumorTapInitialized = false;
+let rumorTapDocHandlersInitialized = false;
+let activeRumor = null;
 
 function setupRumorTapToReveal(rumorItems, galleryContainer) {
-    // Prevent double initialization
-    if (rumorTapInitialized) return;
-    rumorTapInitialized = true;
-    
-    let activeRumor = null;
+    // Reset active rumor when re-initializing (handles page re-visits)
+    if (activeRumor) {
+        activeRumor.classList.remove('rumor-item--revealed');
+        activeRumor = null;
+    }
     
     /**
      * Check if we're on a mobile device
@@ -323,7 +324,7 @@ function setupRumorTapToReveal(rumorItems, galleryContainer) {
         crossfadeToImage(newImageSrc, galleryContainer);
     }
     
-    // Handle tap events on rumor items
+    // Handle tap events on rumor items (attach fresh handlers to new DOM elements)
     rumorItems.forEach(item => {
         item.addEventListener('click', (e) => {
             // Only use tap behavior on mobile
@@ -334,21 +335,26 @@ function setupRumorTapToReveal(rumorItems, galleryContainer) {
         });
     });
     
-    // Close when tapping outside on mobile
-    document.addEventListener('click', (e) => {
-        if (!isMobileView() || !activeRumor) return;
+    // Document-level handlers only need to be set up once
+    if (!rumorTapDocHandlersInitialized) {
+        rumorTapDocHandlersInitialized = true;
         
-        // Check if click was outside any rumor item
-        if (!e.target.closest('.rumor-item')) {
+        // Close when tapping outside on mobile
+        document.addEventListener('click', (e) => {
+            if (!isMobileView() || !activeRumor) return;
+            
+            // Check if click was outside any rumor item
+            if (!e.target.closest('.rumor-item')) {
+                deactivateRumor();
+            }
+        });
+        
+        // Handle orientation/resize changes
+        window.matchMedia('(max-width: 768px)').addEventListener('change', () => {
+            // Clear active state when switching between mobile/desktop
             deactivateRumor();
-        }
-    });
-    
-    // Handle orientation/resize changes
-    window.matchMedia('(max-width: 768px)').addEventListener('change', () => {
-        // Clear active state when switching between mobile/desktop
-        deactivateRumor();
-    });
+        });
+    }
 }
 
 /**
