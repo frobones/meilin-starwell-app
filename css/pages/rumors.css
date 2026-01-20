@@ -473,9 +473,9 @@
 }
 
 @media (max-width: 768px) {
-  .rumors-gallery-single img {
-    max-height: 400px;
-    object-fit: cover;
+  /* Hide the separate gallery on mobile - inline previews show in rumors instead */
+  .rumors-gallery {
+    display: none;
   }
   
   .rumors-views {
@@ -596,6 +596,60 @@
   /* Add relative positioning for the hint */
   .rumor-inline-preview {
     position: relative;
+  }
+  
+  /* ============================================
+     Detail Cards - Mobile Tap Support
+     ============================================ */
+  
+  /* Override hover effects for mobile - cards start visible but muted */
+  .rumors-detail-card {
+    opacity: 0.5;
+    filter: brightness(0.75) saturate(0.5);
+    transform: scale(0.98);
+  }
+  
+  /* Disable the grid hover dimming on mobile */
+  .rumors-details-grid:hover .rumors-detail-card {
+    opacity: 0.5;
+    filter: brightness(0.75) saturate(0.5);
+    transform: scale(0.98);
+  }
+  
+  /* Disable hover illumination on mobile (tap only) */
+  .rumors-details-grid:hover .rumors-detail-card:hover {
+    opacity: 0.5;
+    filter: brightness(0.75) saturate(0.5);
+    transform: scale(0.98);
+    background: var(--parchment-light);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-color: var(--parchment-aged);
+  }
+  
+  /* Tap-activated state */
+  .rumors-detail-card--active {
+    opacity: 1 !important;
+    filter: brightness(1.08) saturate(1.15) !important;
+    transform: scale(1.02) !important;
+    background: linear-gradient(
+      135deg,
+      var(--parchment-light) 0%,
+      rgba(255, 248, 220, 0.95) 50%,
+      var(--parchment-light) 100%
+    ) !important;
+    box-shadow: 
+      0 0 20px rgba(218, 165, 32, 0.3),
+      0 8px 24px rgba(0, 0, 0, 0.2) !important;
+    border-color: var(--gold-dim) !important;
+  }
+  
+  .rumors-detail-card--active h3 {
+    color: var(--ink-dark, #2c1810) !important;
+    text-shadow: 0 0 8px rgba(218, 165, 32, 0.2);
+  }
+  
+  .rumors-detail-card--active p {
+    color: var(--ink-brown) !important;
   }
 }
 

@@ -88,6 +88,9 @@ export function setupRumorHoverEffects() {
     
     // Setup tap-to-reveal for rumors on mobile
     setupRumorTapToReveal(rumorItems, galleryContainer);
+    
+    // Setup tap-to-illuminate for detail cards on mobile
+    setupDetailCardTapInteractions();
 }
 
 /**
@@ -405,6 +408,85 @@ function setupRumorTapToReveal(rumorItems, galleryContainer) {
             deactivateRumor();
         });
     }
+}
+
+/**
+ * Setup tap-to-illuminate interactions for detail cards on mobile
+ * Allows tapping to toggle the "illuminated" state on cards
+ */
+let detailCardInteractionsInitialized = false;
+let activeDetailCard = null;
+
+function setupDetailCardTapInteractions() {
+    // Prevent double registration
+    if (detailCardInteractionsInitialized) return;
+    
+    const detailCards = document.querySelectorAll('.rumors-detail-card');
+    if (detailCards.length === 0) return;
+    
+    detailCardInteractionsInitialized = true;
+    
+    /**
+     * Check if we're on a mobile device
+     */
+    function isMobileView() {
+        return window.matchMedia('(max-width: 768px)').matches;
+    }
+    
+    /**
+     * Deactivate the currently active detail card
+     */
+    function deactivateDetailCard() {
+        if (activeDetailCard) {
+            activeDetailCard.classList.remove('rumors-detail-card--active');
+            activeDetailCard = null;
+        }
+    }
+    
+    /**
+     * Activate a detail card
+     */
+    function activateDetailCard(card) {
+        // If tapping the same card, toggle it off
+        if (card === activeDetailCard) {
+            deactivateDetailCard();
+            return;
+        }
+        
+        // Deactivate previous
+        deactivateDetailCard();
+        
+        // Activate new
+        card.classList.add('rumors-detail-card--active');
+        activeDetailCard = card;
+    }
+    
+    // Handle tap events on detail cards
+    detailCards.forEach(card => {
+        card.addEventListener('click', (e) => {
+            // Only use tap behavior on mobile
+            if (!isMobileView()) return;
+            
+            e.preventDefault();
+            e.stopPropagation(); // Prevent triggering rumor deactivation
+            activateDetailCard(card);
+        });
+    });
+    
+    // Close when tapping outside on mobile
+    document.addEventListener('click', (e) => {
+        if (!isMobileView() || !activeDetailCard) return;
+        
+        // Check if click was outside any detail card
+        if (!e.target.closest('.rumors-detail-card')) {
+            deactivateDetailCard();
+        }
+    });
+    
+    // Handle orientation/resize changes
+    window.matchMedia('(max-width: 768px)').addEventListener('change', () => {
+        deactivateDetailCard();
+    });
 }
 
 /**

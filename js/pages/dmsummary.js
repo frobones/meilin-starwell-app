@@ -41,35 +41,38 @@ export async function loadDMSummary() {
  */
 function renderDMSummary(data) {
     return `
-        <!-- Basic Stats Bar -->
-        <div class="dmsummary-basics">
-            <span class="dmsummary-basic">${data.basics.species}</span>
-            <span class="dmsummary-basic">${data.basics.gender}, ${data.basics.age}</span>
-            <span class="dmsummary-basic">${data.basics.height}, ${data.basics.weight}</span>
-            <span class="dmsummary-basic">${data.basics.class}</span>
-            <span class="dmsummary-basic">${data.basics.background}</span>
-            <span class="dmsummary-basic">${data.basics.alignment}</span>
-        </div>
-
-        <!-- Read Time Badge -->
-        <div class="dmsummary-meta">
-            <span class="dmsummary-readtime">
-                <i data-lucide="clock"></i>
-                ${data.readTime} read
-            </span>
-        </div>
-
-        <!-- Narrative Sections -->
-        <div class="dmsummary-narrative">
-            ${data.sections.map(section => `
-                <section class="dmsummary-section">
-                    <h2 class="dmsummary-section-heading">
-                        <span class="dmsummary-section-icon"><i data-lucide="${section.icon}"></i></span>
-                        ${section.heading}
-                    </h2>
-                    <p class="dmsummary-section-text">${section.text}</p>
-                </section>
-            `).join('')}
+        <!-- Character Stats Grid -->
+        <div class="dmsummary-stats">
+            <div class="dmsummary-stat">
+                <span class="dmsummary-stat-icon"><i data-lucide="user"></i></span>
+                <span class="dmsummary-stat-label">Species</span>
+                <span class="dmsummary-stat-value">${data.basics.species}</span>
+            </div>
+            <div class="dmsummary-stat">
+                <span class="dmsummary-stat-icon"><i data-lucide="heart"></i></span>
+                <span class="dmsummary-stat-label">Age</span>
+                <span class="dmsummary-stat-value">${data.basics.gender}, ${data.basics.age}</span>
+            </div>
+            <div class="dmsummary-stat">
+                <span class="dmsummary-stat-icon"><i data-lucide="biceps-flexed"></i></span>
+                <span class="dmsummary-stat-label">Build</span>
+                <span class="dmsummary-stat-value">${data.basics.height}, ${data.basics.weight}</span>
+            </div>
+            <div class="dmsummary-stat">
+                <span class="dmsummary-stat-icon"><i data-lucide="swords"></i></span>
+                <span class="dmsummary-stat-label">Class</span>
+                <span class="dmsummary-stat-value">${data.basics.class}</span>
+            </div>
+            <div class="dmsummary-stat">
+                <span class="dmsummary-stat-icon"><i data-lucide="leaf"></i></span>
+                <span class="dmsummary-stat-label">Background</span>
+                <span class="dmsummary-stat-value">${data.basics.background}</span>
+            </div>
+            <div class="dmsummary-stat">
+                <span class="dmsummary-stat-icon"><i data-lucide="scale"></i></span>
+                <span class="dmsummary-stat-label">Alignment</span>
+                <span class="dmsummary-stat-value">${data.basics.alignment}</span>
+            </div>
         </div>
 
         <!-- At a Glance -->
@@ -105,6 +108,19 @@ function renderDMSummary(data) {
                 </div>
             </dl>
         </aside>
+
+        <!-- Narrative Sections -->
+        <div class="dmsummary-narrative">
+            ${data.sections.map(section => `
+                <section class="dmsummary-section">
+                    <h2 class="dmsummary-section-heading">
+                        <span class="dmsummary-section-icon"><i data-lucide="${section.icon}"></i></span>
+                        ${section.heading}
+                    </h2>
+                    <p class="dmsummary-section-text">${section.text}</p>
+                </section>
+            `).join('')}
+        </div>
     `;
 }
 

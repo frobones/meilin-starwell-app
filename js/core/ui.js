@@ -99,6 +99,13 @@ export function bindGlobalLightbox() {
             closeLightbox();
         }
     });
+    
+    // Listen for lightbox:open events from other modules (e.g., rumor inline previews)
+    events.on('lightbox:open', ({ src }) => {
+        if (src) {
+            openLightbox(src);
+        }
+    });
 }
 
 /**
