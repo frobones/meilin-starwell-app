@@ -398,8 +398,8 @@
   }
   
   .aag-hero {
-    padding: var(--space-xl) var(--space-md);
-    margin: 0 calc(-1 * var(--space-md));
+    padding: var(--space-xl) var(--space-lg);
+    margin: 0;
   }
   
   .aag-name {
@@ -407,19 +407,23 @@
   }
   
   .aag-section {
-    padding: var(--space-lg) var(--space-md);
-    margin: 0 calc(-1 * var(--space-md));
+    padding: var(--space-lg);
+    margin: 0;
   }
 }
 
 @media (max-width: 768px) {
-  .aag-hero,
-  .aag-section {
-    margin: 0 calc(-1 * var(--space-sm));
-    padding-left: var(--space-sm);
-    padding-right: var(--space-sm);
+  .aag-hero {
+    margin: 0;
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
   }
   
+  .aag-section {
+    margin: 0;
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+  }
 }
 
 @media (max-width: 600px) {
