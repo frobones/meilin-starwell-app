@@ -19,7 +19,7 @@ let craftModalState = null;
 
 // Debounce timer for expensive operations
 let craftableRenderTimer = null;
-const DEBOUNCE_DELAY = 150; // ms
+const DEBOUNCE_DELAY = 100; // ms - fast enough for responsiveness while still batching rapid taps
 
 // Duration ladder for Alchemilla enhancement
 const durationLadder = ['1 minute', '10 minutes', '1 hour', '8 hours', '24 hours'];

@@ -23,7 +23,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: zoom-in;
 }
 
 .aag-hero:hover .aag-hero-content {

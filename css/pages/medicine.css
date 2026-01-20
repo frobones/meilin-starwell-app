@@ -762,7 +762,8 @@
   padding: var(--space-xs) var(--space-sm);
   background: var(--parchment-light);
   border-radius: 4px;
-  transition: background 0.2s;
+  transition: background 0.1s;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .ingredient-row:hover {
@@ -847,10 +848,12 @@
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: background 0.1s, color 0.1s, border-color 0.1s;
   display: flex;
   align-items: center;
   justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  will-change: background;
 }
 
 .number-spinner button:first-child {
@@ -868,7 +871,8 @@
 }
 
 .number-spinner button:active {
-  transform: scale(0.95);
+  background: var(--herb-green);
+  color: white;
 }
 
 .number-spinner button:disabled {

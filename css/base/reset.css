@@ -59,6 +59,27 @@ a:focus-visible,
   outline-offset: 2px;
 }
 
+/* ============================================
+   Mobile Touch Optimization
+   ============================================ */
+
+/* Remove 300ms tap delay on mobile for interactive elements */
+button,
+a,
+input,
+select,
+textarea,
+[role="button"],
+.spinner-inc,
+.spinner-dec,
+.ingredient-row,
+.inventory-section-header,
+.inventory-group-header,
+.craftable-card,
+.tab-btn {
+  touch-action: manipulation;
+}
+
 /* Skip link for keyboard users */
 .skip-link {
   position: absolute;
