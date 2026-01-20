@@ -45,7 +45,6 @@
   height: 125%;
   object-fit: cover;
   margin-left: -12.5%;
-  margin-top: -12.5%;
 }
 
 .sidebar-title {
@@ -220,6 +219,11 @@
   /* Sidebar open state */
   .sidebar.open {
     transform: translateX(0);
+  }
+
+  /* Add top padding to sidebar header to account for mobile header overlap */
+  .sidebar-header {
+    padding-top: calc(56px + var(--space-xl));
   }
 
   /* Adjust main content for mobile header */
