@@ -57,7 +57,7 @@ export function renderQuickRules() {
         
         <div class="rules-grid">
             <div class="rules-card">
-                <h4>Gathering Plants</h4>
+                <h4><i data-lucide="sprout"></i> Gathering Plants</h4>
                 <ul>
                     <li><strong>Time:</strong> ${rules.gathering?.time || '1 hour per attempt'}</li>
                     <li><strong>Check:</strong> Intelligence (Nature)</li>
@@ -67,7 +67,7 @@ export function renderQuickRules() {
             </div>
             
             <div class="rules-card">
-                <h4>Making a Medicine</h4>
+                <h4><i data-lucide="flask-conical"></i> Making a Medicine</h4>
                 <ul>
                     <li><strong>Time:</strong> ${rules.crafting?.time || '1 hour'}</li>
                     <li><strong>Tool:</strong> ${rules.crafting?.tool || 'Herbalism kit'}</li>
@@ -77,7 +77,7 @@ export function renderQuickRules() {
             </div>
             
             <div class="rules-card">
-                <h4>Difficulty Scale</h4>
+                <h4><i data-lucide="gauge"></i> Difficulty Scale</h4>
                 <table class="ingredient-table" style="font-size: 0.85rem;">
                     <tbody>${difficultyRows}</tbody>
                 </table>
@@ -162,7 +162,7 @@ export function renderHarvestingRules() {
         
         <div class="rules-grid">
             <div class="rules-card">
-                <h4>Harvesting Creatures</h4>
+                <h4><i data-lucide="skull"></i> Harvesting Creatures</h4>
                 <ul>
                     <li><strong>Time:</strong> ${harvesting.process?.time || '10 minutes'}</li>
                     <li><strong>Rest:</strong> ${harvesting.process?.restCompatible || 'Compatible'}</li>
@@ -173,7 +173,7 @@ export function renderHarvestingRules() {
             </div>
             
             <div class="rules-card">
-                <h4>Harvesting Kit</h4>
+                <h4><i data-lucide="briefcase"></i> Harvesting Kit</h4>
                 <ul>
                     <li><strong>Cost:</strong> ${harvesting.tool?.cost || '25 gp'}${harvesting.tool?.weight ? ` (${harvesting.tool.weight})` : ''}</li>
                     <li><strong>Advantage:</strong> ${harvesting.modifiers?.advantage || 'Skill proficiency'}</li>
@@ -182,7 +182,7 @@ export function renderHarvestingRules() {
             </div>
             
             <div class="rules-card">
-                <h4>Harvesting Results</h4>
+                <h4><i data-lucide="clipboard-list"></i> Harvesting Results</h4>
                 <ul>
                     <li><strong>On success:</strong> ${harvesting.results?.success || 'Gain components'}</li>
                     <li><strong>Component DC:</strong> ${harvesting.results?.componentDC || 'Varies by component'}</li>

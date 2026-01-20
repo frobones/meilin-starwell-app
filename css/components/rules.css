@@ -119,18 +119,20 @@ details[open] .rules-toggle::after {
 
 .rules-card h4 {
   font-family: var(--font-heading);
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 600;
-  color: var(--herb-green-dark);
-  margin-bottom: var(--space-sm);
+  color: var(--sepia);
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--parchment-dark);
   display: flex;
   align-items: center;
-  gap: var(--space-xs);
+  gap: var(--space-sm);
 }
 
 .rules-card h4 svg {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   color: var(--herb-green);
 }
 

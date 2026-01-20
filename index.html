@@ -169,19 +169,35 @@
                     <p class="aag-summary-text" id="aag-summary"></p>
                 </section>
 
-                <!-- Cards Row: Drives, Boundaries, Shared Anchor -->
-                <section class="aag-section aag-cards-row">
-                    <div class="aag-card aag-drives">
-                        <h3 class="aag-card-title">Drives</h3>
-                        <ul class="aag-card-list" id="aag-drives-list"></ul>
-                    </div>
-                    <div class="aag-card aag-boundaries">
-                        <h3 class="aag-card-title">Boundaries</h3>
-                        <ul class="aag-card-list" id="aag-boundaries-list"></ul>
-                    </div>
-                    <div class="aag-card aag-glue">
-                        <h3 class="aag-card-title">Shared Anchor</h3>
-                        <ul class="aag-card-list" id="aag-glue-list"></ul>
+                <!-- Character Psyche: Drives, Boundaries, Shared Anchor -->
+                <section class="aag-section aag-psyche">
+                    <h2 class="aag-section-title">Character Psyche</h2>
+                    <div class="psyche-container">
+                        <nav class="psyche-tabs" role="tablist">
+                            <button class="psyche-tab active" data-tab="drives" role="tab" aria-selected="true">
+                                <i data-lucide="compass"></i>
+                                <span>Drives</span>
+                            </button>
+                            <button class="psyche-tab" data-tab="boundaries" role="tab" aria-selected="false">
+                                <i data-lucide="shield"></i>
+                                <span>Boundaries</span>
+                            </button>
+                            <button class="psyche-tab" data-tab="anchor" role="tab" aria-selected="false">
+                                <i data-lucide="anchor"></i>
+                                <span>Shared Anchor</span>
+                            </button>
+                        </nav>
+                        <div class="psyche-panels">
+                            <div class="psyche-panel active" id="panel-drives" role="tabpanel">
+                                <div class="psyche-grid" id="aag-drives-list"></div>
+                            </div>
+                            <div class="psyche-panel" id="panel-boundaries" role="tabpanel">
+                                <div class="psyche-grid" id="aag-boundaries-list"></div>
+                            </div>
+                            <div class="psyche-panel" id="panel-anchor" role="tabpanel">
+                                <div class="psyche-grid" id="aag-glue-list"></div>
+                            </div>
+                        </div>
                     </div>
                 </section>
 

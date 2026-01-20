@@ -44,41 +44,44 @@ export function renderOverview() {
     // Summary
     setTextContent('aag-summary', data.summary);
 
-    // Drives card
+    // Drives panel
     const drivesContainer = document.getElementById('aag-drives-list');
     if (drivesContainer) {
         drivesContainer.innerHTML = `
-            <li><span class="item-label">Want:</span><span class="item-value">${data.drives.want}</span></li>
-            <li><span class="item-label">Need:</span><span class="item-value">${data.drives.need}</span></li>
-            <li><span class="item-label">Fear:</span><span class="item-value">${data.drives.fear}</span></li>
-            <li><span class="item-label">Temptation:</span><span class="item-value">${data.drives.temptation}</span></li>
-            <li><span class="item-label">Duty:</span><span class="item-value">${data.drives.responsibility}</span></li>
+            ${createPsycheCard('target', 'Want', data.drives.want)}
+            ${createPsycheCard('heart', 'Need', data.drives.need)}
+            ${createPsycheCard('alert-triangle', 'Fear', data.drives.fear)}
+            ${createPsycheCard('flame', 'Temptation', data.drives.temptation)}
+            ${createPsycheCard('link', 'Duty', data.drives.responsibility)}
         `;
     }
 
-    // Boundaries card
+    // Boundaries panel
     const boundariesContainer = document.getElementById('aag-boundaries-list');
     if (boundariesContainer) {
         boundariesContainer.innerHTML = `
-            <li><span class="item-label">Hard Line:</span><span class="item-value">${data.boundaries.hardLine}</span></li>
-            <li><span class="item-label">Gray Area:</span><span class="item-value">${data.boundaries.grayArea}</span></li>
-            <li><span class="item-label">Earns Trust:</span><span class="item-value">${data.boundaries.earnsTrust}</span></li>
-            <li><span class="item-label">Breaks Trust:</span><span class="item-value">${data.boundaries.breaksTrust}</span></li>
-            <li><span class="item-label">Instant Anger:</span><span class="item-value">${data.boundaries.instantAnger}</span></li>
-            <li><span class="item-label">Melts Guard:</span><span class="item-value">${data.boundaries.meltsGuard}</span></li>
+            ${createPsycheCard('ban', 'Hard Line', data.boundaries.hardLine)}
+            ${createPsycheCard('help-circle', 'Gray Area', data.boundaries.grayArea)}
+            ${createPsycheCard('thumbs-up', 'Earns Trust', data.boundaries.earnsTrust)}
+            ${createPsycheCard('thumbs-down', 'Breaks Trust', data.boundaries.breaksTrust)}
+            ${createPsycheCard('zap', 'Instant Anger', data.boundaries.instantAnger)}
+            ${createPsycheCard('heart-handshake', 'Melts Guard', data.boundaries.meltsGuard)}
         `;
     }
 
-    // Shared Anchor card
+    // Shared Anchor panel
     const glueContainer = document.getElementById('aag-glue-list');
     if (glueContainer) {
         glueContainer.innerHTML = `
-            <li><span class="item-label">I Need:</span><span class="item-value">${data.partyGlue.whyINeed}</span></li>
-            <li><span class="item-label">I Offer:</span><span class="item-value">${data.partyGlue.howIHelp}</span></li>
-            <li><span class="item-label">My Role:</span><span class="item-value">${data.partyGlue.myRole}</span></li>
-            <li><span class="item-label">Fear:</span><span class="item-value">${data.partyGlue.secretFear}</span></li>
+            ${createPsycheCard('hand-helping', 'I Need', data.partyGlue.whyINeed)}
+            ${createPsycheCard('gift', 'I Offer', data.partyGlue.howIHelp)}
+            ${createPsycheCard('user-check', 'My Role', data.partyGlue.myRole)}
+            ${createPsycheCard('eye-off', 'Fear', data.partyGlue.secretFear)}
         `;
     }
+
+    // Bind psyche tab events
+    bindPsycheTabEvents();
 
     // Secrets section
     const secretsContainer = document.getElementById('aag-secrets-grid');
@@ -144,6 +147,53 @@ function setTextContent(id, text) {
 function setNestedText(selector, text) {
     const el = document.querySelector(selector);
     if (el) el.textContent = text;
+}
+
+/**
+ * Create a psyche card element
+ */
+function createPsycheCard(icon, label, text) {
+    return `
+        <div class="psyche-card">
+            <div class="psyche-card-icon"><i data-lucide="${icon}"></i></div>
+            <div class="psyche-card-content">
+                <h4 class="psyche-card-label">${label}</h4>
+                <p class="psyche-card-text">${text}</p>
+            </div>
+        </div>
+    `;
+}
+
+/**
+ * Bind psyche tab switching events
+ */
+function bindPsycheTabEvents() {
+    const tabs = document.querySelectorAll('.psyche-tab');
+    const panels = document.querySelectorAll('.psyche-panel');
+    
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const targetTab = tab.dataset.tab;
+            
+            // Update tabs
+            tabs.forEach(t => {
+                t.classList.remove('active');
+                t.setAttribute('aria-selected', 'false');
+            });
+            tab.classList.add('active');
+            tab.setAttribute('aria-selected', 'true');
+            
+            // Update panels
+            panels.forEach(panel => {
+                panel.classList.remove('active');
+            });
+            
+            const targetPanel = document.getElementById(`panel-${targetTab}`);
+            if (targetPanel) {
+                targetPanel.classList.add('active');
+            }
+        });
+    });
 }
 
 // Listen for page change events

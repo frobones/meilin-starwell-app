@@ -1639,11 +1639,19 @@
 .medica-merchant-section h5 {
   font-family: var(--font-heading);
   font-size: 1rem;
-  color: var(--herb-green-dark);
-  margin: 0 0 var(--space-sm) 0;
+  color: var(--sepia);
+  margin: 0 0 var(--space-md) 0;
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--parchment-dark);
   display: flex;
   align-items: center;
-  gap: var(--space-xs);
+  gap: var(--space-sm);
+}
+
+.medica-merchant-section h5 svg {
+  width: 18px;
+  height: 18px;
+  color: var(--herb-green);
 }
 
 .medica-merchant-section p {
@@ -1715,18 +1723,27 @@
   display: flex;
   align-items: center;
   gap: var(--space-sm);
-  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--parchment-dark);
 }
 
 .medica-activity-icon {
-  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.medica-activity-icon svg {
+  width: 18px;
+  height: 18px;
   color: var(--herb-green);
 }
 
 .medica-activity-header h5 {
   font-family: var(--font-heading);
   font-size: 1rem;
-  color: var(--ink-brown);
+  color: var(--sepia);
   margin: 0;
 }
 
