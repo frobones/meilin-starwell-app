@@ -187,10 +187,6 @@ export async function toggleChapterExpansion(section) {
     if (!contentContainer.dataset.loaded) {
         await loadChapterContent(chapterIndex, contentContainer);
     }
-    
-    setTimeout(() => {
-        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 100);
 }
 
 /**
