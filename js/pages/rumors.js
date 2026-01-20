@@ -273,7 +273,7 @@ function setupBannerPanEffect() {
 
 /**
  * Setup tap-to-reveal interaction for rumors on mobile devices
- * Tapping a rumor reveals it (like hover) and updates the gallery image
+ * Tapping a rumor reveals it (like hover), shows inline image preview, and updates the gallery image
  */
 let rumorTapDocHandlersInitialized = false;
 let activeRumor = null;
@@ -281,6 +281,7 @@ let activeRumor = null;
 function setupRumorTapToReveal(rumorItems, galleryContainer) {
     // Reset active rumor when re-initializing (handles page re-visits)
     if (activeRumor) {
+        removeInlinePreview(activeRumor);
         activeRumor.classList.remove('rumor-item--revealed');
         activeRumor = null;
     }
@@ -293,17 +294,61 @@ function setupRumorTapToReveal(rumorItems, galleryContainer) {
     }
     
     /**
+     * Create and add inline image preview to a rumor item
+     */
+    function addInlinePreview(item) {
+        // Don't add if already exists
+        if (item.querySelector('.rumor-inline-preview')) return;
+        
+        const imageSrc = item.dataset.image;
+        if (!imageSrc) return;
+        
+        const preview = document.createElement('div');
+        preview.className = 'rumor-inline-preview';
+        preview.innerHTML = `
+            <img src="${imageSrc}" alt="Scene illustration" class="rumor-inline-image" />
+        `;
+        
+        // Add click handler to open lightbox on the inline image
+        preview.addEventListener('click', (e) => {
+            e.stopPropagation();
+            // Trigger lightbox if available
+            events.emit('lightbox:open', { src: imageSrc });
+        });
+        
+        item.appendChild(preview);
+        
+        // Trigger animation after append
+        requestAnimationFrame(() => {
+            preview.classList.add('rumor-inline-preview--visible');
+        });
+    }
+    
+    /**
+     * Remove inline image preview from a rumor item
+     */
+    function removeInlinePreview(item) {
+        const preview = item.querySelector('.rumor-inline-preview');
+        if (preview) {
+            preview.classList.remove('rumor-inline-preview--visible');
+            // Wait for animation before removing
+            setTimeout(() => preview.remove(), 300);
+        }
+    }
+    
+    /**
      * Deactivate the currently active rumor
      */
     function deactivateRumor() {
         if (activeRumor) {
+            removeInlinePreview(activeRumor);
             activeRumor.classList.remove('rumor-item--revealed');
             activeRumor = null;
         }
     }
     
     /**
-     * Activate a rumor (reveal text and update gallery)
+     * Activate a rumor (reveal text, show inline preview, and update gallery)
      */
     function activateRumor(item) {
         // If tapping the same rumor, toggle it off
@@ -319,7 +364,12 @@ function setupRumorTapToReveal(rumorItems, galleryContainer) {
         item.classList.add('rumor-item--revealed');
         activeRumor = item;
         
-        // Update gallery image
+        // Add inline preview on mobile
+        if (isMobileView()) {
+            addInlinePreview(item);
+        }
+        
+        // Update gallery image (still crossfade for desktop or if gallery visible)
         const newImageSrc = item.dataset.image;
         crossfadeToImage(newImageSrc, galleryContainer);
     }

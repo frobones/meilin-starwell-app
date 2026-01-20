@@ -536,6 +536,67 @@
     -webkit-mask-image: none !important;
     mask-image: none !important;
   }
+  
+  /* ============================================
+     Inline Image Preview (Mobile Rumor Reveal)
+     ============================================ */
+  
+  /* Container for inline image preview */
+  .rumor-inline-preview {
+    margin-top: var(--space-md);
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    /* Initial state for animation */
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.3s ease 0.1s,
+                transform 0.3s ease 0.1s;
+  }
+  
+  .rumor-inline-preview--visible {
+    max-height: 300px;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .rumor-inline-image {
+    width: 100%;
+    height: auto;
+    max-height: 280px;
+    display: block;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: var(--radius-md);
+  }
+  
+  /* Tap hint for lightbox */
+  .rumor-inline-preview::after {
+    content: 'Tap to enlarge';
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: rgba(0, 0, 0, 0.7);
+    color: var(--parchment-light);
+    font-size: 0.7rem;
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+  }
+  
+  .rumor-inline-preview--visible::after {
+    opacity: 0.8;
+  }
+  
+  /* Add relative positioning for the hint */
+  .rumor-inline-preview {
+    position: relative;
+  }
 }
 
 /* ============================================
