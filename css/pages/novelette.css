@@ -287,10 +287,10 @@
   border-left: 3px solid var(--gold-dim);
   transition: all 0.2s ease;
   position: relative;
-  display: grid;
-  grid-template-columns: 130px 1fr;
-  gap: var(--space-md);
-  align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-xs);
 }
 
 .takeaways-list li:hover {
@@ -303,13 +303,14 @@
   font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   color: var(--sepia);
-  background: linear-gradient(135deg, rgba(184, 134, 11, 0.15) 0%, rgba(139, 90, 43, 0.1) 100%);
-  padding: 3px 8px;
-  border-radius: 3px;
-  white-space: nowrap;
-  text-align: center;
+  background: linear-gradient(90deg, rgba(184, 134, 11, 0.18) 0%, rgba(184, 134, 11, 0.08) 50%, transparent 100%);
+  padding: var(--space-xs) 0;
+  margin-left: calc(-1 * var(--space-sm));
+  padding-left: var(--space-sm);
+  width: calc(100% + var(--space-sm));
+  border-bottom: 1px solid rgba(184, 134, 11, 0.2);
 }
 
 .takeaway-desc {
@@ -544,3 +545,4 @@
 .vignettes-note strong {
   color: var(--sepia);
 }
+

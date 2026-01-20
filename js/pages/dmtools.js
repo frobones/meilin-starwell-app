@@ -242,9 +242,11 @@ function renderConnectionLine(indirect) {
     
     return `
         <div class="connection-line ${threatClass}">
-            <span class="connection-from">${indirect.from}</span>
-            <span class="connection-arrow"><i data-lucide="arrow-right"></i></span>
-            <span class="connection-to">${indirect.to}</span>
+            <div class="connection-direction">
+                <span class="connection-from">${indirect.from}</span>
+                <span class="connection-arrow"><i data-lucide="arrow-right"></i></span>
+                <span class="connection-to">${indirect.to}</span>
+            </div>
             <span class="connection-desc">${indirect.description}</span>
         </div>
     `;

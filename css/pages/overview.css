@@ -166,42 +166,55 @@
 
 .aag-detail {
   font-family: var(--font-body);
-  font-size: 0.92rem;
-  line-height: 1.5;
+  font-size: 0.95rem;
+  line-height: 1.6;
   color: var(--ink-black);
-  padding: var(--space-xs) var(--space-sm);
-  background: rgba(255, 255, 255, 0.4);
-  border-radius: var(--radius-sm);
-  border-left: 3px solid var(--gold-dim);
-  display: grid;
-  grid-template-columns: 140px 1fr;
-  gap: var(--space-md);
-  align-items: center;
+  padding: 0;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
 }
 
-/* Trouble gets a red accent */
-#aag-trouble {
-  border-left-color: rgba(139, 35, 35, 0.5);
+.aag-detail + .aag-detail {
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px dashed rgba(139, 90, 43, 0.2);
 }
 
 .aag-detail-label {
   font-family: var(--font-heading);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
   color: var(--sepia);
-  background: linear-gradient(135deg, rgba(184, 134, 11, 0.15) 0%, rgba(139, 90, 43, 0.1) 100%);
-  padding: 3px 8px;
-  border-radius: 3px;
-  white-space: nowrap;
-  text-align: center;
+  margin-bottom: var(--space-xs);
 }
 
-/* Trouble label styling */
+/* Trouble styling */
 #aag-trouble .aag-detail-label {
   color: var(--blood-red);
-  background: linear-gradient(135deg, rgba(139, 35, 35, 0.12) 0%, rgba(139, 35, 35, 0.08) 100%);
+}
+
+#aag-trouble .aag-detail-text {
+  background: linear-gradient(135deg, 
+    rgba(139, 35, 35, 0.08) 0%, 
+    rgba(139, 35, 35, 0.03) 100%);
+  border-left: 3px solid var(--blood-red);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+/* Defining Moment styling */
+#aag-defining .aag-detail-text {
+  background: linear-gradient(135deg, 
+    rgba(184, 134, 11, 0.08) 0%, 
+    rgba(184, 134, 11, 0.03) 100%);
+  border-left: 3px solid var(--gold-accent);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
 }
 
 .aag-detail-text {
@@ -387,6 +400,7 @@
   
   .aag-hero {
     padding: var(--space-xl) var(--space-md);
+    margin: 0 calc(-1 * var(--space-md));
   }
   
   .aag-name {
@@ -395,7 +409,18 @@
   
   .aag-section {
     padding: var(--space-lg) var(--space-md);
+    margin: 0 calc(-1 * var(--space-md));
   }
+}
+
+@media (max-width: 768px) {
+  .aag-hero,
+  .aag-section {
+    margin: 0 calc(-1 * var(--space-sm));
+    padding-left: var(--space-sm);
+    padding-right: var(--space-sm);
+  }
+  
 }
 
 @media (max-width: 600px) {
@@ -411,4 +436,5 @@
     font-size: 1.1rem;
     padding: var(--space-md);
   }
+  
 }
