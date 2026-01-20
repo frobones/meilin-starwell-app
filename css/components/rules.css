@@ -206,3 +206,26 @@ details[open] .rules-toggle::after {
   flex-shrink: 0;
   margin-top: 3px;
 }
+
+/* ============================================
+   Rules Takeaway List (standalone, no container)
+   Uses takeaways-list base styles from novelette.css
+   ============================================ */
+
+.rules-takeaway-list {
+  margin-bottom: var(--space-lg);
+}
+
+.rules-takeaway-list li {
+  padding: var(--space-sm) var(--space-md);
+}
+
+.rules-takeaway-list .takeaway-label {
+  font-size: 0.72rem;
+  margin-bottom: 2px;
+}
+
+.rules-takeaway-list .takeaway-desc {
+  font-size: 0.9rem;
+  line-height: 1.5;
+}

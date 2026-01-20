@@ -47,9 +47,12 @@ export function renderQuickRules() {
     
     rulesContent.innerHTML = `
         ${rules.downtimeLimit ? `
-        <div class="rules-callout">
-            <strong>Daily Limit:</strong> ${rules.downtimeLimit}
-        </div>
+        <ul class="takeaways-list rules-takeaway-list">
+            <li>
+                <span class="takeaway-label">Daily Limit</span>
+                <span class="takeaway-desc">${rules.downtimeLimit}</span>
+            </li>
+        </ul>
         ` : ''}
         
         <div class="rules-grid">
@@ -197,18 +200,21 @@ export function renderHarvestingRules() {
             <tbody>${creatureSkillRows}</tbody>
         </table>
         
-        ${harvesting.groupHarvesting ? `
-        <div class="rules-callout" style="display: flex; gap: 0.5rem;">
-            <strong style="min-width: 130px; flex-shrink: 0; text-align: right;">Group Harvesting:</strong>
-            <span>${harvesting.groupHarvesting.description}. ${harvesting.groupHarvesting.benefit}.</span>
-        </div>
-        ` : ''}
-        
-        ${harvesting.modifiers?.temporaryEffects ? `
-        <div class="rules-callout" style="display: flex; gap: 0.5rem; border-left-color: var(--herb-green-dark, #2d6a4f);">
-            <strong style="min-width: 130px; flex-shrink: 0; text-align: right;">Important:</strong>
-            <span>${harvesting.modifiers.temporaryEffects}</span>
-        </div>
+        ${harvesting.groupHarvesting || harvesting.modifiers?.temporaryEffects ? `
+        <ul class="takeaways-list rules-takeaway-list">
+            ${harvesting.groupHarvesting ? `
+            <li>
+                <span class="takeaway-label">Group Harvesting</span>
+                <span class="takeaway-desc">${harvesting.groupHarvesting.description}. ${harvesting.groupHarvesting.benefit}.</span>
+            </li>
+            ` : ''}
+            ${harvesting.modifiers?.temporaryEffects ? `
+            <li>
+                <span class="takeaway-label">Important</span>
+                <span class="takeaway-desc">${harvesting.modifiers.temporaryEffects}</span>
+            </li>
+            ` : ''}
+        </ul>
         ` : ''}
         
         ${harvesting.kitActivities ? `
