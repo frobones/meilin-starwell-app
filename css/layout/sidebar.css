@@ -223,7 +223,14 @@
 
   /* Add top padding to sidebar header to account for mobile header overlap */
   .sidebar-header {
-    padding-top: calc(56px + var(--space-xl));
+    padding-top: calc(56px + var(--space-md));
+    padding-bottom: var(--space-md);
+  }
+
+  /* Hide title/subtitle on mobile - name is in the mobile header */
+  .sidebar-title,
+  .sidebar-subtitle {
+    display: none;
   }
 
   /* Adjust main content for mobile header */
