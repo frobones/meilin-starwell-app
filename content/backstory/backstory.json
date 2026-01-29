@@ -11,8 +11,8 @@
     { "chapterFile": "chapter-08.json", "paragraphs": [26, 27, 28] },
     { "chapterFile": "chapter-09.json", "paragraphs": [29, 30, 31, 32, 33] },
     { "chapterFile": "chapter-10.json", "paragraphs": [34, 35, 36, 37, 38, 39, 40] },
-    { "chapterFile": "chapter-11.json", "paragraphs": [41, 42, 43, 44, 45, 46, 47, 48, 49, 50] },
-    { "chapterFile": "chapter-12.json", "paragraphs": [51] }
+    { "chapterFile": "chapter-11.json", "paragraphs": [41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51] },
+    { "chapterFile": "chapter-12.json", "paragraphs": [52] }
   ],
   "paragraphs": [
     "On the Rock of Bral, the docks don't sleep. They trade ownership by the hour. Meilin Starwell was raised in that rhythm: winches thudding, lanternlight thinning in cold air, jokes that arrived too loud because pain needed a mask. Her father kept a cramped apothecary corner wedged between honest trades and dishonest money, and he taught her to treat the docks the way a diagnostician treats a body: listen first, then act.",
@@ -65,7 +65,8 @@
     "Somewhere back on Bral, in a Smith's Coster ledger, there was a missing page.",
     "A gap.",
     "A warning.",
-    "And now that warning had a heartbeat.",
+    "And now, out here between stars, that warning had a heartbeat.",
+    "Meilin's.",
     "In the Astral Bazaar, Meilin learned what the void's ports all taught in different dialects: where anything can be bought, everything is leverage. She kept the ledger page flat and protected, took quiet work at the edges, and learned the mechanics of survival: watching patterns in crowds, securing doors, reading tampered seals, and practicing with lock tools the way she practiced medicine: patiently, precisely, and without drama."
   ],
   "chapters": [
