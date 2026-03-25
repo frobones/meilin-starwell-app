@@ -9,7 +9,7 @@ import { showNotification } from './ui.js';
 
 const CONFIG = {
     // SHA-256 hash of the passkey (obfuscated for security)
-    PASSKEY_HASH: '2138afcd0ae852981fdf5b6e4c232f915f0f145cbc4f343e701ab7761fc6b862',
+    PASSKEY_HASH: 'a5383c4c57b166cd2b0a0efbccded031c73fb5901828d325153fbe7cf2f6af2b',
     STORAGE_KEY: 'meilin-backstory-unlocked',
     PROTECTED_PAGES: ['overview', 'dmsummary', 'novelette', 'vignettes', 'dmtools']
 };
