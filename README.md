@@ -36,6 +36,28 @@ A static web app serving as a complete character reference for the Meilin Starwe
 - Interactive crafting system with inventory management
 - Collapsible crafting and gathering rules
 
+## Content sources
+
+This directory is a **separate git repository** for the website only. Narrative content and characters art are **authored** in the parent campaign workspace:
+
+`characters/Meilin_Starwell/`
+
+Mirrored/publish targets here:
+
+- `content/backstory/chapters/*.json`, `content/vignettes/*.json` (from author chapter/vignette Markdown)
+- `content/rumors.json` (from Rumor Mill; DM truth key is not published)
+- `img/` allowlist (portrait, turnaround, key art, banner, scene, easter egg, rumor stills)
+
+**Prefer not to hand-edit** those mirrored files. From the campaign workspace root:
+
+```bash
+make sync-dry
+make sync
+# or: node scripts/sync-meilin-app.mjs
+```
+
+Still maintained in this app (not v1-scripted): `content/character/*`, `content/dm/*`, `content/backstory/backstory.json`, `js/data/medicines.json`, `js/data/ingredients.json`.
+
 ## Usage
 
 ### Local Development
@@ -186,7 +208,7 @@ CSS follows a component-based organization with CSS custom properties for themin
 
 ## Data Sources
 
-- Character data derived from Meilin Starwell character files
+- Character data derived from Meilin Starwell character files (publish with `scripts/sync-meilin-app.mjs` in the campaign workspace)
 - Medicine and ingredient data from the Alchemy Almanac homebrew system
 
 ## Credits
