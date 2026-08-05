@@ -1,7 +1,9 @@
 {
   "number": "10",
   "title": "The Window with Three Seals",
-  "skills": ["History"],
+  "skills": [
+    "History"
+  ],
   "cardBrief": "Meilin demonstrates that \"history\" is practical institutional memory. She applies her knowledge of Bral's dock scandals to recognize a con being run in the Astral Bazaar.",
   "keyTakeaways": [
     "**Familiar con, new setting**: A Bral trading house tries to strong-arm a Bazaar vendor using \"standard Bral procedure.\"",
