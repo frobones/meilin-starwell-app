@@ -21,12 +21,40 @@ let galleryCrossfadeState = null;
  */
 export async function loadRumors() {
     try {
-        rumorsData = await dataLoader.loadJSON('content/rumors.json', false);
+        const [rumors, hotspots] = await Promise.all([
+            dataLoader.loadJSON('content/rumors.json', false),
+            // The turnaround still works without hotspots, so a failure here shouldn't hide the rumors
+            dataLoader.loadJSON('content/turnaround-hotspots.json').catch((error) => {
+                console.error('Failed to load turnaround hotspots:', error);
+                return null;
+            })
+        ]);
+        rumorsData = rumors;
+        if (hotspots) renderHotspots(hotspots.hotspots);
         renderRumors();
         events.emit('rumors:loaded', rumorsData);
     } catch (error) {
         console.error('Failed to load rumors:', error);
     }
+}
+
+/**
+ * Render the turnaround's hotspots from content/turnaround-hotspots.json.
+ * Positions are percentages of the image, so they survive resizing.
+ */
+function renderHotspots(hotspots) {
+    const container = document.getElementById('turnaround-container');
+    if (!container) return;
+    container.querySelectorAll('.hotspot').forEach(el => el.remove());
+    container.insertAdjacentHTML('beforeend', hotspots.map(spot => `
+        <div class="hotspot" data-hotspot="${spot.id}" style="left: ${spot.left}%; top: ${spot.top}%;">
+            <span class="hotspot-pulse${spot.mystery ? ' hotspot-pulse-mystery' : ''}"></span>
+            <div class="hotspot-tooltip${spot.tooltipSide === 'left' ? ' tooltip-left' : ''}">
+                <h4>${spot.title}</h4>
+                <p>${spot.text}</p>
+            </div>
+        </div>
+    `).join(''));
 }
 
 /**

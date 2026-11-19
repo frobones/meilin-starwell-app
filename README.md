@@ -44,13 +44,14 @@ This directory is a **separate git repository** for the website only. Narrative 
 
 `characters/Meilin_Starwell/`
 
-Mirrored/publish targets here:
+Generated here by the workspace sync (never edit them in this repo):
 
-- `content/backstory/chapters/*.json`, `content/vignettes/*.json` (from author chapter/vignette Markdown)
+- `content/backstory/chapters/*.json`, `content/vignettes/*.json` (from chapter/vignette Markdown plus `app/story-meta.json`)
 - `content/rumors.json` (from Rumor Mill; DM truth key is not published)
+- `content/character/*`, `content/dm/*`, `content/backstory/backstory.json`, `content/turnaround-hotspots.json` (copied from `characters/Meilin_Starwell/app/content/`)
 - `img/` web JPEGs encoded from the PNG masters (portrait, sidebar avatar, turnaround, key art, banner, scene, easter egg, rumor stills)
 
-**Prefer not to hand-edit** those mirrored files. From the campaign workspace root:
+Edit the sources, then publish from the campaign workspace root:
 
 ```bash
 make sync-dry
@@ -58,7 +59,7 @@ make sync
 # or: node scripts/sync-meilin-app.mjs
 ```
 
-Still maintained in this app (not v1-scripted): `content/character/*`, `content/dm/*`, `content/backstory/backstory.json`, `js/data/medicines.json`, `js/data/ingredients.json`.
+Still maintained in this app: `js/data/medicines.json`, `js/data/ingredients.json` (from the Alchemy Almanac).
 
 ## Usage
 
@@ -188,6 +189,7 @@ meilin-starwell-app/
 │   │   ├── mindersand.json # Location data
 │   │   └── medica.json     # Location data
 │   ├── rumors.json
+│   ├── turnaround-hotspots.json # Turnaround tooltip text and positions
 │   └── vignettes/          # index.json + 10 vignette-NN.json files
 └── img/                    # Web JPEGs encoded by the workspace sync
     ├── banner.jpg
