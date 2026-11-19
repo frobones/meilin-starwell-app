@@ -82,8 +82,7 @@ The app includes a GitHub Actions workflow for automated deployment:
 
 1. Push to the `main` branch
 2. GitHub Actions will automatically:
-   - Install dependencies
-   - Run the build script (generates SRI hashes for CDN scripts)
+   - Run the build script (copies the site to `dist/`)
    - Deploy the `dist/` folder to GitHub Pages
 3. Access at `https://yourusername.github.io/repository-name/`
 
@@ -98,15 +97,11 @@ If you prefer manual deployment without the build step:
 
 1. Go to Settings > Pages
 2. Select "Deploy from a branch" and choose your branch
-3. The app will work but without SRI hash verification for CDN scripts
+3. The app works the same; the build step only trims repo tooling from what's published
 
 ### Build Script
 
-The build script (`scripts/build.js`) performs:
-
-- Copies all source files to `dist/`
-- Fetches CDN scripts and computes SHA-384 SRI hashes
-- Injects `integrity` attributes into script tags for security
+The build script (`scripts/build.js`) copies the site to `dist/`, leaving out repo tooling (`scripts/`, `.github/`, `package.json`). It fetches nothing: `marked` and `lucide` are vendored at pinned versions in `js/vendor/` with their licenses, so the Content Security Policy allows scripts from `'self'` only.
 
 ## File Structure
 
@@ -119,7 +114,7 @@ meilin-starwell-app/
 ├── .github/workflows/
 │   └── deploy.yml          # Build and deploy to GitHub Pages
 ├── scripts/
-│   └── build.js            # Copy to dist/ and inject SRI hashes
+│   └── build.js            # Copy the site to dist/
 ├── css/
 │   ├── base/
 │   │   ├── variables.css   # CSS custom properties
@@ -176,9 +171,10 @@ meilin-starwell-app/
 │   │   ├── ingredients.js  # Ingredients by terrain
 │   │   ├── craft.js        # Crafting and inventory
 │   │   └── rules.js        # Quick, harvesting, and potion rules
-│   └── data/
-│       ├── medicines.json
-│       └── ingredients.json
+│   ├── data/
+│   │   ├── medicines.json
+│   │   └── ingredients.json
+│   └── vendor/             # marked 9.1.6 and lucide 0.562.0, with licenses
 ├── content/
 │   ├── backstory/
 │   │   ├── backstory.json  # Novelette sections and config

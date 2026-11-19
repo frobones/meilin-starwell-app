@@ -19,7 +19,7 @@
     <meta name="twitter:image" content="img/key_art.jpg">
     
     <!-- Content Security Policy -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self';">
     
     <!-- Favicon (prevents 404 on GitHub Pages) -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍵</text></svg>">
@@ -33,13 +33,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Uncial+Antiqua&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Redacted+Script:wght@400&display=swap" rel="stylesheet">
     
-    <!-- CDN Preconnects -->
-    <link rel="preconnect" href="https://unpkg.com">
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    
-    <!-- Lucide Icons (pinned version) -->
-    <!-- TODO: Add SRI integrity hash via build script: https://www.srihash.org/ -->
-    <script src="https://unpkg.com/lucide@0.562.0/dist/umd/lucide.min.js" crossorigin="anonymous" defer></script>
+    <!-- Lucide Icons (vendored, pinned; license in js/vendor/) -->
+    <script src="js/vendor/lucide-0.562.0.min.js" defer></script>
     
     <!-- Styles (Modular CSS - loaded in parallel for performance) -->
     <!-- Base Styles -->
@@ -801,9 +796,8 @@
         </section>
     </template>
 
-    <!-- Markdown Parser (pinned version) -->
-    <!-- TODO: Add SRI integrity hash via build script: https://www.srihash.org/ -->
-    <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js" crossorigin="anonymous" defer></script>
+    <!-- Markdown Parser (vendored, pinned; license in js/vendor/) -->
+    <script src="js/vendor/marked-9.1.6.min.js" defer></script>
     
     <!-- ES Module Application -->
     <script type="module" src="js/main.js"></script>
