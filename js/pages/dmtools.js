@@ -6,6 +6,7 @@
 import { dataLoader } from '../core/data-loader.js';
 import { events } from '../core/events.js';
 import { icons } from '../core/icons.js';
+import { openModal, closeModal } from '../core/ui.js';
 
 // Private state
 let knivesData = null;
@@ -123,7 +124,7 @@ export function openKnifeModal(knife) {
                 <p>${knife.escalation}</p>
             </div>
         `;
-        overlay.classList.add('active');
+        openModal('knife-modal-overlay', closeKnifeModal);
         icons.refresh();
     }
 }
@@ -132,10 +133,7 @@ export function openKnifeModal(knife) {
  * Close knife modal
  */
 export function closeKnifeModal() {
-    const overlay = document.getElementById('knife-modal-overlay');
-    if (overlay) {
-        overlay.classList.remove('active');
-    }
+    closeModal('knife-modal-overlay');
 }
 
 // ============================================
@@ -370,7 +368,7 @@ export function openRelationshipModal(connection) {
         </div>
     `;
     icons.refresh();
-    overlay.classList.add('active');
+    openModal('npc-modal-overlay');
 }
 
 // ============================================
@@ -849,13 +847,4 @@ export function getMindersandData() { return mindersandData; }
 export function getMedicaData() { return medicaData; }
 
 // Listen for page change events
-events.on('page:change', ({ page }) => {
-    if (page === 'dmtools' && !knivesData) {
-        loadDMToolsContent();
-    }
-});
 
-// Listen for modal close events
-events.on('modal:close', () => {
-    closeKnifeModal();
-});

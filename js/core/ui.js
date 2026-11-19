@@ -32,18 +32,20 @@ export function closeModal(overlayId = 'modal-overlay') {
 
 /**
  * Open a modal by overlay ID
+ * @param {string} overlayId - The overlay element's ID
+ * @param {Function} [onClose] - The owner's close function; Escape runs it while this modal is on top
  */
-export function openModal(overlayId) {
+export function openModal(overlayId, onClose = () => closeModal(overlayId)) {
     const modal = document.getElementById(overlayId);
     if (modal) {
         // Store previously focused element
         previouslyFocusedElements.set(overlayId, document.activeElement);
-        
+
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
-        
+
         // Activate focus trap
-        activateFocusTrap(modal);
+        activateFocusTrap(modal, onClose);
     }
 }
 
@@ -63,7 +65,7 @@ export function bindGlobalLightbox() {
         lightboxPreviousFocus = document.activeElement;
         lightboxImage.src = imageSrc;
         lightbox.classList.add('active');
-        activateFocusTrap(lightbox);
+        activateFocusTrap(lightbox, closeLightbox);
     }
     
     function closeLightbox() {
@@ -93,13 +95,7 @@ export function bindGlobalLightbox() {
             closeLightbox();
         }
     });
-    
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && lightbox.classList.contains('active')) {
-            closeLightbox();
-        }
-    });
-    
+
     // Listen for lightbox:open events from other modules (e.g., rumor inline previews)
     events.on('lightbox:open', ({ src }) => {
         if (src) {
@@ -141,13 +137,8 @@ export function bindModalEvents() {
     
     // Craft modal
     bindModalCloseEvents('craft-modal-overlay', 'craft-modal-close');
-    
-    // Global escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            events.emit('modal:close');
-        }
-    });
+
+    // Escape is handled by the focus trap of whichever modal is on top
 }
 
 /**

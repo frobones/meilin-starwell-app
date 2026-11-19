@@ -7,7 +7,7 @@ import { store } from '../core/state.js';
 import { events } from '../core/events.js';
 import { icons } from '../core/icons.js';
 import { debug } from '../core/debug.js';
-import { showNotification } from '../core/ui.js';
+import { showNotification, openModal, closeModal } from '../core/ui.js';
 
 // Private state
 const INVENTORY_STORAGE_KEY = 'meilin-inventory';
@@ -688,8 +688,7 @@ export function openCraftModal(medicine) {
     };
     
     renderCraftModalContent();
-    overlay.classList.add('active');
-    document.body.style.overflow = 'hidden';
+    openModal('craft-modal-overlay', closeCraftModal);
 }
 
 /**
@@ -1171,11 +1170,7 @@ function executeCraft() {
  * Close the craft modal
  */
 export function closeCraftModal() {
-    const overlay = document.getElementById('craft-modal-overlay');
-    if (overlay) {
-        overlay.classList.remove('active');
-        document.body.style.overflow = '';
-    }
+    closeModal('craft-modal-overlay');
     craftModalState = null;
 }
 
@@ -1331,7 +1326,3 @@ export function bindCraftEvents() {
     }
 }
 
-// Listen for modal close events
-events.on('modal:close', () => {
-    closeCraftModal();
-});

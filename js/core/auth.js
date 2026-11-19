@@ -77,7 +77,7 @@ export function showPasskeyModal() {
     const input = document.getElementById('passkey-input');
     if (overlay) {
         overlay.classList.add('active');
-        activateFocusTrap(overlay);
+        activateFocusTrap(overlay, cancelPasskey);
         if (input) {
             input.value = '';
             input.classList.remove('error');
@@ -169,13 +169,7 @@ export function bindPasskeyEvents() {
             cancelPasskey();
         });
     }
-
-    document.addEventListener('keydown', (e) => {
-        const overlay = document.getElementById('passkey-modal-overlay');
-        if (e.key === 'Escape' && overlay?.classList.contains('active')) {
-            cancelPasskey();
-        }
-    });
+    // Escape runs cancelPasskey through the dialog's focus trap
 }
 
 /**

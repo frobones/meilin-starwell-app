@@ -7,6 +7,7 @@ import { dataLoader } from '../core/data-loader.js';
 import { store } from '../core/state.js';
 import { events } from '../core/events.js';
 import { icons } from '../core/icons.js';
+import { activateFocusTrap, deactivateFocusTrap } from '../core/focus-trap.js';
 
 // Private state
 let ingredients = null;
@@ -317,17 +318,18 @@ export function showFloraDetails(floraName) {
     icons.refresh();
     
     const closeModal = () => {
+        deactivateFocusTrap(overlay);
         overlay.classList.add('closing');
         setTimeout(() => overlay.remove(), 200);
     };
     
     overlay.querySelector('.flora-modal-close').addEventListener('click', closeModal);
     overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
-    document.addEventListener('keydown', function escHandler(e) {
-        if (e.key === 'Escape') { closeModal(); document.removeEventListener('keydown', escHandler); }
-    });
     
-    requestAnimationFrame(() => overlay.classList.add('active'));
+    requestAnimationFrame(() => {
+        overlay.classList.add('active');
+        activateFocusTrap(overlay, closeModal);
+    });
 }
 
 /**
@@ -370,6 +372,7 @@ export function showCreatureDetails(partName) {
     icons.refresh();
     
     const closeModal = () => {
+        deactivateFocusTrap(overlay);
         overlay.classList.add('closing');
         setTimeout(() => overlay.remove(), 200);
     };
@@ -377,7 +380,10 @@ export function showCreatureDetails(partName) {
     overlay.querySelector('.creature-modal-close').addEventListener('click', closeModal);
     overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
     
-    requestAnimationFrame(() => overlay.classList.add('active'));
+    requestAnimationFrame(() => {
+        overlay.classList.add('active');
+        activateFocusTrap(overlay, closeModal);
+    });
 }
 
 // Getters

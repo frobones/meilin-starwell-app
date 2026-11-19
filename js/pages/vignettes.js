@@ -9,6 +9,7 @@
 import { dataLoader } from '../core/data-loader.js';
 import { events } from '../core/events.js';
 import { icons } from '../core/icons.js';
+import { openModal, closeModal } from '../core/ui.js';
 
 // Private state
 let vignettes = [];
@@ -164,19 +165,14 @@ export function openVignetteModal(vignette) {
         </div>
     `;
     
-    overlay.classList.add('active');
-    document.body.style.overflow = 'hidden';
+    openModal('vignette-modal-overlay', closeVignetteModal);
 }
 
 /**
  * Close vignette modal
  */
 export function closeVignetteModal() {
-    const overlay = document.getElementById('vignette-modal-overlay');
-    if (overlay) {
-        overlay.classList.remove('active');
-        document.body.style.overflow = '';
-    }
+    closeModal('vignette-modal-overlay');
 }
 
 // Getters
@@ -187,6 +183,3 @@ events.on('vignette:open', (vignette) => {
     openVignetteModal(vignette);
 });
 
-events.on('modal:close', () => {
-    closeVignetteModal();
-});

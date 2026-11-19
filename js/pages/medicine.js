@@ -7,6 +7,7 @@ import { dataLoader } from '../core/data-loader.js';
 import { store } from '../core/state.js';
 import { events } from '../core/events.js';
 import { icons } from '../core/icons.js';
+import { openModal } from '../core/ui.js';
 
 // Private state
 let medicines = [];
@@ -494,8 +495,7 @@ export function openMedicineModal(medicine) {
         
     `;
     
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
+    openModal('modal-overlay');
     icons.refresh();
     
     // Bind click events for flora/creature in the modal
