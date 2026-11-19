@@ -10,6 +10,8 @@ A static web app serving as a complete character reference for the Meilin Starwe
 - Character drives, boundaries, and party dynamics
 - Tiered secrets (player-known, DM-only, deep lore)
 
+The passkey is a spoiler gate, not access control: this repository is public and all `content/` JSON is readable by anyone. Don't publish anything that must stay secret.
+
 ### Rumors (Player-Facing)
 
 - Interactive rumor mill with hover-to-reveal effects
@@ -113,6 +115,11 @@ meilin-starwell-app/
 ├── index.html              # Single-page application entry point
 ├── 404.html                # Custom 404 page for GitHub Pages
 ├── README.md
+├── package.json            # build/dev scripts (no dependencies)
+├── .github/workflows/
+│   └── deploy.yml          # Build and deploy to GitHub Pages
+├── scripts/
+│   └── build.js            # Copy to dist/ and inject SRI hashes
 ├── css/
 │   ├── base/
 │   │   ├── variables.css   # CSS custom properties
@@ -136,15 +143,17 @@ meilin-starwell-app/
 │   │   └── notifications.css # Toast notifications
 │   └── pages/
 │       ├── overview.css    # Character overview page
+│       ├── dmsummary.css   # Condensed DM backstory
 │       ├── rumors.css      # Rumors page with gallery
-│       ├── backstory.css   # Backstory reader
+│       ├── novelette.css   # Backstory reader
+│       ├── vignettes.css   # Vignette cards and modal
 │       ├── dmtools.css     # DM tools page
 │       └── medicine.css    # Herbal medicine system
 ├── js/
 │   ├── main.js             # Application entry point
 │   ├── core/
-│   │   ├── auth.js         # Simple authentication
-│   │   ├── data-loader.js  # JSON/Markdown loading utilities
+│   │   ├── auth.js         # Passkey spoiler gate
+│   │   ├── data-loader.js  # JSON fetching with caching
 │   │   ├── debug.js        # Debug logging utility
 │   │   ├── easter-eggs.js  # Hidden features
 │   │   ├── events.js       # Event bus system
@@ -152,42 +161,40 @@ meilin-starwell-app/
 │   │   ├── icons.js        # Lucide icon initialization
 │   │   ├── navigation.js   # Page routing
 │   │   ├── state.js        # Reactive state management
-│   │   ├── templates.js    # HTML template utilities
-│   │   └── ui.js           # UI utilities
+│   │   └── ui.js           # UI utilities and notifications
 │   ├── components/
-│   │   ├── index.js        # Web component registration
-│   │   ├── lightbox.js     # Lightbox component
-│   │   ├── medicine-card.js
-│   │   ├── modal-dialog.js
-│   │   └── rumor-card.js
+│   │   └── index.js        # Placeholder; no web components registered
 │   ├── pages/
-│   │   ├── backstory.js
-│   │   ├── craft.js        # Crafting system
-│   │   ├── dmtools.js
-│   │   ├── ingredients.js
-│   │   ├── medicine.js
-│   │   ├── overview.js
-│   │   ├── potionrules.js
-│   │   ├── rumors.js
-│   │   └── vignettes.js
+│   │   ├── overview.js     # At-a-glance character overview
+│   │   ├── dmsummary.js    # Condensed DM backstory
+│   │   ├── novelette.js    # Backstory reader with chapters
+│   │   ├── vignettes.js    # Vignette cards and modal
+│   │   ├── rumors.js       # Rumor mill and gallery
+│   │   ├── dmtools.js      # Knives, relationships, locations
+│   │   ├── medicine.js     # Medicine list and filters
+│   │   ├── ingredients.js  # Ingredients by terrain
+│   │   ├── craft.js        # Crafting and inventory
+│   │   └── rules.js        # Quick, harvesting, and potion rules
 │   └── data/
 │       ├── medicines.json
 │       └── ingredients.json
 ├── content/
 │   ├── backstory/
-│   │   ├── backstory.md
-│   │   └── chapters/        # 12 life chapter files
+│   │   ├── backstory.json  # Novelette sections and config
+│   │   └── chapters/       # 12 life chapter files (chapter-NN.json)
 │   ├── character/
-│   │   └── overview.json   # Core character data
+│   │   ├── overview.json   # Core character data
+│   │   └── dm-summary.json # Condensed DM backstory
 │   ├── dm/
 │   │   ├── knives.json     # Plot hooks
 │   │   ├── relationships.json
 │   │   ├── mindersand.json # Location data
 │   │   └── medica.json     # Location data
 │   ├── rumors.json
-│   └── vignettes/          # 10 character vignettes
+│   └── vignettes/          # index.json + 10 vignette-NN.json files
 └── img/
     ├── banner.png
+    ├── easter_egg.png
     ├── key_art.png
     ├── portrait.png
     ├── scene.png
@@ -201,8 +208,8 @@ The app uses a modular ES6 architecture with:
 
 - **Event Bus**: Pub/sub system for loose coupling between modules
 - **Reactive State**: Simple state management with change listeners
-- **Data Loader**: Centralized JSON/Markdown loading with caching
-- **Web Components**: Custom elements for reusable UI patterns
+- **Data Loader**: Centralized JSON loading with caching; chapter and vignette JSON embeds Markdown rendered with `marked`
+- **Page controllers**: One module per page; reusable UI is plain HTML with CSS classes (no web components)
 
 CSS follows a component-based organization with CSS custom properties for theming. Stylesheets are loaded in parallel via `<link>` tags for optimal performance.
 
