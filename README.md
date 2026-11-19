@@ -160,6 +160,7 @@ meilin-starwell-app/
 │   │   ├── focus-trap.js   # Modal focus management
 │   │   ├── icons.js        # Lucide icon initialization
 │   │   ├── navigation.js   # Page routing
+│   │   ├── pages.js        # Page registry (ids, titles, passkey gate)
 │   │   ├── state.js        # Reactive state management
 │   │   └── ui.js           # UI utilities and notifications
 │   ├── components/

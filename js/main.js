@@ -15,6 +15,7 @@ import * as auth from './core/auth.js';
 import * as navigation from './core/navigation.js';
 import * as ui from './core/ui.js';
 import * as easterEggs from './core/easter-eggs.js';
+import { PAGES } from './core/pages.js';
 
 // Page controllers
 import * as rumorsPage from './pages/rumors.js';
@@ -32,18 +33,12 @@ import * as craftPage from './pages/craft.js';
 import './components/index.js';
 
 /**
- * Application configuration
+ * Load the herbal medicine data the first time that page opens.
+ * Kept off the startup path so a failure here can't take down the other pages.
+ * @returns {Promise<boolean>} Whether the data is available
  */
-const CONFIG = {
-    STORAGE_KEY: 'meilin-backstory-unlocked',
-    INVENTORY_STORAGE_KEY: 'meilin-inventory',
-    DEFAULT_PAGE: 'rumors'
-};
-
-/**
- * Load application data
- */
-async function loadData() {
+async function loadHerbalData() {
+    if (store.get('medicines')) return true;
     try {
         const [medicinesData, ingredientsData] = await Promise.all([
             dataLoader.loadJSON('js/data/medicines.json'),
@@ -58,8 +53,8 @@ async function loadData() {
         
         return true;
     } catch (error) {
-        console.error('Failed to load data:', error);
-        ui.showError('Failed to load data. Please refresh the page.');
+        console.error('Failed to load herbal medicine data:', error);
+        ui.showError("Couldn't load the herbal medicine data. Check your connection, then open this page again.");
         return false;
     }
 }
@@ -118,48 +113,49 @@ function bindFilterEvents() {
 }
 
 /**
+ * Loader for each page in the registry (js/core/pages.js), run on every visit.
+ * Each loader skips work that's already done.
+ */
+const PAGE_LOADERS = {
+    rumors: async () => {
+        if (!rumorsPage.getRumorsData()) await rumorsPage.loadRumors();
+    },
+    overview: async () => {
+        if (!overviewPage.getOverviewData()) await overviewPage.loadOverview();
+    },
+    dmsummary: async () => {
+        if (!dmsummaryPage.getDMSummaryData()) await dmsummaryPage.loadDMSummary();
+    },
+    novelette: async () => {
+        if (!novelettePage.getNovelette()) await novelettePage.loadNovelette();
+    },
+    vignettes: async () => {
+        if (!vignettesPage.getVignettes()?.length) await vignettesPage.loadVignettes();
+    },
+    dmtools: async () => {
+        await dmtoolsPage.loadDMToolsContent();
+    },
+    medicine: async () => {
+        if (!await loadHerbalData()) return;
+        medicinePage.renderMedicines();
+        ingredientsPage.renderIngredients();
+        rulesPage.renderQuickRules();
+        rulesPage.renderHarvestingRules();
+        rulesPage.renderPotionRules();
+        craftPage.initCraft();
+    }
+};
+
+/**
  * Handle page changes and lazy load content
  */
 function setupPageLoading() {
+    const missing = PAGES.filter(page => !PAGE_LOADERS[page.id]).map(page => page.id);
+    if (missing.length) {
+        debug.error(`No loader for page(s): ${missing.join(', ')}`);
+    }
     events.on('page:change', async ({ page }) => {
-        switch (page) {
-            case 'rumors':
-                if (!rumorsPage.getRumorsData()) {
-                    await rumorsPage.loadRumors();
-                }
-                break;
-            case 'overview':
-                if (!overviewPage.getOverviewData()) {
-                    await overviewPage.loadOverview();
-                }
-                break;
-            case 'dmsummary':
-                if (!dmsummaryPage.getDMSummaryData()) {
-                    await dmsummaryPage.loadDMSummary();
-                }
-                break;
-            case 'novelette':
-                if (!novelettePage.getNovelette()) {
-                    await novelettePage.loadNovelette();
-                }
-                break;
-            case 'vignettes':
-                if (!vignettesPage.getVignettes()?.length) {
-                    await vignettesPage.loadVignettes();
-                }
-                break;
-            case 'dmtools':
-                await dmtoolsPage.loadDMToolsContent();
-                break;
-            case 'medicine':
-                medicinePage.renderMedicines();
-                ingredientsPage.renderIngredients();
-                rulesPage.renderQuickRules();
-                rulesPage.renderHarvestingRules();
-                rulesPage.renderPotionRules();
-                craftPage.initCraft();
-                break;
-        }
+        await PAGE_LOADERS[page]?.();
     });
 }
 
@@ -177,10 +173,6 @@ async function init() {
         
         // Initialize state
         initializeState();
-        
-        // Load data
-        const dataLoaded = await loadData();
-        if (!dataLoaded) return;
         
         // Bind UI events
         auth.bindPasskeyEvents();
@@ -219,7 +211,7 @@ if (document.readyState === 'loading') {
 
 // Export for debugging and external access
 export {
-    store, events, dataLoader, icons, CONFIG,
+    store, events, dataLoader, icons,
     auth, navigation, ui, easterEggs,
     rumorsPage, overviewPage, novelettePage, dmsummaryPage, dmtoolsPage, medicinePage,
     ingredientsPage, vignettesPage, rulesPage, craftPage

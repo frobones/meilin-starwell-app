@@ -7,12 +7,12 @@ import { store } from './state.js';
 import { events } from './events.js';
 import { showNotification } from './ui.js';
 import { activateFocusTrap, deactivateFocusTrap } from './focus-trap.js';
+import { DEFAULT_PAGE, getPage } from './pages.js';
 
 const CONFIG = {
     // SHA-256 hash of the passkey (obfuscated for security)
     PASSKEY_HASH: 'a5383c4c57b166cd2b0a0efbccded031c73fb5901828d325153fbe7cf2f6af2b',
-    STORAGE_KEY: 'meilin-backstory-unlocked',
-    PROTECTED_PAGES: ['overview', 'dmsummary', 'novelette', 'vignettes', 'dmtools']
+    STORAGE_KEY: 'meilin-backstory-unlocked'
 };
 
 /**
@@ -31,7 +31,7 @@ async function hashString(str) {
  * Check if a page requires authentication
  */
 export function isProtectedPage(pageName) {
-    return CONFIG.PROTECTED_PAGES.includes(pageName);
+    return getPage(pageName)?.protected === true;
 }
 
 /**
@@ -101,7 +101,7 @@ export function closePasskeyModal() {
 
 /**
  * Cancel passkey entry and stay on the page the user was already viewing.
- * On a fresh deep link to a locked page nothing is showing yet, so fall back to rumors.
+ * On a fresh deep link to a locked page nothing is showing yet, so fall back to the default page.
  */
 export function cancelPasskey() {
     store.set('pendingPage', null);
@@ -111,7 +111,7 @@ export function cancelPasskey() {
         // The locked page's hash is still in the URL; put back the visible page's
         history.replaceState(null, '', `#${currentPage}`);
     } else {
-        events.emit('navigate:to', { page: 'rumors' });
+        events.emit('navigate:to', { page: DEFAULT_PAGE });
     }
 }
 

@@ -706,9 +706,3 @@ events.on('rumor:crossfade', ({ src }) => {
     crossfadeToImage(src, galleryContainer);
 });
 
-// Listen for page change events
-events.on('page:change', ({ page }) => {
-    if (page === 'rumors' && !rumorsData) {
-        loadRumors();
-    }
-});
