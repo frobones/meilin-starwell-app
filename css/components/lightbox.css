@@ -15,7 +15,8 @@
   padding: var(--space-xl);
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  /* Closing: fade, then hide. Visibility waits for the fade to finish. */
+  transition: opacity 0.3s ease, visibility 0s linear 0.3s;
   z-index: 2000;
   cursor: zoom-out;
 }
@@ -23,6 +24,8 @@
 .lightbox-overlay.active {
   opacity: 1;
   visibility: visible;
+  /* Opening: become visible at once so the focus trap can focus inside. */
+  transition: opacity 0.3s ease, visibility 0s;
 }
 
 .lightbox-close {

@@ -6,6 +6,7 @@
 import { store } from './state.js';
 import { events } from './events.js';
 import { showNotification } from './ui.js';
+import { activateFocusTrap, deactivateFocusTrap } from './focus-trap.js';
 
 const CONFIG = {
     // SHA-256 hash of the passkey (obfuscated for security)
@@ -76,6 +77,7 @@ export function showPasskeyModal() {
     const input = document.getElementById('passkey-input');
     if (overlay) {
         overlay.classList.add('active');
+        activateFocusTrap(overlay);
         if (input) {
             input.value = '';
             input.classList.remove('error');
@@ -93,17 +95,24 @@ export function closePasskeyModal() {
     const overlay = document.getElementById('passkey-modal-overlay');
     if (overlay) {
         overlay.classList.remove('active');
+        deactivateFocusTrap(overlay);
     }
 }
 
 /**
- * Cancel passkey entry and navigate to a safe page
+ * Cancel passkey entry and stay on the page the user was already viewing.
+ * On a fresh deep link to a locked page nothing is showing yet, so fall back to rumors.
  */
 export function cancelPasskey() {
     store.set('pendingPage', null);
     closePasskeyModal();
-    // Navigate to the default safe page (rumors)
-    events.emit('navigate:to', { page: 'rumors' });
+    const currentPage = store.get('currentPage');
+    if (currentPage) {
+        // The locked page's hash is still in the URL; put back the visible page's
+        history.replaceState(null, '', `#${currentPage}`);
+    } else {
+        events.emit('navigate:to', { page: 'rumors' });
+    }
 }
 
 /**
@@ -160,6 +169,13 @@ export function bindPasskeyEvents() {
             cancelPasskey();
         });
     }
+
+    document.addEventListener('keydown', (e) => {
+        const overlay = document.getElementById('passkey-modal-overlay');
+        if (e.key === 'Escape' && overlay?.classList.contains('active')) {
+            cancelPasskey();
+        }
+    });
 }
 
 /**

@@ -15,13 +15,16 @@
   padding: var(--space-md);
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  /* Closing: fade, then hide. Visibility waits for the fade to finish. */
+  transition: opacity 0.3s ease, visibility 0s linear 0.3s;
   z-index: 1000;
 }
 
 .modal-overlay.active {
   opacity: 1;
   visibility: visible;
+  /* Opening: become visible at once so focus() on the first field works. */
+  transition: opacity 0.3s ease, visibility 0s;
 }
 
 /* Craft modal at base z-index, medicine detail modal higher so it can overlay */
