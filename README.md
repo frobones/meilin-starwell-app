@@ -48,7 +48,7 @@ Mirrored/publish targets here:
 
 - `content/backstory/chapters/*.json`, `content/vignettes/*.json` (from author chapter/vignette Markdown)
 - `content/rumors.json` (from Rumor Mill; DM truth key is not published)
-- `img/` allowlist (portrait, turnaround, key art, banner, scene, easter egg, rumor stills)
+- `img/` web JPEGs encoded from the PNG masters (portrait, sidebar avatar, turnaround, key art, banner, scene, easter egg, rumor stills)
 
 **Prefer not to hand-edit** those mirrored files. From the campaign workspace root:
 
@@ -192,14 +192,15 @@ meilin-starwell-app/
 │   │   └── medica.json     # Location data
 │   ├── rumors.json
 │   └── vignettes/          # index.json + 10 vignette-NN.json files
-└── img/
-    ├── banner.png
-    ├── easter_egg.png
-    ├── key_art.png
-    ├── portrait.png
-    ├── scene.png
-    ├── turnaround.png
-    └── rumor_*.png         # 9 rumor scene images
+└── img/                    # Web JPEGs encoded by the workspace sync
+    ├── banner.jpg
+    ├── easter_egg.jpg
+    ├── key_art.jpg
+    ├── portrait.jpg
+    ├── portrait_avatar.jpg # 512px sidebar avatar
+    ├── scene.jpg
+    ├── turnaround.jpg
+    └── rumor_*.jpg         # 9 rumor scene images
 ```
 
 ## Architecture
