@@ -350,10 +350,13 @@ export function openRelationshipModal(connection) {
             <div class="relationship-detail-section"><h4>Danger</h4><p>${d.danger}</p></div>
         `;
     } else if (connection.type === 'antagonist') {
+        const isHe = Boolean(d.heBelieves);
+        const pronoun = isHe ? 'he' : 'she';
+        const Pronoun = isHe ? 'He' : 'She';
         detailsHTML = `
-            <div class="relationship-detail-section"><h4>She believes</h4><p>${d.sheBelieves}</p></div>
-            <div class="relationship-detail-section"><h4>She wants</h4><p>${d.sheWants}</p></div>
-            <div class="relationship-detail-section"><h4>How she operates</h4><p>${d.howSheOperates}</p></div>
+            <div class="relationship-detail-section"><h4>${Pronoun} believes</h4><p>${d.heBelieves || d.sheBelieves}</p></div>
+            <div class="relationship-detail-section"><h4>${Pronoun} wants</h4><p>${d.heWants || d.sheWants}</p></div>
+            <div class="relationship-detail-section"><h4>How ${pronoun} operates</h4><p>${d.howHeOperates || d.howSheOperates}</p></div>
         `;
     }
 
