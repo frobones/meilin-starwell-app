@@ -297,9 +297,4 @@ export function getSectionsConfig() {
     return sectionsConfig;
 }
 
-// Listen for page change events
-events.on('page:change', ({ page }) => {
-    if (page === 'novelette' && !backstoryData) {
-        loadNovelette();
-    }
-});
+

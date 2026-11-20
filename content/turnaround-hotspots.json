@@ -1,0 +1,55 @@
+{
+  "hotspots": [
+    {
+      "id": "potion-vials",
+      "left": 40,
+      "top": 44,
+      "title": "Potion Vials",
+      "text": "Glass vials filled with prepared remedies: antitoxins, stimulants, and numbing agents. Each color-coded by effect."
+    },
+    {
+      "id": "satchel",
+      "left": 8,
+      "top": 49,
+      "title": "Herbalist's Satchel",
+      "text": "A reinforced leather pouch containing mortar, pestle, and dried ingredients. The buckles are worn smooth from years of use."
+    },
+    {
+      "id": "cape",
+      "left": 82,
+      "top": 29,
+      "title": "Hooded Cape",
+      "text": "A weathered traveler's cloak. The mottled brown fabric helps her blend into crowds when she'd rather not be noticed.",
+      "tooltipSide": "left"
+    },
+    {
+      "id": "hair",
+      "left": 60,
+      "top": 15,
+      "title": "Hair Buns",
+      "text": "Practical space buns keep her hair out of the way during delicate work. The ties are thin golden cord, subtle but sturdy."
+    },
+    {
+      "id": "apron",
+      "left": 14.5,
+      "top": 34,
+      "title": "Work Apron",
+      "text": "A faded rose-colored apron, stained with tinctures and herb residue. The fabric is worn thin at the edges from countless washings."
+    },
+    {
+      "id": "constellation",
+      "left": 58.5,
+      "top": 46,
+      "title": "Constellation Mark",
+      "text": "A cluster of pale scars just above her wrist. It looks like an old chemical burn, but the pattern seems oddly deliberate.",
+      "mystery": true
+    },
+    {
+      "id": "boots",
+      "left": 36,
+      "top": 81,
+      "title": "Boots",
+      "text": "Sturdy leather boots with reinforced soles. Made for standing long hours at a workbench, but practical enough for the docks."
+    }
+  ]
+}

@@ -3,40 +3,11 @@
  * Handles medicine list, filtering, cards, and detail modals.
  */
 
-import { dataLoader } from '../core/data-loader.js';
 import { store } from '../core/state.js';
 import { events } from '../core/events.js';
 import { icons } from '../core/icons.js';
+import { openModal } from '../core/ui.js';
 
-// Private state
-let medicines = [];
-let ingredients = null;
-let rules = null;
-
-/**
- * Load medicine and ingredient data
- */
-export async function loadMedicineData() {
-    try {
-        const [medicinesData, ingredientsData] = await Promise.all([
-            dataLoader.loadJSON('js/data/medicines.json'),
-            dataLoader.loadJSON('js/data/ingredients.json')
-        ]);
-        
-        medicines = medicinesData.medicines || [];
-        rules = medicinesData.rules || {};
-        ingredients = ingredientsData;
-        
-        // Update store
-        store.set('medicines', medicines);
-        store.set('ingredients', ingredients);
-        store.set('rules', rules);
-        
-        events.emit('medicine:loaded', { medicines, ingredients, rules });
-    } catch (error) {
-        console.error('Failed to load medicine data:', error);
-    }
-}
 
 /**
  * Get star display for a medicine
@@ -159,8 +130,7 @@ function sortMedicines(medicineList, sortBy = 'name') {
  */
 export function getFilteredMedicines() {
     const filters = store.get('currentFilters') || {};
-    // Use store to get medicines - the local variable may have been reassigned
-    const allMedicines = store.get('medicines') || medicines;
+    const allMedicines = store.get('medicines') || [];
     
     const filtered = allMedicines.filter(medicine => {
         // Search filter
@@ -216,7 +186,7 @@ export function createMedicineCard(medicine) {
     const variableIndicator = medicine.variableStars ? '<span class="variable-star-indicator">⚡</span>' : '';
     
     return `
-        <div class="medicine-card" data-id="${medicine.id}" data-category="${medicine.category}">
+        <div class="medicine-card" data-id="${medicine.id}" data-category="${medicine.category}" role="button" tabindex="0">
             <div class="medicine-ingredient-badges">${badges}</div>
             <div class="medicine-card-header">
                 <h3 class="medicine-name">${medicine.name}</h3>
@@ -256,8 +226,7 @@ export function renderMedicines() {
     container.querySelectorAll('.medicine-card').forEach(card => {
         card.addEventListener('click', () => {
             const id = card.dataset.id;
-            // Use store to get medicines - the local variable may have been reassigned
-            const allMedicines = store.get('medicines') || medicines;
+            const allMedicines = store.get('medicines') || [];
             const medicine = allMedicines.find(m => String(m.id) === id);
             if (medicine) {
                 events.emit('medicine:open', medicine);
@@ -266,7 +235,7 @@ export function renderMedicines() {
     });
     
     // Update count - use store to get total count
-    const allMedicines = store.get('medicines') || medicines;
+    const allMedicines = store.get('medicines') || [];
     const countEl = document.getElementById('medicine-count');
     if (countEl) {
         countEl.textContent = `Showing ${filtered.length} of ${allMedicines.length} medicines`;
@@ -298,7 +267,7 @@ function getDifficultyLabel(difficulty) {
 function makeFloraClickable(floraName) {
     const ingredientsData = store.get('ingredients');
     if (ingredientsData?.floraDetails?.[floraName]) {
-        return `<span class="flora-clickable" data-flora="${floraName}">${floraName}</span>`;
+        return `<span class="flora-clickable" data-flora="${floraName}" role="button" tabindex="0">${floraName}</span>`;
     }
     return floraName;
 }
@@ -307,7 +276,7 @@ function makeFloraClickable(floraName) {
  * Make creature part clickable
  */
 function makeCreatureClickable(partName) {
-    return `<span class="creature-clickable" data-creature="${partName}">${partName}</span>`;
+    return `<span class="creature-clickable" data-creature="${partName}" role="button" tabindex="0">${partName}</span>`;
 }
 
 /**
@@ -494,8 +463,7 @@ export function openMedicineModal(medicine) {
         
     `;
     
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
+    openModal('modal-overlay');
     icons.refresh();
     
     // Bind click events for flora/creature in the modal
@@ -527,8 +495,7 @@ function bindModalClickEvents(container) {
 export function openMedicineByName(name) {
     const cleanName = name.replace(/\s*\([^)]*\)\s*/g, '').trim();
     
-    // Use store to get medicines - the local variable may have been reassigned
-    const allMedicines = store.get('medicines') || medicines;
+    const allMedicines = store.get('medicines') || [];
     
     const medicine = allMedicines.find(m => 
         m.name.toLowerCase() === cleanName.toLowerCase() ||
@@ -544,20 +511,10 @@ export function openMedicineByName(name) {
 }
 
 // Getters
-export function getMedicines() { return medicines; }
-export function getIngredients() { return ingredients; }
-export function getRules() { return rules; }
 
 // Listen for filter changes
 store.subscribe('currentFilters', () => {
     renderMedicines();
-});
-
-// Listen for page change events
-events.on('page:change', ({ page }) => {
-    if (page === 'medicine' && medicines.length === 0) {
-        loadMedicineData().then(() => renderMedicines());
-    }
 });
 
 // Listen for medicine open events

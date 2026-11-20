@@ -11,7 +11,7 @@
       "tension": "Low-drama work, but she sees too much. Mutual protection.",
       "location": "Astral Bazaar",
       "details": {
-        "met": "Meredin's network pointed me toward her stall when I needed work that didn't ask questions.",
+        "met": "She watched me count coins, write down a price, and check a seal before buying. Then she offered me one evening of watch work.",
         "bond": "She provides jobs, warnings, and pragmatic protection. I keep my boundaries clean and don't splash heat onto her neighbors.",
         "iAskFor": "Work leads, port warnings, discreet supplies, and a place to breathe.",
         "theyAskFor": "Contamination checks, quiet triage for her contacts, and discretion about what I see."
@@ -24,10 +24,10 @@
       "tension": "Provides coverage, but coverage has costs. Favors must close.",
       "location": "Rock of Bral (Burrows)",
       "details": {
-        "met": "The people who needed discretion found me, and his name kept surfacing behind the introductions.",
-        "bond": "He provides coverage for the Burrows' sick to reach capable hands without official questions. I provide follow-through and no sloppy messes.",
+        "met": "The people who needed discretion found me, and her name kept surfacing behind the introductions.",
+        "bond": "She provides coverage for the Burrows' sick to reach capable hands without official questions. I provide follow-through and no sloppy messes.",
         "iAskFor": "Warnings, routing, and gaps in the net when I need to move.",
-        "theyAskFor": "Off-books treatment for his people, and discretion about what I see."
+        "theyAskFor": "Off-books treatment for her people, and discretion about what I see."
       }
     },
     {
@@ -74,7 +74,7 @@
       "role": "Inside contact who helped Meilin get into a Smith's Coster warehouse to steal the ledger page.",
       "type": "complicated",
       "tension": "Helped steal the ledger page. Compromised. Could flip or vanish.",
-      "location": "Unknown",
+      "location": "Unknown (vanished the night of the theft)",
       "details": {
         "theKnot": "He was terrified and owned by the system, but he wanted out badly enough to help me get inside.",
         "heWants": "An exit that doesn't look like betrayal until it's too late. Reassurance that he isn't already dead for helping me.",
@@ -95,13 +95,25 @@
       }
     },
     {
+      "name": "Factor Hest",
+      "role": "Bral trading-house factor working Smith's Coster's reach in the Astral Bazaar; hunts by paperwork.",
+      "type": "antagonist",
+      "tension": "Reading Bral crew manifests and buyer registers for a Bral apothecary. He doesn't know she's seen his name or seal.",
+      "location": "Astral Bazaar",
+      "details": {
+        "heBelieves": "Nobody vanishes from paper. A borrowed name still needs a real hand to sign it, and a Bral apothecary still has to buy Bral herbs somewhere.",
+        "heWants": "The signature on a cutter's crew list that matches no real sailor, and the stall that buys Bral remedy stock. Then Smith's Coster can decide what to do with me.",
+        "howHeOperates": "Squeezes clerks with their own missing stamps, files fake compliance forms that demand buyer registers, and never makes a scene. He fought the Quay Nine witness rule on Bral and still uses the old wording."
+      }
+    },
+    {
       "name": "[Unknown] — My Mother",
-      "role": "Erased from all records and never discussed. A void in the shape of a person.",
+      "role": "Erased from all records and almost never discussed. A void in the shape of a person.",
       "type": "complicated",
       "tension": "The silence is too complete to be grief. Something happened.",
       "location": "Unknown",
       "details": {
-        "theKnot": "My father never speaks of her. No portrait, no name in the ledgers, no grave to visit. The records don't just omit her; they're clean in a way that takes effort. I don't even know if she and my father were married, or if 'Starwell' was ever her name.",
+        "theKnot": "My father never speaks of her, except once, the night I stole the ledger page: 'You always did have your mother's talent for making trouble look like a diagnosis.' He heard himself say it. I wrote it down. No portrait, no name in the ledgers, no grave to visit. The records don't just omit her; they're clean in a way that takes effort. I don't even know if she and my father were married, or if 'Starwell' was ever her name.",
         "sheWants": "Unknown. She might be dead, gone, or something worse.",
         "iWant": "To understand why the silence is so absolute. To know what happened and why my father is protecting me from knowing.",
         "danger": "Every question pushes against the only wall my father has ever built between us. If Pryce digs into my background, this gap in the records is a thread to pull. The answer might cost more than the mystery."

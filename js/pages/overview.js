@@ -197,8 +197,4 @@ function bindPsycheTabEvents() {
 }
 
 // Listen for page change events
-events.on('page:change', ({ page }) => {
-    if (page === 'overview' && !overviewData) {
-        loadOverview();
-    }
-});
+

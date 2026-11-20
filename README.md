@@ -10,6 +10,8 @@ A static web app serving as a complete character reference for the Meilin Starwe
 - Character drives, boundaries, and party dynamics
 - Tiered secrets (player-known, DM-only, deep lore)
 
+The passkey is a spoiler gate, not access control: this repository is public and all `content/` JSON is readable by anyone. Don't publish anything that must stay secret.
+
 ### Rumors (Player-Facing)
 
 - Interactive rumor mill with hover-to-reveal effects
@@ -42,13 +44,14 @@ This directory is a **separate git repository** for the website only. Narrative 
 
 `characters/Meilin_Starwell/`
 
-Mirrored/publish targets here:
+Generated here by the workspace sync (never edit them in this repo):
 
-- `content/backstory/chapters/*.json`, `content/vignettes/*.json` (from author chapter/vignette Markdown)
+- `content/backstory/chapters/*.json`, `content/vignettes/*.json` (from chapter/vignette Markdown plus `app/story-meta.json`)
 - `content/rumors.json` (from Rumor Mill; DM truth key is not published)
-- `img/` allowlist (portrait, turnaround, key art, banner, scene, easter egg, rumor stills)
+- `content/character/*`, `content/dm/*`, `content/backstory/backstory.json`, `content/turnaround-hotspots.json` (copied from `characters/Meilin_Starwell/app/content/`)
+- `img/` web JPEGs encoded from the PNG masters (portrait, sidebar avatar, turnaround, key art, banner, scene, easter egg, rumor stills)
 
-**Prefer not to hand-edit** those mirrored files. From the campaign workspace root:
+Edit the sources, then publish from the campaign workspace root:
 
 ```bash
 make sync-dry
@@ -56,7 +59,7 @@ make sync
 # or: node scripts/sync-meilin-app.mjs
 ```
 
-Still maintained in this app (not v1-scripted): `content/character/*`, `content/dm/*`, `content/backstory/backstory.json`, `js/data/medicines.json`, `js/data/ingredients.json`.
+Still maintained in this app: `js/data/medicines.json`, `js/data/ingredients.json` (from the Alchemy Almanac).
 
 ## Usage
 
@@ -80,8 +83,8 @@ The app includes a GitHub Actions workflow for automated deployment:
 
 1. Push to the `main` branch
 2. GitHub Actions will automatically:
-   - Install dependencies
-   - Run the build script (generates SRI hashes for CDN scripts)
+   - Run the unit tests (a failure stops the deploy)
+   - Run the build script (copies the site to `dist/`)
    - Deploy the `dist/` folder to GitHub Pages
 3. Access at `https://yourusername.github.io/repository-name/`
 
@@ -96,15 +99,11 @@ If you prefer manual deployment without the build step:
 
 1. Go to Settings > Pages
 2. Select "Deploy from a branch" and choose your branch
-3. The app will work but without SRI hash verification for CDN scripts
+3. The app works the same; the build step only trims repo tooling from what's published
 
 ### Build Script
 
-The build script (`scripts/build.js`) performs:
-
-- Copies all source files to `dist/`
-- Fetches CDN scripts and computes SHA-384 SRI hashes
-- Injects `integrity` attributes into script tags for security
+The build script (`scripts/build.js`) copies the site to `dist/`, leaving out repo tooling (`scripts/`, `tests/`, `.github/`, `package.json`). It fetches nothing: `marked` and `lucide` are vendored at pinned versions in `js/vendor/` with their licenses, so the Content Security Policy allows scripts from `'self'` only.
 
 ## File Structure
 
@@ -113,6 +112,12 @@ meilin-starwell-app/
 ├── index.html              # Single-page application entry point
 ├── 404.html                # Custom 404 page for GitHub Pages
 ├── README.md
+├── package.json            # build/dev/test scripts (no dependencies)
+├── tests/                  # node:test unit tests (npm test; run before each deploy)
+├── .github/workflows/
+│   └── deploy.yml          # Build and deploy to GitHub Pages
+├── scripts/
+│   └── build.js            # Copy the site to dist/
 ├── css/
 │   ├── base/
 │   │   ├── variables.css   # CSS custom properties
@@ -136,63 +141,70 @@ meilin-starwell-app/
 │   │   └── notifications.css # Toast notifications
 │   └── pages/
 │       ├── overview.css    # Character overview page
+│       ├── dmsummary.css   # Condensed DM backstory
 │       ├── rumors.css      # Rumors page with gallery
-│       ├── backstory.css   # Backstory reader
+│       ├── novelette.css   # Backstory reader
+│       ├── vignettes.css   # Vignette cards and modal
 │       ├── dmtools.css     # DM tools page
 │       └── medicine.css    # Herbal medicine system
 ├── js/
 │   ├── main.js             # Application entry point
 │   ├── core/
-│   │   ├── auth.js         # Simple authentication
-│   │   ├── data-loader.js  # JSON/Markdown loading utilities
+│   │   ├── auth.js         # Passkey spoiler gate
+│   │   ├── data-loader.js  # JSON fetching with caching
 │   │   ├── debug.js        # Debug logging utility
 │   │   ├── easter-eggs.js  # Hidden features
 │   │   ├── events.js       # Event bus system
 │   │   ├── focus-trap.js   # Modal focus management
 │   │   ├── icons.js        # Lucide icon initialization
 │   │   ├── navigation.js   # Page routing
+│   │   ├── pages.js        # Page registry (ids, titles, passkey gate)
 │   │   ├── state.js        # Reactive state management
-│   │   ├── templates.js    # HTML template utilities
-│   │   └── ui.js           # UI utilities
+│   │   └── ui.js           # UI utilities and notifications
 │   ├── components/
-│   │   ├── index.js        # Web component registration
-│   │   ├── lightbox.js     # Lightbox component
-│   │   ├── medicine-card.js
-│   │   ├── modal-dialog.js
-│   │   └── rumor-card.js
+│   │   └── index.js        # Placeholder; no web components registered
 │   ├── pages/
-│   │   ├── backstory.js
-│   │   ├── craft.js        # Crafting system
-│   │   ├── dmtools.js
-│   │   ├── ingredients.js
-│   │   ├── medicine.js
-│   │   ├── overview.js
-│   │   ├── potionrules.js
-│   │   ├── rumors.js
-│   │   └── vignettes.js
-│   └── data/
-│       ├── medicines.json
-│       └── ingredients.json
+│   │   ├── overview.js     # At-a-glance character overview
+│   │   ├── dmsummary.js    # Condensed DM backstory
+│   │   ├── novelette.js    # Backstory reader with chapters
+│   │   ├── vignettes.js    # Vignette cards and modal
+│   │   ├── rumors.js       # Rumor mill and gallery
+│   │   ├── dmtools.js      # Knives, relationships, locations
+│   │   ├── medicine.js     # Medicine list and filters
+│   │   ├── ingredients.js  # Ingredients by terrain
+│   │   ├── craft.js        # Craft tab: craftable list and wiring
+│   │   ├── craft-rules.js  # Pure crafting math and import validation (tested)
+│   │   ├── craft-inventory.js # Inventory state, storage, import/export
+│   │   ├── craft-modal.js  # Craft dialog
+│   │   └── rules.js        # Quick, harvesting, and potion rules
+│   ├── data/
+│   │   ├── medicines.json
+│   │   └── ingredients.json
+│   └── vendor/             # marked 9.1.6 and lucide 0.562.0, with licenses
 ├── content/
 │   ├── backstory/
-│   │   ├── backstory.md
-│   │   └── chapters/        # 12 life chapter files
+│   │   ├── backstory.json  # Novelette sections and config
+│   │   └── chapters/       # 12 life chapter files (chapter-NN.json)
 │   ├── character/
-│   │   └── overview.json   # Core character data
+│   │   ├── overview.json   # Core character data
+│   │   └── dm-summary.json # Condensed DM backstory
 │   ├── dm/
 │   │   ├── knives.json     # Plot hooks
 │   │   ├── relationships.json
 │   │   ├── mindersand.json # Location data
 │   │   └── medica.json     # Location data
 │   ├── rumors.json
-│   └── vignettes/          # 10 character vignettes
-└── img/
-    ├── banner.png
-    ├── key_art.png
-    ├── portrait.png
-    ├── scene.png
-    ├── turnaround.png
-    └── rumor_*.png         # 9 rumor scene images
+│   ├── turnaround-hotspots.json # Turnaround tooltip text and positions
+│   └── vignettes/          # index.json + 10 vignette-NN.json files
+└── img/                    # Web JPEGs encoded by the workspace sync
+    ├── banner.jpg
+    ├── easter_egg.jpg
+    ├── key_art.jpg
+    ├── portrait.jpg
+    ├── portrait_avatar.jpg # 512px sidebar avatar
+    ├── scene.jpg
+    ├── turnaround.jpg
+    └── rumor_*.jpg         # 9 rumor scene images
 ```
 
 ## Architecture
@@ -201,8 +213,8 @@ The app uses a modular ES6 architecture with:
 
 - **Event Bus**: Pub/sub system for loose coupling between modules
 - **Reactive State**: Simple state management with change listeners
-- **Data Loader**: Centralized JSON/Markdown loading with caching
-- **Web Components**: Custom elements for reusable UI patterns
+- **Data Loader**: Centralized JSON loading with caching; chapter and vignette JSON embeds Markdown rendered with `marked`
+- **Page controllers**: One module per page; reusable UI is plain HTML with CSS classes (no web components)
 
 CSS follows a component-based organization with CSS custom properties for theming. Stylesheets are loaded in parallel via `<link>` tags for optimal performance.
 

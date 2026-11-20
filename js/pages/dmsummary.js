@@ -132,8 +132,4 @@ export function getDMSummaryData() {
 }
 
 // Listen for page change events
-events.on('page:change', ({ page }) => {
-    if (page === 'dmsummary' && !dmSummaryData) {
-        loadDMSummary();
-    }
-});
+

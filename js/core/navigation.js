@@ -7,21 +7,11 @@ import { store } from './state.js';
 import { events } from './events.js';
 import { icons } from './icons.js';
 import { canNavigateTo } from './auth.js';
+import { DEFAULT_PAGE, getPage } from './pages.js';
 
 // ============================================
 // Screen Reader Announcements
 // ============================================
-
-// Friendly page names for screen reader announcements
-const PAGE_NAMES = {
-    'overview': 'Character Overview',
-    'dmsummary': 'DM Summary',
-    'rumors': 'Rumors',
-    'novelette': 'Novelette',
-    'vignettes': 'Vignettes',
-    'dmtools': 'DM Tools',
-    'medicine': 'Herbal Medicine'
-};
 
 /**
  * Announce a message to screen readers via aria-live region
@@ -113,9 +103,8 @@ export function bindDrawerEvents() {
  * Handle URL hash changes
  */
 export function handleHashChange() {
-    const hash = window.location.hash.slice(1) || 'rumors';
-    const validPages = ['overview', 'dmsummary', 'medicine', 'novelette', 'vignettes', 'dmtools', 'rumors'];
-    if (validPages.includes(hash)) {
+    const hash = window.location.hash.slice(1) || DEFAULT_PAGE;
+    if (getPage(hash)) {
         switchPage(hash, false);
     }
 }
@@ -153,8 +142,7 @@ export function switchPage(pageName, updateHash = true) {
     events.emit('page:change', { page: pageName });
     
     // Announce page change to screen readers
-    const friendlyName = PAGE_NAMES[pageName] || pageName;
-    announce(`Navigated to ${friendlyName}`);
+    announce(`Navigated to ${getPage(pageName)?.title ?? pageName}`);
     
     // Refresh icons
     icons.refresh();
@@ -238,23 +226,19 @@ export function bindNavigationEvents() {
     window.addEventListener('hashchange', handleHashChange);
 }
 
-// Listen for navigation requests
-events.on('navigate:to', ({ page, section }) => {
+/**
+ * Navigate to a page, then to a tab or section within it
+ */
+function navigateTo({ page, section }) {
     switchPage(page);
     if (page === 'dmtools' && section) {
         setTimeout(() => switchDMToolsTab(section), 100);
     } else if (section) {
         setTimeout(() => scrollToSection(`${section}-section`), 100);
     }
-});
+}
 
-// Also listen for navigate:request (used by overview quick links)
-events.on('navigate:request', ({ page, section }) => {
-    switchPage(page);
-    if (page === 'dmtools' && section) {
-        setTimeout(() => switchDMToolsTab(section), 100);
-    } else if (section) {
-        setTimeout(() => scrollToSection(`${section}-section`), 100);
-    }
-});
+// navigate:request is the name overview quick links use
+events.on('navigate:to', navigateTo);
+events.on('navigate:request', navigateTo);
 

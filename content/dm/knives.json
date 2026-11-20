@@ -45,16 +45,16 @@
     "type": "origin",
     "icon": "sparkles",
     "summary": "The constellation scar on her forearm predates any accident she remembers.",
-    "details": "The small cluster of micro-scars on Meilin's left forearm looks like a starfield. Her father says she had it before she could walk, but he won't say more. It's not a chemical burn from the shop. It's something older.",
+    "details": "A small cluster of healed chemical-burn micro-scars on the outside of Meilin's left forearm, too patterned for a random splash. They were there before any accident she remembers. She treats them as burns; Kaito won't explain them.",
     "trigger": "Someone notices the mark. A healer asks about its origin. A pattern emerges that matches the scar's shape.",
-    "escalation": "The mark connects to something larger: her mother, her sensitivity to mindersand, or something waiting to be found. Kaito's silence becomes a wall she has to break."
+    "escalation": "DM truth: something Fey-adjacent left a quiet claim on her as a child, and the pattern is the claim. It pays off if she takes Fey Touched. It may tie to her violent mindersand reaction. She refuses destiny language, and Kaito's silence becomes a wall she has to break."
   },
   {
     "id": "absent-mother",
     "name": "The Mother Who Wasn't There",
     "type": "secret",
     "icon": "user-x",
-    "summary": "Her father never speaks of her mother. The silence is too complete to be grief.",
+    "summary": "Her father has spoken of her mother exactly once, by accident. The silence is too complete to be grief.",
     "details": "No portrait, no name in the ledgers, no grave to visit. Kaito raised Meilin and Cassian alone, and he treats questions about their mother like closed wounds. Something happened, and he's protecting her from knowing what.",
     "trigger": "Someone asks about her family. A document surfaces with her mother's name. Cassian mentions something he shouldn't know.",
     "escalation": "The truth forces a reckoning: with her father's choices, her own origins, or enemies who knew her mother before Meilin existed."

@@ -6,6 +6,7 @@
 import { dataLoader } from '../core/data-loader.js';
 import { events } from '../core/events.js';
 import { icons } from '../core/icons.js';
+import { openModal, closeModal } from '../core/ui.js';
 
 // Private state
 let knivesData = null;
@@ -75,7 +76,7 @@ export function renderKnives() {
     }
 
     container.innerHTML = knivesData.map((knife, index) => `
-        <div class="knife-card ${knife.type}" data-knife-index="${index}">
+        <div class="knife-card ${knife.type}" data-knife-index="${index}" role="button" tabindex="0">
             <div class="knife-card-header">
                 <span class="knife-card-icon"><i data-lucide="${knife.icon}"></i></span>
                 <h3 class="knife-card-name">${knife.name}</h3>
@@ -123,7 +124,7 @@ export function openKnifeModal(knife) {
                 <p>${knife.escalation}</p>
             </div>
         `;
-        overlay.classList.add('active');
+        openModal('knife-modal-overlay', closeKnifeModal);
         icons.refresh();
     }
 }
@@ -132,10 +133,7 @@ export function openKnifeModal(knife) {
  * Close knife modal
  */
 export function closeKnifeModal() {
-    const overlay = document.getElementById('knife-modal-overlay');
-    if (overlay) {
-        overlay.classList.remove('active');
-    }
+    closeModal('knife-modal-overlay');
 }
 
 // ============================================
@@ -259,7 +257,7 @@ function renderAntagonistCard(connection) {
     const hasDetails = connection.details !== undefined;
     
     return `
-        <div class="relationship-card antagonist antagonist-featured ${hasDetails ? 'clickable' : ''}" 
+        <div class="relationship-card antagonist antagonist-featured ${hasDetails ? 'clickable' : ''}" ${hasDetails ? 'role="button" tabindex="0"' : ''} 
              data-connection-name="${connection.name}"
              ${hasDetails ? 'title="Click for details"' : ''}>
             <div class="relationship-card-header">
@@ -288,7 +286,7 @@ function renderRelationshipCard(connection) {
     const icon = TYPE_ICONS[connection.type] || 'user';
     
     return `
-        <div class="relationship-card ${connection.type} ${hasDetails ? 'clickable' : ''}" 
+        <div class="relationship-card ${connection.type} ${hasDetails ? 'clickable' : ''}" ${hasDetails ? 'role="button" tabindex="0"' : ''} 
              data-connection-name="${connection.name}"
              ${hasDetails ? 'title="Click for details"' : ''}>
             <div class="relationship-card-header">
@@ -352,10 +350,13 @@ export function openRelationshipModal(connection) {
             <div class="relationship-detail-section"><h4>Danger</h4><p>${d.danger}</p></div>
         `;
     } else if (connection.type === 'antagonist') {
+        const isHe = Boolean(d.heBelieves);
+        const pronoun = isHe ? 'he' : 'she';
+        const Pronoun = isHe ? 'He' : 'She';
         detailsHTML = `
-            <div class="relationship-detail-section"><h4>She believes</h4><p>${d.sheBelieves}</p></div>
-            <div class="relationship-detail-section"><h4>She wants</h4><p>${d.sheWants}</p></div>
-            <div class="relationship-detail-section"><h4>How she operates</h4><p>${d.howSheOperates}</p></div>
+            <div class="relationship-detail-section"><h4>${Pronoun} believes</h4><p>${d.heBelieves || d.sheBelieves}</p></div>
+            <div class="relationship-detail-section"><h4>${Pronoun} wants</h4><p>${d.heWants || d.sheWants}</p></div>
+            <div class="relationship-detail-section"><h4>How ${pronoun} operates</h4><p>${d.howHeOperates || d.howSheOperates}</p></div>
         `;
     }
 
@@ -370,7 +371,7 @@ export function openRelationshipModal(connection) {
         </div>
     `;
     icons.refresh();
-    overlay.classList.add('active');
+    openModal('npc-modal-overlay');
 }
 
 // ============================================
@@ -552,7 +553,7 @@ export function renderMedica() {
             <p class="medica-card-intro">Click a rank to see benefits, tuition, and exam requirements.</p>
             <div class="medica-ranks-grid">
                 ${data.ranks.map((rank, i) => `
-                    <div class="medica-rank-card ${i === 0 ? 'active' : ''}" data-rank-index="${i}">
+                    <div class="medica-rank-card ${i === 0 ? 'active' : ''}" data-rank-index="${i}" role="button" tabindex="0">
                         <span class="medica-rank-icon"><i data-lucide="${rank.icon}"></i></span>
                         <span class="medica-rank-name">${rank.name}</span>
                     </div>
@@ -849,13 +850,4 @@ export function getMindersandData() { return mindersandData; }
 export function getMedicaData() { return medicaData; }
 
 // Listen for page change events
-events.on('page:change', ({ page }) => {
-    if (page === 'dmtools' && !knivesData) {
-        loadDMToolsContent();
-    }
-});
 
-// Listen for modal close events
-events.on('modal:close', () => {
-    closeKnifeModal();
-});

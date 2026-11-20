@@ -32,18 +32,20 @@ export function closeModal(overlayId = 'modal-overlay') {
 
 /**
  * Open a modal by overlay ID
+ * @param {string} overlayId - The overlay element's ID
+ * @param {Function} [onClose] - The owner's close function; Escape runs it while this modal is on top
  */
-export function openModal(overlayId) {
+export function openModal(overlayId, onClose = () => closeModal(overlayId)) {
     const modal = document.getElementById(overlayId);
     if (modal) {
         // Store previously focused element
         previouslyFocusedElements.set(overlayId, document.activeElement);
-        
+
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
-        
+
         // Activate focus trap
-        activateFocusTrap(modal);
+        activateFocusTrap(modal, onClose);
     }
 }
 
@@ -63,7 +65,7 @@ export function bindGlobalLightbox() {
         lightboxPreviousFocus = document.activeElement;
         lightboxImage.src = imageSrc;
         lightbox.classList.add('active');
-        activateFocusTrap(lightbox);
+        activateFocusTrap(lightbox, closeLightbox);
     }
     
     function closeLightbox() {
@@ -93,18 +95,28 @@ export function bindGlobalLightbox() {
             closeLightbox();
         }
     });
-    
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && lightbox.classList.contains('active')) {
-            closeLightbox();
-        }
-    });
-    
+
     // Listen for lightbox:open events from other modules (e.g., rumor inline previews)
     events.on('lightbox:open', ({ src }) => {
         if (src) {
             openLightbox(src);
         }
+    });
+}
+
+/**
+ * Let keyboard users activate role="button" elements (cards, clickable names)
+ * the way they would a real button: Enter or Space fires a click. Elements that
+ * handle these keys themselves call preventDefault, and are left alone.
+ */
+export function bindKeyboardActivation() {
+    document.addEventListener('keydown', (e) => {
+        if (e.defaultPrevented || (e.key !== 'Enter' && e.key !== ' ')) return;
+        const target = e.target;
+        if (!(target instanceof HTMLElement) || target.getAttribute('role') !== 'button') return;
+        if (target.matches('button, a[href], input, select, textarea')) return;
+        e.preventDefault();
+        target.click();
     });
 }
 
@@ -141,13 +153,8 @@ export function bindModalEvents() {
     
     // Craft modal
     bindModalCloseEvents('craft-modal-overlay', 'craft-modal-close');
-    
-    // Global escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            events.emit('modal:close');
-        }
-    });
+
+    // Escape is handled by the focus trap of whichever modal is on top
 }
 
 /**
