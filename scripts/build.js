@@ -8,16 +8,19 @@
  * Usage: node scripts/build.js
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 // Configuration
-const SRC_DIR = path.resolve(__dirname, '..');
-const DIST_DIR = path.resolve(__dirname, '..', 'dist');
+const SCRIPTS_DIR = path.dirname(fileURLToPath(import.meta.url));
+const SRC_DIR = path.resolve(SCRIPTS_DIR, '..');
+const DIST_DIR = path.resolve(SCRIPTS_DIR, '..', 'dist');
 
 // Directories and files to exclude from copy
 const EXCLUDE = [
     'node_modules',
+    'tests',
     'dist',
     '.git',
     '.github',

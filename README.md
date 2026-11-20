@@ -83,6 +83,7 @@ The app includes a GitHub Actions workflow for automated deployment:
 
 1. Push to the `main` branch
 2. GitHub Actions will automatically:
+   - Run the unit tests (a failure stops the deploy)
    - Run the build script (copies the site to `dist/`)
    - Deploy the `dist/` folder to GitHub Pages
 3. Access at `https://yourusername.github.io/repository-name/`
@@ -102,7 +103,7 @@ If you prefer manual deployment without the build step:
 
 ### Build Script
 
-The build script (`scripts/build.js`) copies the site to `dist/`, leaving out repo tooling (`scripts/`, `.github/`, `package.json`). It fetches nothing: `marked` and `lucide` are vendored at pinned versions in `js/vendor/` with their licenses, so the Content Security Policy allows scripts from `'self'` only.
+The build script (`scripts/build.js`) copies the site to `dist/`, leaving out repo tooling (`scripts/`, `tests/`, `.github/`, `package.json`). It fetches nothing: `marked` and `lucide` are vendored at pinned versions in `js/vendor/` with their licenses, so the Content Security Policy allows scripts from `'self'` only.
 
 ## File Structure
 
@@ -111,7 +112,8 @@ meilin-starwell-app/
 ├── index.html              # Single-page application entry point
 ├── 404.html                # Custom 404 page for GitHub Pages
 ├── README.md
-├── package.json            # build/dev scripts (no dependencies)
+├── package.json            # build/dev/test scripts (no dependencies)
+├── tests/                  # node:test unit tests (npm test; run before each deploy)
 ├── .github/workflows/
 │   └── deploy.yml          # Build and deploy to GitHub Pages
 ├── scripts/

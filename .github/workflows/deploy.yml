@@ -2,7 +2,7 @@
 #
 # This workflow:
 # 1. Checks out the repository
-# 2. Runs the build script (generates SRI hashes, copies to dist/)
+# 2. Runs the tests, then the build script (copies the site to dist/)
 # 3. Deploys dist/ to GitHub Pages
 #
 # To enable:
@@ -42,6 +42,9 @@ jobs:
         with:
           node-version: '20'
       
+      - name: Run tests
+        run: node --test tests/
+
       - name: Run build script
         run: node scripts/build.js
       

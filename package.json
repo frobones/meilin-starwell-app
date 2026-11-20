@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "Character companion app for Meilin Starwell",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "node scripts/build.js",
-    "dev": "npx serve -p 3000"
+    "dev": "npx serve -p 3000",
+    "test": "node --test tests/"
   },
   "devDependencies": {}
 }
