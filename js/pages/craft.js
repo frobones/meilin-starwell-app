@@ -7,6 +7,7 @@
 import { store } from '../core/state.js';
 import { events } from '../core/events.js';
 import { icons } from '../core/icons.js';
+import { closeModal, openModal, showNotification } from '../core/ui.js';
 import { canCraftMedicine, getMedicineStars } from './craft-rules.js';
 import {
     buildIngredientsList,
@@ -158,12 +159,21 @@ export function bindCraftEvents() {
         });
     }
 
+    // Clearing is destructive, so it goes through a confirmation dialog
+    // (focus starts on "Keep inventory"; Escape or a click outside cancels)
     const clearBtn = document.getElementById('clear-inventory');
-    if (clearBtn) {
-        clearBtn.addEventListener('click', () => {
-            if (confirm('Clear all ingredients from your inventory?')) {
-                setInventory({});
-            }
+    const clearOverlay = document.getElementById('clear-inventory-overlay');
+    if (clearBtn && clearOverlay) {
+        clearBtn.addEventListener('click', () => openModal('clear-inventory-overlay'));
+        document.getElementById('clear-inventory-cancel')
+            .addEventListener('click', () => closeModal('clear-inventory-overlay'));
+        document.getElementById('clear-inventory-confirm').addEventListener('click', () => {
+            closeModal('clear-inventory-overlay');
+            setInventory({});
+            showNotification('Inventory cleared', { type: 'success' });
+        });
+        clearOverlay.addEventListener('click', (e) => {
+            if (e.target === clearOverlay) closeModal('clear-inventory-overlay');
         });
     }
 
