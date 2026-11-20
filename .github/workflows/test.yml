@@ -26,4 +26,4 @@ jobs:
           package-manager-cache: false
 
       - name: Run tests
-        run: node --test tests/
+        run: node --test 'tests/**/*.test.js'
