@@ -11,7 +11,7 @@
       "tension": "Low-drama work, but she sees too much. Mutual protection.",
       "location": "Astral Bazaar",
       "details": {
-        "met": "Meredin's network pointed me toward her stall when I needed work that didn't ask questions.",
+        "met": "She watched me count coins, write down a price, and check a seal before buying. Then she offered me one evening of watch work.",
         "bond": "She provides jobs, warnings, and pragmatic protection. I keep my boundaries clean and don't splash heat onto her neighbors.",
         "iAskFor": "Work leads, port warnings, discreet supplies, and a place to breathe.",
         "theyAskFor": "Contamination checks, quiet triage for her contacts, and discretion about what I see."
@@ -92,6 +92,18 @@
         "sheBelieves": "I'm a problem that can still be solved with the right pressure or the right example.",
         "sheWants": "The ledger page recovered or destroyed. My silence, my compliance, or my containment.",
         "howSheOperates": "Patient surveillance, public warnings delivered softly in crowds, and pressure on people adjacent to me. She makes pursuit feel like weather."
+      }
+    },
+    {
+      "name": "Factor Hest",
+      "role": "Bral trading-house factor working Smith's Coster's reach in the Astral Bazaar; hunts by paperwork.",
+      "type": "antagonist",
+      "tension": "Reading Bral crew manifests and buyer registers for a Bral apothecary. He doesn't know she's seen his name or seal.",
+      "location": "Astral Bazaar",
+      "details": {
+        "heBelieves": "Nobody vanishes from paper. A borrowed name still needs a real hand to sign it, and a Bral apothecary still has to buy Bral herbs somewhere.",
+        "heWants": "The signature on a cutter's crew list that matches no real sailor, and the stall that buys Bral remedy stock. Then Smith's Coster can decide what to do with me.",
+        "howHeOperates": "Squeezes clerks with their own missing stamps, files fake compliance forms that demand buyer registers, and never makes a scene. He fought the Quay Nine witness rule on Bral and still uses the old wording."
       }
     },
     {
