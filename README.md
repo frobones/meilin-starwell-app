@@ -170,7 +170,10 @@ meilin-starwell-app/
 │   │   ├── dmtools.js      # Knives, relationships, locations
 │   │   ├── medicine.js     # Medicine list and filters
 │   │   ├── ingredients.js  # Ingredients by terrain
-│   │   ├── craft.js        # Crafting and inventory
+│   │   ├── craft.js        # Craft tab: craftable list and wiring
+│   │   ├── craft-rules.js  # Pure crafting math and import validation (tested)
+│   │   ├── craft-inventory.js # Inventory state, storage, import/export
+│   │   ├── craft-modal.js  # Craft dialog
 │   │   └── rules.js        # Quick, harvesting, and potion rules
 │   ├── data/
 │   │   ├── medicines.json
