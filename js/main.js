@@ -179,6 +179,7 @@ async function init() {
         navigation.bindNavigationEvents();
         ui.bindGlobalLightbox();
         ui.bindModalEvents();
+        ui.bindKeyboardActivation();
         ui.addDynamicStyles();
         bindFilterEvents();
         

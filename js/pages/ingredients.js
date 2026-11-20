@@ -3,7 +3,6 @@
  * Handles flora, creature parts, terrain tabs, and detail modals.
  */
 
-import { dataLoader } from '../core/data-loader.js';
 import { store } from '../core/state.js';
 import { events } from '../core/events.js';
 import { icons } from '../core/icons.js';
@@ -57,7 +56,7 @@ function buildCreaturePartsLookup() {
  */
 export function makeFloraClickable(floraName) {
     if (ingredients?.floraDetails?.[floraName]) {
-        return `<span class="flora-clickable" data-flora="${floraName}">${floraName}</span>`;
+        return `<span class="flora-clickable" data-flora="${floraName}" role="button" tabindex="0">${floraName}</span>`;
     }
     return floraName;
 }
@@ -67,7 +66,7 @@ export function makeFloraClickable(floraName) {
  */
 export function makeCreatureClickable(partName) {
     if (creaturePartsLookup?.[partName]) {
-        return `<span class="creature-clickable" data-creature="${partName}">${partName}</span>`;
+        return `<span class="creature-clickable" data-creature="${partName}" role="button" tabindex="0">${partName}</span>`;
     }
     return partName;
 }
@@ -104,7 +103,7 @@ function createFloraSection() {
     
     const commonRows = common.map(item => `
         <tr>
-            <td class="ingredient-name flora-clickable" data-flora="${item.name}">${item.name}</td>
+            <td class="ingredient-name flora-clickable" data-flora="${item.name}" role="button" tabindex="0">${item.name}</td>
             <td class="ingredient-dc">${item.dc}</td>
             <td>${item.terrain}</td>
             <td>${item.use}</td>
@@ -114,7 +113,7 @@ function createFloraSection() {
     const rareFlora = rare[selectedTerrain] || [];
     const rareRows = rareFlora.map(item => `
         <tr>
-            <td class="ingredient-name flora-clickable" data-flora="${item.name}">${item.name}</td>
+            <td class="ingredient-name flora-clickable" data-flora="${item.name}" role="button" tabindex="0">${item.name}</td>
             <td class="ingredient-dc">${item.dc}</td>
             <td class="medicine-link" data-medicine="${item.use}">${item.use}</td>
         </tr>
@@ -228,7 +227,7 @@ export function selectTerrain(terrain) {
     const rareFlora = ingredients?.flora?.rare?.[terrain] || [];
     const rareRows = rareFlora.map(item => `
         <tr>
-            <td class="ingredient-name flora-clickable" data-flora="${item.name}">${item.name}</td>
+            <td class="ingredient-name flora-clickable" data-flora="${item.name}" role="button" tabindex="0">${item.name}</td>
             <td class="ingredient-dc">${item.dc}</td>
             <td class="medicine-link" data-medicine="${item.use}">${item.use}</td>
         </tr>

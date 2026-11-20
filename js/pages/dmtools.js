@@ -76,7 +76,7 @@ export function renderKnives() {
     }
 
     container.innerHTML = knivesData.map((knife, index) => `
-        <div class="knife-card ${knife.type}" data-knife-index="${index}">
+        <div class="knife-card ${knife.type}" data-knife-index="${index}" role="button" tabindex="0">
             <div class="knife-card-header">
                 <span class="knife-card-icon"><i data-lucide="${knife.icon}"></i></span>
                 <h3 class="knife-card-name">${knife.name}</h3>
@@ -257,7 +257,7 @@ function renderAntagonistCard(connection) {
     const hasDetails = connection.details !== undefined;
     
     return `
-        <div class="relationship-card antagonist antagonist-featured ${hasDetails ? 'clickable' : ''}" 
+        <div class="relationship-card antagonist antagonist-featured ${hasDetails ? 'clickable' : ''}" ${hasDetails ? 'role="button" tabindex="0"' : ''} 
              data-connection-name="${connection.name}"
              ${hasDetails ? 'title="Click for details"' : ''}>
             <div class="relationship-card-header">
@@ -286,7 +286,7 @@ function renderRelationshipCard(connection) {
     const icon = TYPE_ICONS[connection.type] || 'user';
     
     return `
-        <div class="relationship-card ${connection.type} ${hasDetails ? 'clickable' : ''}" 
+        <div class="relationship-card ${connection.type} ${hasDetails ? 'clickable' : ''}" ${hasDetails ? 'role="button" tabindex="0"' : ''} 
              data-connection-name="${connection.name}"
              ${hasDetails ? 'title="Click for details"' : ''}>
             <div class="relationship-card-header">
@@ -553,7 +553,7 @@ export function renderMedica() {
             <p class="medica-card-intro">Click a rank to see benefits, tuition, and exam requirements.</p>
             <div class="medica-ranks-grid">
                 ${data.ranks.map((rank, i) => `
-                    <div class="medica-rank-card ${i === 0 ? 'active' : ''}" data-rank-index="${i}">
+                    <div class="medica-rank-card ${i === 0 ? 'active' : ''}" data-rank-index="${i}" role="button" tabindex="0">
                         <span class="medica-rank-icon"><i data-lucide="${rank.icon}"></i></span>
                         <span class="medica-rank-name">${rank.name}</span>
                     </div>

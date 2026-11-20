@@ -186,7 +186,7 @@ export function createMedicineCard(medicine) {
     const variableIndicator = medicine.variableStars ? '<span class="variable-star-indicator">⚡</span>' : '';
     
     return `
-        <div class="medicine-card" data-id="${medicine.id}" data-category="${medicine.category}">
+        <div class="medicine-card" data-id="${medicine.id}" data-category="${medicine.category}" role="button" tabindex="0">
             <div class="medicine-ingredient-badges">${badges}</div>
             <div class="medicine-card-header">
                 <h3 class="medicine-name">${medicine.name}</h3>
@@ -267,7 +267,7 @@ function getDifficultyLabel(difficulty) {
 function makeFloraClickable(floraName) {
     const ingredientsData = store.get('ingredients');
     if (ingredientsData?.floraDetails?.[floraName]) {
-        return `<span class="flora-clickable" data-flora="${floraName}">${floraName}</span>`;
+        return `<span class="flora-clickable" data-flora="${floraName}" role="button" tabindex="0">${floraName}</span>`;
     }
     return floraName;
 }
@@ -276,7 +276,7 @@ function makeFloraClickable(floraName) {
  * Make creature part clickable
  */
 function makeCreatureClickable(partName) {
-    return `<span class="creature-clickable" data-creature="${partName}">${partName}</span>`;
+    return `<span class="creature-clickable" data-creature="${partName}" role="button" tabindex="0">${partName}</span>`;
 }
 
 /**

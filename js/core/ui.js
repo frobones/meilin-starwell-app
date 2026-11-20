@@ -105,6 +105,22 @@ export function bindGlobalLightbox() {
 }
 
 /**
+ * Let keyboard users activate role="button" elements (cards, clickable names)
+ * the way they would a real button: Enter or Space fires a click. Elements that
+ * handle these keys themselves call preventDefault, and are left alone.
+ */
+export function bindKeyboardActivation() {
+    document.addEventListener('keydown', (e) => {
+        if (e.defaultPrevented || (e.key !== 'Enter' && e.key !== ' ')) return;
+        const target = e.target;
+        if (!(target instanceof HTMLElement) || target.getAttribute('role') !== 'button') return;
+        if (target.matches('button, a[href], input, select, textarea')) return;
+        e.preventDefault();
+        target.click();
+    });
+}
+
+/**
  * Bind modal close events
  */
 export function bindModalEvents() {

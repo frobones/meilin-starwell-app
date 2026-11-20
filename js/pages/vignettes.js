@@ -120,7 +120,7 @@ export function renderVignettes() {
     if (!container) return;
     
     container.innerHTML = vignettes.map((vignette, index) => `
-        <div class="vignette-card" data-vignette="${index}">
+        <div class="vignette-card" data-vignette="${index}" role="button" tabindex="0">
             <span class="click-hint"><i data-lucide="info"></i></span>
             <div class="vignette-number">Vignette ${vignette.number}</div>
             <h3 class="vignette-title">${vignette.title}</h3>
